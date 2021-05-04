@@ -1,6 +1,6 @@
 const settings = {
     develop: {
-        apiUrl: ""
+        apiUrl: "https://codi-backends.herokuapp.com/"
     },
     production: {
         apiUrl: ""

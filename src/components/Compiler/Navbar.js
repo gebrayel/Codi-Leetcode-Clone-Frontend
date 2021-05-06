@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 
-export class Navbar extends Component {
-    render() {
-        return (
-            <View>
-                <Text> textInComponent </Text>
-            </View>
-        )
-    }
+export const Navbar = () =>{
+    return(
+        <h1>Navbar</h1>
+    )
 }
 
-export default Navbar

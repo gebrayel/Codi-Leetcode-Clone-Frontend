@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
 
 export const Navbar = () =>{
     return(
@@ -7,3 +6,4 @@ export const Navbar = () =>{
     )
 }
 
+export default Navbar;

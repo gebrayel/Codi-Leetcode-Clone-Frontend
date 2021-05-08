@@ -93,6 +93,108 @@ const loginWithGithub=()=>{
 }
 
 
+/**
+ * // También puedes usar la propiedad currentUser para obtener el usuario que accedió. 
+  //Si no accedió ningún usuario, el valor de currentUser es nulo:
+
+ */
+const getUser=()=>{
+  
+
+  var user = firebase.auth().currentUser;
+
+  if (user) {
+    // User is signed in.
+  } else {
+    // No user is signed in.
+  }
+}
+
+
+
+/**
+ * obtener el usuario actual es establecer un observador en el objeto Auth:
+ */
+const getUserLogged=()=>{
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+    } else {
+      // No user is signed in.
+    }
+  });
+}
+
+
+/**
+ * get Object user profile info
+ */
+
+const getUserProfileInfo=()=>{
+  var user = firebase.auth().currentUser;
+  var name, email, photoUrl, uid, emailVerified;
+  var userP={}
+  if (user != null) {
+    userP={
+      name : user.displayName,
+      email : user.email,
+      photoUrl : user.photoURL,
+      emailVerified : user.emailVerified,
+      uid : user.uid  // The user's ID, unique to the Firebase project. Do NOT use
+                      // this value to authenticate with your backend server, if
+                      // you have one. Use User.getToken() instead.
+    }
+    console.log(userP)
+  }
+  
+  return userP;
+  
+}
+
+/**
+ * Obtén la información de perfil de un usuario de un proveedor específico
+ */
+
+const getUserProfile=()=>{
+  var user = firebase.auth().currentUser;
+
+  if (user != null) {
+    user.providerData.forEach(function (profile) {
+      console.log("Sign-in provider: " + profile.providerId);
+      console.log("  Provider-specific UID: " + profile.uid);
+      console.log("  Name: " + profile.displayName);
+      console.log("  Email: " + profile.email);
+      console.log("  Photo URL: " + profile.photoURL);
+    });
+  }
+}
+
+
+/**
+ * actualizar el perfil de un usuario
+ */
+
+const UpdateUserProfile=()=>{
+  var user = firebase.auth().currentUser;
+
+  user.updateProfile({
+    displayName: "Jane Q. User",
+    photoURL: "https://example.com/jane-q-user/profile.jpg"
+  }).then(function() {
+    // Update successful.
+  }).catch(function(error) {
+    // An error happened.
+  });
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -216,6 +318,7 @@ export {
             GeneralLoginWithRedirect, 
             GeneralLogOut,
             providerGithub,
-            providerGoogle
+            providerGoogle,
+            getUserProfileInfo
 }
 

@@ -6,7 +6,8 @@ import {
             GeneralLogOut,
             providerGithub,
             providerGoogle,
-            GeneralLoginWithRedirect
+            GeneralLoginWithRedirect,
+            getUserProfileInfo
 } from '../../config/firebase/firebaseAuth';
 
 
@@ -21,7 +22,7 @@ export const Navbar = () =>{
     }
     
     const logOut=()=>{
-        GeneralLogOut()
+        getUserProfileInfo()
     }
     const redirectLogin=(provider)=>{
         GeneralLoginWithRedirect(provider)

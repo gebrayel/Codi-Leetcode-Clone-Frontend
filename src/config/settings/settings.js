@@ -1,6 +1,6 @@
 const settings = {
     develop: {
-        apiUrl: ""
+        apiUrl: "https://codi-backends.herokuapp.com/"
     },
     production: {
         apiUrl: ""
@@ -8,7 +8,7 @@ const settings = {
 }
 
 const getCurrentSettings = (flag) => {
-    if(flag) return settings.staging;
+    if(flag) return settings.develop;
     return settings.production;
 }
 

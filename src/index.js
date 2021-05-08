@@ -4,6 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './styles/styles.scss'
 import Navbar from './components/Compiler/Navbar'
+import {app} from './config/firebase/firebase-config';
 
 ReactDOM.render(
   <React.StrictMode>

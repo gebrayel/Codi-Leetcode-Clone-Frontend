@@ -1,16 +1,8 @@
-import React, { Component,Fragment } from 'react'
-
+import React, { Component } from 'react'
 
 export const Navbar = () =>{
-
-    
-
     return(
-        <Fragment>
-
-            <h1>Navbar</h1>
-             
-        </Fragment>
+        <h1>Navbar</h1>
     )
 }
 

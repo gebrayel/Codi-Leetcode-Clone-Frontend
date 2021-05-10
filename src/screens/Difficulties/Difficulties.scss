@@ -1,154 +1,30 @@
 @import "../../styles/global/variables.scss";
 
-*{
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	text-decoration: none;
-	border: none;
-	outline: none;
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  border: none;
+  outline: none;
 }
 
-#bg_diff{
-    background-color: $Color-Bg-Black;
-    width: 100vw;
-    height: 100vh;
+#background {
+  background-color: $Color-Bg-Black;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 8vh;
 }
 
-#navbar_diff{
-    position: fixed;
-    width: 100vw;
-    height: 10vh;
-    background-color: $Color-Black;
+#lottie {
+  margin: 0 auto;
+  width: 36vw;
+  height: 36vh;
 }
 
-#kitty2{
-    position: absolute;
-    top: 15vh;
-    left: 32vw;
-    width: 36vw;
-    height: 36vh;
-}
-
-#card1_diff{
-    background: rgba(126, 132, 167, 0.63);
-    position: absolute;
-    width: 20vw;
-    height: 35vh;
-    border-radius: 10px;
-    left: 10vw;
-    bottom: 10vh;
-    cursor: pointer;
-    transition-duration: 1s;
-}
-
-#card1_diff:hover{
-    transition-duration: 1s;
-    background-color: rgba(126, 132, 167, 0.829);
-    width: 21vw;
-    height: 36vh;
-}
-
-#card2_diff{
-    background: rgba(126, 132, 167, 0.63);
-    position: absolute;
-    width: 20vw;
-    height: 35vh;
-    border-radius: 10px;
-    left: 40vw;
-    bottom: 10vh;
-    cursor: pointer;
-    transition-duration: 1s;
-}
-
-#card2_diff:hover{
-    transition-duration: 1s;
-    background-color: rgba(126, 132, 167, 0.829);
-    width: 21vw;
-    height: 36vh;
-}
-
-#card3_diff{
-    background: rgba(126, 132, 167, 0.63);
-    position: absolute;
-    width: 20vw;
-    height: 35vh;
-    border-radius: 10px;
-    left: 70vw;
-    bottom: 10vh;
-    cursor: pointer;
-    transition-duration: 1s;
-}
-
-#card3_diff:hover{
-    transition-duration: 1s;
-    background-color: rgba(126, 132, 167, 0.829);
-    width: 21vw;
-    height: 36vh;
-}
-
-#h1_diff{
-    position: relative;
-    top: 10%;
-    left: 20%;
-    font-size: 2.5vw;
-    color: white;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;  
-}
-
-#h2_diff{
-    position: relative;
-    top: 10%;
-    left: 20%;
-    font-size: 2.5vw;
-    color: $Color-Light-Blue;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;  
-}
-
-#h3_diff{
-    position: relative;
-    top: 10%;
-    left: 20%;
-    font-size: 2.5vw;
-    color: $Color-Pink;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;  
-}
-
-#p1_diff{
-    position: relative;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    color: rgba(255, 255, 255, 0.603);
-    left: 20%;
-    top: 18%;
-    font-size: 1.5vw;
-}
-
-#p2_diff{
-    position: relative;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    color: rgba(255, 255, 255, 0.603);
-    left: 20%;
-    top: 18%;
-    font-size: 1.5vw;
-}
-
-#p3_diff{
-    position: relative;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    color: rgba(255, 255, 255, 0.603);
-    left: 20%;
-    top: 18%;
-    font-size: 1.5vw;
+#boxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10vh;
 }

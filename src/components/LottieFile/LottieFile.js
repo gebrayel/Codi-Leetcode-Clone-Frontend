@@ -17,7 +17,7 @@ export default function LottieFile(props) {
           options={defaultOptions}
           height={props.height}
           width={props.width}
-          id={props.id}
+          id={props.idLF}
         />
     );
 }

@@ -2,7 +2,7 @@ import React, { Fragment, useContext } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 import deleteLater from '../deleteLater'
-import actual from '../components/LottieFile/LottieFile'
+import actual from '../screens/Difficulties/Difficulties'
 
 export const UserRoutes = () => {
 

@@ -13,13 +13,11 @@ export default function LottieFile(props) {
       };
     
     return (
-      <div>
         <Lottie 
           options={defaultOptions}
           height={props.height}
           width={props.width}
           id={props.id}
         />
-      </div>
     );
-  }
+}

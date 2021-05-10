@@ -1,5 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
+
+import colors from "../../config/colors/colors";
 
 export default function DifficultyBox({
     title,
@@ -18,13 +20,18 @@ export default function DifficultyBox({
 
 const useStyles = makeStyles({
     box: {
-        backgroundColor: "#7e84a7",
+        backgroundColor: colors.boxBackground,
         width: "20vw",
         height: "35vh",
         borderRadius: 10,
         cursor: "pointer",
-        transitionDuration: "1s",
+        transitionDuration: "0.3s",
         padding: 10,
+        marginLeft: 30,
+        marginRight: 30,
+        '&:hover': {
+            backgroundColor: colors.boxBackgroundHover,
+        }
     },
     title: {
         textAlign: "center",
@@ -36,7 +43,7 @@ const useStyles = makeStyles({
     text: {
         color: "rgba(255, 255, 255, 0.63)",
         textAlign: "center",
-        fontSize: 35,
+        fontSize: "1.8vw",
         padding: 25,
     }
 });

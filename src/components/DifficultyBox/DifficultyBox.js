@@ -15,7 +15,8 @@ export default function DifficultyBox({
         <Grid 
             item
             xs={12}
-            md={4}
+            md={6}
+            lg={4}
         >
             <div
                 className={classes.box}
@@ -42,6 +43,7 @@ const useStyles = makeStyles(theme => ({
     title: {
         textAlign: "center",
         marginTop: 10,
+        marginBottom: 0,
         fontSize: "2.5vw",
         fontWeight: "bold",
         color: props => props.titleColor,
@@ -51,6 +53,7 @@ const useStyles = makeStyles(theme => ({
 
     },
     text: {
+        margin: 0,
         color: "rgba(255, 255, 255, 0.63)",
         textAlign: "center",
         fontSize: "2.0vw",

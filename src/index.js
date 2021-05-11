@@ -2,10 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './styles/styles.scss'
+import './styles/styles.scss';
+
+import { app } from './config/firebase/firebase-config';
+
+import axios from 'axios';
+import Navbar from './components/Navbar/Navbar';
+import settings from './config/settings/settings';
+
+axios.defaults.baseURL = settings.apiUrl;
 
 ReactDOM.render(
   <React.StrictMode>
+    <Navbar/>
     <App />
   </React.StrictMode>,
   document.getElementById('root')

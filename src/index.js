@@ -7,7 +7,7 @@ import './styles/styles.scss';
 import { app } from './config/firebase/firebase-config';
 
 import axios from 'axios';
-import Navbar from './components/Compiler/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import settings from './config/settings/settings';
 
 axios.defaults.baseURL = settings.apiUrl;

@@ -8,13 +8,14 @@ var providerGithub = new firebase.auth.GithubAuthProvider();
  * Hacer login con Google
  * @param {Function} setUser Setear usuario global
  */
+
 const loginWithGoogle = (setUser) => {
   firebase.auth()
     .signInWithPopup(providerGoogle)
     .then((result) => {
       const user = result.user;
       login.postLogin(user, setUser);
-    }).catch((error) => {
+   }).catch((error) => {
       return error;
     });
 }

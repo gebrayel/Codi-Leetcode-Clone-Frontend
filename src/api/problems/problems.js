@@ -3,8 +3,21 @@ import axios from 'axios';
 const endpoint = "/problems/";
 
 /**
+ * Obtener todos los problemas
+ * @returns Arreglo de problemas
+ */
+const getAllProblems = async () => {
+    try {
+        const response = await axios.get(endpoint);
+        return response.data
+    } catch(error){
+        return error;
+    }
+}
+
+/**
  * Obtener todos los problemas de una
- * dificulta en epecífico
+ * dificultad en epecífico
  * @param {String} difficulty dificultad
  * @returns Arreglo de problemas
  */
@@ -14,10 +27,9 @@ const getProblemsByDifficulty = async (difficulty) => {
         const response  = await axios.get(url);
         return response.data;
     } catch (error) {
-        return error;
-    }
-}
 
 export default {
-    getProblemsByDifficulty,
+    getAllProblems,
+    getProblemsByDifficulty
 }
+

@@ -1,6 +1,5 @@
 import React from 'react'
 import Lottie from 'react-lottie';
-/*import animationDat from '../../images/robot_playing.json' */
 
 export default function LottieFile(props) {
     const defaultOptions = {
@@ -15,9 +14,6 @@ export default function LottieFile(props) {
     return (
         <Lottie 
           options={defaultOptions}
-          height={props.height}
-          width={props.width}
-          id={props.idLF}
         />
     );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
 
 import colors from "../../config/colors/colors";
 
@@ -11,24 +12,29 @@ export default function DifficultyBox({
     const classes = useStyles(props);
 
     return (
-        <div className={classes.box}>
-            <h1 className={classes.title}>{title}</h1>
-            <p className={classes.text}>{children}</p>
-        </div>
+        <Grid 
+            item
+            xs={12}
+            md={4}
+        >
+            <div
+                className={classes.box}
+            >
+                <h1 className={classes.title}>{title}</h1>
+                <p className={classes.text}>{children}</p>
+            </div>
+        </Grid>
     )
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     box: {
         backgroundColor: colors.boxBackground,
-        width: "20vw",
-        height: "35vh",
         borderRadius: 10,
         cursor: "pointer",
         transitionDuration: "0.3s",
         padding: 10,
-        marginLeft: 30,
-        marginRight: 30,
+        margin: 20,
         '&:hover': {
             backgroundColor: colors.boxBackgroundHover,
         }
@@ -38,14 +44,24 @@ const useStyles = makeStyles({
         marginTop: 10,
         fontSize: "2.5vw",
         fontWeight: "bold",
-        color: props => props.titleColor
+        color: props => props.titleColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: "5.0vw"
+        }
+
     },
     text: {
         color: "rgba(255, 255, 255, 0.63)",
         textAlign: "center",
-        fontSize: "1.8vw",
+        fontSize: "2.0vw",
         padding: 25,
+        [theme.breakpoints.down('md')]: {
+            fontSize: "2.0vw"
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: "4.0vw"
+        },
     }
-});
+}));
 
 

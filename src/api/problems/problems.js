@@ -31,8 +31,25 @@ const getProblemsByDifficulty = async (difficulty) => {
     }
 }
 
+/**
+ * Obtener un problema por ID
+ * @param {String} id ID del problema
+ * @returns Arreglo con el problema
+ */
+const getProblemById = async (id) => {
+    const url = endpoint + "id/" + id;
+    try {
+        const response = await axios.get(url);
+        console.log(response);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+}
+
 export default {
     getAllProblems,
-    getProblemsByDifficulty
+    getProblemsByDifficulty,
+    getProblemById
 }
 

@@ -9,7 +9,7 @@ import SupportRoutes from './SupportRoutes.js';
 
 export const AppRouter = () => {
 
-    const isLoggedIn = false;
+    const isLoggedIn = true;
 
     return(
         <Router>

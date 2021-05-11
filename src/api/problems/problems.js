@@ -2,16 +2,11 @@ import axios from 'axios';
 
 const endpoint = "/problems";
 
-
-
-const getAllProblems= async ()=>{
-    try{
-        
-        const response=await axios.get(endpoint);
-        console.log(response.data)
+const getAllProblems = async () => {
+    try {
+        const response = await axios.get(endpoint);
         return response.data
-
-    }catch(error){
+    } catch(error){
         return error;
     }
 }

@@ -9,7 +9,7 @@ const endpoint = "/problems/";
 const getAllProblems = async () => {
     try {
         const response = await axios.get(endpoint);
-        return response.data
+        return response.data;
     } catch(error){
         return error;
     }
@@ -27,6 +27,9 @@ const getProblemsByDifficulty = async (difficulty) => {
         const response  = await axios.get(url);
         return response.data;
     } catch (error) {
+        return error;
+    }
+}
 
 export default {
     getAllProblems,

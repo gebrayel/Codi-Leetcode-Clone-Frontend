@@ -1,9 +1,10 @@
 import logo from './logo.svg';
-
+import ProblemList from './components/problemList';
+import ProblemsScreen from './screens/Problems/ProblemsScreen'
 function deleteLater() {
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -16,7 +17,10 @@ function deleteLater() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+
+      <ProblemsScreen/>
+
     </div>
   );
 }

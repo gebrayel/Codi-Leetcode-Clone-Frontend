@@ -115,3 +115,64 @@
         }
     }
 }
+
+@media (max-height: 650px) {
+    #HomeScreenContainer {
+        #HomeScreenLottie {
+            width: 20%;
+            height: 35vh;
+            min-width: 250px;
+            min-height: 245px;
+        }
+        #HomeScreenTitle {
+            font-size: 1.7rem;
+        }
+        #HomeScreenText {
+            font-size: 0.9rem;
+            margin: 15px;
+        }
+        #HomeScreenButtons {
+            width: 240px;
+            height: 90px;
+        }
+    }
+}
+
+@media (max-height: 500px) {
+    #HomeScreenContainer {
+        height: 97.5vh;
+        padding-bottom: 2.5;
+        #HomeScreenLottie {
+            width: 20%;
+            height: 22.5vh;
+            min-width: 0px;
+            min-height: 0px;
+        }
+        #HomeScreenTitle {
+            font-size: 1.5rem;
+        }
+        #HomeScreenText {
+            font-size: 0.7rem;
+            margin: 15px;
+        }
+        #HomeScreenButtons {
+            width: 180px;
+            height: 80px;
+            div {
+                div {
+                    font-size: 12px;
+                    svg {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-height: 250px) {
+    #HomeScreenContainer {
+        height: 100vh;
+    }
+}

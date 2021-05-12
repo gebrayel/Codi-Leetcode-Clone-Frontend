@@ -1,6 +1,4 @@
 import logo from "./logo.svg";
-import GitHub from "./components/LoginButtons/GitHubButton.js";
-import Google from "./components/LoginButtons/GoogleButton.js";
 
 function deleteLater() {
     return (
@@ -18,8 +16,6 @@ function deleteLater() {
                 >
                     Learn React
                 </a>
-                <GitHub />
-                <Google />
             </header>
         </div>
     );

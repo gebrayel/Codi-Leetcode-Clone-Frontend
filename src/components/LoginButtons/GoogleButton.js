@@ -3,7 +3,10 @@ import { GoogleLoginButton } from "react-social-login-buttons";
 export const GitHub = () => {
     return (
         <>
-            <GoogleLoginButton onClick={() => alert("Hello")} />
+            <GoogleLoginButton
+                className="LoginButton"
+                onClick={() => alert("Hello")}
+            />
         </>
     );
 };

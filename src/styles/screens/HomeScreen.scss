@@ -1,0 +1,68 @@
+#HomeScreenContainer {
+    width: 100%;
+    height: 95vh;
+    background-color: $Color-Bg-Black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    padding-bottom: 5vh;
+    #HomeScreenLottie {
+        width: 28vw;
+        height: 40%;
+    }
+    #HomeScreenTitle {
+        width: 100vw;
+        font-size: $Title-Size;
+        text-align: center;
+        color: $Color-White;
+        margin: 0;
+    }
+    #HomeScreenText {
+        width: 100vw;
+        text-align: center;
+        color: $Colot-Font-Light-Gray;
+        margin: 40px;
+    }
+    #HomeScreenButtons {
+        width: 300px;
+        height: 130px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .LoginButton {
+            div {
+                div {
+                    text-align: center !important;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    #HomeScreenContainer {
+        #HomeScreenLottie {
+            width: 38vw;
+            height: 40%;
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    #HomeScreenContainer {
+        #HomeScreenLottie {
+            width: 60vw;
+            height: 40%;
+        }
+        #HomeScreenTitle {
+            font-size: $Subtitle-Size;
+        }
+        #HomeScreenText {
+            font-size: 1.15rem;
+        }
+    }
+}

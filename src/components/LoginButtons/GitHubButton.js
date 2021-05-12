@@ -4,7 +4,7 @@ export const GitHub = () => {
     return (
         <>
             <GithubLoginButton
-                className="GitHubButton"
+                className="LoginButton"
                 onClick={() => alert("Hello")}
             />
         </>

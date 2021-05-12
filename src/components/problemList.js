@@ -11,6 +11,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CancelIcon from '@material-ui/icons/Cancel';
+import Grid from '@material-ui/core/Grid';
+
 const ProblemList = ({rows,title}) => {
     
     
@@ -37,7 +39,7 @@ const ProblemList = ({rows,title}) => {
 
 const useStyles = makeStyles({
   root: {
-    width: '55%',
+    // width: '100%',
     backgroundColor:'#7E84A7',
     fontWeight:"bold"
     
@@ -67,19 +69,22 @@ const useStyles = makeStyles({
 
   return (
     <div>
-      <h1 style={{textAlign:'left', color:"black",fontSize:"42px"}}>{title}</h1>
-      <Paper  className={classes.root}>
+      {/* ESTE H1 CON EL TITULO DEBERIA SER UNO ESTABLECIDO COMO VARIABLE GLOBAL SCSS */}
+      <h1 style={{textAlign:'left', color:"black",fontSize:"3rem"}}>{title}</h1>
+      <Grid item xs={11} sm={10} md={10} lg={10}>
+
+      <Paper className={classes.root}>
         <TableContainer  className={classes.container}>
-          <Table  stickyHeader aria-label="sticky table">
+          <Table   stickyHeader aria-label="sticky table">
             <TableHead >
               <TableRow >
                 {columns.map((column) => (
                   
                   <TableCell
-                    key={column.id}
+                  key={column.id}
                     align={column.align}
                     style={{ minWidth: column.minWidth, backgroundColor:"#7E84A7",color:"white","fontSize":"18px","font-weight":"bold"}}
-                  >
+                    >
                     {column.label}
                   </TableCell>
                 ))}
@@ -89,7 +94,7 @@ const useStyles = makeStyles({
               
               {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 
-                  
+                
                 
                 return (
                   
@@ -125,6 +130,7 @@ const useStyles = makeStyles({
 
                              <TableCell style={{"backgroundColor":row.color, "color":"white","fontSize":"18px","font-weight":"bold"}} key={column.id} align={column.align}>
                               
+                              {/* SE DEBE PASAR EL ENDPOINT PARA IR A LA VISTA DEL PROBLEMA ESPECIFICO */}
                           <a href="#" style={{color:'white'}}>
                               {column.format && typeof value === 'number' ? column.format(value) : value}
                             </a>    
@@ -168,6 +174,7 @@ const useStyles = makeStyles({
           style={{color:"white","fontSize":"18px","font-weight":"bold"}}
         />
       </Paper>
+      </Grid>
     </div>
   );
 }

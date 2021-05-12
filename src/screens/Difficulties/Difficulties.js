@@ -61,11 +61,18 @@ const useStyles = makeStyles(theme => ({
         justifyContent: "center",
         display: "flex",
         padding: 30,
+        paddingTop: 100,
+        [theme.breakpoints.down('xs')]: {
+            paddingBottom:0,
+        },
     },
     lottie: {
         width: "20%",
         [theme.breakpoints.down('sm')]: {
             width: "30%"
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: "40%"
         },
     },
     boxContainer: {
@@ -74,7 +81,12 @@ const useStyles = makeStyles(theme => ({
         paddingRight: 100,
         width: "85%",
         [theme.breakpoints.down('sm')]: {
-            width: "100%"
+            width: "100%",
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: "100%",
+            paddingLeft: 40,
+            paddingRight: 40,
         },
     },
     box: {

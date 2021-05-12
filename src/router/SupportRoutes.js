@@ -1,24 +1,27 @@
-import React, { Fragment, useContext } from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import React, { Fragment, useContext } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 
-import deleteLater from '../deleteLater'
+import deleteLater from "../deleteLater";
 
 export const SupportRoutes = () => {
-
-    return(
+    console.log("Priv");
+    return (
         <>
             {/*Navbar*/}
             <div>
                 <Switch>
+                    <Route
+                        exact
+                        path="/support/index"
+                        component={deleteLater}
+                    />
 
-                    <Route exact path = "/support/index" component = {deleteLater} />
-
-                    <Redirect to = "/support/index"/>
+                    <Redirect to="/support/index" />
                 </Switch>
             </div>
             {/*Footer*/}
         </>
-    )
-}
+    );
+};
 
 export default SupportRoutes;

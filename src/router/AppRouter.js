@@ -10,18 +10,19 @@ export const AppRouter = () => {
     return (
         <Router>
             <Switch>
-            <Route 
-                path="/"
-                exact
-            >
-                <HomeScreen />
-            </Route>
-            <PrivateRoute
-                path="/support"
-                exact
-            >
-                <DifficultiesScreen />
-            </PrivateRoute>
+                <Route 
+                    path="/"
+                    exact
+                >
+                    <HomeScreen />
+                </Route>
+                
+                <PrivateRoute
+                    path="/support"
+                    exact
+                >
+                    <DifficultiesScreen />
+                </PrivateRoute>
             </Switch>
         </Router>
     );

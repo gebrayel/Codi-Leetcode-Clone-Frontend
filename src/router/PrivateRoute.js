@@ -1,26 +1,27 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Redirect, Route } from 'react-router';
 
-import { Route, Redirect } from "react-router-dom";
-
-export const PrivateRoute = ({
-    isAuthenticated,
-    component: Component,
+export default function PrivateRoute({
+    children,
     ...rest
-}) => {
+}) {
+    const user = localStorage.getItem('user');
+
     return (
-        <Route
+        <Route 
             {...rest}
-            component={(props) =>
-                isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
+            render={({ location }) => 
+                user ? (
+                    children
+                ) : (
+                    <Redirect 
+                        to={{
+                            pathname: "/",
+                            state: { from: location }
+                        }}
+                    />
+                )
             }
         />
-    );
-};
-
-PrivateRoute.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
-    component: PropTypes.func.isRequired,
-};
-
-export default PrivateRoute;
+    )
+}

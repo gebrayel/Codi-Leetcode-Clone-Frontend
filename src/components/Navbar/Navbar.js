@@ -4,7 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -13,7 +12,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button'
 import grey from '@material-ui/core/colors/grey'
-import p from '../../api/payments/payments';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,17 +51,6 @@ export default function Navbar() {
     setAnchorEl(null);
   };
 
-  const createP=()=>{
-        const payment={
-            date:'2001-02-14 19:10:25-07',
-            amount:70,
-            pm_id:1,
-            user_id:1,
-            active:true,
-            sub_type:1
-        }    
-        p.createPayment(payment);
-    }
   const title = "<Codi/>"
   return (
     <div className={classes.root}>
@@ -83,7 +70,6 @@ export default function Navbar() {
           </Typography>
 
           <div className={classes.submenus}>
-          <Button onClick={()=>createP()}>Create Payment</Button>
             <Typography variant="h6" >
                 Problemas
             </Typography>

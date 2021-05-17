@@ -5,7 +5,7 @@ import ProblemList from '../../components/problemList';
 
 const ProblemsScreen = () => {
     
-    function createData(Numero, Title, Difficulty, Solved) {
+    function createData( Numero, Title, Difficulty, Solved) {
         var color='';
         if (Numero%2==0){
             var color="#9399BC"
@@ -28,9 +28,14 @@ const ProblemsScreen = () => {
     createData(10, 'Unir dos vectores', 'Facil', '0')
     ];
     const title='Problemas'
+    
     return ( 
+<div>
 
         <ProblemList title={title} rows={rows}/>
+
+</div>
+        
 
      );
 }

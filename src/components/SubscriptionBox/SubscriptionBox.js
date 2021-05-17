@@ -9,58 +9,61 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Clock from '../../assets/time.png';
 
-export default function SubscriptionBox({ title, amount, time, before, after, ideal, prac, buttonText, color1, color2, color3, ...props }) {
+export default function SubscriptionBox({ title, amount, time, before, after, ideal, prac, buttonText, ...props }) {
     const classes = useStyles(props);
 
     return (
-        <Card className={classes.root}>
-            <CardContent className={classes.contentS1}>
-                <Typography className={classes.titleS}>
-                    {title}
-                </Typography>
-                <Typography className={classes.titleS2}>
-                    {amount}
-                </Typography>
-            </CardContent>
-            <CardContent className={classes.contentS2}>
-                <img src={Clock} alt="Time" className={classes.imgS}/>
-                <Typography className={classes.subtitleS}>
-                    {time}
-                </Typography>
-            </CardContent>
-            <CardContent className={classes.contentS3}>
-                <Typography className={classes.textS}>
-                    {before}
-                </Typography>
-                <Typography className={classes.textS}>
-                    {after}
-                </Typography>
-                <Typography className={classes.textS2}>
-                    {ideal}
-                </Typography>
-                <Typography className={classes.textS3}>
-                    {prac}
-                </Typography>
-            </CardContent>
-            <CardActions className={classes.contentS4}>
-                <Button  className={classes.buttonS}>{buttonText}</Button>
-            </CardActions>
-        </Card>
+        <Grid item xs={12} md={6} lg={4}>
+            <Card className={classes.root}>
+                <CardContent className={classes.contentS1}>
+                    <Typography className={classes.titleS}>
+                        {title}
+                    </Typography>
+                    <Typography className={classes.titleS2}>
+                        {amount}
+                    </Typography>
+                </CardContent>
+                <CardContent className={classes.contentS2}>
+                    <img src={Clock} alt="Time" className={classes.imgS}/>
+                    <Typography className={classes.subtitleS}>
+                        {time}
+                    </Typography>
+                </CardContent>
+                <CardContent className={classes.contentS3}>
+                    <Typography className={classes.textS}>
+                        {before}
+                    </Typography>
+                    <Typography className={classes.textS}>
+                        {after}
+                    </Typography>
+                    <Typography className={classes.textS2}>
+                        {ideal}
+                    </Typography>
+                    <Typography className={classes.textS3}>
+                        {prac}
+                    </Typography>
+                </CardContent>
+                <CardActions className={classes.contentS4}>
+                    <Button  className={classes.buttonS}>{buttonText}</Button>
+                </CardActions>
+            </Card>
+        </Grid>
     );
 }
 
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: (props) => props.color1,
+        borderRadius: '20px',
     },
     contentS1: {
-        backgroundColor: '#E75656',
+        backgroundColor: (props) => props.color2,
         display:'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
     contentS2: {
-        backgroundColor: '#CBCBCD',
+        backgroundColor: (props) => props.color1,
         display:'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -142,7 +145,7 @@ const useStyles = makeStyles((theme) => ({
         width: '12rem',
         height: '4rem',
         "&:hover": {
-            backgroundColor: '#FB2121',
+            backgroundColor: (props) => props.color3,
         }
     },
 

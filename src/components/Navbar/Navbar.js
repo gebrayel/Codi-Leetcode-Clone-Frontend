@@ -53,14 +53,14 @@ export default function Navbar() {
 
   const title = "<Codi/>"
   return (
-    <div className={classes.root}>
-      <FormGroup>
+    <div className={classes.root}> 
+      {/* <FormGroup>
         <FormControlLabel
           control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
           label={auth ? 'Logout' : 'Login'}
         />
-      </FormGroup>
-      <AppBar position="static" color={apcol} classes={{root: classes.appbarcolor}}>
+      </FormGroup> */}
+      <AppBar position="fixed" color={apcol} classes={{root: classes.appbarcolor}}>
         <Toolbar>
           {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />

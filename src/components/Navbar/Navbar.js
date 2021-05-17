@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Switch from '@material-ui/core/Switch';
@@ -13,6 +14,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button'
 import grey from '@material-ui/core/colors/grey'
+import {NavLink, Router} from 'react-router-dom'
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -50,6 +54,7 @@ export default function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const preventDefault = (event) => event.preventDefault();
 
   const title = "<Codi/>"
   return (
@@ -65,12 +70,22 @@ export default function Navbar() {
           {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton> */}
+          
           <Typography variant="h4" className={classes.title}>
-            {title}
+          <Link href="/"  color="inherit" underline="none">{title}</Link>
           </Typography>
+            <Router>
+              <Switch>
+                <NavLink to={'/actual'}>
+
+                          {title}
+
+                        </NavLink>
+                      </Switch>
+                    </Router>
           <div className={classes.submenus}>
             <Typography variant="h6" >
-                Problemas
+                <Link href="/actual"  color="inherit" underline="none">Problemas</Link>
             </Typography>
             <Typography variant="h6" >
                 Premium

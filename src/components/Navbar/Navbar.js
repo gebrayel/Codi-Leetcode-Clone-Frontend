@@ -14,7 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button'
 import grey from '@material-ui/core/colors/grey'
-import {NavLink, Router} from 'react-router-dom'
+import {Link as NLink, BrowserRouter as Router, Switch as RSwitch, Route} from 'react-router-dom'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#191A21',
     color: "white"
   },
+  linkStyle:{
+    textDecoration: 'none',
+    color: 'white'
+  }
 }));
 
 export default function Navbar() {
@@ -72,23 +76,22 @@ export default function Navbar() {
           </IconButton> */}
           
           <Typography variant="h4" className={classes.title}>
-          <Link href="/"  color="inherit" underline="none">{title}</Link>
+            <NLink to='/'>{title}</NLink>
           </Typography>
-            <Router>
-              <Switch>
-                <NavLink to={'/actual'}>
 
-                          {title}
+            
 
-                        </NavLink>
-                      </Switch>
-                    </Router>
+
           <div className={classes.submenus}>
+
             <Typography variant="h6" >
-                <Link href="/actual"  color="inherit" underline="none">Problemas</Link>
+                
+                <NLink to = '/actual' className={classes.linkStyle}>Problemas</NLink>
+                
             </Typography>
+
             <Typography variant="h6" >
-                Premium
+              <NLink to = '#'>Premium</NLink>
             </Typography>
           </div>
           {auth ? (

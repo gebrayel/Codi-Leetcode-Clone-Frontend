@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -75,9 +75,19 @@ const useStyles = makeStyles((theme) => ({
     width: '2rem',
     height: '20rem'
   },
+  drawerContainer: {
+    padding: "20px 30px",
+  },
+  menuButton: {
+    fontFamily: "Open Sans, sans-serif",
+    fontWeight: 700,
+    size: "18px",
+    marginLeft: "38px",
+  },
 }));
 
 export default function Navbar() {
+
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -91,6 +101,43 @@ export default function Navbar() {
     setAnchorEl(event.currentTarget);
   };
 
+  //Internet stuff que me vole para hacerla responsive
+  const [state, setState] = useState({
+    mobileView: false,
+    drawerOpen: false,
+  });
+  const { mobileView, drawerOpen } = state;
+  useEffect(() => {
+    const setResponsiveness = () => {
+      return window.innerWidth < 900
+        ? setState((prevState) => ({ ...prevState, mobileView: true }))
+        : setState((prevState) => ({ ...prevState, mobileView: false }));
+    };
+
+    setResponsiveness();
+
+    window.addEventListener("resize", () => setResponsiveness());
+  }, []);
+
+
+  const headersData = [
+    {
+      label: "Listings",
+      href: "/listings",
+    },
+    {
+      label: "Mentors",
+      href: "/mentors",
+    },
+    {
+      label: "My Account",
+      href: "/account",
+    },
+    {
+      label: "Log Out",
+      href: "/logout",
+    },
+  ];
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -98,7 +145,7 @@ export default function Navbar() {
 
   const title = "<Codi/>"
 
-  const display = () =>{
+  const displayDesktop = () =>{
     return (
       <Toolbar className={classes.toolbar}>
             {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -128,7 +175,7 @@ export default function Navbar() {
               </div>
             </div>
             
-            {auth ? (
+            
               <div>
                 <IconButton
                   aria-label="account of current user"
@@ -159,13 +206,58 @@ export default function Navbar() {
                   <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
                 </Menu>
               </div>
-            ): <Button variant="contained" color="primary">
-              Iniciar Sesión
-            </Button>
-            }
+            
+            
           </Toolbar>
     )
   }
+
+  const displayMobile = () => {
+    const handleDrawerOpen = () =>
+      setState((prevState) => ({ ...prevState, drawerOpen: true }));
+    const handleDrawerClose = () =>
+      setState((prevState) => ({ ...prevState, drawerOpen: false }));
+
+    return (
+      <Toolbar className={classes.toolbar}>
+        
+
+        <Drawer
+          {...{
+            anchor: "left",
+            open: drawerOpen,
+            onClose: handleDrawerClose,
+          }}
+        >
+          {/* <div className={drawerContainer}>{getDrawerChoices()}</div> */}
+        </Drawer>
+        <div className={classes.leftpart}>
+          <NLink to='/'><img src={Codi_Icon} alt="Codi Icon" className={classes.codilog}/></NLink>       
+
+              <Typography variant="h4" >
+                <NLink to='/' className={classes.title}>{title}</NLink>
+              </Typography>
+
+        </div>
+              <IconButton
+          {...{
+            edge: "start",
+            color: "inherit",
+            "aria-label": "menu",
+            "aria-haspopup": "true",
+            onClick: handleDrawerOpen,
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
+      </Toolbar>
+
+    );
+  };
+
+  //  Internet stuff que me vole para hacerla responsive//
+
+
   return (
     <div className={classes.root}> 
       {/* <FormGroup>
@@ -175,7 +267,7 @@ export default function Navbar() {
         />
       </FormGroup> */}
       <AppBar position="fixed" color={apcol} classes={{root: classes.appbarcolor}} >
-        {display()}
+        {mobileView ? displayMobile() : displayDesktop()}
       </AppBar>
     </div>
   );

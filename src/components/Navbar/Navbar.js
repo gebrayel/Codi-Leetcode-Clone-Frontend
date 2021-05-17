@@ -52,6 +52,10 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: 'white'
   },
+  DrawerlinkStyle:{
+    textDecoration: 'none',
+    color: 'black',
+  },
   toolbar: {
     paddingTop: "0rem",
     paddingBottom: "0rem",
@@ -229,7 +233,7 @@ export default function Navbar() {
             onClose: handleDrawerClose,
           }}
         >
-          {/* <div className={drawerContainer}>{getDrawerChoices()}</div> */}
+          <div className={classes.drawerContainer}>{getDrawerChoices()}</div>
         </Drawer>
         <div className={classes.leftpart}>
           <NLink to='/'><img src={Codi_Icon} alt="Codi Icon" className={classes.codilog}/></NLink>       
@@ -253,6 +257,23 @@ export default function Navbar() {
       </Toolbar>
 
     );
+  };
+  const getDrawerChoices = () => {
+    return (
+      <>
+              
+                <Typography variant="h6" className={classes.each}>
+                    
+                    <NLink to = '/actual' className={classes.DrawerlinkStyle}>Problemas</NLink>
+                    
+                </Typography>
+
+                <Typography variant="h6" >
+                  <NLink to = '#' className={classes.DrawerlinkStyle}>Premium</NLink>
+                </Typography>
+              </>
+    )
+    
   };
 
   //  Internet stuff que me vole para hacerla responsive//

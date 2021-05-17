@@ -6,8 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
 import Link from '@material-ui/core/Link';
+//icons
 import MenuIcon from '@material-ui/icons/Menu';
+import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
+import CardMembershipIcon from '@material-ui/icons/CardMembership';
+import PersonIcon from '@material-ui/icons/Person';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+//icons//
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -17,6 +23,11 @@ import Button from '@material-ui/core/Button'
 import grey from '@material-ui/core/colors/grey'
 import {Link as NLink, BrowserRouter as Router, Switch as RSwitch, Route} from 'react-router-dom'
 import Codi_Icon from '../../assets/blue_codi.png'
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     marginRight: '5rem',
     marginLeft: '1rem',
+    "@media (max-width: 768px)": {
+      
+    },
   },
   leftpart: {
     display:'flex',
@@ -73,7 +87,11 @@ const useStyles = makeStyles((theme) => ({
   },
   codilog:{
     maxWidth: '3.5rem',
-    maxHeight: '3.5rem'
+    maxHeight: '3.5rem',
+    "@media (max-width: 899px)": {
+      maxWidth: '2.5rem',
+      maxHeight: '2.5rem',
+    },
   },
   logicon:{
     width: '2rem',
@@ -88,13 +106,18 @@ const useStyles = makeStyles((theme) => ({
     size: "18px",
     marginLeft: "38px",
   },
+  list: {
+    width: 250,
+  },
 }));
 
 export default function Navbar() {
 
+  const [auth, setAuth] = useState(true);
+
+  
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const apcol = grey[900];
   const handleChange = (event) => {
@@ -124,24 +147,6 @@ export default function Navbar() {
   }, []);
 
 
-  const headersData = [
-    {
-      label: "Listings",
-      href: "/listings",
-    },
-    {
-      label: "Mentors",
-      href: "/mentors",
-    },
-    {
-      label: "My Account",
-      href: "/account",
-    },
-    {
-      label: "Log Out",
-      href: "/logout",
-    },
-  ];
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -160,7 +165,7 @@ export default function Navbar() {
               
               <NLink to='/'><img src={Codi_Icon} alt="Codi Icon" className={classes.codilog}/></NLink>       
 
-              <Typography variant="h4" >
+               <Typography variant="h4" >
                 <NLink to='/' className={classes.title}>{title}</NLink>
               </Typography>
 
@@ -189,7 +194,7 @@ export default function Navbar() {
                   color="inherit"
                   size="medium"
                 >
-                  <AccountCircle style={{ fontSize: 40 }}/>
+                  <AccountCircle style={{ fontSize: 50 }}/>
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -206,8 +211,8 @@ export default function Navbar() {
                   open={open}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Perfil</MenuItem>
-                  <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
+                  <NLink to = '/' className={classes.DrawerlinkStyle}><MenuItem onClick={handleClose}>Perfil</MenuItem></NLink>
+                  <NLink to = '/' className={classes.DrawerlinkStyle}><MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem></NLink>
                 </Menu>
               </div>
             
@@ -238,7 +243,7 @@ export default function Navbar() {
         <div className={classes.leftpart}>
           <NLink to='/'><img src={Codi_Icon} alt="Codi Icon" className={classes.codilog}/></NLink>       
 
-              <Typography variant="h4" >
+              <Typography variant="h5" >
                 <NLink to='/' className={classes.title}>{title}</NLink>
               </Typography>
 
@@ -261,17 +266,30 @@ export default function Navbar() {
   const getDrawerChoices = () => {
     return (
       <>
-              
-                <Typography variant="h6" className={classes.each}>
-                    
-                    <NLink to = '/actual' className={classes.DrawerlinkStyle}>Problemas</NLink>
-                    
-                </Typography>
-
-                <Typography variant="h6" >
-                  <NLink to = '#' className={classes.DrawerlinkStyle}>Premium</NLink>
-                </Typography>
-              </>
+        <List>
+        
+          <ListItem button key={'Problemas'}>
+            <ListItemIcon><DeveloperModeIcon/></ListItemIcon> 
+            <ListItemText primary={'Problemas'} />
+          </ListItem>
+          <ListItem button key={'Premium'}>
+          <ListItemIcon><CardMembershipIcon/></ListItemIcon>
+          <ListItemText primary={'Premium'} />
+        </ListItem>
+        
+        </List>
+        <Divider />
+        <List>
+          <ListItem button key={'Perfil'}>
+                <ListItemIcon><PersonIcon/></ListItemIcon>
+                <ListItemText primary={'Perfil'} />
+              </ListItem>
+              <ListItem button key={'Cerrar Sesión'}>
+              <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+              <ListItemText primary={'Cerrar Sesión'} />
+            </ListItem>
+        </List>      
+      </>
     )
     
   };
@@ -281,14 +299,8 @@ export default function Navbar() {
 
   return (
     <div className={classes.root}> 
-      {/* <FormGroup>
-        <FormControlLabel
-          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup> */}
       <AppBar position="fixed" color={apcol} classes={{root: classes.appbarcolor}} >
-        {mobileView ? displayMobile() : displayDesktop()}
+        {auth?  (mobileView ? displayMobile() : displayDesktop() ): null}
       </AppBar>
     </div>
   );

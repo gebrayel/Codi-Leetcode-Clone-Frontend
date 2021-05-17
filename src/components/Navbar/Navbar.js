@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import Drawer from '@material-ui/core/Drawer';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -15,30 +16,65 @@ import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button'
 import grey from '@material-ui/core/colors/grey'
 import {Link as NLink, BrowserRouter as Router, Switch as RSwitch, Route} from 'react-router-dom'
+import Codi_Icon from '../../assets/blue_codi.png'
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    
   },
   menuButton: {
     marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
+    textDecoration: 'none',
+    color: 'white',
+    marginRight: '5rem',
+    marginLeft: '1rem',
   },
-  submenus: {
+  leftpart: {
     display:'flex',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   appbarcolor:{
     backgroundColor: '#191A21',
-    color: "white"
+    color: "white",
+    paddingRight: "0.5rem",
+    // paddingLeft: "118px",
+    "@media (max-width: 900px)": {
+      // paddingLeft: 0,
+    },
   },
   linkStyle:{
     textDecoration: 'none',
     color: 'white'
-  }
+  },
+  toolbar: {
+    paddingTop: "0rem",
+    paddingBottom: "0rem",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: 'center',
+  },
+  submenus:{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: 'center',
+  },
+  each:{
+    marginRight: '30px'
+  },
+  codilog:{
+    maxWidth: '3.5rem',
+    maxHeight: '3.5rem'
+  },
+  logicon:{
+    width: '2rem',
+    height: '20rem'
+  },
 }));
 
 export default function Navbar() {
@@ -61,6 +97,75 @@ export default function Navbar() {
   const preventDefault = (event) => event.preventDefault();
 
   const title = "<Codi/>"
+
+  const display = () =>{
+    return (
+      <Toolbar className={classes.toolbar}>
+            {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+              <MenuIcon />
+            </IconButton> */}
+            
+            <div className={classes.leftpart}>
+              
+              <NLink to='/'><img src={Codi_Icon} alt="Codi Icon" className={classes.codilog}/></NLink>       
+
+              <Typography variant="h4" >
+                <NLink to='/' className={classes.title}>{title}</NLink>
+              </Typography>
+
+                
+              <div className={classes.submenus}>
+
+                <Typography variant="h6" className={classes.each}>
+                    
+                    <NLink to = '/actual' className={classes.linkStyle}>Problemas</NLink>
+                    
+                </Typography>
+
+                <Typography variant="h6" >
+                  <NLink to = '#' className={classes.linkStyle}>Premium</NLink>
+                </Typography>
+              </div>
+            </div>
+            
+            {auth ? (
+              <div>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                  size="medium"
+                >
+                  <AccountCircle style={{ fontSize: 40 }}/>
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                  <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
+                </Menu>
+              </div>
+            ): <Button variant="contained" color="primary">
+              Iniciar Sesión
+            </Button>
+            }
+          </Toolbar>
+    )
+  }
   return (
     <div className={classes.root}> 
       {/* <FormGroup>
@@ -69,66 +174,8 @@ export default function Navbar() {
           label={auth ? 'Logout' : 'Login'}
         />
       </FormGroup> */}
-      <AppBar position="fixed" color={apcol} classes={{root: classes.appbarcolor}}>
-        <Toolbar>
-          {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton> */}
-          
-          <Typography variant="h4" className={classes.title}>
-            <NLink to='/'>{title}</NLink>
-          </Typography>
-
-            
-
-
-          <div className={classes.submenus}>
-
-            <Typography variant="h6" >
-                
-                <NLink to = '/actual' className={classes.linkStyle}>Problemas</NLink>
-                
-            </Typography>
-
-            <Typography variant="h6" >
-              <NLink to = '#'>Premium</NLink>
-            </Typography>
-          </div>
-          {auth ? (
-            <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Perfil</MenuItem>
-                <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
-              </Menu>
-            </div>
-          ): <Button variant="contained" color="primary">
-            Iniciar Sesión
-          </Button>
-          }
-        </Toolbar>
+      <AppBar position="fixed" color={apcol} classes={{root: classes.appbarcolor}} >
+        {display()}
       </AppBar>
     </div>
   );

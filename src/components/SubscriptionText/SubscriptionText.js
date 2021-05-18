@@ -15,7 +15,7 @@ export default function SubscriptionText ({ type, anim, children, ...props }){
                     </Box>
                 </Box>
                 <Box className={classes.children}>
-                    <Typography variant="h4" className={classes.typo}>
+                    <Typography variant="h4" className={classes.typo2}>
                         {children}
                     </Typography>
                 </Box>
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center",
         alignContent: "center",
         height: 'auto',
-        marginBottom: '0px'
+        marginBottom: 20
     },
     containerTitle: {
         height: "50px",
@@ -97,12 +97,35 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down('xs')]: {
         },
     },
+    typo2: {
+        color: (props) => props.color,
+        textAlign: (props)=> props.textAlign,
+        [theme.breakpoints.down('md')]: {
+            
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 30,
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 14,
+        },
+    },
     subtypo: {
         color: (props) => props.subColor,
         fontWeight: 'bold'
     },
     children:{
-        maxWidth: '21rem'
+        maxWidth: '21rem',
+        [theme.breakpoints.down('md')]: {
+            
+        },
+        [theme.breakpoints.down('sm')]: {
+        },
+        [theme.breakpoints.down('xs')]: {
+            maxWidth: '10rem',
+            marginRight: 30,
+        },
+
     },
     codiImg:{
         width: "200px",

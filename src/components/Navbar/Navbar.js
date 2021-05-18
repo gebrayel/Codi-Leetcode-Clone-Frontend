@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     marginRight: '5rem',
     marginLeft: '1rem',
+    fontWeight: 'bold',
     "@media (max-width: 768px)": {
       
     },
@@ -57,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#191A21',
     color: "white",
     paddingRight: "0.5rem",
+    maxHeight: '58px',
     // paddingLeft: "118px",
     "@media (max-width: 900px)": {
       // paddingLeft: 0,
@@ -75,27 +77,28 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "0rem",
     display: "flex",
     justifyContent: "space-between",
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    maxHeight: '55px',
+    marginTop: '0.2rem',
+    "@media (max-width: 900px)": {
+      paddingTop: '0.3rem',
+    },
   },
   submenus:{
     display: "flex",
     justifyContent: "space-between",
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   each:{
     marginRight: '30px'
   },
   codilog:{
-    maxWidth: '3.5rem',
-    maxHeight: '3.5rem',
+    maxWidth: '3rem',
+    maxHeight: '3rem',
     "@media (max-width: 899px)": {
       maxWidth: '2.5rem',
       maxHeight: '2.5rem',
     },
-  },
-  logicon:{
-    width: '2rem',
-    height: '20rem'
   },
   drawerContainer: {
     padding: "20px 30px",
@@ -193,8 +196,9 @@ export default function Navbar() {
                   onClick={handleMenu}
                   color="inherit"
                   size="medium"
+                  style={{ paddingTop: '0.5rem' }}
                 >
-                  <AccountCircle style={{ fontSize: 50 }}/>
+                  <AccountCircle style={{ fontSize: 35 }}/>
                 </IconButton>
                 <Menu
                   id="menu-appbar"

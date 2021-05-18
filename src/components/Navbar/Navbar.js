@@ -42,23 +42,27 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textDecoration: 'none',
     color: 'white',
-    marginRight: '5rem',
-    marginLeft: '1rem',
+    marginRight: '2rem',
+    marginLeft: '0.3rem',
     fontWeight: 'bold',
-    "@media (max-width: 768px)": {
-      
+    "@media (max-width: 899x)": {
+      marginLeft: '0.2rem',
     },
   },
   leftpart: {
+    paddingLeft: '2rem',
     display:'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
+    "@media (max-width: 899px)": {
+      paddingLeft: '0.5rem',
+    },
   },
   appbarcolor:{
     backgroundColor: '#191A21',
     color: "white",
     paddingRight: "0.5rem",
-    maxHeight: '58px',
+    maxHeight: '54px',
     // paddingLeft: "118px",
     "@media (max-width: 900px)": {
       // paddingLeft: 0,
@@ -75,13 +79,15 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     paddingTop: "0rem",
     paddingBottom: "0rem",
+    paddingRight: "0.8rem",
     display: "flex",
     justifyContent: "space-between",
     alignItems: 'flex-start',
     maxHeight: '55px',
-    marginTop: '0.2rem',
+    marginTop: '0.4rem',
     "@media (max-width: 900px)": {
-      paddingTop: '0.3rem',
+      marginTop: '0.5rem',
+      maxHeight: '55px',
     },
   },
   submenus:{
@@ -93,11 +99,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '30px'
   },
   codilog:{
-    maxWidth: '3rem',
-    maxHeight: '3rem',
+    maxWidth: '2.5rem',
+    maxHeight: '2.5rem',
     "@media (max-width: 899px)": {
-      maxWidth: '2.5rem',
-      maxHeight: '2.5rem',
+      maxWidth: '2.3rem',
+      maxHeight: '2.3rem',
     },
   },
   drawerContainer: {
@@ -168,20 +174,20 @@ export default function Navbar() {
               
               <NLink to='/'><img src={Codi_Icon} alt="Codi Icon" className={classes.codilog}/></NLink>       
 
-               <Typography variant="h4" >
+               <Typography variant="h5" >
                 <NLink to='/' className={classes.title}>{title}</NLink>
               </Typography>
 
                 
               <div className={classes.submenus}>
 
-                <Typography variant="h6" className={classes.each}>
+                <Typography variant="h7" className={classes.each}>
                     
                     <NLink to = '/actual' className={classes.linkStyle}>Problemas</NLink>
                     
                 </Typography>
 
-                <Typography variant="h6" >
+                <Typography variant="h7" >
                   <NLink to = '#' className={classes.linkStyle}>Premium</NLink>
                 </Typography>
               </div>
@@ -196,9 +202,9 @@ export default function Navbar() {
                   onClick={handleMenu}
                   color="inherit"
                   size="medium"
-                  style={{ paddingTop: '0.5rem' }}
+                  style={{ paddingTop: '0.3rem', paddingRight: '0rem'  }}
                 >
-                  <AccountCircle style={{ fontSize: 35 }}/>
+                  <AccountCircle style={{ fontSize: 32 }}/>
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -260,6 +266,7 @@ export default function Navbar() {
             "aria-haspopup": "true",
             onClick: handleDrawerOpen,
           }}
+          style={{ paddingTop: '0.4rem', paddingRight: '0.2rem' }}
         >
           <MenuIcon />
         </IconButton>

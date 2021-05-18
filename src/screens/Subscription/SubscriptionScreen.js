@@ -2,8 +2,12 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid } from '@material-ui/core';
 import colors from "../../config/colors/colors";
+import lock from '../../assets/animations/lockSubscription.json'
 import SubscriptionBox from '../../components/SubscriptionBox/SubscriptionBox';
-import { yellow } from '@material-ui/core/colors';
+import SubscriptionText from '../../components/SubscriptionText/SubscriptionText'
+import checkM from '../../assets/animations/checkMarkSubscription.json'
+import prem from '../../assets/animations/premiumSubscription.json'
+import yellowCodi from '../../assets/yellow_codi.png'
 
 export default function SubscriptionScreen(props) {
     const classes = useStyles(props);
@@ -12,6 +16,10 @@ export default function SubscriptionScreen(props) {
         <Box className={classes.containerSubs}>
             <Box className={classes.box1}>
                 <Box className={classes.boxContainer1}>
+                    <SubscriptionText type='0' anim = {yellowCodi} color = "#FFFFFF" 
+                        children='¡Llegó la hora de unirte al 
+                        GOLDEN CUBE 
+                        de la programación!' textAlign='center' subColor='#E8FB76' />
                 </Box>
             </Box>
             <Box className={classes.box2}>
@@ -20,6 +28,11 @@ export default function SubscriptionScreen(props) {
                     <SubscriptionBox title="{Mensual}" amount="$25/Me" time="30 DÍAS" before="Antes: $35" after="Ahorro: 28,71%" ideal="Ideal para:" prac="Practicantes Not so Dummies" buttonText="Subscribirse" color1="#CBCBCD" color2="#6983FF" color3="#254BFF"/>
                     <SubscriptionBox title="#Anual" amount="$150/An" time="365 DÍAS" before="Antes: $420" after="Ahorro: 64,29%" ideal="Ideal para:" prac="Practicantes Increibles" buttonText="Subscribirse" color1="#CBCBCD" color2="#FBDA56" color3="#FFD220"/>
                 </Grid>
+            </Box>
+            <Box className={classes.box3}>
+                <SubscriptionText type='1' anim = {lock} color = "#FDF1BF" children='Desbloquea acceso a ejercicios Premium' textAlign='left' />
+                <SubscriptionText type='1' anim = {checkM} color = "#93E078" children='Accede a respuestas correctas a los ejercicios' textAlign='left'/>
+                <SubscriptionText type='1' anim = {prem} color = "#F6E27D" children='Ten el privilegio de pertenecer al grupo mas cool de programadores de toda la Internet' textAlign='left' />
             </Box>
          </Box>
     );
@@ -32,18 +45,17 @@ const useStyles = makeStyles(theme => ({
         justifyContent: "center"
     },
     box1: {
-        backgroundColor: 'red',
         justifyContent: "center",
         display: "flex",
         padding: 30,
-        paddingTop: 100,
+        paddingTop: 20,
+        paddingBottom: 0,
         [theme.breakpoints.down('xs')]: {
             
         },
     },
     boxContainer1: {
-        backgroundColor: 'blue',
-        width: "20%",
+        width: "100%",
         [theme.breakpoints.down('sm')]: {
         },
         [theme.breakpoints.down('xs')]: {
@@ -70,6 +82,12 @@ const useStyles = makeStyles(theme => ({
             paddingLeft: 40,
             paddingRight: 40,
         },
+    },
+    box3: {
+        paddingTop: 50,
+        paddingBottom: 50,
+        width: "100%",
+
     },
     
 }));

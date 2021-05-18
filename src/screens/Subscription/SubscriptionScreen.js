@@ -16,8 +16,8 @@ export default function SubscriptionScreen(props) {
             <Box className={classes.box2}>
                 <Grid container className={classes.boxContainer2}>
                     <SubscriptionBox title="<Semanal>" amount="$8/Se" time="7 DÍAS" before="Antes: $1" after="Ahorro: 0%" ideal="Ideal para:" prac="Practicantes Dummies" buttonText="Subscribirse" color1="#CBCBCD" color2="#E75656" color3="#FB2121"/>
-                    <SubscriptionBox title="{Mensual}" amount="$25/Me" time="30 DÍAS" before="Antes: $1" after="Ahorro: 0%" ideal="Ideal para:" prac="Practicantes Dummies" buttonText="Subscribirse" color1="#CBCBCD" color2="#E75656" color3="#FB2121"/>
-                    <SubscriptionBox title="#Anual" amount="$150/An" time="365 DÍAS" before="Antes: $1" after="Ahorro: 0%" ideal="Ideal para:" prac="Practicantes Dummies" buttonText="Subscribirse" color1="#CBCBCD" color2="#E75656" color3="#FB2121"/>
+                    <SubscriptionBox title="{Mensual}" amount="$25/Me" time="30 DÍAS" before="Antes: $35" after="Ahorro: 28,71%" ideal="Ideal para:" prac="Practicantes Not so Dummies" buttonText="Subscribirse" color1="#CBCBCD" color2="#6983FF" color3="#254BFF"/>
+                    <SubscriptionBox title="#Anual" amount="$150/An" time="365 DÍAS" before="Antes: $420" after="Ahorro: 64,29%" ideal="Ideal para:" prac="Practicantes Increibles" buttonText="Subscribirse" color1="#CBCBCD" color2="#FBDA56" color3="#FFD220"/>
                 </Grid>
             </Box>
          </Box>

@@ -133,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
     },
     buttonS: {
-        backgroundColor: '#E75656',
+        backgroundColor: (props) => props.color2,
         color: 'white',
         textAlign: 'center',
         fontFamily: 'Roboto',

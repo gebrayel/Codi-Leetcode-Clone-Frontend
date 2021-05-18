@@ -50,18 +50,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   leftpart: {
-    paddingLeft: '2rem',
+    paddingLeft: '0rem',
     display:'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
     "@media (max-width: 899px)": {
-      paddingLeft: '0.5rem',
+      paddingLeft: '0rem',
     },
   },
   appbarcolor:{
     backgroundColor: '#191A21',
     color: "white",
-    paddingRight: "0.5rem",
+    paddingRight: "0.1rem",
     maxHeight: '54px',
     // paddingLeft: "118px",
     "@media (max-width: 900px)": {
@@ -80,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "0rem",
     paddingBottom: "0rem",
     paddingRight: "0.8rem",
+    paddingLeft: "1.2rem",
     display: "flex",
     justifyContent: "space-between",
     alignItems: 'flex-start',
@@ -202,7 +203,7 @@ export default function Navbar() {
                   onClick={handleMenu}
                   color="inherit"
                   size="medium"
-                  style={{ paddingTop: '0.3rem', paddingRight: '0rem'  }}
+                  style={{ paddingTop: '0.3rem', paddingRight: '0.2rem'  }}
                 >
                   <AccountCircle style={{ fontSize: 32 }}/>
                 </IconButton>

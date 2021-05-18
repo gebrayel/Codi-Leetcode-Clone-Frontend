@@ -2,7 +2,7 @@ import React, { Fragment, useContext } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import deleteLater from "../deleteLater";
-import actual from "../screens/Difficulties/Difficulties";
+import actual from "../screens/Subscription/SubscriptionScreen";
 import HomeScreen from "../screens/Home/HomeScreen";
 import Navbar from "../components/Navbar/Navbar"
 

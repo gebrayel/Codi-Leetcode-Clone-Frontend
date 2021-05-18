@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography } from '@material-ui/core';
 import LottieF from '../LottieFile/LottieFile';
-import yellowCodi from '../../assets/yellow_codi.png'
+
 export default function SubscriptionText ({ type, anim, children, ...props }){
     const classes = useStyles(props);
 
@@ -15,19 +15,20 @@ export default function SubscriptionText ({ type, anim, children, ...props }){
                     </Box>
                 </Box>
                 <Box className={classes.children}>
-                    <Typography className={classes.typo}>
+                    <Typography variant="h5" className={classes.typo}>
                         {children}
                     </Typography>
                 </Box>
-            </Box> : <Box className={classes.container}>
+            </Box> : <Box className={classes.containerTitle}>
                 <Box className={classes.lottieContainer}>
                     <Box className={classes.lottie}>
-                        <img src={yellowCodi} alt="PremiumCodiIcon" />
+                        <img className={classes.codiImg} src={anim} alt="PremiumCodiIcon" />
                     </Box>
                 </Box>
                 <Box>
-                    <Typography variant="h1" className={classes.typo}>
-                    ¡Llegó la hora de unirte al <span className={classes.subtypo}>GOLDEN CUBE</span> 
+                    <Typography variant="h5" className={classes.typo}>
+                    ¡Llegó la hora de unirte al <br/>
+                    <span className={classes.subtypo}>GOLDEN CUBE</span> <br/>
                     de la programación!
                     </Typography>
                 </Box>
@@ -45,6 +46,16 @@ const useStyles = makeStyles(theme => ({
         alignContent: "center",
         height: 'auto',
         marginBottom: '0px'
+    },
+    containerTitle: {
+        height: "50px",
+        display: 'flex',
+        justifyContent: "center",
+        alignItems: "center",
+        alignContent: "center",
+        height: 'auto',
+        marginTop: '5rem'
+        
     },
     lottieContainer: {
         display: "flex",
@@ -73,13 +84,17 @@ const useStyles = makeStyles(theme => ({
     },
     typo: {
         color: (props) => props.color,
-        fontSize: '25px',
         textAlign: (props)=> props.textAlign
     },
     subtypo: {
-        color: (props) => props.subColor
+        color: (props) => props.subColor,
+        fontWeight: 'bold'
     },
     children:{
         maxWidth: '21rem'
-    }
+    },
+    codiImg:{
+        width: "175px",
+        height: "175px",
+    },
 }));

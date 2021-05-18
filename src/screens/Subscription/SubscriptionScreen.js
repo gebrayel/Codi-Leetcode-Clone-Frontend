@@ -7,12 +7,18 @@ import SubscriptionBox from '../../components/SubscriptionBox/SubscriptionBox';
 import SubscriptionText from '../../components/SubscriptionText/SubscriptionText'
 import checkM from '../../assets/animations/checkMarkSubscription.json'
 import prem from '../../assets/animations/premiumSubscription.json'
+import yellowCodi from '../../assets/yellow_codi.png'
 
 export default function SubscriptionScreen(props) {
     const classes = useStyles(props);
 
     return (
         <div>
+            <SubscriptionText type='0' anim = {yellowCodi} color = "#FFFFFF" 
+            children='¡Llegó la hora de unirte al 
+            GOLDEN CUBE 
+            de la programación!' textAlign='center' subColor='#E8FB76' />
+            
             <p>d<br/>d<br/>d<br/>d<br/>d<br/>d<br/>d</p>
         <Box className={classes.container}>
             <SubscriptionBox title="<Semanal>" amount="$8/se" time="7 DIAS" before="Antes: $1" after="Ahorro: 0%" ideal="Ideal para:" prac="Practicantes Dummies" buttonText="Subscribirse" color1="#CBCBCD" color2="#E75656" color3="#FB2121"/>

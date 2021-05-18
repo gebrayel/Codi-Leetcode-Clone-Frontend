@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: (props) => props.color1,
         borderRadius: '20px',
+        margin: 20,
     },
     contentS1: {
         backgroundColor: (props) => props.color2,
@@ -81,9 +82,12 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Roboto',
         fontStyle: 'normal',
         fontWeight: 'bold',
-        fontSize: '2rem',
+        fontSize: '2.5rem',
         color: 'white',
         marginBottom: '0%',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '1.4rem',
+        },
     },
     titleS2: {
         fontFamily: 'Roboto',
@@ -91,6 +95,9 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         fontSize: '1.4rem',
         color: 'white',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '1rem',
+        },
     },
     subtitleS: {
         fontFamily: 'Roboto',
@@ -98,6 +105,9 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         fontSize: '1.4rem',
         color: 'black',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '1rem',
+        },
     },
     contentS3: {
         paddingTop: '0%',
@@ -109,6 +119,9 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         fontSize: '1.4rem',
         color: 'white',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '1rem',
+        },
     },
     textS2: {
         textAlign: 'center',
@@ -119,6 +132,9 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
         textDecoration: 'underline',
         paddingTop: '1rem',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '1rem',
+        },
     },
     textS3: {
         textAlign: 'center',
@@ -127,6 +143,9 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         fontSize: '1.4rem',
         color: 'black',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '1rem',
+        },
     },
     contentS4: {
         display: 'flex',
@@ -144,6 +163,11 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '20px',
         width: '12rem',
         height: '4rem',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '1rem',
+            width: '8rem',
+            height: '4rem',
+        },
         "&:hover": {
             backgroundColor: (props) => props.color3,
         }

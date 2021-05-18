@@ -18,9 +18,9 @@ export default function SubscriptionScreen(props) {
             <SubscriptionBox title="<Semanal>" amount="$8/se" time="7 DIAS" before="Antes: $1" after="Ahorro: 0%" ideal="Ideal para:" prac="Practicantes Dummies" buttonText="Subscribirse" color1="#CBCBCD" color2="#E75656" color3="#FB2121"/>
         </Box>
         <Box className={classes.container}>
-            <SubscriptionText type='1' anim = {lock} color = "#CBCBCD" children='hola soy la pajarita' textAlign='center' subColor='red'/>
-            <SubscriptionText type='1' anim = {checkM} color = "#CBCBCD" children='hola soy la pajarita' textAlign='center' subColor='red'/>
-            <SubscriptionText type='1' anim = {prem} color = "#CBCBCD" children='hola soy la pajarita' textAlign='center' subColor='red'/>
+            <SubscriptionText type='1' anim = {lock} color = "#FDF1BF" children='Desbloquea acceso a ejercicios Premium' textAlign='left' />
+            <SubscriptionText type='1' anim = {checkM} color = "#93E078" children='Accede a respuestas correctas a los ejercicios' textAlign='left'/>
+            <SubscriptionText type='1' anim = {prem} color = "#F6E27D" children='Ten el privilegio de pertenecer al grupo mas cool de programadores de toda la Internet' textAlign='left' />
 
         </Box>
         

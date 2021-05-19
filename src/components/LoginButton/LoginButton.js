@@ -27,7 +27,7 @@ export default function LoginButton({
                 break;
         }
         if(user[0]){
-            history.push("/support")
+            history.push("/problems")
         }
     }
 

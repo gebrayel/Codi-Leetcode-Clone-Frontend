@@ -26,12 +26,10 @@ const ProblemsScreen = () => {
         createData(10, "Unir dos vectores", "Facil", "0"),
     ];
 
-    const title = "Problemas";
-
     return (
         <div className="ProblemScreenContainer">
             <div className="ProblemListContainer">
-                <ProblemList title={title} rows={rows} />
+                <ProblemList rows={rows} />
             </div>
         </div>
     );

@@ -13,7 +13,7 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CancelIcon from "@material-ui/icons/Cancel";
 import Grid from "@material-ui/core/Grid";
 
-const ProblemList = ({ rows, title }) => {
+const ProblemList = ({ rows }) => {
     const columns = [
         { id: "Numero", label: "Nro", minWidth: 100 },
         { id: "Title", label: "Título", minWidth: 50 },
@@ -60,10 +60,6 @@ const ProblemList = ({ rows, title }) => {
 
     return (
         <div>
-            {/* ESTE H1 CON EL TITULO DEBERIA SER UNO ESTABLECIDO COMO VARIABLE GLOBAL SCSS */}
-            <h1 style={{ textAlign: "left", color: "black", fontSize: "3rem" }}>
-                {title}
-            </h1>
             <Grid item xs={11} sm={10} md={10} lg={10}>
                 <Paper className={classes.root}>
                     <TableContainer className={classes.container}>
@@ -76,7 +72,7 @@ const ProblemList = ({ rows, title }) => {
                                             align={column.align}
                                             style={{
                                                 minWidth: column.minWidth,
-                                                backgroundColor: "#7E84A7",
+                                                backgroundColor: "#7e84a7",
                                                 color: "white",
                                                 fontSize: "18px",
                                                 "font-weight": "bold",

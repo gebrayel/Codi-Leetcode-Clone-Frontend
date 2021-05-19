@@ -66,9 +66,11 @@ const useStyles = makeStyles(theme => ({
         paddingTop: 20,
         [theme.breakpoints.down('sm')]: {
             padding: 10,
+            width: 160,
         },
         [theme.breakpoints.down('xs')]: {
             paddingBottom:0,
+            width: 60,
         },
     },
     lottie: {
@@ -79,10 +81,10 @@ const useStyles = makeStyles(theme => ({
 
         width: "125px",
         [theme.breakpoints.down('sm')]: {
-            width: "30%"
+            width: "100%"
         },
         [theme.breakpoints.down('xs')]: {
-            width: "40%"
+            width: "80%"
         },
     },
     typo: {

@@ -35,11 +35,12 @@ const ProblemList = ({ rows }) => {
 
     const useStyles = makeStyles({
         root: {
-            // width: '100%',
+            width: "100%",
             backgroundColor: "#7E84A7",
             fontWeight: "bold",
         },
         container: {
+            width: "100%",
             maxHeight: 600,
             // backgroundColor:"#7E84A7"
         },
@@ -60,7 +61,7 @@ const ProblemList = ({ rows }) => {
 
     return (
         <div>
-            <Grid item xs={11} sm={10} md={10} lg={10}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Paper className={classes.root}>
                     <TableContainer className={classes.container}>
                         <Table stickyHeader aria-label="sticky table">
@@ -72,7 +73,7 @@ const ProblemList = ({ rows }) => {
                                             align={column.align}
                                             style={{
                                                 minWidth: column.minWidth,
-                                                backgroundColor: "#7e84a7",
+                                                backgroundColor: "#5E627D",
                                                 color: "white",
                                                 fontSize: "18px",
                                                 "font-weight": "bold",

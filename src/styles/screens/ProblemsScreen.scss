@@ -6,12 +6,19 @@
     align-items: center;
     justify-content: center;
     .ProblemListContainer {
-        width: 90%;
-        height: 85%;
+        width: 90vw;
+        height: 85vh;
         background-color: #7e84a763;
         display: flex;
         align-items: center;
+        flex-direction: column;
         justify-content: center;
         border-radius: 2.5%;
+        h1 {
+            color: white;
+            width: 100%;
+            text-align: left;
+            padding-left: 10%;
+        }
     }
 }

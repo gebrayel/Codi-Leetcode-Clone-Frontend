@@ -2,7 +2,11 @@ import React, { Component, Fragment, useState } from "react";
 
 import ProblemList from "../../components/problemList";
 
-const ProblemsScreen = () => {
+const ProblemsScreen = (
+    {
+        /*rows*/
+    }
+) => {
     function createData(Numero, Title, Difficulty, Solved) {
         var color = "";
         if (Numero % 2 == 0) {
@@ -29,6 +33,7 @@ const ProblemsScreen = () => {
     return (
         <div className="ProblemScreenContainer">
             <div className="ProblemListContainer">
+                <h1 className="ProblemScreenTitle"> Problemas </h1>
                 <ProblemList rows={rows} />
             </div>
         </div>

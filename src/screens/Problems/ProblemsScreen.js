@@ -29,8 +29,10 @@ const ProblemsScreen = () => {
     const title = "Problemas";
 
     return (
-        <div>
-            <ProblemList title={title} rows={rows} />
+        <div className="ProblemScreenContainer">
+            <div className="ProblemListContainer">
+                <ProblemList title={title} rows={rows} />
+            </div>
         </div>
     );
 };

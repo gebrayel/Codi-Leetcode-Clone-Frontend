@@ -1,0 +1,17 @@
+.ProblemScreenContainer {
+    width: 100vw;
+    height: 100vh;
+    padding-top: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .ProblemListContainer {
+        width: 90%;
+        height: 85%;
+        background-color: #7e84a763;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2.5%;
+    }
+}

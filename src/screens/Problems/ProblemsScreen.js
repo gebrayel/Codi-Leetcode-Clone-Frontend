@@ -1,7 +1,8 @@
-import React, { Component, Fragment, useState } from "react";
+import React, { Component, Fragment, useEffect, useState } from "react";
 
 import ProblemList from "../../components/problemList";
 import useQuery from "../../hooks/useQuery/useQuery";
+import problemAPI from "../../api/problems/problems";
 
 const ProblemsScreen = (
     {
@@ -9,6 +10,18 @@ const ProblemsScreen = (
     }
 ) => {
     const query = useQuery();
+    const [problems, setProblems] = useState([]);
+
+    useEffect(() => {
+        const difficulty = query.get("difficulty");
+        const getProblems = async (difficulty) => {
+            const probs = await problemAPI.getProblemsByDifficulty(difficulty);
+            setProblems(probs);
+        }
+        getProblems(difficulty);
+    }, []);
+
+    
     
     function createData(Numero, Title, Difficulty, Solved) {
         var color = "";

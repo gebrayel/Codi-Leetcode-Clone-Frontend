@@ -1,12 +1,15 @@
 import React, { Component, Fragment, useState } from "react";
 
 import ProblemList from "../../components/problemList";
+import useQuery from "../../hooks/useQuery/useQuery";
 
 const ProblemsScreen = (
     {
         /*rows*/
     }
 ) => {
+    const query = useQuery();
+    
     function createData(Numero, Title, Difficulty, Solved) {
         var color = "";
         if (Numero % 2 == 0) {

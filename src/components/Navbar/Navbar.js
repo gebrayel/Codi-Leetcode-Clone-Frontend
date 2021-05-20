@@ -184,7 +184,7 @@ export default function Navbar() {
 
                 <Typography variant="h7" className={classes.each}>
                     
-                    <NLink to = '/problems' className={classes.linkStyle}>Problemas</NLink>
+                    <NLink to = '/difficulties' className={classes.linkStyle}>Problemas</NLink>
                     
                 </Typography>
 

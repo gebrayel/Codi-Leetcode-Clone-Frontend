@@ -1,32 +1,30 @@
-import React, { Fragment, useContext } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import React from "react";
+import { Switch } from "react-router-dom";
 
-import deleteLater from "../deleteLater";
-import Subscription from "../screens/Subscription/SubscriptionScreen";
-import Difficulties from "../screens/Difficulties/Difficulties";
-import HomeScreen from "../screens/Home/HomeScreen";
+import DifficultiesScreen from "../screens/Difficulties/Difficulties";
 import Navbar from "../components/Navbar/Navbar"
+import PrivateRoute from "./PrivateRoute";
+import SubscriptionScreen from "../screens/Subscription/SubscriptionScreen";
 
 export const UserRoutes = () => {
-    console.log("Publico");
     return (
         <>
-            
-            <Navbar/>
-            <div>
-                <Switch>
-                    <Route exact path="/" component={HomeScreen} />
+        <Navbar/>
+        <Switch>
+            <PrivateRoute
+                path="/problems"
+                exact
+            >
+                <DifficultiesScreen />
+            </PrivateRoute>
 
-                    <Route exact path="/delete" component={deleteLater} />
-
-                    <Route exact path="/premium" component={Subscription} />
-
-                    <Route exact path="/problems" component={Difficulties} />
-
-                    <Redirect to="/" />
-                </Switch>
-            </div>
-            {/*Footer*/}
+            <PrivateRoute 
+                path="/premium"
+                exact
+            >
+                <SubscriptionScreen />
+            </PrivateRoute>
+        </Switch>
         </>
     );
 };

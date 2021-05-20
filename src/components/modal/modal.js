@@ -1,6 +1,7 @@
 
 import React, { Component,Fragment,useState } from 'react';
 
+import {logOut} from '../../helpers/helpers';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,13 +19,14 @@ const ModalComponent = () => {
 
   const handleClose = () => {
     setOpen(false);
+    logOut();
   };
     return ( 
         
         
         <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open alert dialog
+        Cerrar Sesión.
       </Button>
       <Dialog
         open={open}
@@ -35,16 +37,15 @@ const ModalComponent = () => {
         <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
+            ¿Estas seguro seguro de que deseas cerrar sesión?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Disagree
+            Volver a Codi.
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Agree
+          <Button onClick={handleClose} color="secondary" autoFocus>
+            Cerrar sesión.
           </Button>
         </DialogActions>
       </Dialog>

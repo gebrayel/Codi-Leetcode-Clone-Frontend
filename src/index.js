@@ -14,7 +14,6 @@ axios.defaults.baseURL = settings.apiUrl;
 
 ReactDOM.render(
   <React.StrictMode>
-    <Navbar/>
     <App />
   </React.StrictMode>,
   document.getElementById('root')

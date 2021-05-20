@@ -34,15 +34,15 @@ const ProblemList = ({ rows }) => {
     ];
 
     const useStyles = makeStyles({
-        root: {
+        grid: {
+            width: "100%"
+        },root: {
             width: "100%",
             backgroundColor: "#7E84A7",
             fontWeight: "bold",
         },
         container: {
-            width: "100%",
-            maxHeight: 600,
-            // backgroundColor:"#7E84A7"
+            width: "100%"
         },
     });
     const [col, handleCol] = useState("");
@@ -60,8 +60,7 @@ const ProblemList = ({ rows }) => {
     };
 
     return (
-        <div>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Grid item xs={11} sm={11} md={11} lg={11} className={classes.grid}>
                 <Paper className={classes.root}>
                     <TableContainer className={classes.container}>
                         <Table stickyHeader aria-label="sticky table">
@@ -246,7 +245,6 @@ const ProblemList = ({ rows }) => {
                     />
                 </Paper>
             </Grid>
-        </div>
     );
 };
 

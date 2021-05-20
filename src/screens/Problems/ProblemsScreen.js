@@ -28,6 +28,10 @@ const ProblemsScreen = (
         createData(8, "Numeros oblongo", "Facil", "0"),
         createData(9, "Ordenar vector", "Facil", "1"),
         createData(10, "Unir dos vectores", "Facil", "0"),
+        createData(7, "Numeros vampiros", "Intermedio", "1"),
+        createData(8, "Numeros oblongo", "Facil", "0"),
+        createData(9, "Ordenar vector", "Facil", "1"),
+        createData(10, "Unir dos vectores", "Facil", "0"),
     ];
 
     return (

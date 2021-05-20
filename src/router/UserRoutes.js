@@ -5,6 +5,7 @@ import DifficultiesScreen from "../screens/Difficulties/Difficulties";
 import Navbar from "../components/Navbar/Navbar"
 import PrivateRoute from "./PrivateRoute";
 import SubscriptionScreen from "../screens/Subscription/SubscriptionScreen";
+import ProblemsScreen from "../screens/Problems/ProblemsScreen";
 
 export const UserRoutes = () => {
     return (
@@ -12,7 +13,7 @@ export const UserRoutes = () => {
         <Navbar/>
         <Switch>
             <PrivateRoute
-                path="/problems"
+                path="/difficulties"
                 exact
             >
                 <DifficultiesScreen />
@@ -23,6 +24,12 @@ export const UserRoutes = () => {
                 exact
             >
                 <SubscriptionScreen />
+            </PrivateRoute>
+
+            <PrivateRoute 
+                path="/problems"
+            >
+                <ProblemsScreen />
             </PrivateRoute>
         </Switch>
         </>

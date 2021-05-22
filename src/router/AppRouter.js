@@ -1,10 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import PrivateRoute from "./PrivateRoute.js";
 import HomeScreen from "../screens/Home/HomeScreen.js";
-
-import DifficultiesScreen from "../screens/Difficulties/Difficulties.js";
+import UserRoutes from "./UserRoutes.js";
 
 export const AppRouter = () => {
     return (
@@ -16,13 +14,7 @@ export const AppRouter = () => {
                 >
                     <HomeScreen />
                 </Route>
-                
-                <PrivateRoute
-                    path="/support"
-                    exact
-                >
-                    <DifficultiesScreen />
-                </PrivateRoute>
+                <UserRoutes />
             </Switch>
         </Router>
     );

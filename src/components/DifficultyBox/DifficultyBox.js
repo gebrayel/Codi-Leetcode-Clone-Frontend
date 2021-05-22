@@ -3,12 +3,20 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
 import colors from "../../config/colors/colors";
+import { useHistory } from "react-router-dom"
 
-export default function DifficultyBox({ title, children, ...props }) {
+export default function DifficultyBox({ 
+    title, 
+    children,
+    difficulty, 
+    ...props }) {
     const classes = useStyles(props);
+    const history = useHistory();
 
     return (
-        <Grid item xs={12} md={6} lg={4}>
+        <Grid item xs={12} md={6} lg={4}
+            onClick={() => history.push("/problems?difficulty="+difficulty)}
+        >
             <div className={classes.box}>
                 <h1 className={classes.title}>{title}</h1>
                 <p className={classes.text}>{children}</p>

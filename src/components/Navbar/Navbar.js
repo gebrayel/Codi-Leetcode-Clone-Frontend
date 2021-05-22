@@ -28,7 +28,8 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
+//Import modal Component
+import ModalComponent from '../modal/modal'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -119,6 +120,10 @@ const useStyles = makeStyles((theme) => ({
   list: {
     width: 250,
   },
+  modal:{
+    marginLeft:"-10px",
+    paddingLeft:"0px"
+  }
 }));
 
 export default function Navbar() {
@@ -163,8 +168,17 @@ export default function Navbar() {
   const preventDefault = (event) => event.preventDefault();
 
   const title = "<Codi/>"
-
+  
+  const msg=[
+            '',
+            'secondary',
+            'Cerrar Sesion',
+            '¿Estás seguro seguro de que deseas cerrar sesión?',
+            'Volver a Codi.',
+            'Cerrar sesión.'
+          ]
   const displayDesktop = () =>{
+    
     return (
       <Toolbar className={classes.toolbar}>
             {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -223,7 +237,9 @@ export default function Navbar() {
                   onClose={handleClose}
                 >
                   <NLink to = '/' className={classes.DrawerlinkStyle}><MenuItem onClick={handleClose}>Perfil</MenuItem></NLink>
-                  <NLink to = '/' className={classes.DrawerlinkStyle}><MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem></NLink>
+                  
+                  <ModalComponent props={msg}></ModalComponent>
+                  
                 </Menu>
               </div>
             
@@ -296,9 +312,13 @@ export default function Navbar() {
                 <ListItemIcon><PersonIcon/></ListItemIcon>
                 <ListItemText primary={'Perfil'} />
               </ListItem>
-              <ListItem button key={'Cerrar Sesión'}>
-              <ListItemIcon><ExitToAppIcon/></ListItemIcon>
-              <ListItemText primary={'Cerrar Sesión'} />
+              <ListItem  button key={'Cerrar Sesión'}>
+                <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+                <div className={classes.modal} >
+                 <ModalComponent  props={msg}></ModalComponent>
+
+                </div>
+                
             </ListItem>
         </List>      
       </>

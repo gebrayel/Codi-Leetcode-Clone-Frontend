@@ -19,9 +19,9 @@ const ModalComponent = ({props}) => {
    *      props[1] Establece el color del boton que abrira el Componente Modal.
    *      props[2] Establece el el Texto del boton que abrira el Componente Modal.
    *      props[3] Establece el dialog-description del Componente Modal.
-   *      props[4] Establece el texto con primary desing (afirmacion==>Aceptar) del Componente Modal.
-   *      props[5] Establece el texto con secondary desing (negacion==>Cancelar) del Componente Modal.
-   * {props} ===> 
+   *      props[4] Establece el texto con primary desing (afirmacion==>Aceptar) del boton del Componente Modal.
+   *      props[5] Establece el texto con secondary desing (negacion==>Cancelar) del boton del Componente Modal.
+   * {props} 
    */
   
   const [open, setOpen] = React.useState(false);

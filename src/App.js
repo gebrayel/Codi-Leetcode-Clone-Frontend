@@ -19,7 +19,7 @@ function App() {
 
   return (
     <AppContext.Provider value={{
-      user, setUser,
+      user, setUser
     }}>
       <AppRouter/>
     </AppContext.Provider>

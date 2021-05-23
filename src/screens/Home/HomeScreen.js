@@ -17,7 +17,7 @@ export const HomeScreen = () => {
                 <h2 id="HomeScreenText">
                     Codi es el mejor lugar para conseguir ejercicios de <br />
                     programación, con diferentes dificultades y lograr una{" "}
-                    <br />
+                    <br />  
                     entrevista de ensueño.
                 </h2>
                 <div id="HomeScreenButtons">

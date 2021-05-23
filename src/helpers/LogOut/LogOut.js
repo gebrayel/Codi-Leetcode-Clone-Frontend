@@ -1,15 +1,7 @@
-
-
-const LogOut=()=>{
-    
-    localStorage.setItem('user', JSON.stringify(null));
-    
+const logout = () => {
+    localStorage.removeItem('user');
 }
 
-
-
-
-
-module.exports= {
-    LogOut
+export default {
+    logout,
 }

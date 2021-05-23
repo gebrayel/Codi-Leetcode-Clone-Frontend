@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import deleteLater from "../deleteLater";
+import ProblemsScreen from "../screens/Problems/ProblemsScreen";
 
 export const SupportRoutes = () => {
     console.log("Priv");
@@ -13,7 +14,7 @@ export const SupportRoutes = () => {
                     <Route
                         exact
                         path="/support/index"
-                        component={deleteLater}
+                        component={ProblemsScreen}
                     />
 
                     <Redirect to="/support/index" />

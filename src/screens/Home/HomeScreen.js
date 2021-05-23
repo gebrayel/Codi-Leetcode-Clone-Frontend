@@ -1,7 +1,6 @@
 import React from "react";
 import codeTyping from "../../assets/animations/code-typing.json";
-import GitHubButton from "../../components/LoginButtons/GitHubButton";
-import GoogleButton from "../../components/LoginButtons/GoogleButton";
+import LoginButton from "../../components/LoginButton/LoginButton";
 import LottieF from "../../components/LottieFile/LottieFile";
 
 export const HomeScreen = () => {
@@ -21,8 +20,12 @@ export const HomeScreen = () => {
                     entrevista de ensueño.
                 </h2>
                 <div id="HomeScreenButtons">
-                    <GitHubButton />
-                    <GoogleButton />
+                    <LoginButton 
+                        type="GitHub"
+                    />
+                    <LoginButton 
+                        type="Google"
+                    />
                 </div>
             </div>
         </>

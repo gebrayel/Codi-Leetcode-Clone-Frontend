@@ -19,6 +19,8 @@ const ProblemsScreen = (
             setProblems(probs);
         }
         getProblems(difficulty);
+        console.log(difficulty);
+        console.log(problems);
     }, []);
 
     

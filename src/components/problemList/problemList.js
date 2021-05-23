@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useState } from "react";
+import React, { useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -45,10 +45,10 @@ const ProblemList = ({ rows }) => {
             width: "100%"
         },
     });
-    const [col, handleCol] = useState("");
+
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);

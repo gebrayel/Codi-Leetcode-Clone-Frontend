@@ -1,7 +1,10 @@
 
-import React, { Component,Fragment,useState,useContext } from 'react';
+import React, { Component,useContext } from 'react';
+import {useHistory} from 'react-router-dom';
+
+import {LogOut} from '../../helpers/LogOut/LogOut';
+
 import AppContext from '../../helpers/context/context'
-import {logOut} from '../../helpers/helpersFunctions/helpers';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,24 +12,25 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-  import { useHistory } from "react-router-dom";
 
 
 const ModalComponent = ({props}) => {
   
-  /** ===> El componente modal se le estableceran 6 parametros en un array, donde:
-   *      props[0] Establece el variant desing del boton que abrira el Componente Modal.
-   *      props[1] Establece el color del boton que abrira el Componente Modal.
-   *      props[2] Establece el el Texto del boton que abrira el Componente Modal.
-   *      props[3] Establece el dialog-description del Componente Modal.
-   *      props[4] Establece el texto con primary desing (afirmacion==>Aceptar) del boton del Componente Modal.
-   *      props[5] Establece el texto con secondary desing (negacion==>Cancelar) del boton del Componente Modal.
+  /** ===> El componente modal se le estableceran 6 parametros en un objeto, donde los valores de los keys:
+   *      variant Establece el variant desing del boton que abrira el Componente Modal.
+   *      btnDesing Establece el color del boton que abrira el Componente Modal.
+   *      btnText Establece el el Texto del boton que abrira el Componente Modal.
+   *      modalDescription Establece el dialog-description del Componente Modal.
+   *      modalBtnAcept Establece el texto con primary desing (afirmacion==>Aceptar) del boton del Componente Modal.
+   *      modalBtnCancel Establece el texto con secondary desing (negacion==>Cancelar) del boton del Componente Modal.
    * {props} 
    */
   
   const [open, setOpen] = React.useState(false);
-  const {user,setUser} = useContext(AppContext);
+  const {setUser} = useContext(AppContext);
   let history = useHistory();
+  const {variant,btnDesing,btnText,modalDescription,modalBtnAcept,modalBtnCancel}= props
+  console.log(btnDesing)  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,22 +40,25 @@ const ModalComponent = ({props}) => {
   }
   const handleCloseLogOut = () => {
     setOpen(false);
-    logOut();
+    LogOut();
     setUser(null);
     history.push('/');
+    
   };
+
+
     return ( 
         
         
         <div>
-          {props[0].trim()===''
+          {variant.trim()===''
            ?
-            <Button color={props[1]} onClick={handleClickOpen}>
-            {props[2]}
+            <Button color={btnDesing} onClick={handleClickOpen}>
+            {btnText}
           </Button>
            :
-            <Button variant={props[0]} color={props[1]} onClick={handleClickOpen}>
-            {props[2]}
+            <Button variant={variant} color={btnDesing} onClick={handleClickOpen}>
+            {btnText}
           </Button>
            }
           <Dialog
@@ -63,15 +70,15 @@ const ModalComponent = ({props}) => {
             <DialogTitle id="alert-dialog-title">{"<Codi/>"}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                {props[3]}
+                {modalDescription}
               </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose} color="primary">
-              {props[4]}
+              {modalBtnAcept}
               </Button>
               <Button onClick={handleCloseLogOut} color="secondary" autoFocus>
-                {props[5]}
+                {modalBtnCancel}
               </Button>
             </DialogActions>
           </Dialog>

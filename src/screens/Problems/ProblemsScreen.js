@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useEffect, useState } from "react";
 
-import ProblemList from "../../components/problemList/problemList";
+import ProblemList from "../../components/ProblemList/ProblemList";
 import useQuery from "../../hooks/useQuery/useQuery";
 import problemAPI from "../../api/problems/problems";
 

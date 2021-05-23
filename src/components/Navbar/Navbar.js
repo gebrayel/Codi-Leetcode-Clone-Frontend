@@ -29,7 +29,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 //Import modal Component
-import ModalComponent from '../Modal/Modal'
+import Modal from "../Modal/Modal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -169,14 +169,14 @@ export default function Navbar() {
 
   const title = "<Codi/>"
   
-  const msg={
-            variant:'',
-            btnDesing:'secondary',
-            btnText:'Cerrar Sesion',
-            modalDescription:'¿Estás seguro seguro de que deseas cerrar sesión?',
-            modalBtnAcept:'Volver a Codi.',
-            modalBtnCancel:'Cerrar sesión.'
-          }
+  const msg = {
+    variant: '',
+    color:'secondary',
+    text:'Cerrar Sesion',
+    description:'¿Estás seguro seguro de que deseas cerrar sesión?',
+    acceptText:'Volver a Codi.',
+    cancelText:'Cerrar sesión.'
+  }
   const displayDesktop = () =>{
     
     return (
@@ -238,7 +238,14 @@ export default function Navbar() {
                 >
                   <NLink to = '/' className={classes.DrawerlinkStyle}><MenuItem onClick={handleClose}>Perfil</MenuItem></NLink>
                   
-                  <ModalComponent props={msg}></ModalComponent>
+                  <Modal 
+                    variant={msg.variant}
+                    color={msg.color}
+                    text={msg.text}
+                    description={msg.description}
+                    acceptText={msg.acceptText}
+                    cancelText={msg.cancelText}
+                  />
                   
                 </Menu>
               </div>
@@ -315,8 +322,14 @@ export default function Navbar() {
               <ListItem  button key={'Cerrar Sesión'}>
                 <ListItemIcon><ExitToAppIcon/></ListItemIcon>
                 <div className={classes.modal} >
-                 <ModalComponent  props={msg}></ModalComponent>
-
+                 <Modal 
+                    variant={msg.variant}
+                    color={msg.color}
+                    text={msg.text}
+                    description={msg.description}
+                    acceptText={msg.acceptText}
+                    cancelText={msg.cancelText}
+                  />
                 </div>
                 
             </ListItem>

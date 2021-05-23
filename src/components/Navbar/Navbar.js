@@ -29,7 +29,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 //Import modal Component
-import ModalComponent from '../modal/modal'
+import ModalComponent from '../Modal/Modal'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -169,14 +169,14 @@ export default function Navbar() {
 
   const title = "<Codi/>"
   
-  const msg=[
-            '',
-            'secondary',
-            'Cerrar Sesion',
-            '¿Estás seguro seguro de que deseas cerrar sesión?',
-            'Volver a Codi.',
-            'Cerrar sesión.'
-          ]
+  const msg={
+            variant:'',
+            btnDesing:'secondary',
+            btnText:'Cerrar Sesion',
+            modalDescription:'¿Estás seguro seguro de que deseas cerrar sesión?',
+            modalBtnAcept:'Volver a Codi.',
+            modalBtnCancel:'Cerrar sesión.'
+          }
   const displayDesktop = () =>{
     
     return (

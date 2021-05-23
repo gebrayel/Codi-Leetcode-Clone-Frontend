@@ -6,7 +6,7 @@ export default function DoughnutPieChart({ labels, data, colors, font_color, typ
     //type:true == Doughnut  ...  type:false == Pie
     const classes = useStyles(props);
 
-    if(type){
+    if(type == "Doughnut"){
         return (
             <Doughnut    className={classes.doughnut}
                     data={{
@@ -30,7 +30,7 @@ export default function DoughnutPieChart({ labels, data, colors, font_color, typ
                         }
             }} />
         );
-    }else{
+    }else if(type == "Pie"){
         return (
             <Pie    className={classes.doughnut}
                     data={{

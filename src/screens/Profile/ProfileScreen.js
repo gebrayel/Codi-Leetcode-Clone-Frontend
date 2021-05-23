@@ -11,7 +11,7 @@ export default function ProfileScreen({ x, ...props }) {
                         data={[20,30,25,25]} 
                         colors={['#FFCD56', '#FF9F40', '#36A2EB', '#FF6384']}
                         font_color="white"
-                        type={true}
+                        type="Doughnut"
                         />
         </div>
     );

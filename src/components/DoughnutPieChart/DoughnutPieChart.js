@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Pie, Doughnut } from 'react-chartjs-2';
 
-export default function DoughnutChart({ labels, data, colors, font_color, type, ...props }) {
+export default function DoughnutPieChart({ labels, data, colors, font_color, type, ...props }) {
     //type:true == Doughnut  ...  type:false == Pie
     const classes = useStyles(props);
 

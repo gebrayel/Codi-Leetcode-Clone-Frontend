@@ -34,24 +34,24 @@ export const UserRoutes = () => {
                 <ProblemsScreen />
             </PrivateRoute>
 
-            <Route 
+            <PrivateRoute 
                 path="/profile"
             >
                 <ProfileScreen />
-            </Route>
+            </PrivateRoute>
 
-            <Route 
+            <PrivateRoute 
                 path="/payment_success"
             >
                 <ProfileScreen />
-            </Route>
+            </PrivateRoute>
 
             <Route
                     path="*"
                     exact
                 >
                     <Page404 />
-                </Route>
+            </Route>
         </Switch>
         </>
     );

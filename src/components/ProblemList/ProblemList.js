@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useState } from "react";
+import React, { useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -45,10 +45,10 @@ const ProblemList = ({ rows }) => {
             width: "100%"
         },
     });
-    const [col, handleCol] = useState("");
+
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -65,7 +65,8 @@ const ProblemList = ({ rows }) => {
                     <TableContainer className={classes.container}>
                         <Table stickyHeader aria-label="sticky table">
                             <TableHead>
-                                <TableRow>
+                                <TableRow
+                                key={columns[0].id}>
                                     {columns.map((column) => (
                                         <TableCell
                                             key={column.id}
@@ -75,7 +76,7 @@ const ProblemList = ({ rows }) => {
                                                 backgroundColor: "#5E627D",
                                                 color: "white",
                                                 fontSize: "18px",
-                                                "font-weight": "bold",
+                                                "fontWeight": "bold",
                                             }}
                                         >
                                             {column.label}
@@ -113,7 +114,7 @@ const ProblemList = ({ rows }) => {
                                                                         color: "#40F331",
                                                                         fontSize:
                                                                             "18px",
-                                                                        "font-weight":
+                                                                        "fontWeight":
                                                                             "bold",
                                                                     }}
                                                                     key={
@@ -135,7 +136,7 @@ const ProblemList = ({ rows }) => {
                                                                         color: "#FF0D0D",
                                                                         fontSize:
                                                                             "18px",
-                                                                        "font-weight":
+                                                                        "fontWeight":
                                                                             "bold",
                                                                     }}
                                                                     key={
@@ -165,7 +166,7 @@ const ProblemList = ({ rows }) => {
                                                                         color: "white",
                                                                         fontSize:
                                                                             "18px",
-                                                                        "font-weight":
+                                                                        "fontWeight":
                                                                             "bold",
                                                                     }}
                                                                     key={
@@ -201,7 +202,7 @@ const ProblemList = ({ rows }) => {
                                                                         color: "white",
                                                                         fontSize:
                                                                             "18px",
-                                                                        "font-weight":
+                                                                        "fontWeight":
                                                                             "bold",
                                                                     }}
                                                                     key={
@@ -240,7 +241,7 @@ const ProblemList = ({ rows }) => {
                         style={{
                             color: "white",
                             fontSize: "18px",
-                            "font-weight": "bold",
+                            "fontWeight": "bold",
                         }}
                     />
                 </Paper>

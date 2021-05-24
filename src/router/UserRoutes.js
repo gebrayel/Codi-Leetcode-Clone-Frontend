@@ -1,11 +1,13 @@
 import React from "react";
-import { Switch } from "react-router-dom";
+import { Switch,Route } from "react-router-dom";
 
 import DifficultiesScreen from "../screens/Difficulties/Difficulties";
 import Navbar from "../components/Navbar/Navbar"
 import PrivateRoute from "./PrivateRoute";
 import SubscriptionScreen from "../screens/Subscription/SubscriptionScreen";
 import ProblemsScreen from "../screens/Problems/ProblemsScreen";
+import ProfileScreen from "../screens/Profile/ProfileScreen";
+import Page404 from "../screens/404/404";
 
 export const UserRoutes = () => {
     return (
@@ -31,6 +33,25 @@ export const UserRoutes = () => {
             >
                 <ProblemsScreen />
             </PrivateRoute>
+
+            <PrivateRoute 
+                path="/profile"
+            >
+                <ProfileScreen />
+            </PrivateRoute>
+
+            <PrivateRoute 
+                path="/payment_success"
+            >
+                <ProfileScreen />
+            </PrivateRoute>
+
+            <Route
+                    path="*"
+                    exact
+                >
+                    <Page404 />
+            </Route>
         </Switch>
         </>
     );

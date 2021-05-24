@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import AppRouter from './router/AppRouter.js'
+import AppContext from './helpers/context/context';
 
+import AppRouter from './router/AppRouter.js';
 function App() {
   const [user, setUser] = useState();
 
@@ -17,7 +18,11 @@ function App() {
   }, []);
 
   return (
+    <AppContext.Provider value={{
+      user, setUser
+    }}>
       <AppRouter/>
+    </AppContext.Provider>
   );
 }
 

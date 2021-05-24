@@ -28,7 +28,8 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
+//Import modal Component
+import Modal from "../Modal/Modal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -119,6 +120,10 @@ const useStyles = makeStyles((theme) => ({
   list: {
     width: 250,
   },
+  modal:{
+    marginLeft:"-10px",
+    paddingLeft:"0px"
+  }
 }));
 
 export default function Navbar() {
@@ -163,8 +168,17 @@ export default function Navbar() {
   const preventDefault = (event) => event.preventDefault();
 
   const title = "<Codi/>"
-
+  
+  const msg = {
+    variant: '',
+    color:'secondary',
+    text:'Cerrar Sesion',
+    description:'¿Estás seguro seguro de que deseas cerrar sesión?',
+    acceptText:'Volver a Codi.',
+    cancelText:'Cerrar sesión.'
+  }
   const displayDesktop = () =>{
+    
     return (
       <Toolbar className={classes.toolbar}>
             {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -184,7 +198,7 @@ export default function Navbar() {
 
                 <Typography variant="h7" className={classes.each}>
                     
-                    <NLink to = '/problems' className={classes.linkStyle}>Problemas</NLink>
+                    <NLink to = '/difficulties' className={classes.linkStyle}>Problemas</NLink>
                     
                 </Typography>
 
@@ -223,7 +237,16 @@ export default function Navbar() {
                   onClose={handleClose}
                 >
                   <NLink to = '/' className={classes.DrawerlinkStyle}><MenuItem onClick={handleClose}>Perfil</MenuItem></NLink>
-                  <NLink to = '/' className={classes.DrawerlinkStyle}><MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem></NLink>
+                  
+                  <Modal 
+                    variant={msg.variant}
+                    color={msg.color}
+                    text={msg.text}
+                    description={msg.description}
+                    acceptText={msg.acceptText}
+                    cancelText={msg.cancelText}
+                  />
+                  
                 </Menu>
               </div>
             
@@ -296,9 +319,19 @@ export default function Navbar() {
                 <ListItemIcon><PersonIcon/></ListItemIcon>
                 <ListItemText primary={'Perfil'} />
               </ListItem>
-              <ListItem button key={'Cerrar Sesión'}>
-              <ListItemIcon><ExitToAppIcon/></ListItemIcon>
-              <ListItemText primary={'Cerrar Sesión'} />
+              <ListItem  button key={'Cerrar Sesión'}>
+                <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+                <div className={classes.modal} >
+                 <Modal 
+                    variant={msg.variant}
+                    color={msg.color}
+                    text={msg.text}
+                    description={msg.description}
+                    acceptText={msg.acceptText}
+                    cancelText={msg.cancelText}
+                  />
+                </div>
+                
             </ListItem>
         </List>      
       </>

@@ -30,18 +30,21 @@ export default function Difficulties(props) {
                     <DifficultyBox
                         title="<Fácil>"
                         titleColor={colors.easy}
+                        difficulty="easy"
                     >
                         Si eres nuevo programando y quieres conocer lo básico de este mundo.
                     </DifficultyBox>
                     <DifficultyBox
                         title="{Intermedio}"
                         titleColor={colors.medium}
+                        difficulty="medium"
                     >
                         Si ya llevas un tiempo en este mundo y deseas mejorar tus habilidades.
                     </DifficultyBox>
                     <DifficultyBox
                         title="#Difícil"
                         titleColor={colors.hard}
+                        difficulty="hard"
                     >
                         ¿Te consideras un programador experto? Entonces vamos a ponerte a prueba.
                     </DifficultyBox>

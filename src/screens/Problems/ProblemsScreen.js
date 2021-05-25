@@ -26,20 +26,10 @@ const ProblemsScreen = (
         const difficulty = query.get("difficulty");
         const getProblems = async (difficulty) => {
             const probs = await problemAPI.getProblemsByDifficulty(difficulty);
-            let arrayProbs = [];
 
-            for(let i in probs){
-                arrayProbs.push(createData(
-                    i,
-                    probs[i].problem_id,
-                    probs[i].description,
-                    probs[i].difficulty,
-                    0));
-            }
-            console.log(probs)
-            setProblems([arrayProbs]);
-            //console.log(problems);
-        }
+            setProblems([probs]);
+            console.log(probs);
+        };
         getProblems(difficulty);
     }, []);
 

@@ -12,23 +12,42 @@ const ProblemsScreen = (
     const query = useQuery();
     const [problems, setProblems] = useState([]);
 
-    function createData(ID, Numero, Title, Difficulty, Solved) {
+    const spanishDifficulty = {
+        easy: "Fácil",
+        medium: "Intermedio",
+        hard: "Difícil",
+    };
+
+    function createData(id, problem_id, description, difficulty, solved) {
+        difficulty = spanishDifficulty[difficulty];
         var color = "";
-        if (ID % 2 == 0) {
-            var color = "#9399BC";
+        if (id % 2 == 0) {
+            color = "#7E84A7";
         } else {
-            var color = "#7E84A7";
+            color = "#5E627D";
         }
-        return { Numero, Title, Difficulty, Solved, color };
+        return { problem_id, description, difficulty, solved, color };
     }
 
     useEffect(() => {
         const difficulty = query.get("difficulty");
         const getProblems = async (difficulty) => {
             const probs = await problemAPI.getProblemsByDifficulty(difficulty);
+            let arrayProbs = [];
 
-            setProblems([probs]);
+            for (let i in probs) {
+                arrayProbs.push(
+                    createData(
+                        i,
+                        probs[i].problem_id,
+                        probs[i].description,
+                        probs[i].difficulty,
+                        false
+                    )
+                );
+            }
             console.log(probs);
+            setProblems(arrayProbs);
         };
         getProblems(difficulty);
     }, []);

@@ -12,22 +12,9 @@ const ProblemsScreen = (
     const query = useQuery();
     const [problems, setProblems] = useState([]);
 
-    useEffect(() => {
-        const difficulty = query.get("difficulty");
-        const getProblems = async (difficulty) => {
-            const probs = await problemAPI.getProblemsByDifficulty(difficulty);
-            setProblems(probs);
-        }
-        getProblems(difficulty);
-        console.log(difficulty);
-        console.log(problems);
-    }, []);
-
-    
-    
-    function createData(Numero, Title, Difficulty, Solved) {
+    function createData(ID, Numero, Title, Difficulty, Solved) {
         var color = "";
-        if (Numero % 2 == 0) {
+        if (ID % 2 == 0) {
             var color = "#9399BC";
         } else {
             var color = "#7E84A7";
@@ -35,28 +22,32 @@ const ProblemsScreen = (
         return { Numero, Title, Difficulty, Solved, color };
     }
 
-    const rows = [
-        createData(1, "Fibonacci", "Intermedio", "1"),
-        createData(2, "Numeros primos", "Facil", "0"),
-        createData(3, "Dijkstra", "Dificil", "1"),
-        createData(4, "DFS", "Intermedio", "0"),
-        createData(5, "Binary Search", "Intermedio", "1"),
-        createData(6, "Palindromo", "Facil", "0"),
-        createData(7, "Numeros vampiros", "Intermedio", "1"),
-        createData(8, "Numeros oblongo", "Facil", "0"),
-        createData(9, "Ordenar vector", "Facil", "1"),
-        createData(10, "Unir dos vectores", "Facil", "0"),
-        createData(7, "Numeros vampiros", "Intermedio", "1"),
-        createData(8, "Numeros oblongo", "Facil", "0"),
-        createData(9, "Ordenar vector", "Facil", "1"),
-        createData(10, "Unir dos vectores", "Facil", "0"),
-    ];
+    useEffect(() => {
+        const difficulty = query.get("difficulty");
+        const getProblems = async (difficulty) => {
+            const probs = await problemAPI.getProblemsByDifficulty(difficulty);
+            let arrayProbs = [];
+
+            for(let i in probs){
+                arrayProbs.push(createData(
+                    i,
+                    probs[i].problem_id,
+                    probs[i].description,
+                    probs[i].difficulty,
+                    0));
+            }
+            console.log(probs)
+            setProblems([arrayProbs]);
+            //console.log(problems);
+        }
+        getProblems(difficulty);
+    }, []);
 
     return (
         <div className="ProblemScreenContainer">
             <div className="ProblemListContainer">
                 <h1 className="ProblemScreenTitle"> Problemas </h1>
-                <ProblemList rows={rows} />
+                <ProblemList rows={problems} />
             </div>
         </div>
     );

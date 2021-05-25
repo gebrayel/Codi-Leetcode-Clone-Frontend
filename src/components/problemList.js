@@ -14,6 +14,9 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import Grid from "@material-ui/core/Grid";
 
 const ProblemList = ({ rows }) => {
+
+    console.log("Tabla " +rows[0])
+
     const columns = [
         { id: "Numero", label: "Nro", minWidth: 100 },
         { id: "Title", label: "Título", minWidth: 50 },

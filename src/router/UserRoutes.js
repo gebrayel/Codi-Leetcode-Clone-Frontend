@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar/Navbar";
 import PrivateRoute from "./PrivateRoute";
 import SubscriptionScreen from "../screens/Subscription/SubscriptionScreen";
 import ProblemsScreen from "../screens/Problems/ProblemsScreen";
-import PaymentModal from "../screens/Payment/PaymentModal";
+import PaymentScreen from "../screens/Payment/PaymentScreen";
 
 export const UserRoutes = () => {
     return (
@@ -25,7 +25,7 @@ export const UserRoutes = () => {
                     <ProblemsScreen />
                 </PrivateRoute>
                 <PrivateRoute path="/payment">
-                    <PaymentModal />
+                    <PaymentScreen />
                 </PrivateRoute>
             </Switch>
         </>

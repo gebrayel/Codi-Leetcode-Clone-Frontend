@@ -1,5 +1,5 @@
 import React from "react";
-import CreditCard from "../../components/CreditCard/CreditCard";
+import PaymentModal from "../../components/Payment/PaymentModal";
 
 const Payment = () => {
     return (
@@ -14,7 +14,7 @@ const Payment = () => {
                 <br />
                 <br />
             </div>
-            <CreditCard />
+            <PaymentModal />
         </>
     );
 };

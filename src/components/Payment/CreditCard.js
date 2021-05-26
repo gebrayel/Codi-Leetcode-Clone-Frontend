@@ -96,7 +96,7 @@ const CreditCard = () => {
                 justify="center"
                 alignItems="center"
                 container
-                md={4}
+                md={11}
             >
                 <Grid
                     container

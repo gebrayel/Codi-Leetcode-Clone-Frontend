@@ -1,13 +1,25 @@
 import React, { useState } from "react";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
-import { Grid, Modal, Box } from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import yellowCodi from "../../assets/yellow_codi.png";
+import {
+    Box,
+    CardMedia,
+    Collapse,
+    IconButton,
+    Grid,
+    Modal,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import LottieF from "../LottieFile/LottieFile";
+import clsx from "clsx";
 import CreditCard from "./CreditCard";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
         width: "100vw",
         height: "100vh",
+        color: "white",
         backgroundColor: "#282A3650",
         display: "flex",
         alignItems: "center",
@@ -34,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
     icon: {
         color: "white",
+        padding: "0 20px",
     },
     subscriptionSelection: {
         width: "100%",
@@ -56,12 +69,25 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         borderBottom: "solid 1px white",
     },
+    circle: {
+        width: "25px",
+        height: "25px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "white",
+        borderRadius: "100%",
+        color: "#282A36",
+    },
     paymentConfirmation: {
         width: "100%",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        borderTop: "solid 1px white",
+        borderBottom: "solid 1px white",
+    },
+    cardContainer: {
+        borderBottom: "solid 1px white",
     },
     bottomContainer: {
         width: "100%",
@@ -69,7 +95,6 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        borderTop: "solid 1px white",
     },
     AmountInformation: {
         width: "100%",
@@ -78,15 +103,42 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         justifyContent: "space-between",
     },
+    expand: {
+        transform: "rotate(0deg)",
+        marginLeft: "auto",
+        transition: theme.transitions.create("transform", {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: "rotate(180deg)",
+    },
+    expandIcon: {
+        color: "white",
+    },
 }));
 
 const PaymentModal = () => {
     const classes = useStyles();
 
+    const [cardInfo, setCardInfo] = useState({
+        number: "",
+        name: "",
+        expiry: "",
+        cvc: "",
+        focused: "",
+    });
+
     const [modal, setModal] = useState(false);
 
     const toggleModal = () => {
         setModal(!modal);
+    };
+
+    const [expanded, setExpanded] = useState(true);
+
+    const toggleExpanded = () => {
+        setExpanded(!expanded);
     };
 
     const body = (
@@ -96,22 +148,63 @@ const PaymentModal = () => {
                 <p>Confirmación de compra</p>
             </Box>
             <Box className={classes.subscriptionSelection}>
-                <ShoppingCartOutlinedIcon className={classes.icon} />
+                <CardMedia
+                    className={classes.media}
+                    image="../"
+                    title="Contemplative Reptile"
+                />
                 <Box className={classes.subscriptionInformation}>
+                    {/*<LottieF animationData={yellowCodi} />*/}
                     <p>{"<Semanal>"} </p>
                     <p>15$</p>
                 </Box>
             </Box>
             <Box className={classes.paymentInformation}>
-                <ShoppingCartOutlinedIcon className={classes.icon} />
+                <Box className={classes.circle}>1</Box>
                 <p>Datos de Pago</p>
+                <IconButton
+                    className={clsx(classes.expand, {
+                        [classes.expandOpen]: expanded,
+                    })}
+                    onClick={toggleExpanded}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                >
+                    <ExpandMoreIcon className={classes.expandIcon} />
+                </IconButton>
             </Box>
-            <Box>
-                <CreditCard />
+            <Box className={classes.cardContainer}>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CreditCard
+                        editable={true}
+                        cardInfo={cardInfo}
+                        setCardInfo={setCardInfo}
+                    />
+                </Collapse>
             </Box>
             <Box className={classes.paymentConfirmation}>
-                <ShoppingCartOutlinedIcon className={classes.icon} />
+                <Box className={classes.circle}>2</Box>
                 <p>Confirmación de Pago</p>
+                <IconButton
+                    className={clsx(classes.expand, {
+                        [classes.expandOpen]: !expanded,
+                    })}
+                    onClick={toggleExpanded}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                >
+                    <ExpandMoreIcon className={classes.expandIcon} />
+                </IconButton>
+            </Box>
+
+            <Box className={classes.cardContainer}>
+                <Collapse in={!expanded} timeout="auto" unmountOnExit>
+                    <CreditCard
+                        editable={false}
+                        cardInfo={cardInfo}
+                        setCardInfo={setCardInfo}
+                    />
+                </Collapse>
             </Box>
             <Box className={classes.bottomContainer}>
                 <Box className={classes.AmountInformation}>

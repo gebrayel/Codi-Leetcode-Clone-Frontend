@@ -49,6 +49,34 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         justifyContent: "space-between",
     },
+    paymentInformation: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        borderBottom: "solid 1px white",
+    },
+    paymentConfirmation: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        borderTop: "solid 1px white",
+    },
+    bottomContainer: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        borderTop: "solid 1px white",
+    },
+    AmountInformation: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+    },
 }));
 
 const PaymentModal = () => {
@@ -73,19 +101,19 @@ const PaymentModal = () => {
                     <p>15$</p>
                 </Box>
             </Box>
-            <Box>
+            <Box className={classes.paymentInformation}>
                 <ShoppingCartOutlinedIcon className={classes.icon} />
                 <p>Datos de Pago</p>
             </Box>
             <Box>
                 <CreditCard />
             </Box>
-            <Box>
+            <Box className={classes.paymentConfirmation}>
                 <ShoppingCartOutlinedIcon className={classes.icon} />
                 <p>Confirmación de Pago</p>
             </Box>
-            <Box>
-                <Box className={classes.subscriptionInformation}>
+            <Box className={classes.bottomContainer}>
+                <Box className={classes.AmountInformation}>
                     <p>{"<Semanal>"} </p>
                     <p>15$</p>
                 </Box>

@@ -7,6 +7,7 @@ import { Grid, TextField } from "@material-ui/core";
 const useStyles = makeStyles({
     root: {
         alignContent: "center",
+        padding: "15px 0",
     },
     cardContainer: {
         width: "80%",
@@ -84,6 +85,7 @@ const CreditCard = ({ cardInfo, setCardInfo, editable }) => {
     return (
         <>
             <Grid
+                className={classes.root}
                 direction="row"
                 justify="center"
                 alignItems="center"
@@ -116,9 +118,10 @@ const CreditCard = ({ cardInfo, setCardInfo, editable }) => {
                                 variant="outlined"
                                 defaultValue={cardInfo.number}
                                 className={`${classes.whiteTheme} ${classes.numberInput}`}
-                                inputProps={
-                                    ({ maxLength: 16 }, { readOnly: !editable })
-                                }
+                                inputProps={{
+                                    maxLength: 16,
+                                    readOnly: !editable,
+                                }}
                                 InputProps={{ style: { color: "white" } }}
                                 InputLabelProps={{ style: { color: "white" } }}
                                 onChange={handlerNumberInputChange}
@@ -135,9 +138,10 @@ const CreditCard = ({ cardInfo, setCardInfo, editable }) => {
                                 variant="outlined"
                                 defaultValue={cardInfo.name}
                                 className={`${classes.whiteTheme} ${classes.nameInput}`}
-                                inputProps={
-                                    ({ maxLength: 20 }, { readOnly: !editable })
-                                }
+                                inputProps={{
+                                    maxLength: 20,
+                                    readOnly: !editable,
+                                }}
                                 InputProps={{
                                     style: { color: "white" },
                                 }}
@@ -152,9 +156,10 @@ const CreditCard = ({ cardInfo, setCardInfo, editable }) => {
                                 variant="outlined"
                                 defaultValue={cardInfo.expiry}
                                 className={`${classes.whiteTheme} ${classes.otherInputs}`}
-                                inputProps={
-                                    ({ maxLength: 4 }, { readOnly: !editable })
-                                }
+                                inputProps={{
+                                    maxLength: 4,
+                                    readOnly: !editable,
+                                }}
                                 InputProps={{ style: { color: "white" } }}
                                 InputLabelProps={{ style: { color: "white" } }}
                                 onChange={handlerNumberInputChange}
@@ -167,9 +172,10 @@ const CreditCard = ({ cardInfo, setCardInfo, editable }) => {
                                 variant="outlined"
                                 defaultValue={cardInfo.cvc}
                                 className={`${classes.whiteTheme} ${classes.otherInputs}`}
-                                inputProps={
-                                    ({ maxLength: 3 }, { readOnly: !editable })
-                                }
+                                inputProps={{
+                                    maxLength: 3,
+                                    readOnly: !editable,
+                                }}
                                 InputProps={{ style: { color: "white" } }}
                                 InputLabelProps={{ style: { color: "white" } }}
                                 onChange={handlerNumberInputChange}

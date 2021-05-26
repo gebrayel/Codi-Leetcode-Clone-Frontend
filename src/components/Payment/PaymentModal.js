@@ -11,6 +11,7 @@ import {
     Modal,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import LottieF from "../LottieFile/LottieFile";
 import clsx from "clsx";
 import CreditCard from "./CreditCard";
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
     icon: {
         color: "white",
-        padding: "0 20px",
+        padding: "0 10px 0 20px",
     },
     subscriptionSelection: {
         width: "100%",
@@ -78,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "white",
         borderRadius: "100%",
         color: "#282A36",
+        margin: "0 10px 0 20px",
     },
     paymentConfirmation: {
         width: "100%",
@@ -88,6 +90,11 @@ const useStyles = makeStyles((theme) => ({
     },
     cardContainer: {
         borderBottom: "solid 1px white",
+        "& .MuiCollapse-wrapperInner": {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+        },
     },
     bottomContainer: {
         width: "100%",
@@ -102,6 +109,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+        paddingLeft: "20px",
     },
     expand: {
         transform: "rotate(0deg)",
@@ -208,7 +216,7 @@ const PaymentModal = () => {
             </Box>
             <Box className={classes.bottomContainer}>
                 <Box className={classes.AmountInformation}>
-                    <p>{"<Semanal>"} </p>
+                    <p>Total de Compra: </p>
                     <p>15$</p>
                 </Box>
                 <ShoppingCartOutlinedIcon className={classes.icon} />

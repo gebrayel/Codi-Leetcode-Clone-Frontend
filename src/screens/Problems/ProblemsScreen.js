@@ -12,49 +12,51 @@ const ProblemsScreen = (
     const query = useQuery();
     const [problems, setProblems] = useState([]);
 
+    const spanishDifficulty = {
+        easy: "Fácil",
+        medium: "Intermedio",
+        hard: "Difícil",
+    };
+
+    function createData(id, problem_id, description, difficulty, solved) {
+        difficulty = spanishDifficulty[difficulty];
+        var color = "";
+        if (id % 2 == 0) {
+            color = "#7E84A7";
+        } else {
+            color = "#5E627D";
+        }
+        return { problem_id, description, difficulty, solved, color };
+    }
+
     useEffect(() => {
         const difficulty = query.get("difficulty");
         const getProblems = async (difficulty) => {
             const probs = await problemAPI.getProblemsByDifficulty(difficulty);
-            setProblems(probs);
-        }
+            let arrayProbs = [];
+
+            for (let i in probs) {
+                arrayProbs.push(
+                    createData(
+                        i,
+                        probs[i].problem_id,
+                        probs[i].description,
+                        probs[i].difficulty,
+                        false
+                    )
+                );
+            }
+            console.log(probs);
+            setProblems(arrayProbs);
+        };
         getProblems(difficulty);
     }, []);
-
-    
-    
-    function createData(Numero, Title, Difficulty, Solved) {
-        var color = "";
-        if (Numero % 2 == 0) {
-            var color = "#9399BC";
-        } else {
-            var color = "#7E84A7";
-        }
-        return { Numero, Title, Difficulty, Solved, color };
-    }
-
-    const rows = [
-        createData(1, "Fibonacci", "Intermedio", "1"),
-        createData(2, "Numeros primos", "Facil", "0"),
-        createData(3, "Dijkstra", "Dificil", "1"),
-        createData(4, "DFS", "Intermedio", "0"),
-        createData(5, "Binary Search", "Intermedio", "1"),
-        createData(6, "Palindromo", "Facil", "0"),
-        createData(7, "Numeros vampiros", "Intermedio", "1"),
-        createData(8, "Numeros oblongo", "Facil", "0"),
-        createData(9, "Ordenar vector", "Facil", "1"),
-        createData(10, "Unir dos vectores", "Facil", "0"),
-        createData(7, "Numeros vampiros", "Intermedio", "1"),
-        createData(8, "Numeros oblongo", "Facil", "0"),
-        createData(9, "Ordenar vector", "Facil", "1"),
-        createData(10, "Unir dos vectores", "Facil", "0"),
-    ];
 
     return (
         <div className="ProblemScreenContainer">
             <div className="ProblemListContainer">
                 <h1 className="ProblemScreenTitle"> Problemas </h1>
-                <ProblemList rows={rows} />
+                <ProblemList rows={problems} />
             </div>
         </div>
     );

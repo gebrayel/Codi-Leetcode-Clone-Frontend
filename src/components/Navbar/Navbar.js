@@ -5,7 +5,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
-import Link from '@material-ui/core/Link';
 //icons
 import MenuIcon from '@material-ui/icons/Menu';
 import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
@@ -14,14 +13,10 @@ import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 //icons//
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Button from '@material-ui/core/Button'
 import grey from '@material-ui/core/colors/grey'
-import {Link as NLink, BrowserRouter as Router, Switch as RSwitch, Route} from 'react-router-dom'
+import {Link as NLink} from 'react-router-dom'
 import Codi_Icon from '../../assets/blue_codi.png'
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';

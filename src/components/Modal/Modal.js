@@ -9,7 +9,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import AppContext from '../../helpers/context/context'
-import logOut from '../../helpers/logout/logout.js/logout';
+import logout from '../../helpers/logout/logout';
 
 const Modal = ({
   variant,
@@ -43,7 +43,7 @@ const Modal = ({
 
   const handleCloseLogOut = () => {
     setOpen(false);
-    LogOut.LogOut();
+    logout.logout();
     setUser(null);
     history.push('/');
   };

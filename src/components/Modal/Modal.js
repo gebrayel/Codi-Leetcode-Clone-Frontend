@@ -43,7 +43,7 @@ const Modal = ({
 
   const handleCloseLogOut = () => {
     setOpen(false);
-    logout.logout();
+    logout.logOut();
     setUser(null);
     history.push('/');
   };

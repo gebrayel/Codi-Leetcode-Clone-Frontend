@@ -21,10 +21,15 @@ const getAllProblems = async () => {
  * @param {String} difficulty dificultad
  * @returns Arreglo de problemas
  */
-const getProblemsByDifficulty = async (difficulty) => {
+const getProblemsByDifficulty = async (difficulty, user) => {
     const url = endpoint + difficulty;
+    const userID = user.google_id;
     try {
-        const response  = await axios.get(url);
+        const response  = await axios.get(url, {
+            params: {
+                "google_id": userID
+            }
+        });
         return response.data;
     } catch (error) {
         return error;

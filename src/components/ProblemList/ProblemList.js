@@ -25,7 +25,7 @@ const ProblemList = ({ rows }) => {
             format: (value) => value.toLocaleString("en-US"),
         },
         {
-            id: "Solved",
+            id: "solved",
             label: "Solucionado",
             minWidth: 100,
             align: "right",
@@ -101,8 +101,8 @@ const ProblemList = ({ rows }) => {
                                             {columns.map((column) => {
                                                 const value = row[column.id];
 
-                                                if (column.id === "Solved") {
-                                                    if (value === "1") {
+                                                if (column.id === "solved") {
+                                                    if (value === true) {
                                                         return (
                                                             <TableCell
                                                                 style={{
@@ -139,7 +139,7 @@ const ProblemList = ({ rows }) => {
                                                                     column.align
                                                                 }
                                                             >
-                                                                {column.Solved}
+                                                                {column.solved}
                                                                 <CancelIcon />
                                                             </TableCell>
                                                         );

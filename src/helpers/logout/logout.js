@@ -3,5 +3,5 @@ const logOut = () => {
 }
 
 export default {
-    logOut,
+   logOut,
 };

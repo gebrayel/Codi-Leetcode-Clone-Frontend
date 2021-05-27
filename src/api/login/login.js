@@ -18,6 +18,10 @@ const postLogin = async (user, setUser) => {
         const response = await axios.post(endpoint, {
             user: userInfo,
         });
+        if(response.data[0]){
+            userInfo['pic_url'] = response.data[0]['pic_url'];
+            userInfo['name'] = response.data[0]['name']
+        }
         userInfo['is_admin'] = response.data[0]['is_admin'] ? response.data[0]['is_admin'] : false;
         setUserLocally(userInfo, setUser);
         return response.data;

@@ -8,8 +8,6 @@ import SubscriptionScreen from "../screens/Subscription/SubscriptionScreen";
 import ProblemsScreen from "../screens/Problems/ProblemsScreen";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
 import Page404 from "../screens/404/404";
-import PaymentScreen from "../screens/Payment/PaymentScreen";
-import AdminRoute from "./AdminRoute";
 
 export const UserRoutes = () => {
     return (
@@ -24,32 +22,31 @@ export const UserRoutes = () => {
                     <SubscriptionScreen />
                 </PrivateRoute>
 
-            <PrivateRoute 
-                path="/problems"
-            >
-                <ProblemsScreen />
-            </PrivateRoute>
+                <PrivateRoute 
+                    path="/problems"
+                >
+                    <ProblemsScreen />
+                </PrivateRoute>
 
-            <PrivateRoute 
-                path="/profile"
-            >
-                <ProfileScreen />
-            </PrivateRoute>
+                <PrivateRoute 
+                    path="/profile"
+                >
+                    <ProfileScreen />
+                </PrivateRoute>
 
-            <PrivateRoute 
-                path="/payment_success"
-            >
-                <ProfileScreen />
-            </PrivateRoute>
-            
+                <PrivateRoute 
+                    path="/payment_success"
+                >
+                    <ProfileScreen />
+                </PrivateRoute>
 
-            <Route
+                <Route
                     path="*"
                     exact
                 >
-                    <Page404 />
-            </Route>
-        </Switch>
+                        <Page404 />
+                </Route>
+            </Switch>
         </>
     );
 };

@@ -12,26 +12,15 @@ export default function AdminRoute({
         <Route 
             {...rest}
             render={({ location }) => 
-                user ? (
-                    userObject.is_admin ? (
-
-                        children
-                    ):(
+                user && userObject.is_admin ? children : 
+                    (
                         <Redirect 
-                        to={{
-                            pathname: "/",
-                            state: { from: location }
-                        }}
-                    />
+                            to={{
+                                pathname: "/",
+                                state: { from: location }
+                            }}
+                        />
                     )
-                ) : (
-                    <Redirect 
-                        to={{
-                            pathname: "/",
-                            state: { from: location }
-                        }}
-                    />
-                )
             }
         />
     )

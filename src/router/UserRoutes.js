@@ -9,6 +9,7 @@ import ProblemsScreen from "../screens/Problems/ProblemsScreen";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
 import Page404 from "../screens/404/404";
 import PaymentScreen from "../screens/Payment/PaymentScreen";
+import AdminRoute from "./AdminRoute";
 
 export const UserRoutes = () => {
     return (
@@ -40,6 +41,7 @@ export const UserRoutes = () => {
             >
                 <ProfileScreen />
             </PrivateRoute>
+            
 
             <Route
                     path="*"

@@ -9,7 +9,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import AppContext from '../../helpers/context/context'
-import LogOut from '../../helpers/LogOut/Logout';
+import LogOut from '../../helpers/LogOut/LogOut';
 
 const Modal = ({
   variant,

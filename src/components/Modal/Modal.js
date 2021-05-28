@@ -54,7 +54,7 @@ const Modal = ({
   };
   
   const modalButtonDesing =(modalTitle,text)=>{
-    if(modalDesing==="mobile" && modalTitle==="Cerrar Sesion") return <ListItem><ListItemIcon><ExitToAppIcon/></ListItemIcon>{text}</ListItem> 
+    if(modalDesing==="mobile" && modalTitle==="Cerrar Sesion") return <ListItem style={{paddingLeft:'12px'}}><ListItemIcon><ExitToAppIcon/></ListItemIcon>{text}</ListItem> 
     
     return text;
   }

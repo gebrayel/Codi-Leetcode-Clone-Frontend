@@ -8,13 +8,14 @@ const endpoint = "/login/";
  * @param {Function} setUser almacenar el usuario en la variable global
  * @returns {Array} Info del usuario
  */
-const postLogin = async (user, setUser) => {
+const postLogin = async (user, setUser, setIsLoading) => {
     const userInfo = {
         google_id: user.uid,
         name: user.displayName,
         pic_url: user.photoURL,
     };
     try{
+        setIsLoading(true);
         const response = await axios.post(endpoint, {
             user: userInfo,
         });
@@ -24,9 +25,11 @@ const postLogin = async (user, setUser) => {
         }
         userInfo['is_admin'] = response.data[0]['is_admin'] ? response.data[0]['is_admin'] : false;
         setUserLocally(userInfo, setUser);
+        setIsLoading(false);
         return response.data;
     }
     catch(error){
+        setIsLoading(false);
         return error;
     }
 }

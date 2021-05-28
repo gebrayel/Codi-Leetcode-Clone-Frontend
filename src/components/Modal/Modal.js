@@ -8,10 +8,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ListItem from '@material-ui/core/ListItem';
+
 import AppContext from '../../helpers/context/context'
 import logout from '../../helpers/logout/logout';
 
 const Modal = ({
+  modalDesing,
+  modalTitle,
   variant,
   color,
   text, 
@@ -41,22 +47,31 @@ const Modal = ({
     setOpen(false);
   };
 
-  const handleCloseLogOut = () => {
+  const handleCloseLogOut = (modalTitle) => {
     setOpen(false);
-    logout.logOut();
-    setUser(null);
-    history.push('/');
+    if(modalTitle==="Cerrar Sesion") {logout.logOut(); setUser(null); history.push('/');}
+    
   };
+  
+  const modalButtonDesing =(modalTitle,text)=>{
+    if(modalDesing==="mobile" && modalTitle==="Cerrar Sesion") return <ListItem><ListItemIcon><ExitToAppIcon/></ListItemIcon>{text}</ListItem> 
+    
+    return text;
+  }
+  
 
+    return (
 
-    return ( 
         <div style={{width:"100%",justifyContent:"flex-start"}}>
+          
+
           {variant.trim()==='' ?       
             <Button color={color} onClick={handleClickOpen} style={{width:"100%",paddingLeft:"15px",  justifyContent:"flex-start"}}>
-              {text}
-            </Button> :
+              {modalButtonDesing(modalTitle,text)}
+            </Button> 
+            :
             <Button variant={variant} color={color} onClick={handleClickOpen} style={{width:"100%",paddingLeft:"15px",  justifyContent:"flex-start"}}>
-              {text}
+            {modalButtonDesing(modalTitle,text)} 
             </Button>
           }
           <Dialog
@@ -77,7 +92,7 @@ const Modal = ({
               <Button onClick={handleClose} color="primary">
                 {acceptText}
               </Button>
-              <Button onClick={handleCloseLogOut} color="secondary" autoFocus>
+              <Button onClick={()=>handleCloseLogOut(modalTitle)} color="secondary" autoFocus>
                 {cancelText}
               </Button>
             </DialogActions>

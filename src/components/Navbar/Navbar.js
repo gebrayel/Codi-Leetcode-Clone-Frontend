@@ -252,6 +252,8 @@ export default function Navbar() {
                       <MenuItem style={{padding:"0px"}} onClick={handleClose}>
 
                         <Modal
+                          modalDesing={"desktop"}
+                          modalTitle={"Cerrar Sesion"}  
                           variant={msg.variant}
                           color={msg.color}
                           text={msg.text}
@@ -350,11 +352,12 @@ export default function Navbar() {
           </ListItem>
           
           
-          <ListItem  button key={'Cerrar Sesión'}>
-            <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+            
             <div style={{padding:"0px"}} className={classes.modal} >
               
-              <Modal 
+              <Modal
+                modalDesing={"mobile"}
+                modalTitle={"Cerrar Sesion"}
                 variant={msg.variant}
                 color={msg.color}
                 text={msg.text}
@@ -364,7 +367,7 @@ export default function Navbar() {
               />
             </div>
             
-          </ListItem>
+          
 
         </List>      
       </>

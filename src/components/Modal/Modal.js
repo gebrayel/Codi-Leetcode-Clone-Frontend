@@ -50,12 +50,12 @@ const Modal = ({
 
 
     return ( 
-        <div>
+        <div style={{width:"100%",justifyContent:"flex-start"}}>
           {variant.trim()==='' ?       
-            <Button color={color} onClick={handleClickOpen}>
+            <Button color={color} onClick={handleClickOpen} style={{width:"100%",paddingLeft:"15px",  justifyContent:"flex-start"}}>
               {text}
             </Button> :
-            <Button variant={variant} color={color} onClick={handleClickOpen}>
+            <Button variant={variant} color={color} onClick={handleClickOpen} style={{width:"100%",paddingLeft:"15px",  justifyContent:"flex-start"}}>
               {text}
             </Button>
           }

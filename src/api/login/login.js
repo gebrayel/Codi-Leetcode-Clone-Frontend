@@ -40,6 +40,7 @@ const postLogin = async (user, setUser, setIsLoading) => {
  * @param {Function} setUser almacenar el usuario en la variable global
  */
 const setUserLocally = (user, setUser) => {
+    
     localStorage.setItem('user', JSON.stringify(user));
     setUser(user);
 }

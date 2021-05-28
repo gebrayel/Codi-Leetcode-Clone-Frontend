@@ -12,6 +12,7 @@ import CardMembershipIcon from '@material-ui/icons/CardMembership';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import AppsIcon from '@material-ui/icons/Apps';
 //icons//
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -124,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
 
   const [auth, setAuth] = useState(true);
-
+  const user = JSON.parse(localStorage.getItem('user'));
   
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -200,6 +201,7 @@ export default function Navbar() {
                 <Typography variant="h7" >
                   <NLink to = '/premium' className={classes.linkStyle}>Premium</NLink>
                 </Typography>
+
               </div>
             </div>
             
@@ -233,14 +235,32 @@ export default function Navbar() {
                 >
                   <NLink to = '/' className={classes.DrawerlinkStyle}><MenuItem onClick={handleClose}>Perfil</MenuItem></NLink>
                   
-                  <Modal 
-                    variant={msg.variant}
-                    color={msg.color}
-                    text={msg.text}
-                    description={msg.description}
-                    acceptText={msg.acceptText}
-                    cancelText={msg.cancelText}
-                  />
+                  {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
+                  
+                {
+                  user.is_admin 
+                  ? 
+                    
+                      <NLink  to = '/hola' className={classes.DrawerlinkStyle}>
+                        <MenuItem onClick={handleClose}>Administrar Problemas</MenuItem>
+                      </NLink>
+                    
+                  : null
+                }
+                  
+                  
+                      <MenuItem style={{padding:"0px"}} onClick={handleClose}>
+
+                        <Modal
+                          variant={msg.variant}
+                          color={msg.color}
+                          text={msg.text}
+                          description={msg.description}
+                          acceptText={msg.acceptText}
+                          cancelText={msg.cancelText}
+                        />
+                      </MenuItem>
+                    
                   
                 </Menu>
               </div>
@@ -306,28 +326,46 @@ export default function Navbar() {
           <ListItemIcon><CardMembershipIcon/></ListItemIcon>
           <ListItemText primary={'Premium'} />
         </ListItem>
+
+        {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
+                  
+        {
+          user.is_admin 
+          ? 
+            
+            <ListItem button key={'Administrar Problemas'}>
+              <ListItemIcon><AppsIcon/></ListItemIcon>
+                    <ListItemText primary={'Administrar Problemas'} />
+            </ListItem>
         
+          : null
+        }
+
         </List>
         <Divider />
         <List>
           <ListItem button key={'Perfil'}>
                 <ListItemIcon><PersonIcon/></ListItemIcon>
                 <ListItemText primary={'Perfil'} />
-              </ListItem>
-              <ListItem  button key={'Cerrar Sesión'}>
-                <ListItemIcon><ExitToAppIcon/></ListItemIcon>
-                <div className={classes.modal} >
-                 <Modal 
-                    variant={msg.variant}
-                    color={msg.color}
-                    text={msg.text}
-                    description={msg.description}
-                    acceptText={msg.acceptText}
-                    cancelText={msg.cancelText}
-                  />
-                </div>
-                
-            </ListItem>
+          </ListItem>
+          
+          
+          <ListItem  button key={'Cerrar Sesión'}>
+            <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+            <div style={{padding:"0px"}} className={classes.modal} >
+              
+              <Modal 
+                variant={msg.variant}
+                color={msg.color}
+                text={msg.text}
+                description={msg.description}
+                acceptText={msg.acceptText}
+                cancelText={msg.cancelText}
+              />
+            </div>
+            
+          </ListItem>
+
         </List>      
       </>
     )

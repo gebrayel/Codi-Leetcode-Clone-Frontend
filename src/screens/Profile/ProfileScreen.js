@@ -1,18 +1,20 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import DoughnutPieChart from "../../components/DoughnutPieChart/DoughnutPieChart"
+import Chart from "../../components/Chart/Chart"
 
 export default function ProfileScreen({ x, ...props }) {
     const classes = useStyles(props);
 
     return (
         <div className={classes.doughnut_container}>
-            <DoughnutPieChart   labels={['Faltante','Facil', 'Medio', 'Dificil']} 
-                        data={[20,30,25,25]} 
-                        colors={['#FFCD56', '#FF9F40', '#36A2EB', '#FF6384']}
-                        font_color="white"
-                        type="Pie"
-                        />
+            <Chart   
+                labels={['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre']} 
+                data={[10, 50, 20, 30, 50, 10, 45, 37, 7]} 
+                colors={['#FF6384']}
+                font_color="white"
+                type="line"
+                label="Actividad"
+            />
         </div>
     );
 }

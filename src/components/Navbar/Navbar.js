@@ -5,7 +5,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
-import Link from '@material-ui/core/Link';
 //icons
 import MenuIcon from '@material-ui/icons/Menu';
 import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
@@ -13,22 +12,20 @@ import CardMembershipIcon from '@material-ui/icons/CardMembership';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import AppsIcon from '@material-ui/icons/Apps';
 //icons//
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Button from '@material-ui/core/Button'
 import grey from '@material-ui/core/colors/grey'
-import {Link as NLink, BrowserRouter as Router, Switch as RSwitch, Route} from 'react-router-dom'
+import {Link as NLink} from 'react-router-dom'
 import Codi_Icon from '../../assets/blue_codi.png'
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
+//Import modal Component
+import Modal from "../Modal/Modal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -119,12 +116,16 @@ const useStyles = makeStyles((theme) => ({
   list: {
     width: 250,
   },
+  modal:{
+    marginLeft:"-10px",
+    paddingLeft:"0px"
+  }
 }));
 
 export default function Navbar() {
 
   const [auth, setAuth] = useState(true);
-
+  const user = JSON.parse(localStorage.getItem('user'));
   
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -163,8 +164,17 @@ export default function Navbar() {
   const preventDefault = (event) => event.preventDefault();
 
   const title = "<Codi/>"
-
+  
+  const msg = {
+    variant: '',
+    color:'secondary',
+    text:'Cerrar Sesion',
+    description:'¿Estás seguro seguro de que deseas cerrar sesión?',
+    acceptText:'Volver a Codi.',
+    cancelText:'Cerrar sesión.'
+  }
   const displayDesktop = () =>{
+    
     return (
       <Toolbar className={classes.toolbar}>
             {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -191,6 +201,7 @@ export default function Navbar() {
                 <Typography variant="h7" >
                   <NLink to = '/premium' className={classes.linkStyle}>Premium</NLink>
                 </Typography>
+
               </div>
             </div>
             
@@ -223,7 +234,36 @@ export default function Navbar() {
                   onClose={handleClose}
                 >
                   <NLink to = '/' className={classes.DrawerlinkStyle}><MenuItem onClick={handleClose}>Perfil</MenuItem></NLink>
-                  <NLink to = '/' className={classes.DrawerlinkStyle}><MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem></NLink>
+                  
+                  {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
+                  
+                {
+                  user.is_admin 
+                  ? 
+                    
+                      <NLink  to = '/hola' className={classes.DrawerlinkStyle}>
+                        <MenuItem onClick={handleClose}>Administrar Problemas</MenuItem>
+                      </NLink>
+                    
+                  : null
+                }
+                  
+                  
+                      <MenuItem style={{padding:"0px"}} onClick={handleClose}>
+
+                        <Modal
+                          modalDesing={"desktop"}
+                          modalTitle={"Cerrar Sesion"}  
+                          variant={msg.variant}
+                          color={msg.color}
+                          text={msg.text}
+                          description={msg.description}
+                          acceptText={msg.acceptText}
+                          cancelText={msg.cancelText}
+                        />
+                      </MenuItem>
+                    
+                  
                 </Menu>
               </div>
             
@@ -288,18 +328,47 @@ export default function Navbar() {
           <ListItemIcon><CardMembershipIcon/></ListItemIcon>
           <ListItemText primary={'Premium'} />
         </ListItem>
+
+        {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
+                  
+        {
+          user.is_admin 
+          ? 
+            
+            <ListItem button key={'Administrar Problemas'}>
+              <ListItemIcon><AppsIcon/></ListItemIcon>
+                    <ListItemText primary={'Administrar Problemas'} />
+            </ListItem>
         
+          : null
+        }
+
         </List>
         <Divider />
         <List>
           <ListItem button key={'Perfil'}>
                 <ListItemIcon><PersonIcon/></ListItemIcon>
                 <ListItemText primary={'Perfil'} />
-              </ListItem>
-              <ListItem button key={'Cerrar Sesión'}>
-              <ListItemIcon><ExitToAppIcon/></ListItemIcon>
-              <ListItemText primary={'Cerrar Sesión'} />
-            </ListItem>
+          </ListItem>
+          
+          
+            
+            <div style={{padding:"0px"}} className={classes.modal} >
+              
+              <Modal
+                modalDesing={"mobile"}
+                modalTitle={"Cerrar Sesion"}
+                variant={msg.variant}
+                color={msg.color}
+                text={msg.text}
+                description={msg.description}
+                acceptText={msg.acceptText}
+                cancelText={msg.cancelText}
+              />
+            </div>
+            
+          
+
         </List>      
       </>
     )

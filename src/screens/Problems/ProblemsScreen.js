@@ -1,61 +1,54 @@
-import React, { Component, Fragment, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import ProblemList from "../../components/problemList";
-import useQuery from "../../hooks/useQuery/useQuery";
+import AppContext from "../../helpers/context/context";
+import colors from "../../config/colors/colors";
+import ProblemList from "../../components/ProblemList/ProblemList";
 import problemAPI from "../../api/problems/problems";
+import RobotLoader from "../../components/RobotLoader/RobotLoader";
+import useQuery from "../../hooks/useQuery/useQuery";
 
-const ProblemsScreen = (
-    {
-        /*rows*/
-    }
-) => {
+const ProblemsScreen = () => {
     const query = useQuery();
     const [problems, setProblems] = useState([]);
+    const user = JSON.parse(localStorage.getItem('user'));
+    const { isLoading, setIsLoading } = useContext(AppContext);
+
+    const spanishDifficulty = {
+        easy: "Fácil",
+        medium: "Intermedio",
+        hard: "Difícil",
+    };
 
     useEffect(() => {
         const difficulty = query.get("difficulty");
-        const getProblems = async (difficulty) => {
-            const probs = await problemAPI.getProblemsByDifficulty(difficulty);
-            setProblems(probs);
-        }
-        getProblems(difficulty);
+        const getProblems = async (difficulty, user) => {
+            setIsLoading(true);
+            const probs = await problemAPI.getProblemsByDifficulty(difficulty, user);
+            let arrayProbs = probs.map((prob, index) => {
+                return { ...prob, 
+                    color: index % 2 === 0 ? colors.evenRow : colors.oddRow,
+                    difficulty: spanishDifficulty[prob.difficulty] 
+                }
+            })
+            setProblems(arrayProbs);
+            setIsLoading(false);
+        };
+        getProblems(difficulty, user);
     }, []);
-
-    
-    
-    function createData(Numero, Title, Difficulty, Solved) {
-        var color = "";
-        if (Numero % 2 == 0) {
-            var color = "#9399BC";
-        } else {
-            var color = "#7E84A7";
-        }
-        return { Numero, Title, Difficulty, Solved, color };
-    }
-
-    const rows = [
-        createData(1, "Fibonacci", "Intermedio", "1"),
-        createData(2, "Numeros primos", "Facil", "0"),
-        createData(3, "Dijkstra", "Dificil", "1"),
-        createData(4, "DFS", "Intermedio", "0"),
-        createData(5, "Binary Search", "Intermedio", "1"),
-        createData(6, "Palindromo", "Facil", "0"),
-        createData(7, "Numeros vampiros", "Intermedio", "1"),
-        createData(8, "Numeros oblongo", "Facil", "0"),
-        createData(9, "Ordenar vector", "Facil", "1"),
-        createData(10, "Unir dos vectores", "Facil", "0"),
-        createData(7, "Numeros vampiros", "Intermedio", "1"),
-        createData(8, "Numeros oblongo", "Facil", "0"),
-        createData(9, "Ordenar vector", "Facil", "1"),
-        createData(10, "Unir dos vectores", "Facil", "0"),
-    ];
 
     return (
         <div className="ProblemScreenContainer">
+        { isLoading ? 
+        (
+            <RobotLoader />
+        ) :
+        (
             <div className="ProblemListContainer">
                 <h1 className="ProblemScreenTitle"> Problemas </h1>
-                <ProblemList rows={rows} />
+                <ProblemList rows={problems} />
             </div>
+        )}
+            
         </div>
     );
 };

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import AppContext from './helpers/context/context';
 
 import AppRouter from './router/AppRouter.js';
-
 function App() {
   const [user, setUser] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   /**
    * Restaurar usuario si ya se ha iniciado sesión
@@ -21,6 +21,7 @@ function App() {
   return (
     <AppContext.Provider value={{
       user, setUser,
+      isLoading, setIsLoading,
     }}>
       <AppRouter/>
     </AppContext.Provider>

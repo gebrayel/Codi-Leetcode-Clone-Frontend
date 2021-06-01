@@ -6,7 +6,8 @@ export default function PrivateRoute({
     ...rest
 }) {
     const user = localStorage.getItem('user');
-
+    
+    
     return (
         <Route 
             {...rest}

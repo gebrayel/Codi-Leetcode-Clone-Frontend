@@ -2,7 +2,7 @@ import React from "react";
 import { Switch,Route } from "react-router-dom";
 
 import DifficultiesScreen from "../screens/Difficulties/Difficulties";
-import Navbar from "../components/Navbar/Navbar"
+import Navbar from "../components/Navbar/Navbar";
 import PrivateRoute from "./PrivateRoute";
 import SubscriptionScreen from "../screens/Subscription/SubscriptionScreen";
 import ProblemsScreen from "../screens/Problems/ProblemsScreen";
@@ -12,47 +12,41 @@ import Page404 from "../screens/404/404";
 export const UserRoutes = () => {
     return (
         <>
-        <Navbar/>
-        <Switch>
-            <PrivateRoute
-                path="/difficulties"
-                exact
-            >
-                <DifficultiesScreen />
-            </PrivateRoute>
+            <Navbar />
+            <Switch>
+                <PrivateRoute path="/difficulties" exact>
+                    <DifficultiesScreen />
+                </PrivateRoute>
 
-            <PrivateRoute 
-                path="/premium"
-                exact
-            >
-                <SubscriptionScreen />
-            </PrivateRoute>
+                <PrivateRoute path="/premium" exact>
+                    <SubscriptionScreen />
+                </PrivateRoute>
 
-            <PrivateRoute 
-                path="/problems"
-            >
-                <ProblemsScreen />
-            </PrivateRoute>
+                <PrivateRoute 
+                    path="/problems"
+                >
+                    <ProblemsScreen />
+                </PrivateRoute>
 
-            <Route 
-                path="/profile"
-            >
-                <ProfileScreen />
-            </Route>
+                <PrivateRoute 
+                    path="/profile"
+                >
+                    <ProfileScreen />
+                </PrivateRoute>
 
-            <Route 
-                path="/payment_success"
-            >
-                <ProfileScreen />
-            </Route>
+                <PrivateRoute 
+                    path="/payment_success"
+                >
+                    <ProfileScreen />
+                </PrivateRoute>
 
-            <Route
+                <Route
                     path="*"
                     exact
                 >
-                    <Page404 />
+                        <Page404 />
                 </Route>
-        </Switch>
+            </Switch>
         </>
     );
 };

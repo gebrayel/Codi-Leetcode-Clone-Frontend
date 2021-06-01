@@ -9,10 +9,10 @@ export default function ProfileScreen({ x, ...props }) {
         <div className={classes.doughnut_container}>
             <Chart   
                 labels={['Faltante','Facil', 'Medio', 'Dificil']} 
-                data={[1, 1, 0, 0]} 
+                data={[10, 50, 20, 30]} 
                 colors={['#FFCD56', '#FF9F40', '#36A2EB', '#FF6384']}
                 font_color="white"
-                type="Doughnut"
+                type="Pie"
             />
         </div>
     );

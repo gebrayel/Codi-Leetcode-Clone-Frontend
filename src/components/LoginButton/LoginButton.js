@@ -8,7 +8,7 @@ import fb from "../../config/firebase/firebaseAuth";
 export default function LoginButton({
     type,
 }) {
-    const { setUser } = useContext(AppContext);
+    const { setUser, setIsLoading } = useContext(AppContext);
     const history = useHistory();
 
     /**
@@ -18,7 +18,7 @@ export default function LoginButton({
         let user;
         switch (type.toLowerCase()) {
             case "google":
-                user = await fb.loginWithGoogle(setUser);
+                user = await fb.loginWithGoogle(setUser, setIsLoading);
                 break;
             case "github":
                 user = await fb.loginWithGithub(setUser);

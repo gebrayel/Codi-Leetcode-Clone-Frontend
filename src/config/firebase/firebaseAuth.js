@@ -9,12 +9,12 @@ const providerGitHub = new firebase.default.auth.GithubAuthProvider();
  * @param {Function} setUser Setear usuario global
  */
 
-const loginWithGoogle = async (setUser) => {
+const loginWithGoogle = async (setUser, setIsLoading) => {
   try {
     const result = await firebase.default.auth().signInWithPopup(providerGoogle);
     if(result){
       const user = result.user;
-      return await login.postLogin(user, setUser);
+      return await login.postLogin(user, setUser, setIsLoading);
     }
   }
   catch(error){

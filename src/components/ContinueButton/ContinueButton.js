@@ -8,13 +8,15 @@ const useStyles = makeStyles((theme) => ({
         color: "#282A36",
         backgroundColor: "white",
         fontWeight: "700",
-        fontSize: "10px",
         height: "30px",
         width: "170px",
         borderRadius: "30px",
         "&:hover": {
             backgroundColor: "#282A36",
             color: "white",
+        },
+        [theme.breakpoints.down("xs")]: {
+            fontSize: "10px",
         },
     },
     circle: {

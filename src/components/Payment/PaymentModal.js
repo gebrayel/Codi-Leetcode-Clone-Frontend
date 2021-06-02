@@ -176,6 +176,8 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         setExpanded(!expanded);
     };
 
+    const toggleConfirmation = () => {};
+
     const body = (
         <Box className={classes.container}>
             <Box className={classes.shoppingConfirmation}>

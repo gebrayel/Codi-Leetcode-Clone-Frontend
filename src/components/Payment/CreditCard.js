@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
         width: "80%",
         height: "30vh",
         marginBottom: "10px",
+        [theme.breakpoints.down("xs")]: {
+            height: "22.5vh",
+            padding: "0 13%",
+        },
     },
     whiteTheme: {
         margin: "5px",
@@ -41,13 +45,13 @@ const useStyles = makeStyles((theme) => ({
         "& .MuiOutlinedInput-input": {
             textTransform: "uppercase",
         },
-        [theme.breakpoints.up("xs")]: {
+        [theme.breakpoints.down("xs")]: {
             width: "calc(100% - 10px)",
         },
     },
     otherInputs: {
         width: "calc(25% - 10px)",
-        [theme.breakpoints.up("xs")]: {
+        [theme.breakpoints.down("xs")]: {
             width: "calc(50% - 10px)",
         },
     },

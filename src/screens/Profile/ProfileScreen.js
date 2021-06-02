@@ -4,6 +4,8 @@ import Chart from "../../components/Chart/Chart";
 import { RefreshSharp } from "@material-ui/icons";
 import user from "../../api/user/user";
 import AppContext from "../../helpers/context/context";
+import IconButton from "@material-ui/core/IconButton";
+import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
 
 export default function ProfileScreen({ x, ...props }) {
   const classes = useStyles(props);
@@ -20,6 +22,7 @@ export default function ProfileScreen({ x, ...props }) {
     return (
       <div className={classes.textButtom}>
         <input type="text" id="text" defaultValue={text.value} />
+
         <button
           onClick={() => {
             console.log(document.getElementById("text").value);
@@ -57,6 +60,13 @@ export default function ProfileScreen({ x, ...props }) {
     return (
       <div className={classes.textButtom}>
         <div className={classes.textname}>{text.value}</div>
+        <IconButton
+          onClick={() => {
+            setText({ ...text, editMode: !text.editMode });
+          }}
+        >
+          <EditTwoToneIcon style={{ fontSize: "3rem", color: "yellow" }} />
+        </IconButton>
         <button
           onClick={() => {
             setText({ ...text, editMode: !text.editMode });

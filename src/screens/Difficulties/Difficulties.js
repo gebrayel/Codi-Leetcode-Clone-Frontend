@@ -22,7 +22,7 @@ export default function Difficulties(props) {
                     <LottieF animationData={kitty}/>
                 </Box>
             </Box>
-            <Button className={classes.buttonAll} onClick={() => history.push("/problems?difficulty=")} variant="contained" color="primary">
+            <Button className={classes.buttonAll} onClick={() => history.push("/problems?difficulty=all")} variant="contained" color="primary">
                 /*Todos*/
             </Button>
             <Box

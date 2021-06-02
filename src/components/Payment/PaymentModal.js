@@ -249,7 +249,9 @@ const PaymentModal = () => {
         <>
             <button onClick={() => toggleModal()}>Abrir Modal</button>
             <Modal className={classes.modal} open={modal} onClose={toggleModal}>
-                <Grid md={4}>{body}</Grid>
+                <Grid xs={11} sm={8} md={6} lg={4} xl={4}>
+                    {body}
+                </Grid>
             </Modal>
         </>
     );

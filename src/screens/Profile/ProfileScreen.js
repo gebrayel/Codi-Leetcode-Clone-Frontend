@@ -1,48 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chart from "../../components/Chart/Chart";
 import { RefreshSharp } from "@material-ui/icons";
+import user from "../../api/user/user";
+import AppContext from "../../helpers/context/context";
 
 export default function ProfileScreen({ x, ...props }) {
+  const classes = useStyles(props);
   let locvalue = localStorage.getItem("user");
   locvalue = JSON.parse(locvalue);
-  const classes = useStyles(props);
   let [text, setText] = useState({
     value: locvalue["name"],
     editMode: false,
     modif: "",
   });
-  const image = () => {
-    return (
-      <img
-        src={locvalue["pic_url"]}
-        alt="Girl in a jacket"
-        width="250rem"
-        height="250rem"
-        style={{ borderRadius: "50%" }}
-      />
-    );
-  };
-  const changeEditMode = () => {
-    // setText({ ...text, editMode: !text.editMode });
-  };
-  const updateValue = () => {
-    // setText({
-    //   ...text,
-    //   editMode: false,
-    // });
-  };
+  const userC = useContext(AppContext);
+
   const textEdition = () => {
     return (
       <div>
         <input
           type="text"
           onChange={(e) => {
-            console.log(e.target.value);
-            console.log(text.value);
             setText({ ...text, modif: e.target.value });
-            console.log(text.value);
-            console.log(text.modif);
           }}
           id="text"
           defaultValue={text.value}
@@ -50,16 +30,29 @@ export default function ProfileScreen({ x, ...props }) {
         <button
           onClick={() => {
             setText({ ...text, editMode: !text.editMode, modif: "" });
-            console.log(text.value);
+            locvalue.name = "hola";
+            console.log(locvalue);
           }}
         >
           X
         </button>
         <button
           onClick={() => {
-            let a = text.modif;
-            setText({ ...text, modif: "", value: a, editMode: false });
-            console.log(text.value);
+            try {
+              let textModified = text.modif;
+              user.putUser(userC.user, userC.setUser, textModified).then(() => {
+                setText({
+                  ...text,
+                  modif: "",
+                  value: textModified,
+                  editMode: false,
+                });
+                locvalue.name = textModified;
+                localStorage.setItem("user", JSON.stringify(locvalue));
+              });
+            } catch (error) {
+              setText({ ...text, editMode: !text.editMode, modif: "" });
+            }
           }}
         >
           Ok
@@ -84,8 +77,16 @@ export default function ProfileScreen({ x, ...props }) {
   };
   return (
     <div style={{ marginTop: "5rem" }}>
-      {image()}
-      {text.editMode ? textEdition() : textView()}
+      <div>
+        <img
+          src={locvalue["pic_url"]}
+          alt="Girl in a jacket"
+          width="250rem"
+          height="250rem"
+          style={{ borderRadius: "50%" }}
+        />
+        {text.editMode ? textEdition() : textView()}
+      </div>
       <div className={classes.doughnut_container}>
         <Chart
           labels={["Faltante", "Facil", "Medio", "Dificil"]}
@@ -105,4 +106,5 @@ const useStyles = makeStyles((theme) => ({
     height: 400,
     width: 400,
   },
+  imgText: {},
 }));

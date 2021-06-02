@@ -4,9 +4,10 @@ import "react-credit-cards/es/styles-compiled.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, TextField } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         alignContent: "center",
+        padding: "15px 0",
     },
     cardContainer: {
         width: "80%",
@@ -40,22 +41,20 @@ const useStyles = makeStyles({
         "& .MuiOutlinedInput-input": {
             textTransform: "uppercase",
         },
+        [theme.breakpoints.up("xs")]: {
+            width: "calc(100% - 10px)",
+        },
     },
     otherInputs: {
         width: "calc(25% - 10px)",
+        [theme.breakpoints.up("xs")]: {
+            width: "calc(50% - 10px)",
+        },
     },
-});
+}));
 
-const CreditCard = () => {
+const CreditCard = ({ cardInfo, setCardInfo, editable }) => {
     const classes = useStyles();
-
-    const [cardInfo, setCardInfo] = useState({
-        number: "",
-        name: "",
-        expiry: "",
-        cvc: "",
-        focused: "",
-    });
 
     const handlerInputChange = (e) => {
         setCardInfo({
@@ -92,6 +91,7 @@ const CreditCard = () => {
     return (
         <>
             <Grid
+                className={classes.root}
                 direction="row"
                 justify="center"
                 alignItems="center"
@@ -124,11 +124,15 @@ const CreditCard = () => {
                                 variant="outlined"
                                 defaultValue={cardInfo.number}
                                 className={`${classes.whiteTheme} ${classes.numberInput}`}
-                                inputProps={{ maxLength: 16 }}
+                                inputProps={{
+                                    maxLength: 16,
+                                    readOnly: !editable,
+                                }}
                                 InputProps={{ style: { color: "white" } }}
                                 InputLabelProps={{ style: { color: "white" } }}
                                 onChange={handlerNumberInputChange}
                                 onFocus={handlerFocusChange}
+                                autoComplete="off"
                             />
                         </Grid>
 
@@ -140,12 +144,17 @@ const CreditCard = () => {
                                 variant="outlined"
                                 defaultValue={cardInfo.name}
                                 className={`${classes.whiteTheme} ${classes.nameInput}`}
+                                inputProps={{
+                                    maxLength: 20,
+                                    readOnly: !editable,
+                                }}
                                 InputProps={{
                                     style: { color: "white" },
                                 }}
                                 InputLabelProps={{ style: { color: "white" } }}
                                 onChange={handlerInputChange}
                                 onFocus={handlerFocusChange}
+                                autoComplete="off"
                             />
                             <TextField
                                 name="expiry"
@@ -153,11 +162,15 @@ const CreditCard = () => {
                                 variant="outlined"
                                 defaultValue={cardInfo.expiry}
                                 className={`${classes.whiteTheme} ${classes.otherInputs}`}
-                                inputProps={{ maxLength: 4 }}
+                                inputProps={{
+                                    maxLength: 4,
+                                    readOnly: !editable,
+                                }}
                                 InputProps={{ style: { color: "white" } }}
                                 InputLabelProps={{ style: { color: "white" } }}
                                 onChange={handlerNumberInputChange}
                                 onFocus={handlerFocusChange}
+                                autoComplete="off"
                             />
                             <TextField
                                 name="cvc"
@@ -165,11 +178,15 @@ const CreditCard = () => {
                                 variant="outlined"
                                 defaultValue={cardInfo.cvc}
                                 className={`${classes.whiteTheme} ${classes.otherInputs}`}
-                                inputProps={{ maxLength: 3 }}
+                                inputProps={{
+                                    maxLength: 3,
+                                    readOnly: !editable,
+                                }}
                                 InputProps={{ style: { color: "white" } }}
                                 InputLabelProps={{ style: { color: "white" } }}
                                 onChange={handlerNumberInputChange}
                                 onFocus={handlerFocusChange}
+                                autoComplete="off"
                             />
                         </Grid>
                     </Grid>

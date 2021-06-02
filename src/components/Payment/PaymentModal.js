@@ -176,7 +176,31 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         setExpanded(!expanded);
     };
 
-    const toggleConfirmation = () => {};
+    const validateFields = () => {
+        return (
+            cardInfo.number.length == 16 &&
+            cardInfo.name.length >= 4 &&
+            cardInfo.expiry.length == 4 &&
+            validateDate() &&
+            cardInfo.cvc.length == 3
+        );
+    };
+
+    const validateDate = () => {
+        let actualDate = new Date(
+            "20" + cardInfo.expiry.substring(2),
+            +cardInfo.expiry.substring(0, 2),
+            0
+        );
+        let today = new Date();
+        return actualDate >= today;
+    };
+
+    const toggleConfirmation = () => {
+        if (validateFields()) {
+            toggleExpanded();
+        }
+    };
 
     const body = (
         <Box className={classes.container}>
@@ -200,7 +224,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             </Box>
             <Box
                 className={classes.paymentInformation}
-                onClick={toggleExpanded}
+                onClick={toggleConfirmation}
             >
                 <Box className={classes.circle}>1</Box>
                 <p>Datos de Pago</p>
@@ -225,7 +249,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             </Box>
             <Box
                 className={classes.paymentConfirmation}
-                onClick={toggleExpanded}
+                onClick={toggleConfirmation}
             >
                 <Box className={classes.circle}>2</Box>
                 <p>Confirmación de Pago</p>

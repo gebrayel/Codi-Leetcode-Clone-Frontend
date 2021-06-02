@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import CreditCard from "./CreditCard";
 import ContinueButton from "../ContinueButton/ContinueButton";
+import colors from "../../config/colors/colors";
 import date from "../../helpers/date/date";
 import k from "../../helpers/constants/constants";
 import yellowCodi from "../../assets/yellow_codi.png";
@@ -182,14 +183,14 @@ const useStyles = makeStyles((theme) => ({
     modal: {
         width: "100vw",
         height: "100vh",
-        color: "white",
-        backgroundColor: "#282A3650",
+        color: colors.white,
+        backgroundColor: colors.paymentModalBackground,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
     },
     container: {
-        backgroundColor: "#282A36",
+        backgroundColor: colors.background,
         borderRadius: "20px",
         display: "flex",
         flexDirection: "column",
@@ -213,7 +214,7 @@ const useStyles = makeStyles((theme) => ({
         borderBottom: "solid 1px white",
     },
     icon: {
-        color: "white",
+        color: colors.white,
         padding: "0 10px 0 20px",
     },
     subscriptionSelection: {
@@ -259,9 +260,9 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "white",
+        backgroundColor: colors.white,
         borderRadius: "100%",
-        color: "#282A36",
+        color: colors.darkText,
         margin: "0 10px 0 20px",
         [theme.breakpoints.down("xs")]: {
             width: "20px",
@@ -311,7 +312,7 @@ const useStyles = makeStyles((theme) => ({
         transform: "rotate(180deg)",
     },
     expandIcon: {
-        color: "white",
+        color: colors.white,
     },
 }));
 

@@ -1,34 +1,9 @@
 import React from "react";
-import { Button, Icon } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-    button: {
-        color: "#282A36",
-        backgroundColor: "white",
-        fontWeight: "700",
-        height: "30px",
-        width: "170px",
-        borderRadius: "30px",
-        "&:hover": {
-            backgroundColor: "#282A36",
-            color: "white",
-        },
-        [theme.breakpoints.down("xs")]: {
-            fontSize: "10px",
-        },
-    },
-    circle: {
-        width: "25px",
-        height: "25px",
-        borderRadius: "200%",
-        backgroundColor: "#282A36",
-    },
-    arrow: {
-        color: "white",
-    },
-}));
+import colors from "../../config/colors/colors";
 
 const ContinueButton = ({ buttonText, setButtonText, onClick }) => {
     const classes = useStyles();
@@ -49,5 +24,32 @@ const ContinueButton = ({ buttonText, setButtonText, onClick }) => {
         </Button>
     );
 };
+
+const useStyles = makeStyles((theme) => ({
+    button: {
+        color: colors.darkText,
+        backgroundColor: colors.white,
+        fontWeight: "700",
+        height: "30px",
+        width: "170px",
+        borderRadius: "30px",
+        "&:hover": {
+            backgroundColor: colors.background,
+            color: colors.white,
+        },
+        [theme.breakpoints.down("xs")]: {
+            fontSize: "10px",
+        },
+    },
+    circle: {
+        width: "25px",
+        height: "25px",
+        borderRadius: "200%",
+        backgroundColor: colors.background,
+    },
+    arrow: {
+        color: colors.white,
+    },
+}));
 
 export default ContinueButton;

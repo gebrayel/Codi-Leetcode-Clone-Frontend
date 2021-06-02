@@ -18,20 +18,12 @@ export default function ProfileScreen({ x, ...props }) {
 
   const textEdition = () => {
     return (
-      <div>
-        <input
-          type="text"
-          onChange={(e) => {
-            setText({ ...text, modif: e.target.value });
-          }}
-          id="text"
-          defaultValue={text.value}
-        />
+      <div className={classes.textButtom}>
+        <input type="text" id="text" defaultValue={text.value} />
         <button
           onClick={() => {
+            console.log(document.getElementById("text").value);
             setText({ ...text, editMode: !text.editMode, modif: "" });
-            locvalue.name = "hola";
-            console.log(locvalue);
           }}
         >
           X
@@ -39,7 +31,7 @@ export default function ProfileScreen({ x, ...props }) {
         <button
           onClick={() => {
             try {
-              let textModified = text.modif;
+              let textModified = document.getElementById("text").value;
               user.putUser(userC.user, userC.setUser, textModified).then(() => {
                 setText({
                   ...text,
@@ -63,8 +55,8 @@ export default function ProfileScreen({ x, ...props }) {
   const textView = () => {
     console.log(text.value);
     return (
-      <div>
-        <div>{text.value}</div>
+      <div className={classes.textButtom}>
+        <div className={classes.textname}>{text.value}</div>
         <button
           onClick={() => {
             setText({ ...text, editMode: !text.editMode });
@@ -78,13 +70,7 @@ export default function ProfileScreen({ x, ...props }) {
   return (
     <div style={{ marginTop: "5rem" }}>
       <div>
-        <img
-          src={locvalue["pic_url"]}
-          alt="Girl in a jacket"
-          width="250rem"
-          height="250rem"
-          style={{ borderRadius: "50%" }}
-        />
+        <img src={locvalue["pic_url"]} alt="avatar" className={classes.image} />
         {text.editMode ? textEdition() : textView()}
       </div>
       <div className={classes.doughnut_container}>
@@ -106,5 +92,18 @@ const useStyles = makeStyles((theme) => ({
     height: 400,
     width: 400,
   },
-  imgText: {},
+  image: {
+    width: "15rem",
+    height: "15rem",
+    borderRadius: "50%",
+  },
+  textname: {
+    fontSize: "2rem",
+    color: "white",
+    fontWeight: "20px",
+  },
+  textButtom: {
+    display: "flex",
+    justifyContent: "spaceBetween",
+  },
 }));

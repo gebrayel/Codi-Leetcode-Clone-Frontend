@@ -15,6 +15,8 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import LottieF from "../LottieFile/LottieFile";
 import clsx from "clsx";
 import CreditCard from "./CreditCard";
+import ContinueButton from "../ContinueButton/ContinueButton";
+import { CallReceived } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -97,11 +99,12 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     bottomContainer: {
-        width: "100%",
+        width: "calc(100% - 40px)",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+        padding: "0 20px",
     },
     AmountInformation: {
         width: "100%",
@@ -109,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingLeft: "20px",
+        paddingRight: "20px",
     },
     expand: {
         transform: "rotate(0deg)",
@@ -219,7 +222,7 @@ const PaymentModal = () => {
                     <p>Total de Compra: </p>
                     <p>15$</p>
                 </Box>
-                <ShoppingCartOutlinedIcon className={classes.icon} />
+                <ContinueButton />
             </Box>
         </Box>
     );

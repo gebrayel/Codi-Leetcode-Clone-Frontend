@@ -65,15 +65,8 @@ export default function ProfileScreen({ x, ...props }) {
             setText({ ...text, editMode: !text.editMode });
           }}
         >
-          <EditTwoToneIcon style={{ fontSize: "3rem", color: "yellow" }} />
+          <EditTwoToneIcon style={{ fontSize: "3rem", color: "#869BFF" }} />
         </IconButton>
-        <button
-          onClick={() => {
-            setText({ ...text, editMode: !text.editMode });
-          }}
-        >
-          edit
-        </button>
       </div>
     );
   };

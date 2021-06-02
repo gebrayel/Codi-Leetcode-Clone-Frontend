@@ -1,6 +1,7 @@
 export default {
     //General
     background: "#282A36",
+    white: "#fff",
     //Difficulty Box
     boxBackground: 'rgba(126, 132, 167, 0.63)',
     boxBackgroundHover: 'rgba(126, 132, 167, 0.829)',

@@ -1,16 +1,17 @@
-import React, { Component, Fragment, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
+import AppContext from "../../helpers/context/context";
+import colors from "../../config/colors/colors";
 import ProblemList from "../../components/ProblemList/ProblemList";
-import useQuery from "../../hooks/useQuery/useQuery";
 import problemAPI from "../../api/problems/problems";
+import RobotLoader from "../../components/RobotLoader/RobotLoader";
+import useQuery from "../../hooks/useQuery/useQuery";
 
-const ProblemsScreen = (
-    {
-        /*rows*/
-    }
-) => {
+const ProblemsScreen = () => {
     const query = useQuery();
     const [problems, setProblems] = useState([]);
+    const user = JSON.parse(localStorage.getItem('user'));
+    const { isLoading, setIsLoading } = useContext(AppContext);
 
     const spanishDifficulty = {
         easy: "Fácil",
@@ -18,46 +19,36 @@ const ProblemsScreen = (
         hard: "Difícil",
     };
 
-    function createData(id, problem_id, description, difficulty, solved) {
-        difficulty = spanishDifficulty[difficulty];
-        var color = "";
-        if (id % 2 == 0) {
-            color = "#7E84A7";
-        } else {
-            color = "#5E627D";
-        }
-        return { problem_id, description, difficulty, solved, color };
-    }
-
     useEffect(() => {
         const difficulty = query.get("difficulty");
-        const getProblems = async (difficulty) => {
-            const probs = await problemAPI.getProblemsByDifficulty(difficulty);
-            let arrayProbs = [];
-
-            for (let i in probs) {
-                arrayProbs.push(
-                    createData(
-                        i,
-                        probs[i].problem_id,
-                        probs[i].description,
-                        probs[i].difficulty,
-                        false
-                    )
-                );
-            }
-            console.log(probs);
+        const getProblems = async (difficulty, user) => {
+            setIsLoading(true);
+            const probs = await problemAPI.getProblemsByDifficulty(difficulty, user);
+            let arrayProbs = probs.map((prob, index) => {
+                return { ...prob, 
+                    color: index % 2 === 0 ? colors.evenRow : colors.oddRow,
+                    difficulty: spanishDifficulty[prob.difficulty] 
+                }
+            })
             setProblems(arrayProbs);
+            setIsLoading(false);
         };
-        getProblems(difficulty);
+        getProblems(difficulty, user);
     }, []);
 
     return (
         <div className="ProblemScreenContainer">
+        { isLoading ? 
+        (
+            <RobotLoader />
+        ) :
+        (
             <div className="ProblemListContainer">
                 <h1 className="ProblemScreenTitle"> Problemas </h1>
                 <ProblemList rows={problems} />
             </div>
+        )}
+            
         </div>
     );
 };

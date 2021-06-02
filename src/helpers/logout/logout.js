@@ -1,7 +1,7 @@
-const logout = () => {
+const logOut = () => {
     localStorage.removeItem('user');
 }
 
 export default {
-    logout,
-}
+   logOut,
+};

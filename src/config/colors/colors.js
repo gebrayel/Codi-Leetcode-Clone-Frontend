@@ -7,6 +7,7 @@ export default {
     easy: "#fff",
     medium: "#32EDE9",
     hard: "#F31483",
-    //Difficulty Screen
-    
+    //Problem List
+    evenRow: "#7E84A7",
+    oddRow: "#5E627D"
 }

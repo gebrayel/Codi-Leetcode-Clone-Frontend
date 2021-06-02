@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        [theme.breakpoints.down("xs")]: {
+            fontSize: "13px",
+        },
     },
     grid: {
         outline: "none",
@@ -70,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
     image: {
         width: "auto",
         height: "52px",
+        [theme.breakpoints.down("xs")]: {
+            height: "40px",
+        },
     },
     package: {
         width: "100%",
@@ -96,6 +102,10 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "100%",
         color: "#282A36",
         margin: "0 10px 0 20px",
+        [theme.breakpoints.down("xs")]: {
+            width: "20px",
+            height: "20px",
+        },
     },
     paymentConfirmation: {
         width: "100%",

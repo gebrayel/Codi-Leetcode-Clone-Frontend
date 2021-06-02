@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
         color: "#282A36",
         backgroundColor: "white",
         fontWeight: "700",
+        fontSize: "10px",
         height: "30px",
         width: "170px",
         borderRadius: "30px",

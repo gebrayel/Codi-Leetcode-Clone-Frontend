@@ -4,7 +4,7 @@ import "react-credit-cards/es/styles-compiled.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, TextField } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         alignContent: "center",
         padding: "15px 0",
@@ -41,11 +41,17 @@ const useStyles = makeStyles({
         "& .MuiOutlinedInput-input": {
             textTransform: "uppercase",
         },
+        [theme.breakpoints.up("xs")]: {
+            width: "calc(100% - 10px)",
+        },
     },
     otherInputs: {
         width: "calc(25% - 10px)",
+        [theme.breakpoints.up("xs")]: {
+            width: "calc(50% - 10px)",
+        },
     },
-});
+}));
 
 const CreditCard = ({ cardInfo, setCardInfo, editable }) => {
     const classes = useStyles();

@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
     },
     grid: {
         outline: "none",
+        [theme.breakpoints.up("sm")]: {
+            maxWidth: "540px",
+        },
     },
     shoppingConfirmation: {
         width: "100%",
@@ -140,7 +143,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-//H
 const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const classes = useStyles();
 
@@ -249,10 +251,10 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             >
                 <Grid
                     xs={11}
-                    sm={8}
-                    md={6}
-                    lg={4}
-                    xl={4}
+                    sm={10}
+                    md={7}
+                    lg={5}
+                    xl={3}
                     className={classes.grid}
                 >
                     {body}

@@ -194,14 +194,16 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                     </Box>
                 </Box>
             </Box>
-            <Box className={classes.paymentInformation}>
+            <Box
+                className={classes.paymentInformation}
+                onClick={toggleExpanded}
+            >
                 <Box className={classes.circle}>1</Box>
                 <p>Datos de Pago</p>
                 <IconButton
                     className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
                     })}
-                    onClick={toggleExpanded}
                     aria-expanded={expanded}
                     aria-label="show more"
                 >

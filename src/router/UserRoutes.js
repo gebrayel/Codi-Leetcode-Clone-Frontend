@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 import SubscriptionScreen from "../screens/Subscription/SubscriptionScreen";
 import ProblemsScreen from "../screens/Problems/ProblemsScreen";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
+import PaymentSuccessScreen from "../screens/Payment_Success/PaymentSuccessScreen";
 import Page404 from "../screens/404/404";
 
 export const UserRoutes = () => {
@@ -37,7 +38,7 @@ export const UserRoutes = () => {
                 <PrivateRoute 
                     path="/payment_success"
                 >
-                    <ProfileScreen />
+                    <PaymentSuccessScreen />
                 </PrivateRoute>
 
                 <Route

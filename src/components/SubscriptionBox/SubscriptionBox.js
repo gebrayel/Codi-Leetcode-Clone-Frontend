@@ -141,7 +141,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Roboto',
         fontStyle: 'normal',
         fontWeight: 'bold',
-        fontSize: '1.4rem',
+        fontSize: '1rem',
         color: 'black',
         [theme.breakpoints.down('xs')]: {
             fontSize: '1rem',

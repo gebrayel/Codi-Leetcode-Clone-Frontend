@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
         margin: 0,
         color: "rgba(255, 255, 255, 0.63)",
         textAlign: "center",
-        fontSize: "2.0vw",
+        fontSize: "1.8vw",
         padding: 25,
         [theme.breakpoints.down("md")]: {
             fontSize: "2.0vw",

@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ContinueButton = () => {
+const ContinueButton = ({ buttonText, setButtonText, onClick }) => {
     const classes = useStyles();
 
     return (
@@ -43,8 +43,9 @@ const ContinueButton = () => {
                     <ArrowForwardIcon className={classes.arrow} />
                 </div>
             }
+            onClick={onClick}
         >
-            Continuar
+            {buttonText}
         </Button>
     );
 };

@@ -170,6 +170,8 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         focused: "",
     });
 
+    const [buttonText, setButtonText] = useState("Continuar");
+
     const [expanded, setExpanded] = useState(true);
 
     const toggleExpanded = () => {
@@ -199,6 +201,17 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const toggleConfirmation = () => {
         if (validateFields()) {
             toggleExpanded();
+            if (buttonText == "Continuar") {
+                setButtonText("Confirmar");
+            } else {
+                setButtonText("Continuar");
+            }
+        }
+    };
+
+    const buttonNext = () => {
+        if (expanded) {
+            toggleConfirmation();
         }
     };
 
@@ -257,7 +270,6 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                     className={clsx(classes.expand, {
                         [classes.expandOpen]: !expanded,
                     })}
-                    onClick={toggleExpanded}
                     aria-expanded={expanded}
                     aria-label="show more"
                 >
@@ -279,7 +291,11 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                     <p>Total de Compra: </p>
                     <p> {price} </p>
                 </Box>
-                <ContinueButton />
+                <ContinueButton
+                    buttonText={buttonText}
+                    setButtonText={setButtonText}
+                    onClick={() => buttonNext()}
+                />
             </Box>
         </Box>
     );

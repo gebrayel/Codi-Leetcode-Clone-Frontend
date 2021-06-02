@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Chart from "../../components/Chart/Chart"
-import { Box, Grid } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import LottieF from '../../components/LottieFile/LottieFile';
 import payment from '../../assets/animations/payment.json';
 import colors from "../../config/colors/colors";

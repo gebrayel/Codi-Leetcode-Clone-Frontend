@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     button404: {
-        background: '#A8A8A8',
+        background: 'rgba(126, 132, 167, 0.63)',
         color: '#ECECEC',
         fontFamily: 'Roboto',
         fontStyle: 'normal',

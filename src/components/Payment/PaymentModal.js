@@ -27,10 +27,6 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        outline: "none",
-        "&:focus": {
-            outline: "none",
-        },
     },
     container: {
         backgroundColor: "#282A36",
@@ -39,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+    },
+    grid: {
+        outline: "none",
     },
     shoppingConfirmation: {
         width: "100%",
@@ -141,12 +140,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PaymentModal = () => {
+const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const classes = useStyles();
 
-    //Delete
-    let price = "15,00$";
-    let plan = "<Semanal>";
+    const toggleModal = () => {
+        setModal(!modal);
+    };
 
     const [cardInfo, setCardInfo] = useState({
         number: "",
@@ -155,12 +154,6 @@ const PaymentModal = () => {
         cvc: "",
         focused: "",
     });
-
-    const [modal, setModal] = useState(false);
-
-    const toggleModal = () => {
-        setModal(!modal);
-    };
 
     const [expanded, setExpanded] = useState(true);
 
@@ -183,7 +176,7 @@ const PaymentModal = () => {
                 <Box className={classes.subscriptionInformation}>
                     <img className={classes.image} src={yellowCodi} />
                     <Box className={classes.package}>
-                        <p> {plan} </p>
+                        <p> {subscription} </p>
                         <p> {price} </p>
                     </Box>
                 </Box>
@@ -247,9 +240,20 @@ const PaymentModal = () => {
 
     return (
         <>
-            <button onClick={() => toggleModal()}>Abrir Modal</button>
-            <Modal className={classes.modal} open={modal} onClose={toggleModal}>
-                <Grid xs={11} sm={8} md={6} lg={4} xl={4}>
+            <Modal
+                className={classes.modal}
+                open={modal}
+                onClose={toggleModal}
+                disableAutoFocus={true}
+            >
+                <Grid
+                    xs={11}
+                    sm={8}
+                    md={6}
+                    lg={4}
+                    xl={4}
+                    className={classes.grid}
+                >
                     {body}
                 </Grid>
             </Modal>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import clsx from "clsx";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import yellowCodi from "../../assets/yellow_codi.png";
 import {
     Box,
     CardMedia,
@@ -11,25 +11,186 @@ import {
     Modal,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import LottieF from "../LottieFile/LottieFile";
-import clsx from "clsx";
+
 import CreditCard from "./CreditCard";
 import ContinueButton from "../ContinueButton/ContinueButton";
-import { CallReceived } from "@material-ui/icons";
+import colors from "../../config/colors/colors";
+import date from "../../helpers/date/date";
+import k from "../../helpers/constants/constants";
+import yellowCodi from "../../assets/yellow_codi.png";
+
+const PaymentModal = ({ modal, setModal, price, subscription }) => {
+    const classes = useStyles();
+
+    const toggleModal = () => {
+        setModal(!modal);
+    };
+
+    const [cardInfo, setCardInfo] = useState({
+        number: "",
+        name: "",
+        expiry: "",
+        cvc: "",
+        focused: "",
+    });
+
+    const [buttonText, setButtonText] = useState("Continuar");
+
+    const [expanded, setExpanded] = useState(true);
+
+    const toggleExpanded = () => {
+        setExpanded(!expanded);
+    };
+
+    const validateFields = () => {
+        return (
+            cardInfo.number.length === k.cardNumberLength &&
+            cardInfo.name.length >= k.cardNameLength &&
+            cardInfo.expiry.length === k.cardExpiryLength &&
+            date.validateDate(cardInfo.expiry) &&
+            cardInfo.cvc.length === k.cardCvcLength
+        );
+    };
+
+    const toggleConfirmation = () => {
+        if (validateFields()) {
+            toggleExpanded();
+            if (buttonText == "Continuar") {
+                setButtonText("Confirmar");
+            } else {
+                setButtonText("Continuar");
+            }
+        }
+    };
+
+    const buttonNext = () => {
+        if (expanded) {
+            toggleConfirmation();
+        }
+    };
+
+    const body = (
+        <Box className={classes.container}>
+            <Box className={classes.shoppingConfirmation}>
+                <ShoppingCartOutlinedIcon className={classes.icon} />
+                <p>Confirmación de compra</p>
+            </Box>
+            <Box className={classes.subscriptionSelection}>
+                <CardMedia
+                    className={classes.media}
+                    image="../"
+                    title="Contemplative Reptile"
+                />
+                <Box className={classes.subscriptionInformation}>
+                    <img 
+                        className={classes.image} 
+                        src={yellowCodi} 
+                        alt="Yellow Codi"    
+                    />
+                    <Box className={classes.package}>
+                        <p> {subscription} </p>
+                        <p> {price} </p>
+                    </Box>
+                </Box>
+            </Box>
+            <Box
+                className={classes.paymentInformation}
+                onClick={toggleConfirmation}
+            >
+                <Box className={classes.circle}>1</Box>
+                <p>Datos de Pago</p>
+                <IconButton
+                    className={clsx(classes.expand, {
+                        [classes.expandOpen]: expanded,
+                    })}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                >
+                    <ExpandMoreIcon className={classes.expandIcon} />
+                </IconButton>
+            </Box>
+            <Box className={classes.cardContainer}>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CreditCard
+                        editable={true}
+                        cardInfo={cardInfo}
+                        setCardInfo={setCardInfo}
+                    />
+                </Collapse>
+            </Box>
+            <Box
+                className={classes.paymentConfirmation}
+                onClick={toggleConfirmation}
+            >
+                <Box className={classes.circle}>2</Box>
+                <p>Confirmación de Pago</p>
+                <IconButton
+                    className={clsx(classes.expand, {
+                        [classes.expandOpen]: !expanded,
+                    })}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                >
+                    <ExpandMoreIcon className={classes.expandIcon} />
+                </IconButton>
+            </Box>
+
+            <Box className={classes.cardContainer}>
+                <Collapse in={!expanded} timeout="auto" unmountOnExit>
+                    <CreditCard
+                        editable={false}
+                        cardInfo={cardInfo}
+                        setCardInfo={setCardInfo}
+                    />
+                </Collapse>
+            </Box>
+            <Box className={classes.bottomContainer}>
+                <Box className={classes.AmountInformation}>
+                    <p>Total de Compra: </p>
+                    <p> {price} </p>
+                </Box>
+                <ContinueButton
+                    buttonText={buttonText}
+                    setButtonText={setButtonText}
+                    onClick={() => buttonNext()}
+                />
+            </Box>
+        </Box>
+    );
+
+    return (
+        <Modal
+            className={classes.modal}
+            open={modal}
+            onClose={toggleModal}
+            disableAutoFocus={true}
+        >
+            <Grid
+                xs={11}
+                sm={10}
+                md={7}
+                lg={5}
+                xl={3}
+                className={classes.grid}
+            >
+                {body}
+            </Grid>
+        </Modal>
+    );
+};
 
 const useStyles = makeStyles((theme) => ({
     modal: {
         width: "100vw",
         height: "100vh",
-        color: "white",
-        backgroundColor: "#282A3650",
+        color: colors.white,
+        backgroundColor: colors.paymentModalBackground,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
     },
     container: {
-        backgroundColor: "#282A36",
+        backgroundColor: colors.background,
         borderRadius: "20px",
         display: "flex",
         flexDirection: "column",
@@ -53,7 +214,7 @@ const useStyles = makeStyles((theme) => ({
         borderBottom: "solid 1px white",
     },
     icon: {
-        color: "white",
+        color: colors.white,
         padding: "0 10px 0 20px",
     },
     subscriptionSelection: {
@@ -91,6 +252,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "row",
         alignItems: "center",
         borderBottom: "solid 1px white",
+        cursor: "pointer",
     },
     circle: {
         width: "25px",
@@ -98,9 +260,9 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "white",
+        backgroundColor: colors.white,
         borderRadius: "100%",
-        color: "#282A36",
+        color: colors.darkText,
         margin: "0 10px 0 20px",
         [theme.breakpoints.down("xs")]: {
             width: "20px",
@@ -113,6 +275,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "row",
         alignItems: "center",
         borderBottom: "solid 1px white",
+        cursor: "pointer",
     },
     cardContainer: {
         borderBottom: "solid 1px white",
@@ -149,129 +312,8 @@ const useStyles = makeStyles((theme) => ({
         transform: "rotate(180deg)",
     },
     expandIcon: {
-        color: "white",
+        color: colors.white,
     },
 }));
-
-const PaymentModal = ({ modal, setModal, price, subscription }) => {
-    const classes = useStyles();
-
-    const toggleModal = () => {
-        setModal(!modal);
-    };
-
-    const [cardInfo, setCardInfo] = useState({
-        number: "",
-        name: "",
-        expiry: "",
-        cvc: "",
-        focused: "",
-    });
-
-    const [expanded, setExpanded] = useState(true);
-
-    const toggleExpanded = () => {
-        setExpanded(!expanded);
-    };
-
-    const body = (
-        <Box className={classes.container}>
-            <Box className={classes.shoppingConfirmation}>
-                <ShoppingCartOutlinedIcon className={classes.icon} />
-                <p>Confirmación de compra</p>
-            </Box>
-            <Box className={classes.subscriptionSelection}>
-                <CardMedia
-                    className={classes.media}
-                    image="../"
-                    title="Contemplative Reptile"
-                />
-                <Box className={classes.subscriptionInformation}>
-                    <img className={classes.image} src={yellowCodi} />
-                    <Box className={classes.package}>
-                        <p> {subscription} </p>
-                        <p> {price} </p>
-                    </Box>
-                </Box>
-            </Box>
-            <Box className={classes.paymentInformation}>
-                <Box className={classes.circle}>1</Box>
-                <p>Datos de Pago</p>
-                <IconButton
-                    className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                    })}
-                    onClick={toggleExpanded}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <ExpandMoreIcon className={classes.expandIcon} />
-                </IconButton>
-            </Box>
-            <Box className={classes.cardContainer}>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CreditCard
-                        editable={true}
-                        cardInfo={cardInfo}
-                        setCardInfo={setCardInfo}
-                    />
-                </Collapse>
-            </Box>
-            <Box className={classes.paymentConfirmation}>
-                <Box className={classes.circle}>2</Box>
-                <p>Confirmación de Pago</p>
-                <IconButton
-                    className={clsx(classes.expand, {
-                        [classes.expandOpen]: !expanded,
-                    })}
-                    onClick={toggleExpanded}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <ExpandMoreIcon className={classes.expandIcon} />
-                </IconButton>
-            </Box>
-
-            <Box className={classes.cardContainer}>
-                <Collapse in={!expanded} timeout="auto" unmountOnExit>
-                    <CreditCard
-                        editable={false}
-                        cardInfo={cardInfo}
-                        setCardInfo={setCardInfo}
-                    />
-                </Collapse>
-            </Box>
-            <Box className={classes.bottomContainer}>
-                <Box className={classes.AmountInformation}>
-                    <p>Total de Compra: </p>
-                    <p> {price} </p>
-                </Box>
-                <ContinueButton />
-            </Box>
-        </Box>
-    );
-
-    return (
-        <>
-            <Modal
-                className={classes.modal}
-                open={modal}
-                onClose={toggleModal}
-                disableAutoFocus={true}
-            >
-                <Grid
-                    xs={11}
-                    sm={10}
-                    md={7}
-                    lg={5}
-                    xl={3}
-                    className={classes.grid}
-                >
-                    {body}
-                </Grid>
-            </Modal>
-        </>
-    );
-};
 
 export default PaymentModal;

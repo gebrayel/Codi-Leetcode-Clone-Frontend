@@ -1,7 +1,7 @@
 import React from "react";
-import { Pie, Doughnut } from 'react-chartjs-2';
+import { Pie, Doughnut, Bar, Line } from 'react-chartjs-2';
 
-export default function Chart({ labels, data, colors, font_color, type, ...props }) {
+export default function Chart({ labels, label, data, colors, font_color, type, ...props }) {
 
     const dataObject = {
         labels: labels,
@@ -10,8 +10,8 @@ export default function Chart({ labels, data, colors, font_color, type, ...props
                 data: data,
                 backgroundColor: colors,
                 borderColor: colors,
-                borderWidth: 1
-            }
+                borderWidth: 1,
+                label: label            }
         ]
     };
 
@@ -39,6 +39,20 @@ export default function Chart({ labels, data, colors, font_color, type, ...props
             case "pie":
                 return (
                     <Pie    
+                        data={dataObject}
+                        options={options}
+                    />
+                )
+            case "bar":
+                return (
+                    <Bar 
+                        data={dataObject}
+                        options={options}
+                    />
+                )
+            case "line":
+                return (
+                    <Line 
                         data={dataObject}
                         options={options}
                     />

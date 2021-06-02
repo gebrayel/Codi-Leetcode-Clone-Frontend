@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme) => ({
         height: "30px",
         width: "170px",
         borderRadius: "30px",
+        "&:hover": {
+            backgroundColor: "#282A36",
+            color: "white",
+        },
     },
     circle: {
         width: "25px",

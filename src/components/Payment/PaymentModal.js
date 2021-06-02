@@ -52,17 +52,29 @@ const useStyles = makeStyles((theme) => ({
         padding: "0 10px 0 20px",
     },
     subscriptionSelection: {
-        width: "100%",
+        width: "calc(100% - 35px)",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         borderBottom: "solid 1px white",
+        padding: "5px 20px 5px 15px",
     },
     subscriptionInformation: {
+        width: "calc(100% - 10px)",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    image: {
+        width: "auto",
+        height: "52px",
+    },
+    package: {
         width: "100%",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
+        paddingLeft: "10px",
         justifyContent: "space-between",
     },
     paymentInformation: {
@@ -112,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingRight: "20px",
+        paddingRight: "40px",
     },
     expand: {
         transform: "rotate(0deg)",
@@ -131,6 +143,10 @@ const useStyles = makeStyles((theme) => ({
 
 const PaymentModal = () => {
     const classes = useStyles();
+
+    //Delete
+    let price = "15,00$";
+    let plan = "<Semanal>";
 
     const [cardInfo, setCardInfo] = useState({
         number: "",
@@ -165,9 +181,11 @@ const PaymentModal = () => {
                     title="Contemplative Reptile"
                 />
                 <Box className={classes.subscriptionInformation}>
-                    {/*<LottieF animationData={yellowCodi} />*/}
-                    <p>{"<Semanal>"} </p>
-                    <p>15$</p>
+                    <img className={classes.image} src={yellowCodi} />
+                    <Box className={classes.package}>
+                        <p> {plan} </p>
+                        <p> {price} </p>
+                    </Box>
                 </Box>
             </Box>
             <Box className={classes.paymentInformation}>
@@ -220,7 +238,7 @@ const PaymentModal = () => {
             <Box className={classes.bottomContainer}>
                 <Box className={classes.AmountInformation}>
                     <p>Total de Compra: </p>
-                    <p>15$</p>
+                    <p> {price} </p>
                 </Box>
                 <ContinueButton />
             </Box>

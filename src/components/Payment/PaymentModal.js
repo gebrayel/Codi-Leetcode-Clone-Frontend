@@ -140,6 +140,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+//H
 const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const classes = useStyles();
 

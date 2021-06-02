@@ -91,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "row",
         alignItems: "center",
         borderBottom: "solid 1px white",
+        cursor: "pointer",
     },
     circle: {
         width: "25px",
@@ -113,6 +114,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "row",
         alignItems: "center",
         borderBottom: "solid 1px white",
+        cursor: "pointer",
     },
     cardContainer: {
         borderBottom: "solid 1px white",
@@ -219,7 +221,10 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                     />
                 </Collapse>
             </Box>
-            <Box className={classes.paymentConfirmation}>
+            <Box
+                className={classes.paymentConfirmation}
+                onClick={toggleExpanded}
+            >
                 <Box className={classes.circle}>2</Box>
                 <p>Confirmación de Pago</p>
                 <IconButton

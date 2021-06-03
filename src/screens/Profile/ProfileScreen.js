@@ -131,6 +131,7 @@ export default function ProfileScreen({ x, ...props }) {
                 colors={["#FFCD56", "#FF9F40", "#36A2EB"]}
                 font_color="white"
                 type="Doughnut"
+                etiquetas={false}
               />
             </div>
           </div>
@@ -143,6 +144,7 @@ export default function ProfileScreen({ x, ...props }) {
                 colors={["#36A2EB", "#E75656"]}
                 font_color="white"
                 type="Doughnut"
+                etiquetas={false}
               />
             </div>
           </div>
@@ -158,6 +160,7 @@ export default function ProfileScreen({ x, ...props }) {
               colors={["#36A2EB", "#E75656"]}
               font_color="white"
               type="Bar"
+              etiquetas={false}
             />
           </div>
         </div>

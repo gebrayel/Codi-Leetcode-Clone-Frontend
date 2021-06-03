@@ -6,6 +6,11 @@ import user from "../../api/user/user";
 import AppContext from "../../helpers/context/context";
 import IconButton from "@material-ui/core/IconButton";
 import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
+import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
+import DoneOutlineOutlinedIcon from "@material-ui/icons/DoneOutlineOutlined";
+import TextField from "@material-ui/core/TextField";
+
+import colors from "../../config/colors/colors";
 
 export default function ProfileScreen({ x, ...props }) {
   const classes = useStyles(props);
@@ -21,17 +26,20 @@ export default function ProfileScreen({ x, ...props }) {
   const textEdition = () => {
     return (
       <div className={classes.textButtom}>
-        <input type="text" id="text" defaultValue={text.value} />
+        <TextField
+          id="text"
+          className={classes.whiteTheme}
+          defaultValue={text.value}
+        />
 
-        <button
+        <IconButton
           onClick={() => {
-            console.log(document.getElementById("text").value);
             setText({ ...text, editMode: !text.editMode, modif: "" });
           }}
         >
-          X
-        </button>
-        <button
+          <CancelOutlinedIcon style={{ fontSize: "2rem", color: "#E75656" }} />
+        </IconButton>
+        <IconButton
           onClick={() => {
             try {
               let textModified = document.getElementById("text").value;
@@ -50,13 +58,14 @@ export default function ProfileScreen({ x, ...props }) {
             }
           }}
         >
-          Ok
-        </button>
+          <DoneOutlineOutlinedIcon
+            style={{ fontSize: "2rem", color: "#84DB65" }}
+          />
+        </IconButton>
       </div>
     );
   };
   const textView = () => {
-    console.log(text.value);
     return (
       <div className={classes.textButtom}>
         <div className={classes.textname}>{text.value}</div>
@@ -65,14 +74,14 @@ export default function ProfileScreen({ x, ...props }) {
             setText({ ...text, editMode: !text.editMode });
           }}
         >
-          <EditTwoToneIcon style={{ fontSize: "3rem", color: "#869BFF" }} />
+          <EditTwoToneIcon style={{ fontSize: "2rem", color: "#869BFF" }} />
         </IconButton>
       </div>
     );
   };
   return (
     <div style={{ marginTop: "5rem" }}>
-      <div>
+      <div className={classes.box}>
         <img src={locvalue["pic_url"]} alt="avatar" className={classes.image} />
         {text.editMode ? textEdition() : textView()}
       </div>
@@ -96,8 +105,8 @@ const useStyles = makeStyles((theme) => ({
     width: 400,
   },
   image: {
-    width: "15rem",
-    height: "15rem",
+    width: "13rem",
+    height: "13rem",
     borderRadius: "50%",
   },
   textname: {
@@ -108,5 +117,31 @@ const useStyles = makeStyles((theme) => ({
   textButtom: {
     display: "flex",
     justifyContent: "spaceBetween",
+    alignItems: "center",
+  },
+  box: {
+    maxWith: "auto",
+    justifyContent: "center",
+  },
+  whiteTheme: {
+    "& .MuiInputBase-root ": {
+      color: colors.white,
+      fontSize: "2rem",
+      color: "white",
+      fontWeight: "20px",
+    },
+    "& .MuiInputBase-input .MuiInput-input": {
+      color: colors.white,
+    },
+    "& .MuiInput-underline:before": {
+      borderColor: colors.white,
+      borderWidth: "0.2rem",
+      borderBottom: "0.2rem solid white",
+    },
+    "& .MuiInput-underline:after": {
+      borderColor: colors.white,
+      borderWidth: "0.2rem",
+      borderBottom: "0.2rem solid white",
+    },
   },
 }));

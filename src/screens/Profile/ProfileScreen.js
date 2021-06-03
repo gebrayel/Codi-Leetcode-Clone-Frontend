@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chart from "../../components/Chart/Chart";
-import { RefreshSharp } from "@material-ui/icons";
 import user from "../../api/user/user";
 import AppContext from "../../helpers/context/context";
 import IconButton from "@material-ui/core/IconButton";

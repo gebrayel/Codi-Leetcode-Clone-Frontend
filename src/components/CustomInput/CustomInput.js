@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Chart from "../../components/Chart/Chart";
 import user from "../../api/user/user";
 import AppContext from "../../helpers/context/context";
 import IconButton from "@material-ui/core/IconButton";
@@ -8,11 +7,10 @@ import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
 import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
 import DoneOutlineOutlinedIcon from "@material-ui/icons/DoneOutlineOutlined";
 import TextField from "@material-ui/core/TextField";
-import CustomInput from "../../components/CustomInput/CustomInput";
 
 import colors from "../../config/colors/colors";
 
-export default function ProfileScreen() {
+export default function CustomInput() {
   const classes = useStyles();
   let locvalue = localStorage.getItem("user");
   locvalue = JSON.parse(locvalue);
@@ -22,45 +20,6 @@ export default function ProfileScreen() {
     modif: "",
   });
   const userC = useContext(AppContext);
-  let problems = [
-    { difficulty: "easy", solved: 2, total: 5 },
-
-    { difficulty: "medium", solved: 2, total: 7 },
-
-    { difficulty: "hard", solved: 2, total: 9 },
-  ];
-  let difficulties = [];
-  let solved = [];
-  let total = [];
-
-  problems.map((val) => {
-    difficulties.push(val.difficulty);
-    solved.push(val.solved);
-    total.push(val.total);
-  });
-
-  let intentos = 0;
-  let tryEasy = 0;
-  let tryMedium = 0;
-  let tryHard = 0;
-  intentos = 75.4;
-  tryEasy = 75.4;
-  tryMedium = 75.4;
-  tryHard = 75.4;
-
-  let languages = [
-    { language: "Java", count: 5 },
-
-    { language: "Python", count: 5 },
-  ];
-  let language = [];
-  let count = [];
-
-  languages.map((lan) => {
-    language.push(lan.language);
-    count.push(lan.count);
-  });
-
   const textEdition = () => {
     return (
       <div className={classes.textButtom}>
@@ -117,157 +76,9 @@ export default function ProfileScreen() {
       </div>
     );
   };
-  return (
-    <>
-      <div style={{ marginTop: "5rem" }} className={classes.header}>
-        <div className={classes.box}>
-          <img
-            src={locvalue["pic_url"]}
-            alt="avatar"
-            className={classes.image}
-          />
-          <CustomInput />
-        </div>
-        <div className={classes.divider}>
-          <div className={classes.flexSpace}>
-            <div className={classes.lefBox}>
-              <div className={classes.charttext}>Problemas</div>
-              <div className={classes.miniFlex}>
-                <div className={classes.miniTitle}>
-                  Facil
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["Hechos", "Faltan"]}
-                      data={[solved[0], total[0] - solved[0]]}
-                      colors={["#FF9F40", "#FFCD56"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-                <div className={classes.miniTitle}>
-                  Medio
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["Hechos", "Faltan"]}
-                      data={[solved[1], total[1] - solved[1]]}
-                      colors={["#36A2EB", "#FFCD56"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-                <div className={classes.miniTitle}>
-                  Dificil
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["Hechos", "Faltan"]}
-                      data={[solved[2], total[2] - solved[2]]}
-                      colors={["#FF6384", "#FFCD56"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className={classes.doughnut_container}>
-                <Chart
-                  labels={difficulties}
-                  data={solved}
-                  colors={["#FF9F40", "#36A2EB", "#FF6384"]}
-                  font_color="white"
-                  type="Doughnut"
-                  etiquetas={false}
-                />
-              </div>
-              <div className={classes.totalTitle}>Total</div>
-            </div>
-          </div>
-          <div className={classes.flexSpace}>
-            <div className={classes.lefBox}>
-              <div className={classes.charttext}>Intentos</div>
-              <div className={classes.miniFlex}>
-                <div className={classes.miniTitle}>
-                  Facil
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["%Exito", "%Fracaso"]}
-                      data={[tryEasy, 100 - tryEasy]}
-                      colors={["#FF9F40", "#FFCD56"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-                <div className={classes.miniTitle}>
-                  Medio
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["%Exito", "%Fracaso"]}
-                      data={[tryMedium, 100 - tryMedium]}
-                      colors={["#36A2EB", "#FFCD56"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-                <div className={classes.miniTitle}>
-                  Dificil
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["%Exito", "%Fracaso"]}
-                      data={[tryHard, 100 - tryHard]}
-                      colors={["#FF6384", "#FFCD56"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className={classes.doughnut_container}>
-                <Chart
-                  labels={["%Exito", "%Fracaso"]}
-                  data={[intentos, 100 - intentos]}
-                  colors={["#36A2EB", "#FF6384"]}
-                  font_color="white"
-                  type="Doughnut"
-                  etiquetas={false}
-                />
-              </div>
-              <div className={classes.totalTitle}>Total</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={classes.secondRow}>
-        <div className={classes.flexSpace2}>
-          <div className={classes.charttext}>Lenguajes mas usados</div>
-          <div className={classes.doughnut_container}>
-            <Chart
-              labels={language}
-              data={count}
-              colors={["#36A2EB", "#E75656"]}
-              font_color="white"
-              type="Pie"
-              etiquetas={false}
-            />
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
 
+  return <>{text.editMode ? textEdition() : textView()}</>;
+}
 const useStyles = makeStyles((theme) => ({
   doughnut_container: {
     margin: 0,

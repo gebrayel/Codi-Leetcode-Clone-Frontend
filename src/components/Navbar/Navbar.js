@@ -178,7 +178,7 @@ export default function Navbar() {
             </IconButton> */}
 
         <div className={classes.leftpart}>
-          <NLink to="/">
+          <NLink to="/difficulties">
             <img src={Codi_Icon} alt="Codi Icon" className={classes.codilog} />
           </NLink>
 

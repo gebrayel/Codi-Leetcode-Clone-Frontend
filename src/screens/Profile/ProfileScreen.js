@@ -1,13 +1,7 @@
 import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chart from "../../components/Chart/Chart";
-import user from "../../api/user/user";
 import AppContext from "../../helpers/context/context";
-import IconButton from "@material-ui/core/IconButton";
-import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
-import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
-import DoneOutlineOutlinedIcon from "@material-ui/icons/DoneOutlineOutlined";
-import TextField from "@material-ui/core/TextField";
 import CustomInput from "../../components/CustomInput/CustomInput";
 
 import colors from "../../config/colors/colors";
@@ -61,62 +55,6 @@ export default function ProfileScreen() {
     count.push(lan.count);
   });
 
-  const textEdition = () => {
-    return (
-      <div className={classes.textButtom}>
-        <TextField
-          id="text"
-          className={classes.whiteTheme}
-          defaultValue={text.value}
-        />
-
-        <IconButton
-          onClick={() => {
-            setText({ ...text, editMode: !text.editMode, modif: "" });
-          }}
-        >
-          <CancelOutlinedIcon style={{ fontSize: "2rem", color: "#E75656" }} />
-        </IconButton>
-        <IconButton
-          onClick={() => {
-            try {
-              let textModified = document.getElementById("text").value;
-              user.putUser(userC.user, userC.setUser, textModified).then(() => {
-                setText({
-                  ...text,
-                  modif: "",
-                  value: textModified,
-                  editMode: false,
-                });
-                locvalue.name = textModified;
-                localStorage.setItem("user", JSON.stringify(locvalue));
-              });
-            } catch (error) {
-              setText({ ...text, editMode: !text.editMode, modif: "" });
-            }
-          }}
-        >
-          <DoneOutlineOutlinedIcon
-            style={{ fontSize: "2rem", color: "#84DB65" }}
-          />
-        </IconButton>
-      </div>
-    );
-  };
-  const textView = () => {
-    return (
-      <div className={classes.textButtom}>
-        <div className={classes.textname}>{text.value}</div>
-        <IconButton
-          onClick={() => {
-            setText({ ...text, editMode: !text.editMode });
-          }}
-        >
-          <EditTwoToneIcon style={{ fontSize: "2rem", color: "#869BFF" }} />
-        </IconButton>
-      </div>
-    );
-  };
   return (
     <>
       <div style={{ marginTop: "5rem" }} className={classes.header}>
@@ -139,7 +77,7 @@ export default function ProfileScreen() {
                     <Chart
                       labels={["Hechos", "Faltan"]}
                       data={[solved[0], total[0] - solved[0]]}
-                      colors={["#FF9F40", "#FFCD56"]}
+                      colors={["#FFCD56", "#FFCD5650"]}
                       font_color="white"
                       type="Doughnut"
                       etiquetas={false}
@@ -152,7 +90,7 @@ export default function ProfileScreen() {
                     <Chart
                       labels={["Hechos", "Faltan"]}
                       data={[solved[1], total[1] - solved[1]]}
-                      colors={["#36A2EB", "#FFCD56"]}
+                      colors={["#36A2EB", "#36A2EB50"]}
                       font_color="white"
                       type="Doughnut"
                       etiquetas={false}
@@ -165,7 +103,7 @@ export default function ProfileScreen() {
                     <Chart
                       labels={["Hechos", "Faltan"]}
                       data={[solved[2], total[2] - solved[2]]}
-                      colors={["#FF6384", "#FFCD56"]}
+                      colors={["#FF6384", "#FF638450"]}
                       font_color="white"
                       type="Doughnut"
                       etiquetas={false}
@@ -198,7 +136,7 @@ export default function ProfileScreen() {
                     <Chart
                       labels={["%Exito", "%Fracaso"]}
                       data={[tryEasy, 100 - tryEasy]}
-                      colors={["#FF9F40", "#FFCD56"]}
+                      colors={["#FF9F40", "#FF9F4050"]}
                       font_color="white"
                       type="Doughnut"
                       etiquetas={false}
@@ -211,7 +149,7 @@ export default function ProfileScreen() {
                     <Chart
                       labels={["%Exito", "%Fracaso"]}
                       data={[tryMedium, 100 - tryMedium]}
-                      colors={["#36A2EB", "#FFCD56"]}
+                      colors={["#36A2EB", "#36A2EB50"]}
                       font_color="white"
                       type="Doughnut"
                       etiquetas={false}
@@ -224,7 +162,7 @@ export default function ProfileScreen() {
                     <Chart
                       labels={["%Exito", "%Fracaso"]}
                       data={[tryHard, 100 - tryHard]}
-                      colors={["#FF6384", "#FFCD56"]}
+                      colors={["#FF6384", "#FF638450"]}
                       font_color="white"
                       type="Doughnut"
                       etiquetas={false}

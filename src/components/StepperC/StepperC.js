@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Check from '@material-ui/icons/Check';
-import SettingsIcon from '@material-ui/icons/Settings';
 import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -15,6 +13,105 @@ import InputIcon from '@material-ui/icons/Input';
 import DescriptionIcon from '@material-ui/icons/Description';
 import ProblemTab1 from "../ProblemTabs/ProblemTab1/ProblemTab1";
 import colors from "../../config/colors/colors";
+
+function QontoStepIcon(props) {
+  const classes = useQontoStepIconStyles();
+  const { active, completed } = props;
+
+  return (
+    <div
+      className={clsx(classes.root, {
+        [classes.active]: active,
+      })}
+    >
+      {completed ? <Check className={classes.completed} /> : <div className={classes.circle} />}
+    </div>
+  );
+}
+
+function getSteps() {
+  return ['Descripcion del Problema', 'Template del Problema', 'Testing Data'];
+}
+
+function ColorlibStepIcon(props) {
+  const classes = useColorlibStepIconStyles();
+  const { active, completed } = props;
+
+  const icons = {
+    1: <DescriptionIcon />,
+    2: <CodeIcon/>,
+    3: <InputIcon />,
+  };
+
+  return (
+    <div
+      className={clsx(classes.root, {
+        [classes.active]: active,
+        [classes.completed]: completed,
+      })}
+    >
+      {icons[String(props.icon)]}
+    </div>
+  );
+}
+function getStepContent(step,problemInfo,handleProblemInfo,code,setCode) {
+  switch (step) {
+    case 0:
+      return <ProblemTab1 code={code} setCode={setCode} problemInfo={problemInfo} handleProblemInfo={handleProblemInfo} /> //PASARLE AQUI EL TAB1 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
+    case 1:
+      return 'TAB2: Template del problema'; //PASARLE AQUI EL TAB2 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
+      case 2:
+        return 'TAB3: Testing Data'; //PASARLE AQUI EL TAB3 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
+        default:
+          return 'Unknown step';
+  }
+}
+
+export default function StepperC({activeStep,setActiveStep,problemInfo,handleProblemInfo,code,setCode}){
+  
+  const classes = useStyles();
+  const steps = getSteps();
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+  
+  return (
+    <div className={classes.root}>
+      
+      <Stepper className={classes.Stepper} 
+                alternativeLabel 
+                activeStep={activeStep} 
+                connector={<ColorlibConnector />}>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel StepIconComponent={ColorlibStepIcon}>
+              <div style={{color:"white"}}>
+                {label}
+              </div> 
+            </StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <div>
+        {activeStep === steps.length ? (
+          <div>
+            <Typography className={classes.instructions}>
+              All steps completed - you&apos;re finished
+            </Typography>
+            <Button onClick={handleReset} className={classes.button}>
+              Reset
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <Typography className={classes.instructions}>{getStepContent(activeStep,problemInfo,handleProblemInfo,code,setCode)}</Typography>
+            
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -37,6 +134,7 @@ const QontoConnector = withStyles({
     borderTopWidth: 3,
     borderRadius: 1,
   },
+  
 })(StepConnector);
 
 const useQontoStepIconStyles = makeStyles({
@@ -60,33 +158,8 @@ const useQontoStepIconStyles = makeStyles({
     zIndex: 1,
     fontSize: 18,
   },
+  
 });
-
-function QontoStepIcon(props) {
-  const classes = useQontoStepIconStyles();
-  const { active, completed } = props;
-
-  return (
-    <div
-      className={clsx(classes.root, {
-        [classes.active]: active,
-      })}
-    >
-      {completed ? <Check className={classes.completed} /> : <div className={classes.circle} />}
-    </div>
-  );
-}
-
-QontoStepIcon.propTypes = {
-  /**
-   * Whether this step is active.
-   */
-  active: PropTypes.bool,
-  /**
-   * Mark the step as completed. Is passed to child components.
-   */
-  completed: PropTypes.bool,
-};
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -110,6 +183,7 @@ const ColorlibConnector = withStyles({
     backgroundColor: '#eaeaf0',
     borderRadius: 1,
   },
+  
 })(StepConnector);
 
 const useColorlibStepIconStyles = makeStyles({
@@ -133,51 +207,16 @@ const useColorlibStepIconStyles = makeStyles({
     backgroundImage:
       'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
   },
+  
+
 });
 
-function ColorlibStepIcon(props) {
-  const classes = useColorlibStepIconStyles();
-  const { active, completed } = props;
-
-  const icons = {
-    1: <DescriptionIcon />,
-    2: <CodeIcon/>,
-    3: <InputIcon />,
-  };
-
-  return (
-    <div
-      className={clsx(classes.root, {
-        [classes.active]: active,
-        [classes.completed]: completed,
-      })}
-    >
-      {icons[String(props.icon)]}
-    </div>
-  );
-}
-
-ColorlibStepIcon.propTypes = {
-  /**
-   * Whether this step is active.
-   */
-  active: PropTypes.bool,
-  /**
-   * Mark the step as completed. Is passed to child components.
-   */
-  completed: PropTypes.bool,
-  /**
-   * The label displayed in the step icon.
-   */
-  icon: PropTypes.node,
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    // marginTop:"120px",
-    
   },
+  
   button: {
     marginRight: theme.spacing(1),
   },
@@ -187,71 +226,6 @@ const useStyles = makeStyles((theme) => ({
   },
   Stepper:{
     backgroundColor:colors.background,
-  
+    
   }
 }));
-
-function getSteps() {
-  return ['Descripcion del Problema', 'Template del Problema', 'Testing Data'];
-}
-
-function getStepContent(step,problemInfo,handleProblemInfo,code,setCode) {
-  switch (step) {
-    case 0:
-      return <ProblemTab1 code={code} setCode={setCode} problemInfo={problemInfo} handleProblemInfo={handleProblemInfo} /> //PASARLE AQUI EL TAB1 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
-    case 1:
-      return 'TAB2: Template del problema'; //PASARLE AQUI EL TAB2 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
-    case 2:
-      return 'TAB3: Testing Data'; //PASARLE AQUI EL TAB3 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
-    default:
-      return 'Unknown step';
-  }
-}
-
-export default function StepperC({activeStep,setActiveStep,problemInfo,handleProblemInfo,code,setCode}) {
-  const classes = useStyles();
-  const steps = getSteps();
-
-  
-
-    
-    const handleReset = () => {
-    setActiveStep(0);
-  };
-  
-
-  return (
-    <div className={classes.root}>
-      
-      <Stepper className={classes.Stepper} 
-                alternativeLabel 
-                activeStep={activeStep} 
-                connector={<ColorlibConnector />}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <div>
-        {activeStep === steps.length ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Button onClick={handleReset} className={classes.button}>
-              Reset
-            </Button>
-          </div>
-        ) : (
-          <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep,problemInfo,handleProblemInfo,code,setCode)}</Typography>
-            <div>
-              
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}

@@ -6,7 +6,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Check from '@material-ui/icons/Check';
-import SettingsIcon from '@material-ui/icons/Settings';
 import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -14,6 +13,7 @@ import CodeIcon from '@material-ui/icons/Code';
 import InputIcon from '@material-ui/icons/Input';
 import DescriptionIcon from '@material-ui/icons/Description';
 import ProblemTab1 from "../ProblemTabs/ProblemTab1/ProblemTab1";
+import ProblemTab2 from "../ProblemTabs/ProblemTab2/ProblemTab2";
 import colors from "../../config/colors/colors";
 
 const QontoConnector = withStyles({
@@ -200,7 +200,7 @@ function getStepContent(step,problemInfo,handleProblemInfo,code,setCode) {
     case 0:
       return <ProblemTab1 code={code} setCode={setCode} problemInfo={problemInfo} handleProblemInfo={handleProblemInfo} /> //PASARLE AQUI EL TAB1 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
     case 1:
-      return 'TAB2: Template del problema'; //PASARLE AQUI EL TAB2 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
+      return <ProblemTab2  code={code} setCode={setCode} problemInfo={problemInfo} handleProblemInfo={handleProblemInfo}/>; //PASARLE AQUI EL TAB2 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
     case 2:
       return 'TAB3: Testing Data'; //PASARLE AQUI EL TAB3 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
     default:

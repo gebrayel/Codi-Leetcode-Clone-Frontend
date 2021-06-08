@@ -35,35 +35,35 @@ export default function ProblemTab2({problemInfo,handleProblemInfo,template,setT
   return (
         <div className={classes.root}>
       
-        <div id="TextFieldBox__Tab2" >
-          <ThemeProvider theme={theme}>
-              <TextField
-                id="SelectField__Tab2"
-                select
-                label="Lenguaje"
-                className={classes.textField}
-                onChange={onChange}
-                name="language"
-                value={problemInfo.language}
-                >
-                {languages.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </ThemeProvider>
-        </div>
+          <div id="TextFieldBox__Tab2" >
+            <ThemeProvider theme={theme}>
+                <TextField
+                  id="SelectField__Tab2"
+                  select
+                  label="Lenguaje"
+                  className={classes.textField}
+                  onChange={onChange}
+                  name="language"
+                  value={problemInfo.language}
+                  >
+                  {languages.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </ThemeProvider>
+          </div>
           <div id="CodeEditorBox__Tab2">
-              <InputLabel id="TemplateLabel__Tab2" style={{color:"white",marginBottom:"1rem"}} htmlFor="template">Template</InputLabel>
-              <CodeEditor
-                id="CodeEditor__Tab2"
-                className="CodeEditorBox"
-                name='solutionCode'
-                value={template}
-                language={languageCode}
-                onChange={setTemplate}
-                />
+            <InputLabel id="TemplateLabel__Tab2" style={{color:"white",marginBottom:"1rem"}} htmlFor="template">Template</InputLabel>
+            <CodeEditor
+              id="CodeEditor__Tab2"
+              className="CodeEditorBox"
+              name='solutionCode'
+              value={template}
+              language={languageCode}
+              onChange={setTemplate}
+              />
           </div>
         </div>
       

@@ -206,12 +206,16 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             } else {
                 setButtonText("Continuar");
             }
+        } else {
+            //Modal PopUp Rommel, mi no entender #Help
         }
     };
 
     const buttonNext = () => {
         if (expanded) {
             toggleConfirmation();
+        } else {
+            //Redirect to PaymentSuccesfullScreen
         }
     };
 

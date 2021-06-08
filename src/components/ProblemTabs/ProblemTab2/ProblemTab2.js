@@ -1,71 +1,28 @@
 import React,{useState} from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import colors from "../../../config/colors/colors";
-import "../../../styles/screens/ProblemFormScreen/ProblemTab1.scss";
+import "../../../styles/screens/ProblemFormScreen/ProblemTabs/ProblemTab2/ProblemTab2.scss";
 import {  TextField,
-          OutlinedInput,
-          FormControl,
-          InputLabel,
-          Input,
-          FormHelperText,
           TextareaAutosize,
-          MenuItem,
-          Select } from '@material-ui/core';
+          MenuItem } from '@material-ui/core';
 import CodeEditor from "../../CodeEditor/CodeEditor";
-import { Height } from '@material-ui/icons';
+import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width:"100%",
-    color:"white"
-    
-  },
-  textField: {
-    // marginLeft: theme.spacing(20),
-    marginRight: theme.spacing(5),
-    
-    fontFamily:"arial",
-    fontSize:"18px",
-    color:"white",
-    // width:"400px",
-  },
-  TextareaAutosize:{
-    
-  },
-  TextareaAutosizeLg:{
-    // 
-    // width:"80vh",
-    
-  }
-}));
-
-export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}) {
+export default function ProblemTab2({problemInfo,handleProblemInfo,template,setTemplate}) {
   const classes = useStyles();
- const difficulties = [
-  {
-    value: 'easy',
-    label: 'Facil',
-  },
-  {
-    value: 'medium',
-    label: 'Intermedio',
-  },
-  {
-    value: 'hard',
-    label: 'Dificil',
-  }
-];
-  const [open, setOpen] = useState(false);
+  // languages: python text/x-java
+  var languageCode="text/x-java"
+  const languages = [
+    {
+      value: 'text/x-java"',
+      label: 'Java',
+    },
+    {
+      value: 'python',
+      label: 'Python',
+    },
+  ];
   
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
   
   const onChange = e =>{
     if(e.target==undefined) return
@@ -77,82 +34,54 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
 
   return (
         <div className={classes.root}>
-      <div>
-        <div id="TextFieldBox">
-          
-            <TextField
-              label="Titulo"
-              id="TitleField"
-              className={classes.textField}
-              name="name"
-              onChange={onChange}
-              value={problemInfo.name}
-              
-            />
-            
-            <TextField
-              
-              id="SelectField"
-              select
-              label="Dificultad"
-              className={classes.textField}
-              onChange={onChange}
-              name="difficulty"
-              value={problemInfo.difficulty}
-            >
-              {difficulties.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            
+      
+        <div id="TextFieldBox__Tab2" >
+          <ThemeProvider theme={theme}>
+              <TextField
+                id="SelectField__Tab2"
+                select
+                label="Lenguaje"
+                className={classes.textField}
+                onChange={onChange}
+                name="language"
+                value={problemInfo.language}
+                >
+                {languages.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </ThemeProvider>
         </div>
-        
-        <div id="TextAreaLgBox">
-            
-          <TextareaAutosize
-            style={{width:"85%"}}
-            id="TextAreaLg"
-            className={classes.TextareaAutosizeLg}
-            aria-label="Problem Description" 
-            rowsMin={8} 
-            placeholder="Descripcion del Problema" 
-            name="description"
-            onChange={onChange}
-            value={problemInfo.description}
-            
-          />
+          <div id="CodeEditorBox__Tab2">
+              <InputLabel id="TemplateLabel__Tab2" style={{color:"white",marginBottom:"1rem"}} htmlFor="template">Template</InputLabel>
+              <CodeEditor
+                id="CodeEditor__Tab2"
+                className="CodeEditorBox"
+                name='solutionCode'
+                value={template}
+                language={languageCode}
+                onChange={setTemplate}
+                />
+          </div>
         </div>
-        
-        <TextareaAutosize
-          style={{height:"291px"}}
-          className="TextArea"
-          aria-label="Problem Solution" 
-          rowsMin={8} 
-          placeholder="Solucion del Problema" 
-          helperText="Solucion"
-          name="solution"
-          onChange={onChange}
-          value={problemInfo.solution}
-          autoComplete="false"
-        />
+      
+);}
 
-        <div id="CodeEditorBox">
-            <CodeEditor
-              id="CodeEditor"
-              className="CodeEditorBox"
-              name='solutionCode'
-              // python text/x-java
-              value={code}
-              language="python"
-              onChange={setCode}
-            />
-        </div>
-
-      </div>
-    </div>
-    
-
-  );
-}
+const useStyles = makeStyles((theme) => ({
+root: {
+  width:"100%",
+  color:"white"
+},
+textField: {
+  color:"white",
+},
+}));
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+       main: '#ffffff'
+    },
+  },
+});

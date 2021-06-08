@@ -44,14 +44,24 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         setExpanded(!expanded);
     };
 
-    const [openModal, setOpenModal] = useState(false);
+    const [openModalError, setOpenModalError] = useState(false);
 
-    const handleClickOpen = () => {
-        setOpenModal(true);
+    const handleClickOpenError = () => {
+        setOpenModalError(true);
     };
 
-    const handleClickClose = () => {
-        setOpenModal(false);
+    const handleClickCloseError = () => {
+        setOpenModalError(false);
+    };
+
+    const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
+    const handleClickOpenConfirm = () => {
+        setOpenModalConfirm(true);
+    };
+
+    const handleClickCloseConfirm = () => {
+        setOpenModalConfirm(false);
     };
 
     const validateFields = () => {
@@ -73,7 +83,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                 setButtonText("Continuar");
             }
         } else {
-            handleClickOpen();
+            handleClickOpenError();
         }
     };
 
@@ -81,11 +91,22 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         if (expanded) {
             toggleConfirmation();
         } else {
-            //Redirect to PaymentSuccesfullScreen
+            handleClickOpenConfirm();
         }
     };
 
-    const msg = {
+    const msgError = {
+        variant: "",
+        color: "secondary",
+        text: "Campos inválidos",
+        title: "Campos inválidos",
+        description:
+            "Revise y rellene cuidadosamente los campos del formulario",
+        acceptText: "Cerrar",
+        cancelText: "Cerrar",
+    };
+
+    const msgContiue = {
         variant: "",
         color: "secondary",
         text: "Campos inválidos",
@@ -185,19 +206,36 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             <AlertModal
                 modalDesing={"desktop"}
                 modalTitle={"Cerrar Sesion"}
-                variant={msg.variant}
-                color={msg.color}
-                text={msg.text}
-                title={msg.title}
-                description={msg.description}
-                acceptText={msg.acceptText}
-                cancelText={msg.cancelText}
-                handleClickOpen={handleClickOpen}
-                handleClickClose={handleClickClose}
-                open={openModal}
-                setOpen={setOpenModal}
+                variant={msgError.variant}
+                color={msgError.color}
+                text={msgError.text}
+                title={msgError.title}
+                description={msgError.description}
+                acceptText={msgError.acceptText}
+                cancelText={msgError.cancelText}
+                handleClickOpen={handleClickOpenError}
+                handleClickClose={handleClickCloseError}
+                open={openModalError}
+                setOpen={setOpenModalError}
                 renderButton={false}
                 singleButton={true}
+            />
+            <AlertModal
+                modalDesing={"desktop"}
+                modalTitle={"Cerrar Sesion"}
+                variant={msgError.variant}
+                color={msgError.color}
+                text={msgError.text}
+                title={msgError.title}
+                description={msgError.description}
+                acceptText={msgError.acceptText}
+                cancelText={msgError.cancelText}
+                handleClickOpen={handleClickOpenConfirm}
+                handleClickClose={handleClickCloseConfirm}
+                open={openModalConfirm}
+                setOpen={setOpenModalConfirm}
+                renderButton={false}
+                singleButton={false}
             />
         </Box>
     );

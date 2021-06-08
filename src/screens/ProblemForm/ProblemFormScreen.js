@@ -94,7 +94,6 @@ const ProblemFormScreen = () => {
                 :null }
                 {activeStep<3 ? 
                     <div id="NextButton__ProblemFormScreen">
-
                         <Button
                                 variant="contained"
                                 color="primary"
@@ -105,7 +104,7 @@ const ProblemFormScreen = () => {
                                 {activeStep > 1 ? 'Guardar' : 'Siguiente'}
                         </Button>
                     </div>
-                :null}
+                :null }
             </div>
         </div>
         
@@ -119,5 +118,4 @@ const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
     },
-
-    }));
+}));

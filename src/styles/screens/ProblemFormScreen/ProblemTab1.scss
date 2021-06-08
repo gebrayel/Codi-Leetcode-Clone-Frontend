@@ -13,6 +13,8 @@
       width: 250px;
       color: white;
       margin-top: 2rem;
+      justify-content: start;
+      text-align: start;
     }
   }
   #TextAreaLgBox {
@@ -29,9 +31,9 @@
     }
   }
   #CodeEditorBox {
-    width: 75%;
+    width: 94%;
     display: inline-block;
-    margin-left: 1rem;
+    margin-left: 1.2rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
     justify-content: start;
@@ -40,11 +42,11 @@
 
   .TextArea {
     background-color: #282a36;
-    width: 75%;
+    width: 91%;
     color: white;
-    font-family: "arial";
-    font-size: "18px";
-    margin-left: 1.5rem;
+    font-family: arial;
+    font-size: 18px;
+    margin-left: 1.3rem;
     margin-right: 0.5rem;
     margin-top: 2rem;
   }
@@ -64,13 +66,14 @@
       width: 250px;
       color: white;
       margin-top: 2rem;
+      justify-content: start;
+      text-align: start;
     }
   }
   #TextAreaLgBox {
     padding: 1rem;
     margin-top: 2rem;
     margin-left: 1rem;
-    // width: 70%;
     #TextAreaLg {
       width: 70%;
       background-color: #282a36;
@@ -80,9 +83,9 @@
     }
   }
   #CodeEditorBox {
-    width: 70%;
+    width: 95%;
     display: inline-block;
-    margin-left: 0.5rem;
+    margin-left: 1.3rem;
     margin-bottom: 2rem;
     margin-top: 2rem;
     justify-content: start;
@@ -90,11 +93,11 @@
   }
   .TextArea {
     background-color: #282a36;
-    width: 70%;
+    width: 92.5%;
     color: white;
-    font-family: "arial";
-    font-size: "18px";
-    margin-left: 1.5rem;
+    font-family: arial;
+    font-size: 18px;
+    margin-left: 1.28rem;
     margin-right: 0.5rem;
     margin-top: 2rem;
   }
@@ -126,12 +129,15 @@
     #SelectField {
       width: 250px;
       color: white;
+      justify-content: start;
+      text-align: start;
     }
   }
   #TextAreaLgBox {
     padding: 1rem;
     margin-top: 2rem;
     #TextAreaLg {
+      height: 160px !important;
       width: 90vh;
       background-color: #282a36;
       color: white;
@@ -140,7 +146,8 @@
     }
   }
   #CodeEditorBox {
-    width: 77%;
+    margin-left: 0.2rem;
+    width: 101%;
     display: inline-block;
     margin-top: 2rem;
     justify-content: start !important;
@@ -150,10 +157,10 @@
   .TextArea {
     margin-top: 2rem;
     background-color: #282a36;
-    width: 77%;
+    width: 100%;
     color: white;
-    font-family: "arial";
-    font-size: "18px";
+    font-family: arial;
+    font-size: 18px;
   }
 }
 
@@ -166,7 +173,6 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    // margin-top: 3rem;
 
     #TitleField {
       width: 300px;
@@ -177,6 +183,8 @@
       width: 300px;
       color: white;
       margin-top: 3rem;
+      justify-content: start;
+      text-align: start;
     }
   }
   #TextAreaLgBox {
@@ -186,7 +194,6 @@
     margin-left: auto;
     margin-right: auto;
     #TextAreaLg {
-      // width: 70%;
       background-color: #282a36;
       color: white;
       font-family: arial;
@@ -194,7 +201,7 @@
     }
   }
   #CodeEditorBox {
-    width: 33%;
+    width: 40%;
     display: inline-block;
     margin-left: 2rem;
     margin-bottom: 2rem;
@@ -203,14 +210,15 @@
   }
 
   .TextArea {
+    height: 291px !important;
     background-color: #282a36;
-    width: 33%;
+    width: 40%;
     color: white;
     font-family: "arial";
-    font-size: "18px";
-    margin-left: 1rem;
+    font-size: 18px;
+    // margin-left: 0.4rem;
+    margin-right: 0.2rem;
     margin-top: 3rem;
-    // margin-bottom: 2rem;
   }
 }
 
@@ -223,7 +231,6 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    // margin-top: 3rem;
     #TitleField {
       width: 400px;
       color: white;
@@ -233,6 +240,8 @@
       width: 400px;
       color: white;
       margin-top: 3rem;
+      justify-content: start;
+      text-align: start;
     }
   }
   #TextAreaLgBox {
@@ -247,20 +256,21 @@
     }
   }
   #CodeEditorBox {
-    width: 37%;
+    width: 44%;
     display: inline-block;
-    margin-left: 2rem;
+    margin-left: 2.9rem;
     justify-content: start !important;
     text-align: start !important;
   }
 
   .TextArea {
+    height: 291px !important;
     background-color: #282a36;
-    width: 37%;
+    width: 44%;
     color: white;
     font-family: "arial";
     font-size: "18px";
-    margin-left: 1rem;
+    margin-left: 0.5rem;
     margin-top: 3rem;
   }
 }
@@ -283,6 +293,8 @@
       width: 720px;
       color: white;
       margin-left: 1rem;
+      justify-content: start;
+      text-align: start;
     }
   }
   #TextAreaLgBox {
@@ -297,20 +309,21 @@
     }
   }
   #CodeEditorBox {
-    width: 30%;
+    width: 37%;
     display: inline-block;
-    margin-left: 2rem;
+    margin-left: 2.5rem;
     justify-content: start !important;
     text-align: start !important;
   }
 
   .TextArea {
+    height: 291px !important;
     background-color: #282a36;
-    width: 30%;
+    width: 37%;
     color: white;
-    font-family: "arial";
-    font-size: "18px";
-    margin-left: 1rem;
+    font-family: arial;
+    font-size: 18px;
+    margin-left: 0.5rem;
     margin-top: 3rem;
   }
 }

@@ -1,25 +1,11 @@
 import React, {useState} from 'react';
-import ProblemTab1 from '../../components/ProblemTabs/ProblemTab1/ProblemTab1';
-
 import Button from '@material-ui/core/Button';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import StepperC from "../../components/StepperC/StepperC";
 import "../../styles/screens/ProblemFormScreen/ProblemFormScreen.scss";
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-    },
-    
 
-    
-    instructions: {
-        marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-    },
-    }));
 const ProblemFormScreen = () => {
-    
-   
+
     const [activeStep, setActiveStep] = useState(0);
     const [code,setCode]=useState("");
     const [problemInfo,handleProblemInfo]=useState({
@@ -67,7 +53,6 @@ const ProblemFormScreen = () => {
       console.log(problemInfo)
 
   }
-    
 
     return ( 
         <div className="ProblemScreenContainer">
@@ -81,7 +66,6 @@ const ProblemFormScreen = () => {
                 setCode={setCode}
             />
             <div id="buttonBox">
-
                 {activeStep !== 0 ? 
                     <Button  
                         color="secondary" 
@@ -95,7 +79,6 @@ const ProblemFormScreen = () => {
                 :null }
                 {activeStep<3 ? 
                 
-                
                     <Button
                             variant="contained"
                             color="primary"
@@ -105,11 +88,7 @@ const ProblemFormScreen = () => {
                         >
                             {activeStep > 1 ? 'Guardar' : 'Siguiente'}
                         </Button>
-                
                 :null}
-                
-                
-                
             </div>
         </div>
         
@@ -117,3 +96,15 @@ const ProblemFormScreen = () => {
 }
  
 export default ProblemFormScreen;
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+    },
+
+    instructions: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+    },
+    }));

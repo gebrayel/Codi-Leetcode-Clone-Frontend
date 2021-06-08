@@ -67,7 +67,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
     let history = useHistory();
 
     const redirectToSucces = () => {
-        history.push("/difficulties");
+        history.push("/payment_success");
     };
 
     const validateFields = () => {

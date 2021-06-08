@@ -42,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}) {
   const classes = useStyles();
+  // languages: python text/x-java
+  var languageCode="text/x-java"
  const difficulties = [
   {
     value: 'easy',
@@ -143,9 +145,9 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
               id="CodeEditor"
               className="CodeEditorBox"
               name='solutionCode'
-              // python text/x-java
+              
               value={code}
-              language="python"
+              language={languageCode}
               onChange={setCode}
             />
         </div>

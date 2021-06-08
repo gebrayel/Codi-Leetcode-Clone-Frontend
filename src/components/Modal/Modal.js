@@ -20,7 +20,8 @@ const Modal = ({
     description,
     acceptText,
     cancelText,
-    passedFunction,
+    passedRedFunction,
+    passedBlueFunction,
     handleClickOpen,
     handleClickClose,
     open,
@@ -106,14 +107,14 @@ const Modal = ({
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClickClose} color="primary">
+                    <Button onClick={passedBlueFunction} color="primary">
                         {acceptText}
                     </Button>
                     {!singleButton ? (
                         <Button
                             onClick={() => {
                                 handleClickClose();
-                                passedFunction();
+                                passedRedFunction();
                             }}
                             color="secondary"
                             autoFocus

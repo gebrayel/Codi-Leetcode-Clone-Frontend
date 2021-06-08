@@ -168,6 +168,7 @@ export default function Navbar() {
     const preventDefault = (event) => event.preventDefault();
 
     const { setUser } = useContext(AppContext);
+
     let history = useHistory();
 
     const [openModal, setOpenModal] = React.useState(false);
@@ -295,7 +296,8 @@ export default function Navbar() {
                                 description={msg.description}
                                 acceptText={msg.acceptText}
                                 cancelText={msg.cancelText}
-                                passedFunction={handleCloseLogOut}
+                                passedRedFunction={handleCloseLogOut}
+                                passedBlueFunction={handleClickClose}
                                 handleClickOpen={handleClickOpen}
                                 handleClickClose={handleClickClose}
                                 open={openModal}
@@ -407,7 +409,8 @@ export default function Navbar() {
                             description={msg.description}
                             acceptText={msg.acceptText}
                             cancelText={msg.cancelText}
-                            passedFunction={handleCloseLogOut}
+                            passedRedFunction={handleCloseLogOut}
+                            passedBlueFunction={handleClickClose}
                             handleClickOpen={handleClickOpen}
                             handleClickClose={handleClickClose}
                             open={openModal}

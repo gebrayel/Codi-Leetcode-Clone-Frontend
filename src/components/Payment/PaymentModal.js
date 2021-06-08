@@ -20,6 +20,7 @@ import colors from "../../config/colors/colors";
 import date from "../../helpers/date/date";
 import k from "../../helpers/constants/constants";
 import yellowCodi from "../../assets/yellow_codi.png";
+import { useHistory } from "react-router-dom";
 
 const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const classes = useStyles();
@@ -62,6 +63,11 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
 
     const handleClickCloseConfirm = () => {
         setOpenModalConfirm(false);
+    };
+    let history = useHistory();
+
+    const redirectToSucces = () => {
+        history.push("/difficulties");
     };
 
     const validateFields = () => {
@@ -109,12 +115,11 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const msgContiue = {
         variant: "",
         color: "secondary",
-        text: "Campos inválidos",
-        title: "Campos inválidos",
-        description:
-            "Revise y rellene cuidadosamente los campos del formulario",
-        acceptText: "Cerrar",
-        cancelText: "Cerrar",
+        text: "Confirmación de pago",
+        title: "Confirmación de pago",
+        description: "¿Esta seguro que quiere realizar el pago?",
+        acceptText: "Confirmar",
+        cancelText: "Cancelar",
     };
 
     const body = (
@@ -213,6 +218,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                 description={msgError.description}
                 acceptText={msgError.acceptText}
                 cancelText={msgError.cancelText}
+                passedBlueFunction={handleClickCloseError}
                 handleClickOpen={handleClickOpenError}
                 handleClickClose={handleClickCloseError}
                 open={openModalError}
@@ -223,13 +229,15 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             <AlertModal
                 modalDesing={"desktop"}
                 modalTitle={"Cerrar Sesion"}
-                variant={msgError.variant}
-                color={msgError.color}
-                text={msgError.text}
-                title={msgError.title}
-                description={msgError.description}
-                acceptText={msgError.acceptText}
-                cancelText={msgError.cancelText}
+                variant={msgContiue.variant}
+                color={msgContiue.color}
+                text={msgContiue.text}
+                title={msgContiue.title}
+                description={msgContiue.description}
+                acceptText={msgContiue.acceptText}
+                cancelText={msgContiue.cancelText}
+                passedRedFunction={handleClickCloseConfirm}
+                passedBlueFunction={redirectToSucces}
                 handleClickOpen={handleClickOpenConfirm}
                 handleClickClose={handleClickCloseConfirm}
                 open={openModalConfirm}

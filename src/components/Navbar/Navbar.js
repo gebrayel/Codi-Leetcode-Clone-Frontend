@@ -10,7 +10,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import DeveloperModeIcon from "@material-ui/icons/DeveloperMode";
 import CardMembershipIcon from "@material-ui/icons/CardMembership";
 import PersonIcon from "@material-ui/icons/Person";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import AppsIcon from "@material-ui/icons/Apps";
 //icons//
@@ -59,10 +58,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     paddingRight: "0.1rem",
     maxHeight: "54px",
-    // paddingLeft: "118px",
-    "@media (max-width: 900px)": {
-      // paddingLeft: 0,
-    },
+    "@media (max-width: 900px)": {},
   },
   linkStyle: {
     textDecoration: "none",
@@ -173,12 +169,8 @@ export default function Navbar() {
   const displayDesktop = () => {
     return (
       <Toolbar className={classes.toolbar}>
-        {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton> */}
-
         <div className={classes.leftpart}>
-          <NLink to="/difficulties">
+          <NLink to="/">
             <img src={Codi_Icon} alt="Codi Icon" className={classes.codilog} />
           </NLink>
 
@@ -230,13 +222,11 @@ export default function Navbar() {
             open={open}
             onClose={handleClose}
           >
-            <NLink to="/profile" className={classes.DrawerlinkStyle}>
+            <NLink to="/" className={classes.DrawerlinkStyle}>
               <MenuItem onClick={handleClose}>Perfil</MenuItem>
             </NLink>
 
-            {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
-
-            {user.is_admin ? (
+            {user?.is_admin ? (
               <NLink to="/hola" className={classes.DrawerlinkStyle}>
                 <MenuItem onClick={handleClose}>Administrar Problemas</MenuItem>
               </NLink>
@@ -322,6 +312,15 @@ export default function Navbar() {
 
           {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
 
+          {user?.is_admin ? (
+            <ListItem button key={"Administrar Problemas"}>
+              <ListItemIcon>
+                <AppsIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Administrar Problemas"} />
+            </ListItem>
+          ) : null}
+
           {user.is_admin ? (
             <ListItem button key={"Administrar Problemas"}>
               <ListItemIcon>
@@ -356,8 +355,6 @@ export default function Navbar() {
       </>
     );
   };
-
-  //  Internet stuff que me vole para hacerla responsive//
 
   return (
     <div className={classes.root}>

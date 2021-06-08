@@ -17,6 +17,7 @@ import clsx from "clsx";
 import CreditCard from "./CreditCard";
 import ContinueButton from "../ContinueButton/ContinueButton";
 import { CallReceived } from "@material-ui/icons";
+import AlertModal from "../Modal/Modal";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -178,6 +179,16 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         setExpanded(!expanded);
     };
 
+    const [openModal, setOpenModal] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpenModal(true);
+    };
+
+    const handleClickClose = () => {
+        setOpenModal(false);
+    };
+
     const validateFields = () => {
         return (
             cardInfo.number.length == 16 &&
@@ -207,7 +218,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                 setButtonText("Continuar");
             }
         } else {
-            //Modal PopUp Rommel, mi no entender #Help
+            handleClickOpen();
         }
     };
 
@@ -217,6 +228,15 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         } else {
             //Redirect to PaymentSuccesfullScreen
         }
+    };
+
+    const msg = {
+        variant: "",
+        color: "secondary",
+        text: "Cerrar Sesion",
+        description: "¿Estás seguro seguro de que deseas cerrar sesión?",
+        acceptText: "Volver a Codi.",
+        cancelText: "Cerrar sesión.",
     };
 
     const body = (
@@ -301,6 +321,21 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                     onClick={() => buttonNext()}
                 />
             </Box>
+            <AlertModal
+                modalDesing={"desktop"}
+                modalTitle={"Cerrar Sesion"}
+                variant={msg.variant}
+                color={msg.color}
+                text={msg.text}
+                description={msg.description}
+                acceptText={msg.acceptText}
+                cancelText={msg.cancelText}
+                handleClickOpen={handleClickOpen}
+                handleClickClose={handleClickClose}
+                open={openModal}
+                setOpen={setOpenModal}
+                renderButton={false}
+            />
         </Box>
     );
 

@@ -170,10 +170,20 @@ export default function Navbar() {
     const { setUser } = useContext(AppContext);
     let history = useHistory();
 
+    const [openModal, setOpenModal] = React.useState(false);
+
     const handleCloseLogOut = () => {
         logout.logOut();
         setUser(null);
         history.push("/");
+    };
+
+    const handleClickOpen = () => {
+        setOpenModal(true);
+    };
+
+    const handleClickClose = () => {
+        setOpenModal(false);
     };
 
     const title = "<Codi/>";
@@ -284,6 +294,11 @@ export default function Navbar() {
                                 acceptText={msg.acceptText}
                                 cancelText={msg.cancelText}
                                 passedFunction={handleCloseLogOut}
+                                handleClickOpen={handleClickOpen}
+                                handleClickClose={handleClickClose}
+                                open={openModal}
+                                setOpen={setOpenModal}
+                                renderButton={true}
                             />
                         </MenuItem>
                     </Menu>
@@ -380,7 +395,7 @@ export default function Navbar() {
 
                     <div style={{ padding: "0px" }} className={classes.modal}>
                         <Modal
-                            modalDesing={"mobile"}
+                            modalDesing={"desktop"}
                             modalTitle={"Cerrar Sesion"}
                             variant={msg.variant}
                             color={msg.color}
@@ -388,6 +403,12 @@ export default function Navbar() {
                             description={msg.description}
                             acceptText={msg.acceptText}
                             cancelText={msg.cancelText}
+                            passedFunction={handleCloseLogOut}
+                            handleClickOpen={handleClickOpen}
+                            handleClickClose={handleClickClose}
+                            open={openModal}
+                            setOpen={setOpenModal}
+                            renderButton={true}
                         />
                     </div>
                 </List>

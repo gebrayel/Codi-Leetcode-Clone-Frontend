@@ -20,6 +20,11 @@ const Modal = ({
     acceptText,
     cancelText,
     passedFunction,
+    handleClickOpen,
+    handleClickClose,
+    open,
+    setOpen,
+    renderButton,
 }) => {
     /** ===> El componente modal se le estableceran 6 parametros en un objeto, donde los valores de los keys:
      *      variant Establece el variant desing del boton que abrira el Componente Modal.
@@ -30,15 +35,17 @@ const Modal = ({
      *      modalBtnCancel Establece el texto con secondary desing (negacion==>Cancelar) del boton del Componente Modal.
      */
 
-    const [open, setOpen] = React.useState(false);
+    //const [open, setOpen] = React.useState(false);
 
+    /*
     const handleClickOpen = () => {
-        setOpen(true);
-    };
+      setOpen(true);
+  };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const handleClickClose = () => {
+      setOpen(false);
+  };
+    */
 
     const modalButtonDesing = (modalTitle, text) => {
         if (modalDesing === "mobile" && modalTitle === "Cerrar Sesion")
@@ -56,35 +63,37 @@ const Modal = ({
 
     return (
         <div style={{ width: "100%", justifyContent: "flex-start" }}>
-            {variant.trim() === "" ? (
-                <Button
-                    color={color}
-                    onClick={handleClickOpen}
-                    style={{
-                        width: "100%",
-                        paddingLeft: "15px",
-                        justifyContent: "flex-start",
-                    }}
-                >
-                    {modalButtonDesing(modalTitle, text)}
-                </Button>
-            ) : (
-                <Button
-                    variant={variant}
-                    color={color}
-                    onClick={handleClickOpen}
-                    style={{
-                        width: "100%",
-                        paddingLeft: "15px",
-                        justifyContent: "flex-start",
-                    }}
-                >
-                    {modalButtonDesing(modalTitle, text)}
-                </Button>
-            )}
+            {renderButton ? (
+                variant.trim() === "" ? (
+                    <Button
+                        color={color}
+                        onClick={handleClickOpen}
+                        style={{
+                            width: "100%",
+                            paddingLeft: "15px",
+                            justifyContent: "flex-start",
+                        }}
+                    >
+                        {modalButtonDesing(modalTitle, text)}
+                    </Button>
+                ) : (
+                    <Button
+                        variant={variant}
+                        color={color}
+                        onClick={handleClickOpen}
+                        style={{
+                            width: "100%",
+                            paddingLeft: "15px",
+                            justifyContent: "flex-start",
+                        }}
+                    >
+                        {modalButtonDesing(modalTitle, text)}
+                    </Button>
+                )
+            ) : null}
             <Dialog
                 open={open}
-                onClose={handleClose}
+                onClose={handleClickClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
@@ -95,12 +104,12 @@ const Modal = ({
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleClickClose} color="primary">
                         {acceptText}
                     </Button>
                     <Button
                         onClick={() => {
-                            handleClose();
+                            handleClickClose();
                             passedFunction();
                         }}
                         color="secondary"

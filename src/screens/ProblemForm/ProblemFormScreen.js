@@ -36,7 +36,7 @@ const ProblemFormScreen = () => {
             // if(problemInfo.solution.trim().replace("\n","")==="") validateCases=validateCases+"Debes agregar una solucion para el problema.\n"
             // if(code.trim().replace("\n","")==="") validateCases=validateCases+"Debes agregar un codigo solucion al problema.\n"
             
-        }else if(activeStep==1){
+        }else if(activeStep===1){
 
             // if(problemInfo.language.trim().replace("\n","")==="") validateCases=validateCases+"Debes asignar un lenguaje al problema.\n"
             // if(template.trim().replace("\n","")==="") validateCases=validateCases+"Debes agregar un template al problema.\n"

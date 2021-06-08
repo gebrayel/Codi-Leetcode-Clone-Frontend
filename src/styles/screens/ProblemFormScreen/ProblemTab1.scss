@@ -1,0 +1,316 @@
+@media (max-width: 376px) {
+  #TextFieldBox {
+    width: 70vw;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    #TitleField {
+      width: 250px;
+      color: white;
+      margin-top: 2rem;
+    }
+    #SelectField {
+      width: 250px;
+      color: white;
+      margin-top: 2rem;
+    }
+  }
+  #TextAreaLgBox {
+    padding: 1rem;
+    margin-top: 2rem;
+    margin-left: 1rem;
+
+    #TextAreaLg {
+      width: 90%;
+      background-color: #282a36;
+      color: white;
+      font-family: arial;
+      font-size: 18px;
+    }
+  }
+  #CodeEditorBox {
+    width: 75%;
+    display: inline-block;
+    margin-left: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    justify-content: start;
+    text-align: start;
+  }
+
+  .TextArea {
+    background-color: #282a36;
+    width: 75%;
+    color: white;
+    font-family: "arial";
+    font-size: "18px";
+    margin-left: 1.5rem;
+    margin-right: 0.5rem;
+    margin-top: 2rem;
+  }
+}
+@media (min-width: 376px) and (max-width: 426px) {
+  #TextFieldBox {
+    width: 70vw;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    #TitleField {
+      width: 250px;
+      color: white;
+      margin-top: 2rem;
+    }
+    #SelectField {
+      width: 250px;
+      color: white;
+      margin-top: 2rem;
+    }
+  }
+  #TextAreaLgBox {
+    padding: 1rem;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    // width: 70%;
+    #TextAreaLg {
+      width: 70%;
+      background-color: #282a36;
+      color: white;
+      font-family: arial;
+      font-size: 18px;
+    }
+  }
+  #CodeEditorBox {
+    width: 70%;
+    display: inline-block;
+    margin-left: 0.5rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    justify-content: start;
+    text-align: start;
+  }
+  .TextArea {
+    background-color: #282a36;
+    width: 70%;
+    color: white;
+    font-family: "arial";
+    font-size: "18px";
+    margin-left: 1.5rem;
+    margin-right: 0.5rem;
+    margin-top: 2rem;
+  }
+  #TextAreaLgBox {
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    #TextAreaLg {
+      width: 65vh;
+      background-color: #282a36;
+      color: white;
+      font-family: arial;
+      font-size: 18px;
+    }
+  }
+}
+
+@media (min-width: 427px) and (max-width: 768px) {
+  #TextFieldBox {
+    width: 90vw;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    #TitleField {
+      width: 250px;
+      color: white;
+    }
+    #SelectField {
+      width: 250px;
+      color: white;
+    }
+  }
+  #TextAreaLgBox {
+    padding: 1rem;
+    margin-top: 2rem;
+    #TextAreaLg {
+      width: 90vh;
+      background-color: #282a36;
+      color: white;
+      font-family: arial;
+      font-size: 18px;
+    }
+  }
+  #CodeEditorBox {
+    width: 77%;
+    display: inline-block;
+    margin-top: 2rem;
+    justify-content: start !important;
+    text-align: start !important;
+  }
+
+  .TextArea {
+    margin-top: 2rem;
+    background-color: #282a36;
+    width: 77%;
+    color: white;
+    font-family: "arial";
+    font-size: "18px";
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1438px) {
+  body {
+    text-align: center;
+  }
+  #TextFieldBox {
+    width: 70%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    // margin-top: 3rem;
+
+    #TitleField {
+      width: 300px;
+      color: white;
+      margin-top: 3rem;
+    }
+    #SelectField {
+      width: 300px;
+      color: white;
+      margin-top: 3rem;
+    }
+  }
+  #TextAreaLgBox {
+    padding: 1rem;
+    margin-top: 3rem;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    #TextAreaLg {
+      // width: 70%;
+      background-color: #282a36;
+      color: white;
+      font-family: arial;
+      font-size: 18px;
+    }
+  }
+  #CodeEditorBox {
+    width: 33%;
+    display: inline-block;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+    justify-content: start !important;
+    text-align: start !important;
+  }
+
+  .TextArea {
+    background-color: #282a36;
+    width: 33%;
+    color: white;
+    font-family: "arial";
+    font-size: "18px";
+    margin-left: 1rem;
+    margin-top: 3rem;
+    // margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1439px) and (max-width: 2558px) {
+  body {
+    text-align: center;
+  }
+  #TextFieldBox {
+    width: 90vw;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    // margin-top: 3rem;
+    #TitleField {
+      width: 400px;
+      color: white;
+      margin-top: 3rem;
+    }
+    #SelectField {
+      width: 400px;
+      color: white;
+      margin-top: 3rem;
+    }
+  }
+  #TextAreaLgBox {
+    padding: 1rem;
+    margin-top: 3rem;
+    #TextAreaLg {
+      width: 77% !important;
+      background-color: #282a36;
+      color: white;
+      font-family: arial;
+      font-size: 18px;
+    }
+  }
+  #CodeEditorBox {
+    width: 37%;
+    display: inline-block;
+    margin-left: 2rem;
+    justify-content: start !important;
+    text-align: start !important;
+  }
+
+  .TextArea {
+    background-color: #282a36;
+    width: 37%;
+    color: white;
+    font-family: "arial";
+    font-size: "18px";
+    margin-left: 1rem;
+    margin-top: 3rem;
+  }
+}
+
+@media (min-width: 2559px) {
+  body {
+    text-align: center;
+  }
+  #TextFieldBox {
+    width: 90vw;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
+    #TitleField {
+      width: 720px;
+      color: white;
+    }
+    #SelectField {
+      width: 720px;
+      color: white;
+      margin-left: 1rem;
+    }
+  }
+  #TextAreaLgBox {
+    padding: 1rem;
+    margin-top: 3rem;
+    #TextAreaLg {
+      width: 63% !important;
+      background-color: #282a36;
+      color: white;
+      font-family: arial;
+      font-size: 18px;
+    }
+  }
+  #CodeEditorBox {
+    width: 30%;
+    display: inline-block;
+    margin-left: 2rem;
+    justify-content: start !important;
+    text-align: start !important;
+  }
+
+  .TextArea {
+    background-color: #282a36;
+    width: 30%;
+    color: white;
+    font-family: "arial";
+    font-size: "18px";
+    margin-left: 1rem;
+    margin-top: 3rem;
+  }
+}

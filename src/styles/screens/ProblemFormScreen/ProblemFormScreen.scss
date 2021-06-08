@@ -8,23 +8,100 @@
   justify-content: center;
   text-align: center;
 }
-
-@media (max-width: 768px) {
+@media (max-width: 321px) {
   #buttonBox {
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 200px !important;
     height: 50px;
     margin-top: 20px;
     margin-bottom: 2rem;
+    #NextButton__ProblemFormScreen {
+      width: 100px;
+      margin-left: 2rem;
+      margin-right: 4rem;
+    }
+    #BackButton__ProblemFormScreen {
+      margin-left: 11rem;
+      width: 100px;
+    }
     .button {
-      margin-right: 20px !important;
-      width: 30%;
+      width: 100%;
+    }
+  }
+}
+@media (min-width: 322px) and (max-width: 376px) {
+  #buttonBox {
+    display: flex;
+    justify-content: center;
+    width: 300px;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 2rem;
+    #NextButton__ProblemFormScreen {
+      width: 100px;
+      margin-left: 2rem;
+    }
+    #BackButton__ProblemFormScreen {
+      width: 100px;
+      margin-left: 4rem;
+    }
+    .button {
+      width: 100%;
+    }
+  }
+}
+@media (min-width: 377px) and (max-width: 426px) {
+  #buttonBox {
+    display: flex;
+    justify-content: center;
+    width: 84% !important;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    #NextButton__ProblemFormScreen {
+      width: 100px;
+      margin-left: 2rem;
+      margin-right: 4rem;
+    }
+    #BackButton__ProblemFormScreen {
+      margin-left: 3rem;
+      width: 100px;
+    }
+    .button {
+      width: 100%;
     }
   }
 }
 
-@media (min-width: 769px) and (max-width: 1438px) {
+@media (min-width: 427px) and (max-width: 769px) {
+  #buttonBox {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+    #NextButton__ProblemFormScreen {
+      width: 100px;
+      margin-left: 2rem;
+      margin-right: 4rem;
+    }
+    #BackButton__ProblemFormScreen {
+      margin-left: 5rem;
+      width: 100px;
+    }
+    .button {
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: 770px) and (max-width: 1438px) {
   #buttonBox {
     display: flex;
     justify-content: flex-end;
@@ -44,10 +121,11 @@
   #buttonBox {
     display: flex;
     justify-content: flex-end;
-    width: 90%;
+    width: 80%;
     height: 50px;
     margin-top: 20px;
     margin-bottom: 2rem;
+    margin-left: 6.3rem;
     .button {
       float: "right";
       display: "flex";
@@ -64,6 +142,7 @@
     height: 50px;
     margin-top: 20px;
     margin-bottom: 2rem;
+    margin-left: 7rem;
     .button {
       float: "right";
       display: "flex";

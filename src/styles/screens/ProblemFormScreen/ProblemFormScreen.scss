@@ -16,17 +16,17 @@
     height: 50px;
     margin-top: 20px;
     margin-bottom: 2rem;
+    margin-left: 2.2rem;
     #NextButton__ProblemFormScreen {
-      width: 100px;
-      margin-left: 2rem;
-      margin-right: 4rem;
+      width: 90px;
     }
     #BackButton__ProblemFormScreen {
-      margin-left: 11rem;
-      width: 100px;
+      margin-right: 1rem;
+      width: 90px;
     }
     .button {
       width: 100%;
+      margin-left: 2rem;
     }
   }
 }
@@ -38,13 +38,13 @@
     height: 50px;
     margin-top: 20px;
     margin-bottom: 2rem;
+    margin-left: 2rem;
     #NextButton__ProblemFormScreen {
       width: 100px;
       margin-left: 2rem;
     }
     #BackButton__ProblemFormScreen {
       width: 100px;
-      margin-left: 4rem;
     }
     .button {
       width: 100%;
@@ -61,14 +61,13 @@
     margin-bottom: 2rem;
     margin-left: auto;
     margin-right: auto;
-
+    margin-left: 4rem;
     #NextButton__ProblemFormScreen {
       width: 100px;
       margin-left: 2rem;
       margin-right: 4rem;
     }
     #BackButton__ProblemFormScreen {
-      margin-left: 3rem;
       width: 100px;
     }
     .button {
@@ -85,14 +84,14 @@
     height: 50px;
     margin-top: 20px;
     margin-bottom: 2rem;
-    margin-left: 1rem;
+    margin-left: 3.5rem;
     #NextButton__ProblemFormScreen {
       width: 100px;
       margin-left: 2rem;
       margin-right: 4rem;
     }
     #BackButton__ProblemFormScreen {
-      margin-left: 5rem;
+      margin-left: 1rem;
       width: 100px;
     }
     .button {
@@ -109,6 +108,7 @@
     height: 50px;
     margin-top: 20px;
     margin-bottom: 2rem;
+
     .button {
       float: "right";
       display: "flex";
@@ -121,15 +121,20 @@
   #buttonBox {
     display: flex;
     justify-content: flex-end;
-    width: 80%;
+    width: 70.5%;
     height: 50px;
     margin-top: 20px;
     margin-bottom: 2rem;
-    margin-left: 6.3rem;
+    margin-left: 16rem;
+    #BackButton__ProblemFormScreen {
+      width: 100px;
+    }
+    #NextButton__ProblemFormScreen {
+      width: 100px;
+    }
     .button {
       float: "right";
       display: "flex";
-      margin-right: 20px;
     }
   }
 }
@@ -138,15 +143,17 @@
   #buttonBox {
     display: flex;
     justify-content: flex-end;
-    width: 82%;
+    width: 81.5%;
     height: 50px;
     margin-top: 20px;
     margin-bottom: 2rem;
-    margin-left: 7rem;
-    .button {
-      float: "right";
-      display: "flex";
-      margin-right: 20px;
+    margin-right: 11rem;
+    #NextButton__ProblemFormScreen {
+      width: 100px;
+    }
+    #BackButton__ProblemFormScreen {
+      width: 100px;
+      margin-left: 8rem !important;
     }
   }
 }

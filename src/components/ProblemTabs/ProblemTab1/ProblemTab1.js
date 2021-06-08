@@ -36,7 +36,7 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
     setOpen(true);
   };
   
-  const onChange = e =>{
+  const onChange = e => {
     if(e.target==undefined) return
     handleProblemInfo({
         ...problemInfo,

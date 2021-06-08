@@ -167,14 +167,14 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     textS3: {
-        textAlign: "center",
-        fontFamily: "Roboto",
-        fontStyle: "normal",
-        fontWeight: "bold",
-        fontSize: "1.4rem",
-        color: "black",
-        [theme.breakpoints.down("xs")]: {
-            fontSize: "1rem",
+        textAlign: 'center',
+        fontFamily: 'Roboto',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        fontSize: '1rem',
+        color: 'black',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '1rem',
         },
     },
     contentS4: {

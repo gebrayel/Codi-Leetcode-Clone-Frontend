@@ -6,13 +6,12 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Drawer from "@material-ui/core/Drawer";
 //icons
-import MenuIcon from "@material-ui/icons/Menu";
-import DeveloperModeIcon from "@material-ui/icons/DeveloperMode";
-import CardMembershipIcon from "@material-ui/icons/CardMembership";
-import PersonIcon from "@material-ui/icons/Person";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import AppsIcon from "@material-ui/icons/Apps";
+import MenuIcon from '@material-ui/icons/Menu';
+import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
+import CardMembershipIcon from '@material-ui/icons/CardMembership';
+import PersonIcon from '@material-ui/icons/Person';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import AppsIcon from '@material-ui/icons/Apps';
 //icons//
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -48,6 +47,13 @@ const useStyles = makeStyles((theme) => ({
         "@media (max-width: 899x)": {
             marginLeft: "0.2rem",
         },
+  },
+  appbarcolor:{
+    backgroundColor: '#191A21',
+    color: "white",
+    paddingRight: "0.1rem",
+    maxHeight: '54px',
+    "@media (max-width: 900px)": {
     },
     leftpart: {
         paddingLeft: "0rem",
@@ -358,27 +364,36 @@ export default function Navbar() {
                 >
                     <MenuIcon />
                 </IconButton>
-            </Toolbar>
-        );
-    };
-    const getDrawerChoices = () => {
-        return (
-            <>
-                <List>
-                    <ListItem button key={"Problemas"}>
-                        <ListItemIcon>
-                            <DeveloperModeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Problemas"} />
-                    </ListItem>
-                    <ListItem button key={"Premium"}>
-                        <ListItemIcon>
-                            <CardMembershipIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Premium"} />
-                    </ListItem>
-
-                    {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <NLink to = '/' className={classes.DrawerlinkStyle}><MenuItem onClick={handleClose}>Perfil</MenuItem></NLink>
+                  
+                {
+                  user?.is_admin 
+                  ? 
+                    
+                      <NLink  to = '/hola' className={classes.DrawerlinkStyle}>
+                        <MenuItem onClick={handleClose}>Administrar Problemas</MenuItem>
+                      </NLink>
+                    
+                  : null
+                }
+                
+                  
+                      <MenuItem style={{padding:"0px"}} onClick={handleClose}>
 
                     {user.is_admin ? (
                         <ListItem button key={"Administrar Problemas"}>
@@ -388,7 +403,7 @@ export default function Navbar() {
                             <ListItemText primary={"Administrar Problemas"} />
                         </ListItem>
                     ) : null}
-                </List>
+                </MenuItem>
                 <Divider />
                 <List>
                     <ListItem button key={"Perfil"}>
@@ -399,6 +414,8 @@ export default function Navbar() {
                     </ListItem>
 
                     <div style={{ padding: "0px" }} className={classes.modal}>
+                    <Menu>
+                <MenuItem>
                         <Modal
                             modalDesing={"desktop"}
                             modalTitle={"Cerrar Sesion"}
@@ -418,11 +435,18 @@ export default function Navbar() {
                             renderButton={true}
                             singleButton={false}
                         />
-                    </div>
-                </List>
-            </>
-        );
-    };
+                      </MenuItem>
+                </Menu>
+              </div>
+          </Toolbar>
+    )
+  }
+
+  const displayMobile = () => {
+    const handleDrawerOpen = () =>
+      setState((prevState) => ({ ...prevState, drawerOpen: true }));
+    const handleDrawerClose = () =>
+      setState((prevState) => ({ ...prevState, drawerOpen: false }));
 
     //  Internet stuff que me vole para hacerla responsive//
 
@@ -441,4 +465,72 @@ export default function Navbar() {
             </AppBar>
         </div>
     );
+  };
+  const getDrawerChoices = () => {
+    return (
+      <>
+        <List>
+        
+          <ListItem button key={'Problemas'}>
+            <ListItemIcon><DeveloperModeIcon/></ListItemIcon> 
+            <ListItemText primary={'Problemas'} />
+          </ListItem>
+          <ListItem button key={'Premium'}>
+          <ListItemIcon><CardMembershipIcon/></ListItemIcon>
+          <ListItemText primary={'Premium'} />
+        </ListItem>
+
+        {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
+                  
+        {
+          user?.is_admin 
+          ? 
+            
+            <ListItem button key={'Administrar Problemas'}>
+              <ListItemIcon><AppsIcon/></ListItemIcon>
+                    <ListItemText primary={'Administrar Problemas'} />
+            </ListItem>
+        
+          : null
+        }
+
+        </List>
+        <Divider />
+        <List>
+          <ListItem button key={'Perfil'}>
+                <ListItemIcon><PersonIcon/></ListItemIcon>
+                <ListItemText primary={'Perfil'} />
+          </ListItem>
+          
+          
+            
+            <div style={{padding:"0px"}} className={classes.modal} >
+              
+              <Modal
+                modalDesing={"mobile"}
+                modalTitle={"Cerrar Sesion"}
+                variant={msg.variant}
+                color={msg.color}
+                text={msg.text}
+                description={msg.description}
+                acceptText={msg.acceptText}
+                cancelText={msg.cancelText}
+              />
+            </div>
+            
+          
+
+        </List>      
+      </>
+    )
+    
+  };
+
+  return (
+    <div className={classes.root}> 
+      <AppBar position="fixed" color={apcol} classes={{root: classes.appbarcolor}} >
+        {auth?  (mobileView ? displayMobile() : displayDesktop() ): null}
+      </AppBar>
+    </div>
+  );
 }

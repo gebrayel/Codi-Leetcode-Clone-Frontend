@@ -192,6 +192,7 @@ export default function Navbar() {
         variant: "",
         color: "secondary",
         text: "Cerrar Sesion",
+        title: "<Codi/>",
         description: "¿Estás seguro seguro de que deseas cerrar sesión?",
         acceptText: "Volver a Codi.",
         cancelText: "Cerrar sesión.",
@@ -290,6 +291,7 @@ export default function Navbar() {
                                 variant={msg.variant}
                                 color={msg.color}
                                 text={msg.text}
+                                title={msg.title}
                                 description={msg.description}
                                 acceptText={msg.acceptText}
                                 cancelText={msg.cancelText}
@@ -299,6 +301,7 @@ export default function Navbar() {
                                 open={openModal}
                                 setOpen={setOpenModal}
                                 renderButton={true}
+                                singleButton={false}
                             />
                         </MenuItem>
                     </Menu>
@@ -400,6 +403,7 @@ export default function Navbar() {
                             variant={msg.variant}
                             color={msg.color}
                             text={msg.text}
+                            title={msg.title}
                             description={msg.description}
                             acceptText={msg.acceptText}
                             cancelText={msg.cancelText}
@@ -409,6 +413,7 @@ export default function Navbar() {
                             open={openModal}
                             setOpen={setOpenModal}
                             renderButton={true}
+                            singleButton={false}
                         />
                     </div>
                 </List>

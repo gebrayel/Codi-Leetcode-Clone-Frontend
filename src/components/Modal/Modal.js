@@ -16,6 +16,7 @@ const Modal = ({
     variant,
     color,
     text,
+    title,
     description,
     acceptText,
     cancelText,
@@ -25,6 +26,7 @@ const Modal = ({
     open,
     setOpen,
     renderButton,
+    singleButton,
 }) => {
     /** ===> El componente modal se le estableceran 6 parametros en un objeto, donde los valores de los keys:
      *      variant Establece el variant desing del boton que abrira el Componente Modal.
@@ -97,7 +99,7 @@ const Modal = ({
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"<Codi/>"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         {description}
@@ -107,16 +109,18 @@ const Modal = ({
                     <Button onClick={handleClickClose} color="primary">
                         {acceptText}
                     </Button>
-                    <Button
-                        onClick={() => {
-                            handleClickClose();
-                            passedFunction();
-                        }}
-                        color="secondary"
-                        autoFocus
-                    >
-                        {cancelText}
-                    </Button>
+                    {!singleButton ? (
+                        <Button
+                            onClick={() => {
+                                handleClickClose();
+                                passedFunction();
+                            }}
+                            color="secondary"
+                            autoFocus
+                        >
+                            {cancelText}
+                        </Button>
+                    ) : null}
                 </DialogActions>
             </Dialog>
         </div>

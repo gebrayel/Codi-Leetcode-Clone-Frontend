@@ -88,10 +88,12 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const msg = {
         variant: "",
         color: "secondary",
-        text: "Cerrar Sesion",
-        description: "¿Estás seguro seguro de que deseas cerrar sesión?",
-        acceptText: "Volver a Codi.",
-        cancelText: "Cerrar sesión.",
+        text: "Campos inválidos",
+        title: "Campos inválidos",
+        description:
+            "Revise y rellene cuidadosamente los campos del formulario",
+        acceptText: "Cerrar",
+        cancelText: "Cerrar",
     };
 
     const body = (
@@ -186,6 +188,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                 variant={msg.variant}
                 color={msg.color}
                 text={msg.text}
+                title={msg.title}
                 description={msg.description}
                 acceptText={msg.acceptText}
                 cancelText={msg.cancelText}
@@ -194,6 +197,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                 open={openModal}
                 setOpen={setOpenModal}
                 renderButton={false}
+                singleButton={true}
             />
         </Box>
     );

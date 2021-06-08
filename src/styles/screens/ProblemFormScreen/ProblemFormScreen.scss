@@ -16,7 +16,7 @@
     height: 50px;
     margin-top: 20px;
     margin-bottom: 2rem;
-    margin-left: 2.2rem;
+    margin-left: 1.5rem;
     #NextButton__ProblemFormScreen {
       width: 90px;
     }
@@ -131,6 +131,7 @@
     }
     #NextButton__ProblemFormScreen {
       width: 100px;
+      margin-right: 0.5rem;
     }
     .button {
       float: "right";
@@ -150,10 +151,11 @@
     margin-right: 11rem;
     #NextButton__ProblemFormScreen {
       width: 100px;
+      margin-right: 0.5rem;
     }
     #BackButton__ProblemFormScreen {
       width: 100px;
-      margin-left: 8rem !important;
+      margin-left: 8.5rem !important;
     }
   }
 }

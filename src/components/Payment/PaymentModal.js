@@ -23,6 +23,7 @@ import yellowCodi from "../../assets/yellow_codi.png";
 import { useHistory } from "react-router-dom";
 import AppContext from "../../helpers/context/context";
 import payments from "../../api/payments/payments";
+import moment from "moment";
 
 const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const classes = useStyles();
@@ -76,15 +77,12 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         "#Anual": 3,
     };
 
-    let formatter = "YYYY-MM-DD[T]HH:mm:ss";
-    let datea = new Date();
-    console.log(moment(datea).format(formatter));
-
     const redirectToSucces = () => {
         let actualDate = new Date();
+        let dateFormat = "YYYY-MM-DD[ ]HH:mm:ss";
 
         const paymentInfo = {
-            date: actualDate,
+            date: moment(actualDate).format(dateFormat),
             amount: price.split(",")[0].replace("$", ""),
             pm_id: 1,
             user_id: currentUser.user.google_id,

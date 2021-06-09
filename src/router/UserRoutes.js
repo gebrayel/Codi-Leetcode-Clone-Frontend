@@ -47,6 +47,7 @@ export const UserRoutes = () => {
                 >
                         <Page404 />
                 </Route>
+                
             </Switch>
         </>
     );

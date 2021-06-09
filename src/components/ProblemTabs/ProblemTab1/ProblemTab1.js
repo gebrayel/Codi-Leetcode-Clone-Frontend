@@ -10,8 +10,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}) {
   const classes = useStyles();
-  // languages: python text/x-java
-  var languageCode="text/x-java"
+  
+  var languageCode="text/x-java" // languages: python text/x-java
   const difficulties = [
     {
       value: 'easy',

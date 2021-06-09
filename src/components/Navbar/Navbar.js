@@ -6,12 +6,21 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
 //icons
+<<<<<<< HEAD
 import MenuIcon from '@material-ui/icons/Menu';
 import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
 import CardMembershipIcon from '@material-ui/icons/CardMembership';
 import PersonIcon from '@material-ui/icons/Person';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AppsIcon from '@material-ui/icons/Apps';
+=======
+import MenuIcon from "@material-ui/icons/Menu";
+import DeveloperModeIcon from "@material-ui/icons/DeveloperMode";
+import CardMembershipIcon from "@material-ui/icons/CardMembership";
+import PersonIcon from "@material-ui/icons/Person";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import AppsIcon from "@material-ui/icons/Apps";
+>>>>>>> 19a69cb7046bbc76e78f56af1e794bcc3c88ada3
 //icons//
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -58,9 +67,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#191A21',
     color: "white",
     paddingRight: "0.1rem",
+<<<<<<< HEAD
     maxHeight: '54px',
     "@media (max-width: 900px)": {
     },
+=======
+    maxHeight: "54px",
+    "@media (max-width: 900px)": {},
+>>>>>>> 19a69cb7046bbc76e78f56af1e794bcc3c88ada3
   },
   linkStyle:{
     textDecoration: 'none',
@@ -174,9 +188,22 @@ export default function Navbar() {
     
     return (
       <Toolbar className={classes.toolbar}>
+<<<<<<< HEAD
             <div className={classes.leftpart}>
               
               <NLink to='/'><img src={Codi_Icon} alt="Codi Icon" className={classes.codilog}/></NLink>       
+=======
+        <div className={classes.leftpart}>
+          <NLink to="/">
+            <img src={Codi_Icon} alt="Codi Icon" className={classes.codilog} />
+          </NLink>
+
+          <Typography variant="h5">
+            <NLink to="/" className={classes.title}>
+              {title}
+            </NLink>
+          </Typography>
+>>>>>>> 19a69cb7046bbc76e78f56af1e794bcc3c88ada3
 
                <Typography variant="h5" >
                 <NLink to='/' className={classes.title}>{title}</NLink>
@@ -185,6 +212,7 @@ export default function Navbar() {
                 
               <div className={classes.submenus}>
 
+<<<<<<< HEAD
                 <Typography variant="h7" className={classes.each}>
                     
                     <NLink to = '/difficulties' className={classes.linkStyle}>Problemas</NLink>
@@ -258,6 +286,31 @@ export default function Navbar() {
           </Toolbar>
     )
   }
+=======
+            {user?.is_admin ? (
+              <NLink to="/hola" className={classes.DrawerlinkStyle}>
+                <MenuItem onClick={handleClose}>Administrar Problemas</MenuItem>
+              </NLink>
+            ) : null}
+
+            <MenuItem style={{ padding: "0px" }} onClick={handleClose}>
+              <Modal
+                modalDesing={"desktop"}
+                modalTitle={"Cerrar Sesion"}
+                variant={msg.variant}
+                color={msg.color}
+                text={msg.text}
+                description={msg.description}
+                acceptText={msg.acceptText}
+                cancelText={msg.cancelText}
+              />
+            </MenuItem>
+          </Menu>
+        </div>
+      </Toolbar>
+    );
+  };
+>>>>>>> 19a69cb7046bbc76e78f56af1e794bcc3c88ada3
 
   const displayMobile = () => {
     const handleDrawerOpen = () =>
@@ -316,6 +369,7 @@ export default function Navbar() {
           <ListItemText primary={'Premium'} />
         </ListItem>
 
+<<<<<<< HEAD
         {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
                   
         {
@@ -329,6 +383,18 @@ export default function Navbar() {
         
           : null
         }
+=======
+          {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
+
+          {user?.is_admin ? (
+            <ListItem button key={"Administrar Problemas"}>
+              <ListItemIcon>
+                <AppsIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Administrar Problemas"} />
+            </ListItem>
+          ) : null}
+>>>>>>> 19a69cb7046bbc76e78f56af1e794bcc3c88ada3
 
         </List>
         <Divider />

@@ -30,13 +30,20 @@ export default function CustomInput() {
         />
 
         <IconButton
+          className={classes.iconStyle}
+          style={{ padding: 5 }}
           onClick={() => {
             setText({ ...text, editMode: !text.editMode, modif: "" });
           }}
         >
-          <CancelOutlinedIcon style={{ fontSize: "2rem", color: "#E75656" }} />
+          <CancelOutlinedIcon
+            className={classes.iconSize}
+            style={{ fontSize: "2rem", color: "#E75656" }}
+          />
         </IconButton>
         <IconButton
+          style={{ padding: 5 }}
+          className={classes.iconStyle}
           onClick={() => {
             try {
               let textModified = document.getElementById("text").value;
@@ -57,6 +64,7 @@ export default function CustomInput() {
         >
           <DoneOutlineOutlinedIcon
             style={{ fontSize: "2rem", color: "#84DB65" }}
+            className={classes.iconSize}
           />
         </IconButton>
       </div>
@@ -67,11 +75,15 @@ export default function CustomInput() {
       <div className={classes.textButtom}>
         <div className={classes.textname}>{text.value}</div>
         <IconButton
+          className={classes.iconStyle}
           onClick={() => {
             setText({ ...text, editMode: !text.editMode });
           }}
         >
-          <EditTwoToneIcon style={{ fontSize: "2rem", color: "#869BFF" }} />
+          <EditTwoToneIcon
+            style={{ fontSize: "2rem", color: "#869BFF" }}
+            className={classes.iconSize}
+          />
         </IconButton>
       </div>
     );
@@ -268,14 +280,36 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
     alignItems: "center",
   },
+  iconStyle: {
+    "& .MuiButtonBase-root .MuiIconButton-root": {
+      padding: 0,
+    },
+  },
+  iconSize: {
+    "& .MuiButtonBase-root .MuiIconButton-root": {
+      padding: 0,
+    },
+    "@media (max-width: 952px)": {
+      fontSize: "1.5rem",
+    },
+  },
   whiteTheme: {
     "& .MuiInputBase-root ": {
       color: colors.white,
+      maxWidth: 280,
+      width: 280,
       fontSize: "2rem",
       color: "white",
       fontWeight: "20px",
+      "@media (max-width: 952px)": {
+        fontSize: "1.5rem",
+        maxWidth: 180,
+        width: 180,
+      },
       "@media (max-width: 425px)": {
         fontSize: "1rem",
+        maxWidth: 120,
+        width: 120,
       },
     },
     "& .MuiInputBase-input .MuiInput-input": {
@@ -291,6 +325,9 @@ const useStyles = makeStyles((theme) => ({
       borderColor: colors.white,
       borderWidth: "0.2rem",
       borderBottom: "0.2rem solid white",
+    },
+    "& .MuiFormControl-root .MuiTextField-root .makeStyles-whiteTheme-51": {
+      // width: 280,
     },
   },
 }));

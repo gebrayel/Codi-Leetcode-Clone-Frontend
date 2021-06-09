@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chart from "../../components/Chart/Chart";
-import AppContext from "../../helpers/context/context";
 import CustomInput from "../../components/CustomInput/CustomInput";
 
 import colors from "../../config/colors/colors";
@@ -10,12 +9,7 @@ export default function ProfileScreen() {
   const classes = useStyles();
   let locvalue = localStorage.getItem("user");
   locvalue = JSON.parse(locvalue);
-  let [text, setText] = useState({
-    value: locvalue["name"],
-    editMode: false,
-    modif: "",
-  });
-  const userC = useContext(AppContext);
+
   let problems = [
     { difficulty: "easy", solved: 2, total: 5 },
 
@@ -28,7 +22,15 @@ export default function ProfileScreen() {
   let total = [];
 
   problems.map((val) => {
-    difficulties.push(val.difficulty);
+    if (val.difficulty == "easy") {
+      difficulties.push("facil");
+    } else if (val.difficulty == "medium") {
+      difficulties.push("medio");
+    } else if (val.difficulty == "hard") {
+      difficulties.push("dificil");
+    } else {
+      difficulties.push("otra");
+    }
     solved.push(val.solved);
     total.push(val.total);
   });
@@ -59,11 +61,13 @@ export default function ProfileScreen() {
     <>
       <div style={{ marginTop: "5rem" }} className={classes.header}>
         <div className={classes.box}>
-          <img
-            src={locvalue["pic_url"]}
-            alt="avatar"
-            className={classes.image}
-          />
+          <div className={classes.boxPic}>
+            <img
+              src={locvalue["pic_url"]}
+              alt="avatar"
+              className={classes.image}
+            />
+          </div>
           <CustomInput />
         </div>
         <div className={classes.divider}>
@@ -126,10 +130,10 @@ export default function ProfileScreen() {
               <div className={classes.totalTitle}>Total</div>
             </div>
           </div>
-          <div className={classes.flexSpace}>
-            <div className={classes.lefBox}>
-              <div className={classes.charttext}>Intentos</div>
-              <div className={classes.miniFlex}>
+          <div className={classes.flexSpace3}>
+            {/* <div className={classes.lefBox}> */}
+            <div className={classes.charttext}>Intentos</div>
+            {/* <div className={classes.miniFlex}>
                 <div className={classes.miniTitle}>
                   Facil
                   <div className={classes.doughnut_container_mini}>
@@ -169,9 +173,10 @@ export default function ProfileScreen() {
                     />
                   </div>
                 </div>
-              </div>
-            </div>
-            <div>
+              </div> */}
+            {/* </div> */}
+            <div className={classes.leftTries}>
+              <div className={classes.triesTitle}>{intentos}%</div>
               <div className={classes.doughnut_container}>
                 <Chart
                   labels={["%Exito", "%Fracaso"]}
@@ -182,7 +187,6 @@ export default function ProfileScreen() {
                   etiquetas={false}
                 />
               </div>
-              <div className={classes.totalTitle}>Total</div>
             </div>
           </div>
         </div>
@@ -190,7 +194,7 @@ export default function ProfileScreen() {
       <div className={classes.secondRow}>
         <div className={classes.flexSpace2}>
           <div className={classes.charttext}>Lenguajes mas usados</div>
-          <div className={classes.doughnut_container}>
+          <div className={classes.doughnut_container2}>
             <Chart
               labels={language}
               data={count}
@@ -210,12 +214,13 @@ const useStyles = makeStyles((theme) => ({
   doughnut_container: {
     margin: 0,
     // marginTop: "10vh",
-    height: 150,
-    width: 200,
-    "@media (max-width: 768px)": {
-      maxHeight: 300,
-      width: 350,
-    },
+    height: 90,
+    width: 85,
+    // "@media (max-width: 768px)": {
+    //   maxHeight: 300,
+    //   height: 80,
+    //   width: 70,
+    // },
     "@media (max-width: 550px)": {
       maxHeight: 100,
       width: 100,
@@ -231,6 +236,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "2rem",
     marginTop: "1rem",
     paddingLeft: "1rem",
+    "@media (max-width: 952px)": {
+      fontSize: "0.7rem",
+      marginRight: "0.5rem",
+    },
     "@media (max-width: 550px)": {
       fontSize: "0.7rem",
       marginRight: "1rem",
@@ -258,30 +267,31 @@ const useStyles = makeStyles((theme) => ({
   doughnut_container2: {
     margin: 0,
     // marginTop: "10vh",
-    maxHeight: 400,
-    width: 500,
-    "@media (max-width: 768px)": {
-      maxHeight: 400,
-      width: 500,
-    },
+    height: 100,
+    width: 99.9,
+    // "@media (max-width: 768px)": {
+    //   maxHeight: 300,
+    //   height: 80,
+    //   width: 70,
+    // },
     "@media (max-width: 550px)": {
-      maxHeight: 400,
-      width: 500,
+      maxHeight: 100,
+      width: 100,
     },
     "@media (max-width: 425px)": {
-      maxHeight: 400,
-      width: 500,
+      maxHeight: 90,
+      width: 70,
     },
   },
   doughnut_container_mini: {
     margin: 0,
     // marginTop: "10vh",
-    maxHeight: 100,
-    width: 80,
-    "@media (max-width: 768px)": {
-      maxHeight: 80,
-      width: 60,
-    },
+    maxHeight: 75,
+    width: 74.5,
+    // "@media (max-width: 768px)": {
+    //   maxHeight: 80,
+    //   width: 60,
+    // },
     "@media (max-width: 550px)": {
       maxHeight: 60,
       width: 40,
@@ -295,15 +305,24 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     flexWrap: "wrap",
+    // "@media (max-width: 768px)": {
+    //   flexDirection: "column",
+    // },
   },
   secondRow: {
-    "@media (max-width: 768px)": {
+    "@media (max-width: 952px)": {
       display: "flex",
-      justifyContent: "space-around",
+      justifyContent: "center",
+      alignItems: "center",
       flexWrap: "wrap",
     },
   },
-  divider: {},
+  divider: {
+    marginLeft: -150,
+    "@media (max-width: 1000px)": {
+      marginLeft: 0,
+    },
+  },
   flexSpace: {
     padding: 10,
     backgroundColor: "#595959",
@@ -311,11 +330,38 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-around",
     maxHeight: 250,
+    width: "100%",
     maxWidth: 700,
     borderRadius: 15,
     borderColor: "#B6B6B6",
     borderWidth: 10,
     marginBottom: 20,
+
+    "@media (max-width: 550px)": {
+      maxHeight: 150,
+      maxWidth: 400,
+    },
+    "@media (max-width: 425px)": {
+      maxWidth: 250,
+    },
+  },
+  flexSpace3: {
+    padding: 10,
+    backgroundColor: "#595959",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
+    maxHeight: 250,
+    width: "100%",
+    maxWidth: 700,
+    borderRadius: 15,
+    borderColor: "#B6B6B6",
+    borderWidth: 10,
+    marginBottom: 20,
+    "@media (max-width: 952px)": {
+      maxWidth: "100%",
+    },
     "@media (max-width: 550px)": {
       maxHeight: 150,
       maxWidth: 400,
@@ -328,21 +374,25 @@ const useStyles = makeStyles((theme) => ({
     padding: 10,
     backgroundColor: "#595959",
     display: "flex",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
-    maxHeight: 250,
-    maxWidth: 700,
+    height: 200,
+    maxWidth: 450,
     borderRadius: 15,
     borderColor: "#B6B6B6",
     borderWidth: 10,
     marginBottom: 20,
     marginLeft: "5rem",
     marginTop: "1rem",
-    "@media (max-width: 768px)": {
-      margin: 5,
-      maxHeight: 150,
-      maxWidth: 500,
+    "@media (max-width: 952px)": {
+      marginLeft: 0,
     },
+    // "@media (max-width: 768px)": {
+    //   margin: 5,
+    //   maxHeight: 150,
+    //   maxWidth: 500,
+    // },
     "@media (max-width: 550px)": {
       margin: 5,
       maxHeight: 150,
@@ -354,10 +404,24 @@ const useStyles = makeStyles((theme) => ({
       margin: 5,
     },
   },
+  leftTries: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  triesTitle: {
+    color: "white",
+    textAlign: "center",
+    fontSize: "2rem",
+    marginRight: "1rem",
+    "@media (max-width: 425px)": {
+      fontSize: "1rem",
+    },
+  },
   charttext: {
     fontSize: "1.5rem",
     color: colors.white,
-    // marginRight: "4rem",
     paddingLeft: "2rem",
     textAlign: "center",
     "@media (max-width: 425px)": {
@@ -394,10 +458,41 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
+    "@media (max-width: 952px)": {
+      marginBottom: 15,
+    },
+    "@media (max-width: 425px)": {
+      width: "100%",
+    },
+  },
+  boxPic: {
+    margin: 0,
+    width: "30rem",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "@media (max-width: 952px)": {
+      width: "100%",
+    },
+    // "@media (max-width: 768px)": {
+    //   maxHeight: 300,
+    //   height: 80,
+    //   width: 70,
+    // },
+    // "@media (max-width: 550px)": {
+    //   maxHeight: 100,
+    //   width: 100,
+    // },
+    // "@media (max-width: 425px)": {
+    //   maxHeight: 90,
+    //   width: 70,
+    // },
   },
   whiteTheme: {
     "& .MuiInputBase-root ": {
       color: colors.white,
+      maxWidth: 280,
+      width: 280,
       fontSize: "2rem",
       color: "white",
       fontWeight: "20px",
@@ -418,6 +513,9 @@ const useStyles = makeStyles((theme) => ({
       borderColor: colors.white,
       borderWidth: "0.2rem",
       borderBottom: "0.2rem solid white",
+    },
+    "& .MuiFormControl-root .MuiTextField-root .makeStyles-whiteTheme-51": {
+      width: 280,
     },
   },
 }));

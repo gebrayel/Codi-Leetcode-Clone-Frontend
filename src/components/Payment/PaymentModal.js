@@ -60,6 +60,16 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         setOpenModalError(false);
     };
 
+    const [openModalApi, setOpenModalApi] = useState(false);
+
+    const handleClickOpenApi = () => {
+        setOpenModalApi(true);
+    };
+
+    const handleClickCloseApi = () => {
+        setOpenModalApi(false);
+    };
+
     const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
     const handleClickOpenConfirm = () => {
@@ -77,7 +87,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         "#Anual": 3,
     };
 
-    const redirectToSucces = () => {
+    const redirectToSucces = async () => {
         let actualDate = new Date();
         let dateFormat = "YYYY-MM-DD[ ]HH:mm:ss";
 
@@ -88,9 +98,13 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             user_id: currentUser.user.google_id,
             sub_type: subscriptionType[subscription],
         };
-        console.log("Enviado");
-        payments.createPayment(paymentInfo);
-        history.push("/payment_success");
+
+        try {
+            await payments.createPayment(paymentInfo);
+            history.push("/payment_success");
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const validateFields = () => {
@@ -143,6 +157,17 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         description: "¿Esta seguro que quiere realizar el pago?",
         acceptText: "Confirmar",
         cancelText: "Cancelar",
+    };
+
+    const msgErrorAPI = {
+        variant: "",
+        color: "secondary",
+        text: "Error al pagar",
+        title: "Error al pagar",
+        description:
+            "Ocurrió un error al realizar el pago, revise los campos o inténtelo más tarde",
+        acceptText: "Cerrar",
+        cancelText: "Cerrar",
     };
 
     const body = (
@@ -267,6 +292,25 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                 setOpen={setOpenModalConfirm}
                 renderButton={false}
                 singleButton={false}
+            />
+            <AlertModal
+                modalDesing={"desktop"}
+                modalTitle={"Cerrar Sesion"}
+                variant={msgErrorAPI.variant}
+                color={msgErrorAPI.color}
+                text={msgErrorAPI.text}
+                title={msgErrorAPI.title}
+                description={msgErrorAPI.description}
+                acceptText={msgErrorAPI.acceptText}
+                cancelText={msgErrorAPI.cancelText}
+                passedRedFunction={handleClickCloseApi}
+                passedBlueFunction={handleClickCloseApi}
+                handleClickOpen={handleClickCloseApi}
+                handleClickClose={handleClickCloseApi}
+                open={openModalApi}
+                setOpen={setOpenModalApi}
+                renderButton={false}
+                singleButton={true}
             />
         </Box>
     );

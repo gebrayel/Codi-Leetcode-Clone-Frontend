@@ -10,7 +10,7 @@ export default function Toditocreen({ x, ...props }) {
     return (
         <Box className={classes.container}>
             <Todito 
-                type="submissions" 
+                type="description" 
                 id={51} 
                 title="N-Reinas" 
                 difficulty="Difícil" 

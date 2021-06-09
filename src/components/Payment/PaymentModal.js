@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import clsx from "clsx";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -21,9 +21,13 @@ import date from "../../helpers/date/date";
 import k from "../../helpers/constants/constants";
 import yellowCodi from "../../assets/yellow_codi.png";
 import { useHistory } from "react-router-dom";
+import AppContext from "../../helpers/context/context";
+import payments from "../../api/payments/payments";
 
 const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const classes = useStyles();
+
+    const currentUser = useContext(AppContext);
 
     const toggleModal = () => {
         setModal(!modal);
@@ -66,7 +70,28 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
     };
     let history = useHistory();
 
+    const subscriptionType = {
+        "<Semanal>": 1,
+        "{Mensual}": 2,
+        "#Anual": 3,
+    };
+
+    let formatter = "YYYY-MM-DD[T]HH:mm:ss";
+    let datea = new Date();
+    console.log(moment(datea).format(formatter));
+
     const redirectToSucces = () => {
+        let actualDate = new Date();
+
+        const paymentInfo = {
+            date: actualDate,
+            amount: price.split(",")[0].replace("$", ""),
+            pm_id: 1,
+            user_id: currentUser.user.google_id,
+            sub_type: subscriptionType[subscription],
+        };
+        console.log("Enviado");
+        payments.createPayment(paymentInfo);
         history.push("/payment_success");
     };
 

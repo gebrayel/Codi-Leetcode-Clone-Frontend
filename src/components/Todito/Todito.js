@@ -90,6 +90,9 @@ export default function Todito({ type, id, title, difficulty, description, solut
                 }else{
                     return (
                         <Box className={classes.containerTodito}>
+                            <Box className={classes.containerTitle}>
+                                <h1 className={classes.title}>Submissions</h1>
+                            </Box> 
                             <Paper className={classes.paper}>
                                 <TableContainer className={classes.table}>
                                     <Table stickyHeader aria-label="sticky table">
@@ -228,6 +231,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         width: '100%',
+        marginTop: 10,
     },
     table: {
         maxHeight: 440,

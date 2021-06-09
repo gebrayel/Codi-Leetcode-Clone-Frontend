@@ -65,7 +65,7 @@ const ProblemFormScreen = () => {
   }
 
     return ( 
-        <div className="ProblemScreenContainer">
+        <div className="ProblemFormScreenContainer">
             <StepperC
                 id="StepperComponent"
                 activeStep={activeStep} 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -23,7 +23,11 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+//Helpers
+import AppContext from "../../helpers/context/context";
+import logout from "../../helpers/logout/logout";
 //Import modal Component
+import { useHistory } from "react-router-dom";
 import Modal from "../Modal/Modal";
 
 const useStyles = makeStyles((theme) => ({
@@ -143,7 +147,10 @@ export default function Navbar() {
     const setResponsiveness = () => {
       return window.innerWidth < 900
         ? setState((prevState) => ({ ...prevState, mobileView: true }))
-        : setState((prevState) => ({ ...prevState, mobileView: false }));
+        : setState((prevState) => ({
+            ...prevState,
+            mobileView: false,
+          }));
     };
 
     setResponsiveness();
@@ -158,10 +165,31 @@ export default function Navbar() {
 
   const title = "<Codi/>";
 
+  const [openModal, setOpenModal] = React.useState(false);
+
+  const { setUser } = useContext(AppContext);
+
+  let history = useHistory();
+
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleClickClose = () => {
+    setOpenModal(false);
+  };
+
+  const handleCloseLogOut = (modalTitle) => {
+    logout.logOut();
+    setUser(null);
+    history.push("/");
+  };
+
   const msg = {
     variant: "",
     color: "secondary",
     text: "Cerrar Sesion",
+    title: "<Codi/>",
     description: "¿Estás seguro seguro de que deseas cerrar sesión?",
     acceptText: "Volver a Codi.",
     cancelText: "Cerrar sesión.",
@@ -239,9 +267,18 @@ export default function Navbar() {
                 variant={msg.variant}
                 color={msg.color}
                 text={msg.text}
+                title={msg.title}
                 description={msg.description}
                 acceptText={msg.acceptText}
                 cancelText={msg.cancelText}
+                passedRedFunction={handleCloseLogOut}
+                passedBlueFunction={handleClickClose}
+                handleClickOpen={handleClickOpen}
+                handleClickClose={handleClickClose}
+                open={openModal}
+                setOpen={setOpenModal}
+                renderButton={true}
+                singleButton={false}
               />
             </MenuItem>
           </Menu>
@@ -320,15 +357,6 @@ export default function Navbar() {
               <ListItemText primary={"Administrar Problemas"} />
             </ListItem>
           ) : null}
-
-          {user.is_admin ? (
-            <ListItem button key={"Administrar Problemas"}>
-              <ListItemIcon>
-                <AppsIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Administrar Problemas"} />
-            </ListItem>
-          ) : null}
         </List>
         <Divider />
         <List>
@@ -341,14 +369,23 @@ export default function Navbar() {
 
           <div style={{ padding: "0px" }} className={classes.modal}>
             <Modal
-              modalDesing={"mobile"}
+              modalDesing={"desktop"}
               modalTitle={"Cerrar Sesion"}
               variant={msg.variant}
               color={msg.color}
               text={msg.text}
+              title={msg.title}
               description={msg.description}
               acceptText={msg.acceptText}
               cancelText={msg.cancelText}
+              passedRedFunction={handleCloseLogOut}
+              passedBlueFunction={handleClickClose}
+              handleClickOpen={handleClickOpen}
+              handleClickClose={handleClickClose}
+              open={openModal}
+              setOpen={setOpenModal}
+              renderButton={true}
+              singleButton={false}
             />
           </div>
         </List>

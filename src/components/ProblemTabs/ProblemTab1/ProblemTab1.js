@@ -39,12 +39,13 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
         <div className={classes.root}>
           <div>
             <div id="TextFieldBox" >
-              <ThemeProvider theme={theme}>
+             
                   <TextField
                     color="white"
                     label="Titulo"
                     id="TitleField"
-                    className={classes.textField}
+                    className={`${classes.whiteTheme} ${classes.textField}`}
+                    
                     name="name"
                     onChange={onChange}
                     value={problemInfo.name}
@@ -54,18 +55,18 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
                     id="SelectField"
                     select
                     label="Dificultad"
-                    className={classes.textField}
+                    className={`${classes.whiteTheme} ${classes.whiteThemeInputLine} ${classes.textField} ${classes.whiteThemeIconSelect}`}
                     onChange={onChange}
                     name="difficulty"
                     value={problemInfo.difficulty}
                     >
                     {difficulties.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
+                      <MenuItem  key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
                     ))}
                   </TextField>
-                </ThemeProvider>
+                
                 
             </div>
 
@@ -128,15 +129,25 @@ textField: {
   color:"blue",
   
 },
+whiteTheme:{
 
+        "& .MuiInputLabel-formControl":{
+            color:"white"
+        }
+          
+      },
+whiteThemeIconSelect:{
 
+  "& .MuiSelect-icon":{
+    color:"white"
+  },
+whiteThemeInputLine:{
+  "& .MuiSelect-nativeInput .input":{
+    color:"white"
+  }
+}
   
+}
+
 
 }));
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-       main: '#ffffff'
-    },
-  },
-});

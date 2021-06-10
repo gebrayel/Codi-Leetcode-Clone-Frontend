@@ -49,7 +49,7 @@ export default function CustomInput() {
         <IconButton
           style={{ padding: 5 }}
           className={classes.iconStyle}
-          onClick={() => {
+          onClick={async () => {
             try {
               let textModified = document.getElementById("text").value;
               setloader({ isActive: true });

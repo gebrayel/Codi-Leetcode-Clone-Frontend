@@ -53,17 +53,16 @@ export default function CustomInput() {
             try {
               let textModified = document.getElementById("text").value;
               setloader({ isActive: true });
-              user.putUser(userC.user, userC.setUser, textModified).then(() => {
-                setText({
-                  ...text,
-                  modif: "",
-                  value: textModified,
-                  editMode: false,
-                });
-                locvalue.name = textModified;
-                localStorage.setItem("user", JSON.stringify(locvalue));
-                setloader({ isActive: false });
+              await user.putUser(userC.user, userC.setUser, textModified);
+              setText({
+                ...text,
+                modif: "",
+                value: textModified,
+                editMode: false,
               });
+              locvalue.name = textModified;
+              localStorage.setItem("user", JSON.stringify(locvalue));
+              setloader({ isActive: false });
             } catch (error) {
               setText({ ...text, editMode: !text.editMode, modif: "" });
             }

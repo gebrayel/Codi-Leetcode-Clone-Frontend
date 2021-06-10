@@ -5,7 +5,6 @@ import StepperC from "../../components/StepperC/StepperC";
 import "../../styles/screens/ProblemFormScreen/ProblemFormScreen.scss";
 
 const ProblemFormScreen = () => {
-
     const [activeStep, setActiveStep] = useState(0);
     const [code,setCode]=useState("");
     const [template,setTemplate]=useState("");
@@ -19,8 +18,6 @@ const ProblemFormScreen = () => {
         templateCode:''
 
     })
-    const classes = useStyles();
-
     const handleNextStepper = () => {
         if(activeStep==2){
         //HACER VALIDACION DEL FORMULARIO AQUI
@@ -29,41 +26,31 @@ const ProblemFormScreen = () => {
           
         let validateCases=""
         if(activeStep===0){
-
-            // if(problemInfo.name.trim().replace("\n","").length<3) validateCases=validateCases+"El titulo del problema debe tener al menos 3 caracteres.\n"
-            // if(problemInfo.difficulty.trim().replace("\n","")==="") validateCases=validateCases+"Debes seleccionar una dificultad para el problema.\n"
-            // if(problemInfo.description.trim().replace("\n","").length<8) validateCases=validateCases+"Debes agregar una descripcion para el problema de al menos 8 caracteres.\n"
-            // if(problemInfo.solution.trim().replace("\n","")==="") validateCases=validateCases+"Debes agregar una solucion para el problema.\n"
-            // if(code.trim().replace("\n","")==="") validateCases=validateCases+"Debes agregar un codigo solucion al problema.\n"
-            
+            if(problemInfo.name.trim().replace("\n","").length<3) validateCases=validateCases+"El titulo del problema debe tener al menos 3 caracteres.\n"
+            if(problemInfo.difficulty.trim().replace("\n","")==="") validateCases=validateCases+"Debes seleccionar una dificultad para el problema.\n"
+            if(problemInfo.description.trim().replace("\n","").length<8) validateCases=validateCases+"Debes agregar una descripcion para el problema de al menos 8 caracteres.\n"
+            if(problemInfo.solution.trim().replace("\n","")==="") validateCases=validateCases+"Debes agregar una solucion para el problema.\n"
+            if(code.trim().replace("\n","")==="") validateCases=validateCases+"Debes agregar un codigo solucion al problema.\n"
         }else if(activeStep===1){
-
-            // if(problemInfo.language.trim().replace("\n","")==="") validateCases=validateCases+"Debes asignar un lenguaje al problema.\n"
-            // if(template.trim().replace("\n","")==="") validateCases=validateCases+"Debes agregar un template al problema.\n"
-            
+            if(problemInfo.language.trim().replace("\n","")==="") validateCases=validateCases+"Debes asignar un lenguaje al problema.\n"
+            if(template.trim().replace("\n","")==="") validateCases=validateCases+"Debes agregar un template al problema.\n"
         }
-        
         if(validateCases.trim().replace("\n","")!=="") {alert(validateCases); return;}
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        console.log(activeStep);
         console.log(problemInfo);
-        console.log(code);
-        console.log(template)
-        
+        // console.log(activeStep);
+        // console.log(code);
+        console.log(template);
         }
   };
-
   const handleBackStepper = () => {
-      
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
       console.log(activeStep);
   };
   const save =()=>{
       console.log("problema guardado");
       console.log(problemInfo)
-
   }
-
     return ( 
         <div className="ProblemFormScreenContainer">
             <StepperC
@@ -87,7 +74,7 @@ const ProblemFormScreen = () => {
                             disabled={activeStep === 0} 
                             onClick={handleBackStepper} 
                             className="button">
-                            Back
+                            Regresar
                         </Button> 
                     </div>
                     
@@ -107,16 +94,8 @@ const ProblemFormScreen = () => {
                 :null }
             </div>
         </div>
-        
         );
-}
- 
+} 
 export default ProblemFormScreen;
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-    },
-    
-}));

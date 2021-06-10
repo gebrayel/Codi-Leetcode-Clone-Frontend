@@ -5,12 +5,10 @@ import {  TextField,
           TextareaAutosize,
           MenuItem } from '@material-ui/core';
 import CodeEditor from "../../CodeEditor/CodeEditor";
-import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
-
+import colors from "../../../config/colors/colors";
 export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}) {
   const classes = useStyles();
-  
   var languageCode="text/x-java" // languages: python text/x-java
   const difficulties = [
     {
@@ -26,7 +24,6 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
       label: 'Dificil',
     }
   ];
-  
   const onChange = e => {
     if (e.target === undefined) return
     handleProblemInfo({
@@ -34,28 +31,24 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
         [e.target.name]:e.target.value
     })
   }
-
   return (
         <div className={classes.root}>
           <div>
             <div id="TextFieldBox" >
-             
                   <TextField
                     color="white"
                     label="Titulo"
                     id="TitleField"
                     className={`${classes.whiteTheme} ${classes.textField}`}
-                    
                     name="name"
                     onChange={onChange}
                     value={problemInfo.name}
-                    
                     />
                   <TextField
                     id="SelectField"
                     select
                     label="Dificultad"
-                    className={`${classes.whiteTheme} ${classes.whiteThemeInputLine} ${classes.textField} ${classes.whiteThemeIconSelect}`}
+                    className={`${classes.whiteTheme} ${classes.textField} ${classes.whiteThemeIconSelect}`}
                     onChange={onChange}
                     name="difficulty"
                     value={problemInfo.difficulty}
@@ -66,10 +59,7 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
                       </MenuItem>
                     ))}
                   </TextField>
-                
-                
             </div>
-
             <div id="TextAreaLgBox">
               <div id="InputLabelDescriptionBox" >
                 <InputLabel id="InputLabelDescription" style={{color:"white",marginBottom:"1rem",textAlign:"start"}} htmlFor="description">Descripcion</InputLabel>
@@ -86,9 +76,8 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
                 value={problemInfo.description}
                 />
             </div>
-
             <div style={{marginLeft: "auto",marginRight: "auto",width:"82%"}} id="TextAreaBox">
-              <div id="InputLabelSolutionBox" style={{width:"200px"}}>
+              <div id="InputLabelSolutionBox">
                 <InputLabel id="InputLabelSolution" style={{color:"white",textAlign:"start"}} htmlFor="solution">Solucion</InputLabel>
               </div>
               <TextareaAutosize
@@ -120,34 +109,37 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
 );}
 
 const useStyles = makeStyles((theme) => ({
-root: {
-  width:"100%",
-  color:"white"
-},
-textField: {
-  marginRight: theme.spacing(5),
-  color:"blue",
-  
-},
-whiteTheme:{
-
-        "& .MuiInputLabel-formControl":{
-            color:"white"
-        }
-          
-      },
-whiteThemeIconSelect:{
-
-  "& .MuiSelect-icon":{
+  root: {
+    width:"100%",
     color:"white"
   },
-whiteThemeInputLine:{
-  "& .MuiSelect-nativeInput .input":{
-    color:"white"
-  }
-}
-  
-}
-
-
+  textField: {
+    marginRight: theme.spacing(5),
+    color:"blue",
+    
+  },
+  whiteTheme: {
+    "& .MuiSelect-icon":{
+      color:"white"
+    },
+    "& .MuiInputLabel-formControl":{
+        color:"white"
+    },
+      "& .MuiInputBase-root ": {
+        color: colors.white,  
+    },
+      "& .MuiInputBase-input .MuiInput-input": {
+        color: colors.white,
+    },
+      "& .MuiInput-underline:before": {
+        borderColor: colors.white,
+        borderWidth: "0.2rem",
+        borderBottom: "0.2rem solid white",
+    },
+      "& .MuiInput-underline:after": {
+        borderColor: colors.white,
+        borderWidth: "0.2rem",
+        borderBottom: "0.2rem solid white",
+    },
+  },
 }));

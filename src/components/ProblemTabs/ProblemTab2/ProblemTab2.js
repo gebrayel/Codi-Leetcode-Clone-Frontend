@@ -36,23 +36,23 @@ export default function ProblemTab2({problemInfo,handleProblemInfo,template,setT
         <div className={classes.root}>
       
           <div id="TextFieldBox__Tab2" >
-            <ThemeProvider theme={theme}>
+            
                 <TextField
                   id="SelectField__Tab2"
                   select
                   label="Lenguaje"
-                  className={classes.textField}
+                  className={`${classes.whiteTheme} ${classes.textField}`}
                   onChange={onChange}
                   name="language"
                   value={problemInfo.language}
                   >
                   {languages.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <MenuItem className={classes.whiteThemeIconSelect} key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
                   ))}
                 </TextField>
-              </ThemeProvider>
+              
           </div>
           <div id="CodeEditorBox__Tab2">
             <InputLabel id="TemplateLabel__Tab2" style={{color:"white",marginBottom:"1rem"}} htmlFor="template">Template</InputLabel>
@@ -77,11 +77,19 @@ root: {
 textField: {
   color:"white",
 },
-}));
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-       main: '#ffffff'
-    },
+whiteTheme:{
+
+        "& .MuiInputLabel-formControl":{
+            color:"white"
+        }
+          
+      },
+whiteThemeIconSelect:{
+
+  "& .MuiSelect-icon":{
+    color:"white !important"
   },
-});
+  
+}
+      
+}));

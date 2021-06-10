@@ -26,18 +26,9 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
       label: 'Dificil',
     }
   ];
-  const [open, setOpen] = useState(false);
-  
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
   
   const onChange = e => {
-    if(e.target==undefined) return
+    if (e.target === undefined) return
     handleProblemInfo({
         ...problemInfo,
         [e.target.name]:e.target.value
@@ -57,6 +48,7 @@ export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}
                     name="name"
                     onChange={onChange}
                     value={problemInfo.name}
+                    
                     />
                   <TextField
                     id="SelectField"
@@ -133,8 +125,13 @@ root: {
 },
 textField: {
   marginRight: theme.spacing(5),
-  color:"white",
+  color:"blue",
+  
 },
+
+
+  
+
 }));
 const theme = createMuiTheme({
   palette: {

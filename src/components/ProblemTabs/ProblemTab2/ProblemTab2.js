@@ -1,12 +1,20 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import "../../../styles/screens/ProblemFormScreen/ProblemTabs/ProblemTab2/ProblemTab2.scss";
 import {  TextField,
           MenuItem } from '@material-ui/core';
 import CodeEditor from "../../CodeEditor/CodeEditor";
 import InputLabel from '@material-ui/core/InputLabel';
-import colors from "../../../config/colors/colors"
-export default function ProblemTab2({problemInfo,handleProblemInfo,template,setTemplate}) {
+import colors from "../../../config/colors/colors";
+import Button from '@material-ui/core/Button';
+
+export default function ProblemTab2({
+                                      problemInfo,
+                                      handleProblemInfo,
+                                      javaTemplate,
+                                      setJavaTemplate,
+                                      pythonTemplate,
+                                      setPythonTemplate}) {
   const classes = useStyles();
   // languages: python text/x-java
   var languageCode="text/x-java"
@@ -20,14 +28,50 @@ export default function ProblemTab2({problemInfo,handleProblemInfo,template,setT
       label: 'Python',
     },
   ];
-  const onChange = e =>{
+  const [actualLanguage,setActualLanguage]=useState("");
+  
+  const onChange = e => {
     if(e.target==undefined) return
-    handleProblemInfo({
+    if(e.target.name==="language"){
+      setActualLanguage(e.target.value);
+      var problemLanguage=""
+      if(actualLanguage==="text/x-java"){ 
+        problemLanguage="java"
+        handleProblemInfo({
+        ...problemInfo,
+        [e.target.name]:{
+          language:{ 
+            ...actualLanguage,
+            [problemLanguage]:e.target.value
+          }
+        }
+      })
+      }else{
+        problemLanguage="python"
+        handleProblemInfo({
+          ...problemInfo,
+          [e.target.name]:{
+            language:{ 
+            ...actualLanguage,
+            [problemLanguage]:e.target.value
+            }
+          }
+        })
+      }
+    }else{
+      handleProblemInfo({
         ...problemInfo,
         [e.target.name]:e.target.value
-    })
-    console.log(template)
+      })
+    }
   }
+  const saveTemplateCode = actualLanguage =>{
+    if(actualLanguage==="python"){
+      problemInfo.templateCode={...problemInfo.templateCode, pythonTemplate:pythonTemplate}
+    }
+    else problemInfo.templateCode={...problemInfo.templateCode,javaTemplate:javaTemplate}
+  } 
+ 
   return (
         <div className={classes.root}>
           <div id="TextFieldBox__Tab2" >
@@ -38,7 +82,7 @@ export default function ProblemTab2({problemInfo,handleProblemInfo,template,setT
                   className={`${classes.whiteTheme} ${classes.textField}`}
                   onChange={onChange}
                   name="language"
-                  value={problemInfo.language}
+                  value={actualLanguage}
                   >
                   {languages.map((option) => (
                     <MenuItem className={classes.whiteThemeIconSelect} key={option.value} value={option.value}>
@@ -53,10 +97,32 @@ export default function ProblemTab2({problemInfo,handleProblemInfo,template,setT
               id="CodeEditor__Tab2"
               className="CodeEditorBox"
               name='solutionCode'
-              value={template}
-              language={problemInfo.language}
-              onChange={setTemplate}
-              />
+              value={actualLanguage==="text/x-java" ? javaTemplate : pythonTemplate}
+              language={actualLanguage}
+              onChange={actualLanguage==="text/x-java" ? setJavaTemplate : setPythonTemplate }
+            />
+            <div id="ButtonBoxCodeEditor__Tab2">
+              <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={()=>saveTemplateCode(actualLanguage)}
+                      disabled={
+                        // Validacion de guardado en el Code Editor
+                        actualLanguage.trim().replace("\n","")===""
+                        || (
+                            actualLanguage.trim().replace("\n","")==="text/x-java" 
+                            && javaTemplate.trim().replace("\n","")===""
+                            )
+                        ||
+                        (
+                          actualLanguage.trim().replace("\n","")==="python" 
+                          && pythonTemplate.trim().replace("\n","")===""
+                        )
+                        }
+                      >
+                      Guardar template
+              </Button>
+            </div>
           </div>
         </div>   
 );}
@@ -65,6 +131,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width:"100%",
     color:"white"
+    
   },
   textField: {
     color:"white",

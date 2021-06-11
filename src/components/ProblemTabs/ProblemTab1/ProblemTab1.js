@@ -7,7 +7,12 @@ import {  TextField,
 import CodeEditor from "../../CodeEditor/CodeEditor";
 import InputLabel from '@material-ui/core/InputLabel';
 import colors from "../../../config/colors/colors";
-export default function ProblemTab1({problemInfo,handleProblemInfo,code,setCode}) {
+
+export default function ProblemTab1({
+                                      problemInfo,
+                                      handleProblemInfo,
+                                      code,
+                                      setCode}) {
   const classes = useStyles();
   var languageCode="text/x-java" // languages: python text/x-java
   const difficulties = [

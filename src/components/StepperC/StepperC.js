@@ -55,12 +55,33 @@ function ColorlibStepIcon(props) {
     </div>
   );
 }
-function getStepContent(step,problemInfo,handleProblemInfo,code,setCode,template,setTemplate) {
+function getStepContent(
+                        step,
+                        problemInfo,
+                        handleProblemInfo,
+                        code,
+                        setCode,
+                        javaTemplate,
+                        setJavaTemplate,
+                        pythonTemplate,
+                        setPythonTemplate) {
   switch (step) {
     case 0:
-      return <ProblemTab1 code={code} setCode={setCode} problemInfo={problemInfo} handleProblemInfo={handleProblemInfo} /> //PASARLE AQUI EL TAB1 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
+      return <ProblemTab1 
+                          code={code} 
+                          setCode={setCode} 
+                          problemInfo={problemInfo} 
+                          handleProblemInfo={handleProblemInfo} 
+              /> //PASARLE AQUI EL TAB1 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
     case 1:
-      return <ProblemTab2 template={template} setTemplate={setTemplate} problemInfo={problemInfo} handleProblemInfo={handleProblemInfo} /> //PASARLE AQUI EL TAB2 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
+      return <ProblemTab2 
+                          javaTemplate={javaTemplate} 
+                          setJavaTemplate={setJavaTemplate} 
+                          pythonTemplate={pythonTemplate} 
+                          setPythonTemplate={setPythonTemplate} 
+                          problemInfo={problemInfo} 
+                          handleProblemInfo={handleProblemInfo} 
+              /> //PASARLE AQUI EL TAB2 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
       case 2:
         return 'TAB3: Testing Data'; //PASARLE AQUI EL TAB3 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
         default:
@@ -68,7 +89,16 @@ function getStepContent(step,problemInfo,handleProblemInfo,code,setCode,template
   }
 }
 
-export default function StepperC({activeStep,setActiveStep,problemInfo,handleProblemInfo,code,setCode,template,setTemplate}){
+export default function StepperC({
+                                  activeStep,
+                                  setActiveStep,
+                                  problemInfo,handleProblemInfo,
+                                  code,
+                                  setCode,
+                                  javaTemplate,
+                                  setJavaTemplate,
+                                  pythonTemplate,
+                                  setPythonTemplate}){
   
   const classes = useStyles();
   const steps = getSteps();
@@ -105,7 +135,19 @@ export default function StepperC({activeStep,setActiveStep,problemInfo,handlePro
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep,problemInfo,handleProblemInfo,code,setCode,template,setTemplate)}</Typography>
+            <Typography className={classes.instructions}>
+              {
+                getStepContent(activeStep,
+                              problemInfo,
+                              handleProblemInfo,
+                              code,
+                              setCode,
+                              javaTemplate,
+                              setJavaTemplate,
+                              pythonTemplate,
+                              setPythonTemplate)
+              }
+            </Typography>
             
           </div>
         )}

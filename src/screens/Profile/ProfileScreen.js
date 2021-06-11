@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppContext from "../../helpers/context/context";
-import problems from "../../api/problems/problems";
 import Chart from "../../components/Chart/Chart";
+import usersS from "../../api/user/user";
 
 import CustomInput from "../../components/CustomInput/CustomInput";
 
@@ -13,12 +13,17 @@ export default function ProfileScreen() {
   const classes = useStyles();
   let locvalue = localStorage.getItem("user");
   locvalue = JSON.parse(locvalue);
-  try {
-    let a;
-    a = problems.getProblemsByDifficulty("easy", userC.user);
-  } catch (error) {
-    console.log(error);
-  }
+
+  console.log(userC);
+  usersS
+    .getUserStatistics("nReTC2W49pZlf2FH0GGY6x7NzrE3")
+    .then((ans) => {
+      console.log(ans);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   let problems = [
     { difficulty: "easy", solved: 2, total: 5 },
 

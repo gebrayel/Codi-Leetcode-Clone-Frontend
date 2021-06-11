@@ -22,6 +22,7 @@ export default function CustomInput() {
   });
   let [loader, setloader] = useState({ isActive: false });
   const userC = useContext(AppContext);
+  console.log(userC.user);
   const showLoader = () => {
     return <RobotLoader />;
   };

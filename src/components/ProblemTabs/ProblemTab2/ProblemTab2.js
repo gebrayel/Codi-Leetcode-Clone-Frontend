@@ -29,7 +29,7 @@ export default function ProblemTab2({
     },
   ];
   
-  const [actualLanguage,setActualLanguage]=useState("");
+  const [actualLanguage,setActualLanguage]=useState("python");
   
   const onChange = e => {
     if(e.target==undefined) return

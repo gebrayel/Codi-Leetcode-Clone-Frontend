@@ -53,7 +53,7 @@ export default function ProblemTab1({
                     id="SelectField"
                     select
                     label="Dificultad"
-                    className={`${classes.whiteTheme} ${classes.textField} ${classes.whiteThemeIconSelect}`}
+                    className={`${classes.whiteTheme} ${classes.LabelForm} ${classes.textField} ${classes.whiteThemeIconSelect}`}
                     onChange={onChange}
                     name="difficulty"
                     value={problemInfo.difficulty}
@@ -123,10 +123,18 @@ const useStyles = makeStyles((theme) => ({
     color:"blue",
     
   },
+  LabelForm:{
+    "& .MuiFormLabel-root":{
+        marginTop:"10%" // // MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled
+    
+      }
+  },
   whiteTheme: {
     "& .MuiSelect-icon":{
-      color:"white"
-    },
+      color:"white",
+      height:"80%",
+     },
+    
     "& .MuiInputLabel-formControl":{
         color:"white"
     },

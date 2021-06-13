@@ -80,20 +80,36 @@ export default function ProblemTab2({
                   id="SelectField__Tab2"
                   select
                   label="Lenguaje"
-                  className={`${classes.whiteTheme} ${classes.textField}`}
+                  className={`
+                              ${classes.whiteTheme} 
+                              ${classes.textField}
+                              ${classes.LabelLanguageForm}
+                            `}
                   onChange={onChange}
                   name="language"
                   value={actualLanguage}
                   >
                   {languages.map((option) => (
-                    <MenuItem className={classes.whiteThemeIconSelect} key={option.value} value={option.value}>
+                    <MenuItem 
+                            className={classes.whiteThemeIconSelect} 
+                            key={option.value} 
+                            value={option.value}>
                       {option.label}
                     </MenuItem>
                   ))}
                 </TextField>
           </div>
           <div id="CodeEditorBox__Tab2">
-            <InputLabel id="TemplateLabel__Tab2" style={{color:"white",marginBottom:"1rem"}} htmlFor="template">Template</InputLabel>
+            <InputLabel 
+                        id="TemplateLabel__Tab2" 
+                        style={{
+                                color:"white",
+                                marginBottom:"1rem",
+                                fontWeight: "bold"
+                              }} 
+                        htmlFor="template">
+                        Template
+            </InputLabel>
             <CodeEditor
               id="CodeEditor__Tab2"
               className="CodeEditorBox"
@@ -137,10 +153,26 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     color:"white",
   },
+  LabelLanguageForm:{
+    "& .MuiFormLabel-root":{
+      fontWeight: "bold",
+      "@media (min-width:320px) and (max-width:426px)":{
+        marginTop:"7%"
+      },
+      "@media (min-width:426px) and (max-width:768px)":{
+        marginTop:"0%"
+      },
+      "@media (min-width: 768px) ":{
+        marginTop:"6%",
+      }
+    },
+    
+  },
   whiteTheme:{
 
   "& .MuiSelect-icon":{
-    color:"white"
+    color:"white",
+    height:"80%",
     },
   "& .MuiInputLabel-formControl":{
       color:"white"

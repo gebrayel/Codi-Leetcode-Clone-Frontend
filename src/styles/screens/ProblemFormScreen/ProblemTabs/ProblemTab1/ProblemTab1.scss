@@ -18,15 +18,14 @@
     }
   }
   #InputLabelDescriptionBox {
-    margin-left: 1.15rem;
+    margin-left: 11%;
   }
   #TextAreaLgBox {
-    padding: 1rem;
+    // padding: 1rem;
     margin-top: 2rem;
-    margin-left: 1rem;
-
+    margin-bottom: 1rem;
     #TextAreaLg {
-      width: 90%;
+      width: 75.5%;
       background-color: #282a36;
       color: white;
       font-family: arial;
@@ -36,7 +35,7 @@
   #CodeEditorBox {
     width: 95% !important;
     display: inline-block;
-    margin-left: 1.4rem;
+    // margin-left: 1.4rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
     justify-content: start;
@@ -45,7 +44,7 @@
   #InputLabelSolutionBox {
     margin-bottom: 1rem;
     #InputLabelSolution {
-      margin-left: 1.2rem;
+      margin-left: 0.5rem;
     }
   }
   .TextArea {
@@ -54,8 +53,6 @@
     color: white;
     font-family: arial;
     font-size: 18px;
-    margin-left: 1.3rem;
-    margin-right: 0.5rem;
   }
 }
 @media (min-width: 376px) and (max-width: 426px) {
@@ -82,11 +79,12 @@
     margin-left: 1.5rem;
   }
   #TextAreaLgBox {
-    padding: 1rem;
     margin-top: 2rem;
-    margin-left: 1rem;
+    width: 89% !important;
+    margin-right: 1rem;
     #TextAreaLg {
-      width: 70%;
+      margin-right: 1.3rem;
+      width: 85% !important;
       background-color: #282a36;
       color: white;
       font-family: arial;
@@ -96,7 +94,6 @@
   #CodeEditorBox {
     width: 95% !important;
     display: inline-block;
-    margin-left: 1.4rem;
     margin-bottom: 2rem;
     margin-top: 2rem;
     justify-content: start;
@@ -114,8 +111,8 @@
     color: white;
     font-family: arial;
     font-size: 18px;
-    margin-left: 1.28rem;
-    margin-right: 0.5rem;
+    // margin-left: 1.28rem;
+    // margin-right: 0.5rem;
   }
   #TextAreaLgBox {
     padding: 1rem;
@@ -137,7 +134,6 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    // margin-top: 1rem;
     #TitleField {
       width: 180px;
       color: white;
@@ -150,14 +146,16 @@
     }
   }
   #InputLabelDescription {
-    margin-left: 3.2rem;
+    margin-left: 5%;
   }
   #TextAreaLgBox {
-    padding: 1rem;
     margin-top: 2rem;
+    width: 91% !important;
+    margin-left: 5%;
+    margin-bottom: 1rem;
     #TextAreaLg {
       height: 160px !important;
-      width: 90vh;
+      width: 90% !important;
       background-color: #282a36;
       color: white;
       font-family: arial;
@@ -168,7 +166,6 @@
     margin-bottom: 1rem;
   }
   #CodeEditorBox {
-    margin-left: 0.2rem;
     width: 100% !important;
     display: inline-block;
     margin-top: 2rem;
@@ -198,12 +195,10 @@
     #TitleField {
       width: 200px;
       color: white;
-      margin-top: 3rem;
     }
     #SelectField {
       width: 200px !important;
       color: white;
-      margin-top: 3rem !important;
       justify-content: start;
       text-align: start;
     }
@@ -212,10 +207,11 @@
   #TextAreaLgBox {
     padding: 1rem;
     margin-top: 3rem;
-    width: 81%;
+    width: 84% !important;
     margin-left: auto;
     margin-right: auto;
     #TextAreaLg {
+      width: 84% !important;
       background-color: #282a36;
       color: white;
       font-family: arial;
@@ -231,6 +227,7 @@
     width: 150px !important;
     #InputLabelSolution {
       padding-top: 1.3rem;
+      font-weight: bold;
     }
   }
   #CodeEditorBox {
@@ -267,12 +264,10 @@
     #TitleField {
       width: 325px;
       color: white;
-      margin-top: 3rem;
     }
     #SelectField {
       width: 325px;
       color: white;
-      margin-top: 3rem !important;
       justify-content: start;
       text-align: start;
     }
@@ -285,6 +280,7 @@
     margin-left: auto;
     margin-right: auto;
     #TextAreaLg {
+      width: 85.5%;
       background-color: #282a36;
       color: white;
       font-family: arial;
@@ -335,12 +331,12 @@
     #TitleField {
       width: 480px;
       color: white;
-      margin-top: 3rem;
+      // margin-top: 3rem;
     }
     #SelectField {
       width: 480px;
       color: white;
-      margin-top: 3rem !important;
+      // margin-top: 3rem !important;
       justify-content: start;
       text-align: start;
     }

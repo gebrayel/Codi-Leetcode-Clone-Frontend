@@ -13,6 +13,7 @@ import InputIcon from '@material-ui/icons/Input';
 import DescriptionIcon from '@material-ui/icons/Description';
 import ProblemTab1 from "../ProblemTabs/ProblemTab1/ProblemTab1";
 import ProblemTab2 from "../ProblemTabs/ProblemTab2/ProblemTab2";
+import ProblemTab3 from '../ProblemTabs/ProblemTab3/ProblemTab3';
 import colors from "../../config/colors/colors";
 
 function QontoStepIcon(props) {
@@ -64,7 +65,10 @@ function getStepContent(
                         javaTemplate,
                         setJavaTemplate,
                         pythonTemplate,
-                        setPythonTemplate) {
+                        setPythonTemplate,
+                        inputOutputs,
+                        setInputOutputs,
+                        eliminarInputOutput) {
   switch (step) {
     case 0:
       return <ProblemTab1 
@@ -72,7 +76,7 @@ function getStepContent(
                           setCode={setCode} 
                           problemInfo={problemInfo} 
                           handleProblemInfo={handleProblemInfo} 
-              /> //PASARLE AQUI EL TAB1 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
+              /> 
     case 1:
       return <ProblemTab2 
                           javaTemplate={javaTemplate} 
@@ -81,9 +85,15 @@ function getStepContent(
                           setPythonTemplate={setPythonTemplate} 
                           problemInfo={problemInfo} 
                           handleProblemInfo={handleProblemInfo} 
-              /> //PASARLE AQUI EL TAB2 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
+              /> 
       case 2:
-        return 'TAB3: Testing Data'; //PASARLE AQUI EL TAB3 COMO ETIQUETA PARA QUE EL PROPIO STEPPER LO RENDERICE
+        return <ProblemTab3 
+                          problemInfo={problemInfo} 
+                          handleProblemInfo={handleProblemInfo} 
+                          inputOutputs={inputOutputs}
+                          setInputOutputs={setInputOutputs}
+                          eliminarInputOutput={eliminarInputOutput}
+                          />
         default:
           return 'Unknown step';
   }
@@ -92,13 +102,17 @@ function getStepContent(
 export default function StepperC({
                                   activeStep,
                                   setActiveStep,
-                                  problemInfo,handleProblemInfo,
+                                  problemInfo,
+                                  handleProblemInfo,
                                   code,
                                   setCode,
                                   javaTemplate,
                                   setJavaTemplate,
                                   pythonTemplate,
-                                  setPythonTemplate}){
+                                  setPythonTemplate,
+                                  inputOutputs,
+                                  setInputOutputs,
+                                  eliminarInputOutput}){
   
   const classes = useStyles();
   const steps = getSteps();
@@ -145,7 +159,10 @@ export default function StepperC({
                               javaTemplate,
                               setJavaTemplate,
                               pythonTemplate,
-                              setPythonTemplate)
+                              setPythonTemplate,
+                              inputOutputs,
+                              setInputOutputs,
+                              eliminarInputOutput)
               }
             </Typography>
             

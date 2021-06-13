@@ -1,5 +1,5 @@
 .ProblemFormScreenContainer {
-  width: 100vw !important;
+  width: 100% !important;
   margin-left: 0;
   margin-right: 0;
   display: flex;
@@ -121,18 +121,18 @@
   #buttonBox {
     display: flex;
     justify-content: flex-end;
-    width: 90%;
+    width: 60.3%;
     height: 50px;
     margin-top: 20px;
     margin-bottom: 2rem;
-    margin-left: 16rem;
+    margin-left: 26%;
     #BackButton__ProblemFormScreen {
       width: 100px;
       margin-right: 2rem;
     }
     #NextButton__ProblemFormScreen {
       width: 100px;
-      margin-right: 22%;
+      justify-content: end;
     }
     .button {
       float: right;

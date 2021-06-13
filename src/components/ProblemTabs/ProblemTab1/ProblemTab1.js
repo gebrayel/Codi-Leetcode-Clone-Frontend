@@ -44,7 +44,11 @@ export default function ProblemTab1({
                     color="white"
                     label="Titulo"
                     id="TitleField"
-                    className={`${classes.whiteTheme} ${classes.textField}`}
+                    className={`
+                                ${classes.whiteTheme} 
+                                ${classes.LabelTitleForm} 
+                                ${classes.textField}`
+                              }
                     name="name"
                     onChange={onChange}
                     value={problemInfo.name}
@@ -53,7 +57,12 @@ export default function ProblemTab1({
                     id="SelectField"
                     select
                     label="Dificultad"
-                    className={`${classes.whiteTheme} ${classes.LabelForm} ${classes.textField} ${classes.whiteThemeIconSelect}`}
+                    className={`
+                                ${classes.whiteTheme} 
+                                ${classes.LabelDifficultyForm} 
+                                ${classes.textField} 
+                                ${classes.whiteThemeIconSelect}`
+                              }
                     onChange={onChange}
                     name="difficulty"
                     value={problemInfo.difficulty}
@@ -67,10 +76,18 @@ export default function ProblemTab1({
             </div>
             <div id="TextAreaLgBox">
               <div id="InputLabelDescriptionBox" >
-                <InputLabel id="InputLabelDescription" style={{color:"white",marginBottom:"1rem",textAlign:"start"}} htmlFor="description">Descripcion</InputLabel>
+                <InputLabel id="InputLabelDescription" 
+                            style={{
+                                    color:"white",
+                                    marginBottom:"1rem",
+                                    textAlign:"start",  
+                                    fontWeight: "bold"
+                                    }} 
+                            htmlFor="description">
+                            Descripcion
+                </InputLabel>
               </div>
               <TextareaAutosize
-                style={{width:"85%"}}
                 id="TextAreaLg"
                 className={classes.TextareaAutosizeLg}
                 aria-label="Problem Description" 
@@ -81,9 +98,23 @@ export default function ProblemTab1({
                 value={problemInfo.description}
                 />
             </div>
-            <div style={{marginLeft: "auto",marginRight: "auto",width:"82%"}} id="TextAreaBox">
+            <div 
+                style={{
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        width:"82%"
+                        }} id="TextAreaBox">
               <div id="InputLabelSolutionBox">
-                <InputLabel id="InputLabelSolution" style={{color:"white",textAlign:"start"}} htmlFor="solution">Solucion</InputLabel>
+                <InputLabel 
+                            id="InputLabelSolution" 
+                            style={{
+                              color:"white",
+                              textAlign:"start",
+                              fontWeight: "bold"
+                            }} 
+                              htmlFor="solution">
+                              Solucion
+                </InputLabel>
               </div>
               <TextareaAutosize
               className="TextArea"
@@ -97,7 +128,17 @@ export default function ProblemTab1({
               autoComplete="false"
               />
               <div id="CodeEditorBox">
-                <InputLabel id="InputLabelSolutionCode" style={{color:"white",marginBottom:"1rem",textAlign:"start"}} htmlFor="solutionCode">Codigo Solucion</InputLabel>
+                <InputLabel 
+                            id="InputLabelSolutionCode" 
+                            style={{
+                                    color:"white",
+                                    marginBottom:"1rem",
+                                    textAlign:"start",
+                                    fontWeight: "bold"
+                            }} 
+                            htmlFor="solutionCode">
+                            Codigo Solucion
+                </InputLabel>
                 <CodeEditor
                   id="CodeEditor"
                   className="CodeEditorBox"
@@ -121,12 +162,46 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginRight: theme.spacing(5),
     color:"blue",
+    "@media (min-width: 426px) and (max-width:515px)": {
+      marginBottom:"30px"
+    }
     
   },
-  LabelForm:{
+  
+  LabelTitleForm:{
     "& .MuiFormLabel-root":{
-        marginTop:"10%" // // MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled
-    
+      fontWeight: "bold",
+      "@media (min-width:320px) and (max-width:426px)":{
+        marginTop:"7%"
+      },
+      "@media (min-width:426px) and (max-width:768px)":{
+        marginTop:"0%"
+      },
+      "@media (min-width: 768px) and (max-width:1441px) ":{
+        marginTop:"0%",
+      }
+    }
+  },
+  
+  LabelDifficultyForm:{
+    "& .MuiFormLabel-root":{
+      fontWeight: "bold",
+      marginTop:"10%", 
+      "@media (min-width: 426px) and (max-width:768px)": {
+        marginTop:"0%"
+    },
+      "@media (min-width: 768px) and (max-width:1445px)": {
+        marginTop:"0%"
+    },
+    "@media (min-width: 1445px) and (max-width:1800px)": {
+        marginTop:"0%"
+    },
+    "@media (min-width: 1800px) and (max-width:2250px)": {
+        marginTop:"0%"
+    },
+    "@media (min-width: 2250px)": {
+        marginTop:"0%"
+    },
       }
   },
   whiteTheme: {

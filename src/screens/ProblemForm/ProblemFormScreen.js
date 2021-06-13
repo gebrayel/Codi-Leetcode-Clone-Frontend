@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import StepperC from "../../components/StepperC/StepperC";
 import "../../styles/screens/ProblemFormScreen/ProblemFormScreen.scss";
@@ -8,6 +8,41 @@ const ProblemFormScreen = () => {
     const [code,setCode]=useState("");
     const [javaTemplate,setJavaTemplate]=useState("");
     const [pythonTemplate,setPythonTemplate]=useState("");
+    //Recuperar Inputs y outputs del localStorage
+    let inputOutputsIniciales=JSON.parse(localStorage.getItem('inputOutputs'));
+    if(!inputOutputsIniciales){
+        inputOutputsIniciales=[
+            {   id:1,
+                input:"[1,2]",
+                output:"[3,4]"
+                
+            },
+            {   id:2,
+                input:"Rommel",
+                output:"El mejor del mundo"
+                
+            }
+        ];
+        // console.log(Object.key(inputOutputsIniciales[0]))
+    }
+    //arreglo de Inputs y Outputs
+    const [inputOutputs,setInputOutputs]=useState(inputOutputsIniciales);
+    
+    useEffect(() => {
+        
+        console.log(inputOutputs)
+
+        let inputOutputsIniciales=JSON.parse(localStorage.getItem('inputOutputs'));
+        
+        if(inputOutputsIniciales){
+            localStorage.setItem('inputOutputs',JSON.stringify(inputOutputs));
+        
+        }else{
+            localStorage.setItem('inputOutputs',JSON.stringify([]));
+        }
+
+    }, [inputOutputs])
+    
     const [problemInfo,handleProblemInfo]=useState({
         name:'',
         difficulty:'',
@@ -43,18 +78,18 @@ const ProblemFormScreen = () => {
             // }
         }else if(activeStep===1){
             
-            if(
-                problemInfo.templateCode.javaTemplate===undefined 
-                || problemInfo.templateCode.javaTemplate.trim().replace("\n","")===""
-                ){ 
-                validateCases=validateCases+"Debes agregar un template al problema en codigo Java.\n"
-            }
-            if(
-                problemInfo.templateCode.pythonTemplate===undefined 
-                || problemInfo.templateCode.pythonTemplate.trim().replace("\n","")===""
-                ){ 
-                validateCases=validateCases+"Debes agregar un template al problema en codigo Python.\n"
-            }
+            // if(
+            //     problemInfo.templateCode.javaTemplate===undefined 
+            //     || problemInfo.templateCode.javaTemplate.trim().replace("\n","")===""
+            //     ){ 
+            //     validateCases=validateCases+"Debes agregar un template al problema en codigo Java.\n"
+            // }
+            // if(
+            //     problemInfo.templateCode.pythonTemplate===undefined 
+            //     || problemInfo.templateCode.pythonTemplate.trim().replace("\n","")===""
+            //     ){ 
+            //     validateCases=validateCases+"Debes agregar un template al problema en codigo Python.\n"
+            // }
 
         }
         if(validateCases.trim().replace("\n","")!=="") {alert(validateCases); return;}
@@ -64,6 +99,12 @@ const ProblemFormScreen = () => {
         console.log(pythonTemplate)
         }
   };
+  //funcion que elimina un inputOutput por su id
+  const eliminarInputOutput= () =>{
+      console.log("holamundo")
+    // const nuevosinputOutputs=inputOutputs.filter(resp=> resp.id!==id);
+    // setInputOutputs(inputOutputs);
+  }
   const handleBackStepper = () => {
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
       console.log(activeStep);
@@ -86,6 +127,9 @@ const ProblemFormScreen = () => {
                 setJavaTemplate={setJavaTemplate}
                 pythonTemplate={pythonTemplate}
                 setPythonTemplate={setPythonTemplate}
+                inputOutputs={inputOutputs}
+                setInputOutputs={setInputOutputs}
+                eliminarInputOutput={eliminarInputOutput}
             />
             <div id="buttonBox">
                 {activeStep !== 0 ? 

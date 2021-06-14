@@ -257,7 +257,7 @@ export default function Navbar() {
                         open={open}
                         onClose={handleClose}
                     >
-                        <NLink to="/" className={classes.DrawerlinkStyle}>
+                        <NLink to="/profile" className={classes.DrawerlinkStyle}>
                             <MenuItem onClick={handleClose}>Perfil</MenuItem>
                         </NLink>
 
@@ -429,4 +429,8 @@ export default function Navbar() {
             </AppBar>
         </div>
     );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> gebra

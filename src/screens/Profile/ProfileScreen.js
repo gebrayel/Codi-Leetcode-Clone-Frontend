@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import AppContext from "../../helpers/context/context";
 import Chart from "../../components/Chart/Chart";
+import usersS from "../../api/user/user";
+
 import CustomInput from "../../components/CustomInput/CustomInput";
 
 import colors from "../../config/colors/colors";
 
 export default function ProfileScreen() {
+  const userC = useContext(AppContext);
   const classes = useStyles();
   let locvalue = localStorage.getItem("user");
   locvalue = JSON.parse(locvalue);
+
+  console.log(userC);
+  usersS
+    .getUserStatistics("nReTC2W49pZlf2FH0GGY6x7NzrE3")
+    .then((ans) => {
+      console.log(ans);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   let problems = [
     { difficulty: "easy", solved: 2, total: 5 },

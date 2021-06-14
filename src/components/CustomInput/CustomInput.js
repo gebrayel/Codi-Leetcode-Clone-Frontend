@@ -12,6 +12,7 @@ import RobotLoader from "../RobotLoader/RobotLoader";
 import colors from "../../config/colors/colors";
 
 export default function CustomInput() {
+<<<<<<< HEAD
     const classes = useStyles();
     let locvalue = localStorage.getItem("user");
     locvalue = JSON.parse(locvalue);
@@ -111,6 +112,74 @@ export default function CustomInput() {
         );
     };
 
+=======
+  const classes = useStyles();
+  let locvalue = localStorage.getItem("user");
+  locvalue = JSON.parse(locvalue);
+  let [text, setText] = useState({
+    value: locvalue["name"],
+    editMode: false,
+    modif: "",
+  });
+  let [loader, setloader] = useState({ isActive: false });
+  const userC = useContext(AppContext);
+  console.log(userC.user);
+  const showLoader = () => {
+    return <RobotLoader />;
+  };
+  const textEdition = () => {
+    return (
+      <div className={classes.textButtom}>
+        <TextField
+          id="text"
+          className={classes.whiteTheme}
+          defaultValue={text.value}
+        />
+
+        <IconButton
+          className={classes.iconStyle}
+          style={{ padding: 5 }}
+          onClick={() => {
+            setText({ ...text, editMode: !text.editMode, modif: "" });
+          }}
+        >
+          <CancelOutlinedIcon
+            className={classes.iconSize}
+            style={{ fontSize: "2rem", color: "#E75656" }}
+          />
+        </IconButton>
+        <IconButton
+          style={{ padding: 5 }}
+          className={classes.iconStyle}
+          onClick={async () => {
+            try {
+              let textModified = document.getElementById("text").value;
+              setloader({ isActive: true });
+              await user.putUser(userC.user, userC.setUser, textModified);
+              setText({
+                ...text,
+                modif: "",
+                value: textModified,
+                editMode: false,
+              });
+              locvalue.name = textModified;
+              localStorage.setItem("user", JSON.stringify(locvalue));
+              setloader({ isActive: false });
+            } catch (error) {
+              setText({ ...text, editMode: !text.editMode, modif: "" });
+            }
+          }}
+        >
+          <DoneOutlineOutlinedIcon
+            style={{ fontSize: "2rem", color: "#84DB65" }}
+            className={classes.iconSize}
+          />
+        </IconButton>
+      </div>
+    );
+  };
+  const textView = () => {
+>>>>>>> gebra
     return (
         <>
             {loader.isActive
@@ -120,6 +189,20 @@ export default function CustomInput() {
                 : textView()}
         </>
     );
+<<<<<<< HEAD
+=======
+  };
+
+  return (
+    <>
+      {loader.isActive
+        ? showLoader()
+        : text.editMode
+        ? textEdition()
+        : textView()}
+    </>
+  );
+>>>>>>> gebra
 }
 const useStyles = makeStyles((theme) => ({
     doughnut_container: {

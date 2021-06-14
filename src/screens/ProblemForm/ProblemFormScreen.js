@@ -140,19 +140,33 @@ const ProblemFormScreen = () => {
         }else{
           
             if(activeStep===0){
-                if(problemInfo.name===undefined || problemInfo.name.trim().replace("\n","").length<3) {
+                if(
+                    problemInfo.name===undefined 
+                    || problemInfo.name.trim().replace("\n","").length<3
+                    ) {
                     validateCases=validateCases+"El titulo del problema debe tener al menos 3 caracteres.\n"
                 }
-                if(problemInfo.difficulty===undefined || problemInfo.difficulty.trim().replace("\n","")===""){ 
+                if(
+                    problemInfo.difficulty===undefined 
+                    || problemInfo.difficulty.trim().replace("\n","")===""
+                    ){ 
                     validateCases=validateCases+"Debes seleccionar una dificultad para el problema.\n"
                 }
-                if(problemInfo.description===undefined || problemInfo.description.trim().replace("\n","").length<8) {
+                if(
+                    problemInfo.description===undefined 
+                    || problemInfo.description.trim().replace("\n","").length<8
+                    ) {
                     validateCases=validateCases+"Debes agregar una descripcion para el problema de al menos 8 caracteres.\n"
                 }
-                if(problemInfo.solution===undefined || problemInfo.solution.trim().replace("\n","")===""){ 
+                if(
+                    problemInfo.solution===undefined 
+                    || problemInfo.solution.trim().replace("\n","")===""
+                    ){ 
                     validateCases=validateCases+"Debes agregar una solucion para el problema.\n"
                 }
-                if(code.trim().replace("\n","")==="") {
+                if(
+                    code.trim().replace("\n","")===""
+                    ) {
                     validateCases=validateCases+"Debes agregar un codigo solucion al problema.\n"
                 }
             }else if(activeStep===1){
@@ -202,7 +216,8 @@ const ProblemFormScreen = () => {
   
   const save =()=>{
     //Reiniciar todos los States para que no queden en el local Storage
-    // setActiveStep(0)
+    setActiveStep(0)
+    alert("El problema ha sido agregado a la BD satisfactoriamente");
     setCode("")
     setJavaTemplate("")
     setPythonTemplate("")

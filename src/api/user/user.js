@@ -30,6 +30,17 @@ const putUser = async (user, setUser, newName) => {
     }
 }
 
+const getUserStatistics = async (userID) => {
+    const statisticsEndpoint = "/statistics/" + userID;
+    try {
+        const response = await axios.get(statisticsEndpoint);
+        return response;
+    } catch (error) {
+        return error;
+    }
+}
+
 export default {
     putUser,
+    getUserStatistics
 }

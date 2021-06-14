@@ -140,16 +140,16 @@ const ProblemFormScreen = () => {
         }else{
           
             if(activeStep===0){
-                if(problemInfo.name.trim().replace("\n","").length<3) {
+                if(problemInfo.name===undefined || problemInfo.name.trim().replace("\n","").length<3) {
                     validateCases=validateCases+"El titulo del problema debe tener al menos 3 caracteres.\n"
                 }
-                if(problemInfo.difficulty.trim().replace("\n","")===""){ 
+                if(problemInfo.difficulty===undefined || problemInfo.difficulty.trim().replace("\n","")===""){ 
                     validateCases=validateCases+"Debes seleccionar una dificultad para el problema.\n"
                 }
-                if(problemInfo.description.trim().replace("\n","").length<8) {
+                if(problemInfo.description===undefined || problemInfo.description.trim().replace("\n","").length<8) {
                     validateCases=validateCases+"Debes agregar una descripcion para el problema de al menos 8 caracteres.\n"
                 }
-                if(problemInfo.solution.trim().replace("\n","")===""){ 
+                if(problemInfo.solution===undefined || problemInfo.solution.trim().replace("\n","")===""){ 
                     validateCases=validateCases+"Debes agregar una solucion para el problema.\n"
                 }
                 if(code.trim().replace("\n","")==="") {
@@ -157,14 +157,16 @@ const ProblemFormScreen = () => {
                 }
             }else if(activeStep===1){
                 
-                if(
-                    problemInfo.templateCode.javaTemplate===undefined 
+                if( 
+                    problemInfo.templateCode===undefined 
+                    || problemInfo.templateCode.javaTemplate===undefined 
                     || problemInfo.templateCode.javaTemplate.trim().replace("\n","")===""
                     ){ 
                     validateCases=validateCases+"Debes agregar un template al problema en codigo Java.\n"
                 }
                 if(
-                    problemInfo.templateCode.pythonTemplate===undefined 
+                    problemInfo.templateCode===undefined
+                    ||problemInfo.templateCode.pythonTemplate===undefined 
                     || problemInfo.templateCode.pythonTemplate.trim().replace("\n","")===""
                     ){ 
                     validateCases=validateCases+"Debes agregar un template al problema en codigo Python.\n"

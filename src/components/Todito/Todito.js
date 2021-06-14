@@ -56,7 +56,7 @@ export default function Todito({ type, id, title, difficulty, description, solut
                 return (
                     <Box className={classes.containerTodito}>
                         <Box className={classes.containerTitle}>
-                            <h1 className={classes.title}>Solution</h1>
+                            <h1 className={classes.title}>Solución</h1>
                         </Box>
                         <Box className={classes.containerDescription}>
                             <h2 className={classes.subtitle}>{id}. {title}</h2>
@@ -81,7 +81,7 @@ export default function Todito({ type, id, title, difficulty, description, solut
                             </Box>  
                             <Box className={classes.containerDescription}>
                                 <h2 className={classes.subtitle}>{id}. {title}</h2>
-                                <p className={classes.description}>No se ha realizado ningún intento</p>
+                                <p className={classes.description}>No se ha realizado ningún intento.</p>
                                 
                             </Box>
                         </Box>
@@ -91,7 +91,7 @@ export default function Todito({ type, id, title, difficulty, description, solut
                     return (
                         <Box className={classes.containerTodito}>
                             <Box className={classes.containerTitle}>
-                                <h1 className={classes.title}>Submissions</h1>
+                                <h1 className={classes.title}>Intentos.</h1>
                             </Box> 
                             <Paper className={classes.paper}>
                                 <TableContainer className={classes.table}>

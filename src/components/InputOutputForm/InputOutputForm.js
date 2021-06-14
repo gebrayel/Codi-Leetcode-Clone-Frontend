@@ -99,7 +99,7 @@ const InputOutputForm = (InputOutputFunction) => {
                     lg={8} 
                     spacing={0}>
                 <React.Fragment>
-                        <Grid item={true} xs={12} md={1} lg={1} xl={1}>
+                        <Grid item={true} xs={12} md={1} lg={2} xl={1}>
                         <h4 className={classes.titleTextField}>Input:</h4>
                         </Grid>
                         <Grid item={true} xs={8} md={3} lg={4} xl={3}>
@@ -116,7 +116,7 @@ const InputOutputForm = (InputOutputFunction) => {
 
                         </TextField>
                         </Grid>
-                        <Grid item={true} xs={12} md={1} lg={1} xl={1}>
+                        <Grid item={true} xs={12} md={1} lg={2} xl={1}>
                         <h4 className={classes.titleTextField} >Output:</h4>
                         </Grid>
                         <Grid item={true} xs={8} md={3} lg={4} xl={3}>

@@ -165,7 +165,6 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   textField: {
-    marginRight: theme.spacing(5),
     color: "blue",
     "@media (min-width: 426px) and (max-width:515px)": {
       marginBottom: "30px",

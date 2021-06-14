@@ -9,12 +9,15 @@ import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import "../../../styles/screens/ProblemFormScreen/ProblemTabs/ProblemTab3/ProblemTab3.scss";
 import InputOutput from "../../InputOutput/InputOutput";
+import InputOutputForm from "../../InputOutputForm/InputOutputForm";
+
 export default function ProblemTab3({
                                     problemInfo, 
                                     handleProblemInfo,
                                     inputOutputs,
                                     setInputOutputs,
-                                    eliminarInputOutput
+                                    eliminarInputOutput,
+                                    agregarInputOutput
                                       }) {
   const classes = useStyles();
   
@@ -27,10 +30,15 @@ export default function ProblemTab3({
       })
     }
   
-  
   return (
         <div className={classes.root}>
             <div className="InputOutputsRegisteredBox">
+              {
+                inputOutputs.length===0 
+                ? null
+                : <h2 >Casos de Prueba Registrados:</h2>
+              }
+              
             {inputOutputs.map(inputOutput=>(
                 <InputOutput
                     key={inputOutput.id}
@@ -40,23 +48,17 @@ export default function ProblemTab3({
             ))}
                 
             </div>
-          <Button 
-                variant="contained" 
-                className={classes.ButtonAdd__ProblemTab3}>
-                Añadir<AddIcon className={classes.addIcon}/>
-          </Button>
+            <InputOutputForm 
+                          inputOutputs={inputOutputs} 
+                          agregarInputOutput={agregarInputOutput}/>
+          
         </div>   
 );}
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width:"100%",
+    color:colors.white
   },
-  addIcon:{
-    marginLeft:"5%",
-    marginBottom:"3%"
-  },
-  ButtonAdd__ProblemTab3:{
-      marginTop:"5%"
-  }
+  
 }));

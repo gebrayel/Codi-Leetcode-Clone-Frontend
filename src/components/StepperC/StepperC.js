@@ -68,7 +68,8 @@ function getStepContent(
                         setPythonTemplate,
                         inputOutputs,
                         setInputOutputs,
-                        eliminarInputOutput) {
+                        eliminarInputOutput,
+                        agregarInputOutput) {
   switch (step) {
     case 0:
       return <ProblemTab1 
@@ -93,6 +94,7 @@ function getStepContent(
                           inputOutputs={inputOutputs}
                           setInputOutputs={setInputOutputs}
                           eliminarInputOutput={eliminarInputOutput}
+                          agregarInputOutput={agregarInputOutput}
                           />
         default:
           return 'Unknown step';
@@ -112,7 +114,8 @@ export default function StepperC({
                                   setPythonTemplate,
                                   inputOutputs,
                                   setInputOutputs,
-                                  eliminarInputOutput}){
+                                  eliminarInputOutput,
+                                  agregarInputOutput}){
   
   const classes = useStyles();
   const steps = getSteps();
@@ -162,7 +165,8 @@ export default function StepperC({
                               setPythonTemplate,
                               inputOutputs,
                               setInputOutputs,
-                              eliminarInputOutput)
+                              eliminarInputOutput,
+                              agregarInputOutput)
               }
             </Typography>
             

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import clsx from "clsx";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -14,13 +14,22 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import CreditCard from "./CreditCard";
 import ContinueButton from "../ContinueButton/ContinueButton";
+import { CallReceived } from "@material-ui/icons";
+import AlertModal from "../Modal/Modal";
 import colors from "../../config/colors/colors";
 import date from "../../helpers/date/date";
 import k from "../../helpers/constants/constants";
 import yellowCodi from "../../assets/yellow_codi.png";
+import { useHistory } from "react-router-dom";
+import AppContext from "../../helpers/context/context";
+import payments from "../../api/payments/payments";
+import RobotLoader from "../RobotLoader/RobotLoader";
+import moment from "moment";
 
 const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const classes = useStyles();
+
+    const currentUser = useContext(AppContext);
 
     const toggleModal = () => {
         setModal(!modal);
@@ -42,6 +51,63 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         setExpanded(!expanded);
     };
 
+    const [openModalError, setOpenModalError] = useState(false);
+
+    const handleClickOpenError = () => {
+        setOpenModalError(true);
+    };
+
+    const handleClickCloseError = () => {
+        setOpenModalError(false);
+    };
+
+    const [openModalApi, setOpenModalApi] = useState(false);
+
+    const handleClickOpenApi = () => {
+        setOpenModalApi(true);
+    };
+
+    const handleClickCloseApi = () => {
+        setOpenModalApi(false);
+    };
+
+    const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
+    const handleClickOpenConfirm = () => {
+        setOpenModalConfirm(true);
+    };
+
+    const handleClickCloseConfirm = () => {
+        setOpenModalConfirm(false);
+    };
+    let history = useHistory();
+
+    const subscriptionType = {
+        "<Semanal>": 1,
+        "{Mensual}": 2,
+        "#Anual": 3,
+    };
+
+    const redirectToSucces = async () => {
+        let actualDate = new Date();
+        let dateFormat = "YYYY-MM-DD[ ]HH:mm:ss";
+
+        const paymentInfo = {
+            date: moment(actualDate).format(dateFormat),
+            amount: price.split(",")[0].replace("$", ""),
+            pm_id: 1,
+            user_id: currentUser.user.google_id,
+            sub_type: subscriptionType[subscription],
+        };
+
+        try {
+            await payments.createPayment(paymentInfo);
+            history.push("/payment_success");
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const validateFields = () => {
         return (
             cardInfo.number.length === k.cardNumberLength &&
@@ -60,13 +126,49 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             } else {
                 setButtonText("Continuar");
             }
+        } else {
+            handleClickOpenError();
         }
     };
 
     const buttonNext = () => {
         if (expanded) {
             toggleConfirmation();
+        } else {
+            handleClickOpenConfirm();
         }
+    };
+
+    const msgError = {
+        variant: "",
+        color: "secondary",
+        text: "Campos inválidos",
+        title: "Campos inválidos",
+        description:
+            "Revise y rellene cuidadosamente los campos del formulario",
+        acceptText: "Cerrar",
+        cancelText: "Cerrar",
+    };
+
+    const msgContiue = {
+        variant: "",
+        color: "secondary",
+        text: "Confirmación de pago",
+        title: "Confirmación de pago",
+        description: "¿Esta seguro que quiere realizar el pago?",
+        acceptText: "Confirmar",
+        cancelText: "Cancelar",
+    };
+
+    const msgErrorAPI = {
+        variant: "",
+        color: "secondary",
+        text: "Error al pagar",
+        title: "Error al pagar",
+        description:
+            "Ocurrió un error al realizar el pago, revise los campos o inténtelo más tarde",
+        acceptText: "Cerrar",
+        cancelText: "Cerrar",
     };
 
     const body = (
@@ -82,10 +184,10 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                     title="Contemplative Reptile"
                 />
                 <Box className={classes.subscriptionInformation}>
-                    <img 
-                        className={classes.image} 
-                        src={yellowCodi} 
-                        alt="Yellow Codi"    
+                    <img
+                        className={classes.image}
+                        src={yellowCodi}
+                        alt="Yellow Codi"
                     />
                     <Box className={classes.package}>
                         <p> {subscription} </p>
@@ -155,6 +257,62 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                     onClick={() => buttonNext()}
                 />
             </Box>
+            <AlertModal
+                modalDesing={"desktop"}
+                modalTitle={"Cerrar Sesion"}
+                variant={msgError.variant}
+                color={msgError.color}
+                text={msgError.text}
+                title={msgError.title}
+                description={msgError.description}
+                acceptText={msgError.acceptText}
+                cancelText={msgError.cancelText}
+                passedBlueFunction={handleClickCloseError}
+                handleClickOpen={handleClickOpenError}
+                handleClickClose={handleClickCloseError}
+                open={openModalError}
+                setOpen={setOpenModalError}
+                renderButton={false}
+                singleButton={true}
+            />
+            <AlertModal
+                modalDesing={"desktop"}
+                modalTitle={"Cerrar Sesion"}
+                variant={msgContiue.variant}
+                color={msgContiue.color}
+                text={msgContiue.text}
+                title={msgContiue.title}
+                description={msgContiue.description}
+                acceptText={msgContiue.acceptText}
+                cancelText={msgContiue.cancelText}
+                passedRedFunction={handleClickCloseConfirm}
+                passedBlueFunction={redirectToSucces}
+                handleClickOpen={handleClickOpenConfirm}
+                handleClickClose={handleClickCloseConfirm}
+                open={openModalConfirm}
+                setOpen={setOpenModalConfirm}
+                renderButton={false}
+                singleButton={false}
+            />
+            <AlertModal
+                modalDesing={"desktop"}
+                modalTitle={"Cerrar Sesion"}
+                variant={msgErrorAPI.variant}
+                color={msgErrorAPI.color}
+                text={msgErrorAPI.text}
+                title={msgErrorAPI.title}
+                description={msgErrorAPI.description}
+                acceptText={msgErrorAPI.acceptText}
+                cancelText={msgErrorAPI.cancelText}
+                passedRedFunction={handleClickCloseApi}
+                passedBlueFunction={handleClickCloseApi}
+                handleClickOpen={handleClickCloseApi}
+                handleClickClose={handleClickCloseApi}
+                open={openModalApi}
+                setOpen={setOpenModalApi}
+                renderButton={false}
+                singleButton={true}
+            />
         </Box>
     );
 
@@ -165,14 +323,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             onClose={toggleModal}
             disableAutoFocus={true}
         >
-            <Grid
-                xs={11}
-                sm={10}
-                md={7}
-                lg={5}
-                xl={3}
-                className={classes.grid}
-            >
+            <Grid xs={11} sm={10} md={7} lg={5} xl={3} className={classes.grid}>
                 {body}
             </Grid>
         </Modal>

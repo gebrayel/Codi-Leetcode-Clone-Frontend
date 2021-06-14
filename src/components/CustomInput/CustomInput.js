@@ -7,6 +7,7 @@ import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
 import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
 import DoneOutlineOutlinedIcon from "@material-ui/icons/DoneOutlineOutlined";
 import TextField from "@material-ui/core/TextField";
+import RobotLoader from "../RobotLoader/RobotLoader";
 
 import colors from "../../config/colors/colors";
 
@@ -19,7 +20,12 @@ export default function CustomInput() {
     editMode: false,
     modif: "",
   });
+  let [loader, setloader] = useState({ isActive: false });
   const userC = useContext(AppContext);
+  console.log(userC.user);
+  const showLoader = () => {
+    return <RobotLoader />;
+  };
   const textEdition = () => {
     return (
       <div className={classes.textButtom}>
@@ -44,19 +50,20 @@ export default function CustomInput() {
         <IconButton
           style={{ padding: 5 }}
           className={classes.iconStyle}
-          onClick={() => {
+          onClick={async () => {
             try {
               let textModified = document.getElementById("text").value;
-              user.putUser(userC.user, userC.setUser, textModified).then(() => {
-                setText({
-                  ...text,
-                  modif: "",
-                  value: textModified,
-                  editMode: false,
-                });
-                locvalue.name = textModified;
-                localStorage.setItem("user", JSON.stringify(locvalue));
+              setloader({ isActive: true });
+              await user.putUser(userC.user, userC.setUser, textModified);
+              setText({
+                ...text,
+                modif: "",
+                value: textModified,
+                editMode: false,
               });
+              locvalue.name = textModified;
+              localStorage.setItem("user", JSON.stringify(locvalue));
+              setloader({ isActive: false });
             } catch (error) {
               setText({ ...text, editMode: !text.editMode, modif: "" });
             }
@@ -89,7 +96,15 @@ export default function CustomInput() {
     );
   };
 
-  return <>{text.editMode ? textEdition() : textView()}</>;
+  return (
+    <>
+      {loader.isActive
+        ? showLoader()
+        : text.editMode
+        ? textEdition()
+        : textView()}
+    </>
+  );
 }
 const useStyles = makeStyles((theme) => ({
   doughnut_container: {

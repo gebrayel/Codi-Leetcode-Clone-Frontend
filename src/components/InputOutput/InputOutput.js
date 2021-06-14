@@ -5,84 +5,162 @@ import Button from '@material-ui/core/Button';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
+import {TextField} from "@material-ui/core";
 
 
 
 
 const InputOutput = (inputOutput) => {
-    const classes = useStyles();
-    console.log(inputOutput.inputOutput)
-    const{eliminarInputOutput}=inputOutput;
-    const {id,input,output}=inputOutput.inputOutput;
+  const classes = useStyles();
+  console.log(inputOutput.inputOutput)
+  const{eliminarInputOutput}=inputOutput;
+  const {id,input,output}=inputOutput.inputOutput;
+  
+  function InputOutputDeleteButton(){
+    return(
+       <Button
+              variant="contained"
+              size="small"
+              className={classes.ButtonRemove__ProblemTab3}
+              onClick={()=>eliminarInputOutput(id)}
+              >Eliminar <RemoveIcon/>
+      </Button> 
+    )
+  }
 
-    function FormRow() {
-        return (
-            <React.Fragment>
-                <Grid item xs={2} lg={2}>
-                    <Paper className={classes.paper}>{input}</Paper>
-                </Grid>
-                <Grid item xs={2} lg={2}>
-                    <Paper className={classes.paper}>{output}</Paper>
-                </Grid>
-                <Grid item xs={2} lg={2}>
-                    <Paper className={classes.paper}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            size="small"
-                            className={classes.ButtonRemove__ProblemTab3}
-                            onClick={()=>eliminarInputOutput(id)}
-                        >
-                            Eliminar <RemoveIcon/>
-                        </Button>
-                    </Paper>
-                </Grid>
-            </React.Fragment>
-        );
+  function FormRowTextFields(){
+    return(
+      <React.Fragment>
+        <Grid item={true} xs={12} md={1} lg={1} xl={1}>
+          <h4 className={classes.titleTextField}>Input:</h4>
+        </Grid>
+        <Grid item={true} xs={8} md={3} lg={5} xl={3}>
+          <TextField
+                    disabled={true}
+                    color="white"
+                    label={input}
+                    className={`
+                                ${classes.whiteTheme} 
+                                ${classes.TextField__Tab3}
+                                `
+                              }
+                    name="input"
+                    placeholder={input}
+          >
+
+          </TextField>
+        </Grid>
+        <Grid item={true} xs={12} md={1} lg={1} xl={1}>
+          <h4 className={classes.titleTextField} >Output:</h4>
+        </Grid>
+        <Grid item={true} xs={8} md={3} lg={4} xl={3}>
+          <TextField
+                    disabled={true}
+                    color="white"
+                    label={output}
+                    className={`
+                                ${classes.whiteTheme} 
+                                ${classes.TextField__Tab3}
+                                `
+                              }
+                    name="input"
+                    placeholder={output}
+          >
+          </TextField>
+        </Grid>
+        <Grid  item={true} xs={8} md={2} lg={3} xl={2}>
+          <Paper className={`
+                              ${classes.paper}
+                              ${classes.itemStles}
+                            ` }><InputOutputDeleteButton/>
+          </Paper>
+        </Grid>
+      </React.Fragment>
+    )
   }
 
     return ( 
         
-        <div id="TextFieldBox__InputOutput" >
-            <Grid container spacing={1}>
-                <Grid container item xs={12} spacing={3}>
-                    <FormRow />
-                </Grid>
+        <div  id="TextFieldBox__InputOutput" >
+          <Paper className={classes.paperContainer}>
+            <Grid 
+                  direction="row"
+                  justify="center"
+                  alignItems="center" 
+                  container 
+                  spacing={0}>
+              <Grid container 
+                    direction="row"
+                    justify="center"
+                    alignItems="center" 
+                    className={classes.itemStles} xs={9} md={12} lg={8} spacing={0}>
+                <FormRowTextFields />
+              </Grid>
             </Grid>
-            
+          </Paper>
         </div> 
     );
 }
+
+
  
 export default InputOutput;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width:"100%",
+    width:"70%",
     color:"white",
     flexGrow: 1,
+  },
+  paperContainer:{
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    justifyContent:"center",
+    backgroundColor: colors.background,
+    color:colors.white,
+    marginLeft:"0%",
+    width:"100%"
   },
   paper: {
     padding: theme.spacing(1),
     textAlign: 'center',
     justifyContent:"center",
     backgroundColor: colors.background,
+    color:colors.white,
+    marginLeft:"0%",
+    
   },
+  titleTextField:{
+    marginTop:"5%",
+    paddingTop:"25%",
+    "@media (min-width: 320px) and (max-width:1024px)": {
+      paddingTop:"0%",
+    },
+    "@media (min-width: 1024px)": {
+      paddingTop:"50%",
+    },
 
+  },
+  TextField__Tab3:{
+    textAlign:"left",
+    overflowX: "auto",
+    paddingTop:"5%"
+  },
+  itemStles:{
+    "& .MuiPaper-elevation1":{
+      boxShadow:"none",
+      borderRadius:"none",
+      overflowX:"hidden",
+    }
+  },
   InputBox__Tab3:{
-    // display:"inline-block",
     marginRight:"5%"
   },
   OutputBox__Tab3:{
-    // display:"inline-block",
     marginRight:"5%"
   },
   ButtonRemove__ProblemTab3:{
-    //   marginTop:"1.8%",
-    // textAlign:"right",
-    // justifyContent:"right"
-      
+      marginTop:"10%",  
   },
 
   marginTextField__ProblemTab3:{

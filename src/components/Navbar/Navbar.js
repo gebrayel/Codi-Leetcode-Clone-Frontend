@@ -429,8 +429,4 @@ export default function Navbar() {
             </AppBar>
         </div>
     );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> gebra

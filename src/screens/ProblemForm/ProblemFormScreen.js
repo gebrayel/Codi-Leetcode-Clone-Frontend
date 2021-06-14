@@ -140,35 +140,35 @@ const ProblemFormScreen = () => {
         }else{
           
             if(activeStep===0){
-                // if(problemInfo.name.trim().replace("\n","").length<3) {
-                //     validateCases=validateCases+"El titulo del problema debe tener al menos 3 caracteres.\n"
-                // }
-                // if(problemInfo.difficulty.trim().replace("\n","")===""){ 
-                //     validateCases=validateCases+"Debes seleccionar una dificultad para el problema.\n"
-                // }
-                // if(problemInfo.description.trim().replace("\n","").length<8) {
-                //     validateCases=validateCases+"Debes agregar una descripcion para el problema de al menos 8 caracteres.\n"
-                // }
-                // if(problemInfo.solution.trim().replace("\n","")===""){ 
-                //     validateCases=validateCases+"Debes agregar una solucion para el problema.\n"
-                // }
-                // if(code.trim().replace("\n","")==="") {
-                //     validateCases=validateCases+"Debes agregar un codigo solucion al problema.\n"
-                // }
+                if(problemInfo.name.trim().replace("\n","").length<3) {
+                    validateCases=validateCases+"El titulo del problema debe tener al menos 3 caracteres.\n"
+                }
+                if(problemInfo.difficulty.trim().replace("\n","")===""){ 
+                    validateCases=validateCases+"Debes seleccionar una dificultad para el problema.\n"
+                }
+                if(problemInfo.description.trim().replace("\n","").length<8) {
+                    validateCases=validateCases+"Debes agregar una descripcion para el problema de al menos 8 caracteres.\n"
+                }
+                if(problemInfo.solution.trim().replace("\n","")===""){ 
+                    validateCases=validateCases+"Debes agregar una solucion para el problema.\n"
+                }
+                if(code.trim().replace("\n","")==="") {
+                    validateCases=validateCases+"Debes agregar un codigo solucion al problema.\n"
+                }
             }else if(activeStep===1){
                 
-                // if(
-                //     problemInfo.templateCode.javaTemplate===undefined 
-                //     || problemInfo.templateCode.javaTemplate.trim().replace("\n","")===""
-                //     ){ 
-                //     validateCases=validateCases+"Debes agregar un template al problema en codigo Java.\n"
-                // }
-                // if(
-                //     problemInfo.templateCode.pythonTemplate===undefined 
-                //     || problemInfo.templateCode.pythonTemplate.trim().replace("\n","")===""
-                //     ){ 
-                //     validateCases=validateCases+"Debes agregar un template al problema en codigo Python.\n"
-                // }
+                if(
+                    problemInfo.templateCode.javaTemplate===undefined 
+                    || problemInfo.templateCode.javaTemplate.trim().replace("\n","")===""
+                    ){ 
+                    validateCases=validateCases+"Debes agregar un template al problema en codigo Java.\n"
+                }
+                if(
+                    problemInfo.templateCode.pythonTemplate===undefined 
+                    || problemInfo.templateCode.pythonTemplate.trim().replace("\n","")===""
+                    ){ 
+                    validateCases=validateCases+"Debes agregar un template al problema en codigo Python.\n"
+                }
 
             }
             if(validateCases.trim().replace("\n","")!=="") {alert(validateCases); return;}

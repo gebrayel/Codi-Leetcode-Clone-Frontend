@@ -91,7 +91,7 @@ export default function Todito({ type, id, title, difficulty, description, solut
                     return (
                         <Box className={classes.containerTodito}>
                             <Box className={classes.containerTitle}>
-                                <h1 className={classes.title}>Intentos.</h1>
+                                <h1 className={classes.title}>Intentos</h1>
                             </Box> 
                             <Paper className={classes.paper}>
                                 <TableContainer className={classes.table}>

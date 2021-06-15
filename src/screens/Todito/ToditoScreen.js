@@ -9,10 +9,14 @@ import Tab from '@material-ui/core/Tab';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import LineStyleIcon from '@material-ui/icons/LineStyle';
 import HighlightIcon from '@material-ui/icons/Highlight';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 
 export default function Toditocreen({ x, ...props }) {
     const classes = useStyles(props);
     const [value, setValue] = React.useState(0);
+    const [lenguaje, setLenguaje] = React.useState('');
 
     const handleTabs = (e, val) => {
         setValue(val);
@@ -60,7 +64,23 @@ export default function Toditocreen({ x, ...props }) {
             </Box>
             <Box className={classes.box}>
                 <Box className={classes.box4}>
-
+                    <FormControl variant="outlined" className={classes.formControl}>
+                        <InputLabel htmlFor="outlined-lenguaje-simple">Lenguaje</InputLabel>
+                        <Select
+                            native
+                            value={lenguaje}
+                            onChange={e => setLenguaje(e.target.value)}
+                            label="Lenguaje"
+                            inputProps={{
+                                name: 'Lenguaje',
+                                id: 'outlined-lenguaje-simple',
+                            }}
+                            >
+                            <option aria-label="None" value="" />
+                            <option value={'Java'}>Java</option>
+                            <option value={'Python'}>Python</option>
+                        </Select>
+                    </FormControl>
                 </Box>
             </Box>
         </Grid>

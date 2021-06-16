@@ -227,8 +227,9 @@ export default function ProfileScreen() {
           <div className={classes.charttext}>Lenguajes mas usados</div>
           <div className={classes.doughnut_container2}>
             <Chart
-              data={[{ mes: "Enero", subsmissions: 20 }]}
-              colors={["#36A2EB", "#E75656"]}
+              labels={['Enero', 'Febrero']}
+              data={[10, 30]}
+              colors={["#36A2EB"]}
               font_color="white"
               type="Line"
               etiquetas={false}

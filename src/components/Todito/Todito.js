@@ -300,6 +300,18 @@ const useStyles = makeStyles((theme) => ({
             color: "#474747",
             cursor: "pointer",
         },
+        [theme.breakpoints.down('sm')]: {
+            width: "20%",
+            height: "10%",
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: "20%",
+            height: "10%",
+        },
+        [theme.breakpoints.down('md')]: {
+            width: "20%",
+            height: "10%",
+        },
     },
     containerButton: {
         display: "flex",

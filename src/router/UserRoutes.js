@@ -11,7 +11,7 @@ import PaymentSuccessScreen from "../screens/Payment_Success/PaymentSuccessScree
 import Page404 from "../screens/404/404";
 import AdminRoute from "./AdminRoute";
 import ProblemFormScreen from  "../screens/ProblemForm/ProblemFormScreen";
-import Todito from "../screens/Todito/ToditoScreen"
+import IDE from "../screens/IDE/IDEScreen"
 
 export const UserRoutes = () => {
     return (
@@ -45,9 +45,9 @@ export const UserRoutes = () => {
                 </PrivateRoute>
 
                 <PrivateRoute 
-                    path="/todito"
+                    path="/IDE"
                 >
-                    <Todito />
+                    <IDE />
                 </PrivateRoute>
 
                 <AdminRoute 

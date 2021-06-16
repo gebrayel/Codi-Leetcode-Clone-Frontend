@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid } from "@material-ui/core";
-import Todito from "../../components/Todito/Todito";
+import Todito from "../../components/Tabs/Tabs";
 import colors from "../../config/colors/colors";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";

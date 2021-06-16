@@ -6,7 +6,6 @@ import ProblemList from "../../components/ProblemList/ProblemList";
 import problemAPI from "../../api/problems/problems";
 import RobotLoader from "../../components/RobotLoader/RobotLoader";
 import useQuery from "../../hooks/useQuery/useQuery";
-
 const ProblemsScreen = () => {
     const query = useQuery();
     const [problems, setProblems] = useState([]);

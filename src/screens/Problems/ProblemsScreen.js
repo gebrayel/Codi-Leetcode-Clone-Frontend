@@ -35,7 +35,7 @@ const ProblemsScreen = () => {
               className="ProblemLink"
               href={"/IDE?problemId=" + prob.problem_id}
             >
-              prob.description
+              {prob.description}
             </a>
           ),
           edit: (

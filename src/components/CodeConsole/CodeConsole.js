@@ -4,7 +4,17 @@ import { makeStyles } from "@material-ui/core/styles";
 export default function CustomInput(input, output, esperado, isLoading) {
   const classes = useStyles();
 
+  const selectPhrase = () => {
+    return;
+  };
   const consoleNew = () => {
+    return (
+      <>
+        <div>{selectPhrase()}</div>
+      </>
+    );
+  };
+  const consoleUsed = () => {
     return (
       <>
         <div>
@@ -14,10 +24,11 @@ export default function CustomInput(input, output, esperado, isLoading) {
       </>
     );
   };
-  const consoleUsed = () => {};
   const showLoader = () => {};
   return (
-    <>{isLoading ? showLoader : output == "" ? consoleNew : consoleUsed}</>
+    <>
+      {isLoading ? showLoader() : output == "" ? consoleNew() : consoleUsed()}
+    </>
   );
 }
 

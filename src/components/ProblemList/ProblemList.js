@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import AppContext from "../../helpers/context/context";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -14,7 +14,8 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import Grid from "@material-ui/core/Grid";
 
 const ProblemList = ({ rows }) => {
-  const columns = [
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [columns, setColumns] = useState([
     { id: "problem_id", label: "ID", minWidth: 100 },
     { id: "description", label: "Título", minWidth: 50 },
     {
@@ -31,13 +32,23 @@ const ProblemList = ({ rows }) => {
       align: "right",
       format: (value) => Boolean(value),
     },
-    {
-      id: "edit",
-      label: "Editar",
-      minWidth: 50,
-      align: "right",
-    },
-  ];
+  ]);
+
+  useEffect(() => {
+    if (user.is_admin) {
+      setColumns((prevState) => {
+        return [
+          ...prevState,
+          {
+            id: "edit",
+            label: "Editar",
+            minWidth: 50,
+            align: "right",
+          },
+        ];
+      });
+    }
+  }, []);
 
   const useStyles = makeStyles({
     grid: {

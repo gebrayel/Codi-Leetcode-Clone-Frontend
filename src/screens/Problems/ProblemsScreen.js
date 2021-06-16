@@ -39,7 +39,10 @@ const ProblemsScreen = () => {
             </a>
           ),
           edit: (
-            <a className="ProblemLink" href="#">
+            <a
+              className="ProblemLink"
+              href={"/ProblemForm?problemId=" + prob.problem_id}
+            >
               <EditIcon />
             </a>
           ),
@@ -50,7 +53,6 @@ const ProblemsScreen = () => {
     };
     getProblems(difficulty, user);
   }, []);
-  console.log(problems);
   return (
     <div className="ProblemScreenContainer">
       {isLoading ? (

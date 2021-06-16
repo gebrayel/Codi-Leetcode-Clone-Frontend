@@ -109,6 +109,7 @@ export default function Toditocreen({ x, ...props }) {
                         language="text/x-java"
                         value={code}
                         onChange={setCode}
+                        className={classes.codeEditor2}
                     />
                 </Box>
             </Box>
@@ -218,6 +219,11 @@ const useStyles = makeStyles((theme) => ({
     },
     codeEditor: {
         marginTop: "10px",
-        textAlign: 'left'
+        textAlign: 'left',
+        width: '100%',
+
     },
+    codeEditor2: {
+        
+    }
 }));

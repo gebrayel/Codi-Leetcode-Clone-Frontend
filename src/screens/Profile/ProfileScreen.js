@@ -14,14 +14,16 @@ export default function ProfileScreen() {
   let locvalue = localStorage.getItem("user");
   locvalue = JSON.parse(locvalue);
 
-  console.log(userC);
+  // console.log(userC);
+  let [line, setLine] = useState([]);
   usersS
-    .getUserStatistics("nReTC2W49pZlf2FH0GGY6x7NzrE3")
-    .then((ans) => {
-      console.log(ans);
+    .getUserStatistics(locvalue.google_id)
+    .then((response) => {
+      console.log(response);
+      setLine(response.monthlySubmissions);
     })
-    .catch((error) => {
-      console.log(error);
+    .catch((e) => {
+      console.log(e);
     });
 
   let problems = [
@@ -215,6 +217,20 @@ export default function ProfileScreen() {
               colors={["#36A2EB", "#E75656"]}
               font_color="white"
               type="Pie"
+              etiquetas={false}
+            />
+          </div>
+        </div>
+      </div>
+      <div className={classes.secondRow}>
+        <div className={classes.flexSpace2}>
+          <div className={classes.charttext}>Lenguajes mas usados</div>
+          <div className={classes.doughnut_container2}>
+            <Chart
+              data={[{ mes: "Enero", subsmissions: 20 }]}
+              colors={["#36A2EB", "#E75656"]}
+              font_color="white"
+              type="Line"
               etiquetas={false}
             />
           </div>

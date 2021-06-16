@@ -30,8 +30,16 @@ const ProblemsScreen = () => {
           ...prob,
           color: index % 2 === 0 ? colors.evenRow : colors.oddRow,
           difficulty: spanishDifficulty[prob.difficulty],
+          description: (
+            <a
+              className="ProblemLink"
+              href={"/IDE?problemId=" + prob.problem_id}
+            >
+              prob.description
+            </a>
+          ),
           edit: (
-            <a id="editProblemLink" href={"/IDE?problemId=" + prob.problem_id}>
+            <a className="ProblemLink" href="#">
               <EditIcon />
             </a>
           ),
@@ -42,6 +50,7 @@ const ProblemsScreen = () => {
     };
     getProblems(difficulty, user);
   }, []);
+  console.log(problems);
   return (
     <div className="ProblemScreenContainer">
       {isLoading ? (

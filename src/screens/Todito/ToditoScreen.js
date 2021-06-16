@@ -157,20 +157,31 @@ const useStyles = makeStyles((theme) => ({
     },
     box4: {
         height: "72px",
-        width: "100%",
+        width: "calc(100% -10px)",
         backgroundColor: "#1B1D2B",
         boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.28)",
+        display: "flex",
+        alignItems: "center",
+        paddingLeft: "10px",
     },
     formControl: {
+        "& ..MuiFormControl-root": {
+            width: "110px",
+        },
         "& .MuiInputLabel-animated": {
             color: "white",
         },
         "& .MuiOutlinedInput-notchedOutline": {
             borderColor: "white",
-            "&:hover": {
-                borderColor: "white",
-            },
         },
+        "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: "white",
+        },
+        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+            {
+                borderColor: "white",
+                borderWidth: "1px",
+            },
         "& .MuiSelect-icon": {
             color: "white",
         },

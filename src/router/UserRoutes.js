@@ -11,6 +11,7 @@ import PaymentSuccessScreen from "../screens/Payment_Success/PaymentSuccessScree
 import Page404 from "../screens/404/404";
 import AdminRoute from "./AdminRoute";
 import ProblemFormScreen from  "../screens/ProblemForm/ProblemFormScreen";
+import Todito from "../screens/Todito/ToditoScreen"
 
 export const UserRoutes = () => {
     return (
@@ -41,6 +42,12 @@ export const UserRoutes = () => {
                     path="/payment_success"
                 >
                     <PaymentSuccessScreen />
+                </PrivateRoute>
+
+                <PrivateRoute 
+                    path="/todito"
+                >
+                    <Todito />
                 </PrivateRoute>
 
                 <AdminRoute 

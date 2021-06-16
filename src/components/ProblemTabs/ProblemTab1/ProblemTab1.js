@@ -169,6 +169,7 @@ const useStyles = makeStyles((theme) => ({
     "@media (min-width: 426px) and (max-width:515px)": {
       marginBottom: "30px",
     },
+    marginLeft: "2%",
   },
 
   LabelTitleForm: {

@@ -117,6 +117,12 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#282A36',
         width: '50%',
         height: '91vh',
+        [theme.breakpoints.down('sm')]: {
+            width: "100%"
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: "100%"
+        },
     },
     container2: {
         backgroundColor: '#1B1D2B',

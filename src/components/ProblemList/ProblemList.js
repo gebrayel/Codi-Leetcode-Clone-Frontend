@@ -33,7 +33,7 @@ const ProblemList = ({ rows }) => {
     },
     {
       id: "edit",
-      label: "Edit",
+      label: "Editar",
       minWidth: 50,
       align: "right",
     },

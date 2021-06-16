@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import Todito from "../../components/Todito/Todito";
@@ -7,10 +7,11 @@ import CodeConsole from "../../components/CodeConsole/CodeConsole";
 export default function Toditocreen({ x, ...props }) {
   const classes = useStyles(props);
   // borrable
-  let [input, setInput] = useState("");
-  let [output, setOutput] = useState("");
+  let [input, setInput] = useState("pene too");
+  let pene = "pene";
+  let [output, setOutput] = useState("pene");
   let [consoleLoading, setConsoleLoading] = useState(false);
-  let [expected, setExpected] = useState("");
+  let [expected, setExpected] = useState("pene too");
   // borrable
   return (
     <>
@@ -33,8 +34,8 @@ export default function Toditocreen({ x, ...props }) {
         <CodeConsole
           input={input}
           output={output}
-          expected={expected}
           isLoading={consoleLoading}
+          expected={expected}
         />
       </Box>
     </>

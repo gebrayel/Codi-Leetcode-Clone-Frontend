@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-export default function CustomInput(input, output, esperado, isLoading) {
+export default function CustomInput({ input, output, expected, isLoading }) {
   const classes = useStyles();
 
   const selectPhrase = () => {
@@ -17,19 +17,40 @@ export default function CustomInput(input, output, esperado, isLoading) {
   const consoleUsed = () => {
     return (
       <>
-        <div>
-          clic run when u feel ready remind ur smart...i guess dont forget the ;
-          att your javaby
+        <div className={classes.status}>
+          {output == expected ? "Aceptado" : "Rechazado"}
+        </div>
+        <div className={classes.row}>
+          <div className={classes.title}>Input</div>
+          <div className={classes.space}>{input}</div>
+        </div>
+        <div className={classes.row}>
+          <div className={classes.title}>Output</div>
+          <div className={classes.space}>{output}</div>
+        </div>
+        <div className={classes.row}>
+          <div className={classes.title}>Esperado</div>
+          <div className={classes.space}>{expected}</div>
         </div>
       </>
     );
   };
   const showLoader = () => {};
   return (
-    <>
+    <div className={classes.block}>
       {isLoading ? showLoader() : output == "" ? consoleNew() : consoleUsed()}
-    </>
+    </div>
   );
 }
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+  block: {
+    backgroundColor: "#1B1D2B",
+  },
+  row: {
+    display: "flex",
+  },
+  space: {
+    backgroundColor: "#9B9B9B",
+  },
+}));

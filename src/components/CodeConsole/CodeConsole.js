@@ -17,7 +17,10 @@ export default function CustomInput({ input, output, expected, isLoading }) {
   const consoleUsed = () => {
     return (
       <>
-        <div className={classes.status}>
+        <div
+          className={classes.status}
+          style={output == expected ? { color: "green" } : { color: "red" }}
+        >
           {output == expected ? "Aceptado" : "Rechazado"}
         </div>
         <div className={classes.row}>
@@ -44,6 +47,7 @@ export default function CustomInput({ input, output, expected, isLoading }) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  status: {},
   block: {
     backgroundColor: "#1B1D2B",
   },

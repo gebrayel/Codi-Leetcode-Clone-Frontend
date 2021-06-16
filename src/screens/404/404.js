@@ -3,16 +3,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import LottieF from '../../components/LottieFile/LottieFile';
 import { Box } from '@material-ui/core';
 import kitty404 from '../../assets/animations/cat404.json';
+import { useHistory } from "react-router-dom";
 
 export default function ProfileScreen({ x, ...props }) {
     const classes = useStyles(props);
+    const history = useHistory();
 
     return (
         <Box className={classes.container404}>
             <Box className={classes.lottie404}>
                     <LottieF animationData={kitty404}/>
             </Box>
-            <button className={classes.button404}>
+            <button className={classes.button404} onClick={() => history.push("/difficulties")}>
                 Regresar
             </button>
         </Box>

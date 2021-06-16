@@ -327,6 +327,5 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: 440,
     },
     codeEditor: {
-        textAlign: 'left'
     }
 }));

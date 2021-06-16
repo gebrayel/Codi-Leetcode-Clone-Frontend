@@ -219,7 +219,6 @@ const useStyles = makeStyles((theme) => ({
     },
     codeEditor: {
         marginTop: "10px",
-        textAlign: 'left',
         width: '100%',
 
     },

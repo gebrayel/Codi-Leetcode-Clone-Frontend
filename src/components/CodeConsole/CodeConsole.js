@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import CubeLoader from "../CubeLoader/CubeLoader";
 
 export default function CustomInput({ input, output, expected, isLoading }) {
   const classes = useStyles();

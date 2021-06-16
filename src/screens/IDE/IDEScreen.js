@@ -12,6 +12,7 @@ import HighlightIcon from "@material-ui/icons/Highlight";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
+import CodeEditor from "../../components/CodeEditor/CodeEditor";
 
 export default function Toditocreen({ x, ...props }) {
     const classes = useStyles(props);
@@ -100,6 +101,13 @@ export default function Toditocreen({ x, ...props }) {
                             <option value={"Python"}>Python</option>
                         </Select>
                     </FormControl>
+                </Box>
+                <Box className={classes.codeEditor}>
+                    <CodeEditor
+                        readOnly={false}
+                        language="text/x-java"
+                        value={''}
+                    />
                 </Box>
             </Box>
         </Grid>
@@ -205,5 +213,9 @@ const useStyles = makeStyles((theme) => ({
         "&.MuiSelect-select": {
             color: "white",
         },
+    },
+    codeEditor: {
+        marginTop: "10px",
+        textAlign: 'left'
     },
 }));

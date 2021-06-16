@@ -23,6 +23,7 @@ import yellowCodi from "../../assets/yellow_codi.png";
 import { useHistory } from "react-router-dom";
 import AppContext from "../../helpers/context/context";
 import payments from "../../api/payments/payments";
+import RobotLoader from "../RobotLoader/RobotLoader";
 import moment from "moment";
 
 const PaymentModal = ({ modal, setModal, price, subscription }) => {

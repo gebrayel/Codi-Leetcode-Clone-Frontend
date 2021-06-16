@@ -1,6 +1,6 @@
 import React from "react";
 import LottieFile from "../LottieFile/LottieFile";
-import consoleLoader from "../../assets/animations/robot-loader.json";
+import consoleLoader from "../../assets/animations/cubeLoader.json";
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 

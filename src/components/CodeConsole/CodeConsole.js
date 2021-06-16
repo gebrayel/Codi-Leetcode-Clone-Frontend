@@ -39,7 +39,9 @@ export default function CustomInput({ input, output, expected, isLoading }) {
       </>
     );
   };
-  const showLoader = () => {};
+  const showLoader = () => {
+    return <CubeLoader />;
+  };
   return (
     <div className={classes.block}>
       {isLoading ? showLoader() : output == "" ? consoleNew() : consoleUsed()}

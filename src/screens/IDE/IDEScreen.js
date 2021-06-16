@@ -18,6 +18,7 @@ export default function Toditocreen({ x, ...props }) {
     const classes = useStyles(props);
     const [value, setValue] = React.useState(0);
     const [lenguaje, setLenguaje] = React.useState("");
+    const [code, setCode] = React.useState("");
 
     const handleTabs = (e, val) => {
         setValue(val);
@@ -106,7 +107,8 @@ export default function Toditocreen({ x, ...props }) {
                     <CodeEditor
                         readOnly={false}
                         language="text/x-java"
-                        value={''}
+                        value={code}
+                        onChange={setCode}
                     />
                 </Box>
             </Box>

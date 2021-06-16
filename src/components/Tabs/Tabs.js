@@ -80,11 +80,13 @@ export default function Todito({
                                     </button>
                                 </CopyToClipboard>
                             </Box>
-                            <CodeEditor
-                                readOnly={true}
-                                language="text/x-java"
-                                value={solution}
-                            />
+                            <Box className={classes.codeEditor}>
+                                <CodeEditor 
+                                    readOnly={true}
+                                    language="text/x-java"
+                                    value={solution}
+                                />
+                            </Box>
                         </Box>
                     </Box>
                 );
@@ -324,4 +326,7 @@ const useStyles = makeStyles((theme) => ({
     table: {
         maxHeight: 440,
     },
+    codeEditor: {
+        textAlign: 'left'
+    }
 }));

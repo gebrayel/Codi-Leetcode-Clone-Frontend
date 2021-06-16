@@ -41,12 +41,12 @@ const ProblemList = ({ rows }) => {
             width: "100%",
             backgroundColor: "#7E84A7",
             fontWeight: "bold",
+            "& .MuiTableCell-alignRight": {
+                textAlign: "center",
+            },
         },
         container: {
             width: "100%",
-        },
-        "& .MuiTableCell-alignRight": {
-            textAlign: "center",
         },
     });
 

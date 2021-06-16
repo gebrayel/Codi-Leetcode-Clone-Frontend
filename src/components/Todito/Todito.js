@@ -1,26 +1,34 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box } from '@material-ui/core';
+import { Box } from "@material-ui/core";
 import colors from "../../config/colors/colors";
-import CodeEditor from '../../components/CodeEditor/CodeEditor';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
+import CodeEditor from "../../components/CodeEditor/CodeEditor";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
 
-export default function Todito({ type, id, title, difficulty, description, solution, data, ...props }) {
-
+export default function Todito({
+    type,
+    id,
+    title,
+    difficulty,
+    description,
+    solution,
+    data,
+    ...props
+}) {
     const classes = useStyles(props);
 
     const columns = [
-        { id: 'time', label: 'Enviado', minWidth: 140,  align: 'left',},
-        { id: 'status', label: 'Estado', minWidth: 120,  align: 'left',},
-        { id: 'language', label: 'Lenguaje', minWidth: 120,  align: 'left',}
+        { id: "time", label: "Enviado", minWidth: 140, align: "left" },
+        { id: "status", label: "Estado", minWidth: 120, align: "left" },
+        { id: "language", label: "Lenguaje", minWidth: 120, align: "left" },
     ];
 
     const [page, setPage] = React.useState(0);
@@ -44,14 +52,16 @@ export default function Todito({ type, id, title, difficulty, description, solut
                 return (
                     <Box className={classes.containerTodito}>
                         <Box className={classes.containerTitle}>
-                            <h1 className={classes.title}>{id}. {title}</h1>
+                            <h1 className={classes.title}>
+                                {id}. {title}
+                            </h1>
                             <h2 className={classes.difficulty}>{difficulty}</h2>
                         </Box>
                         <Box className={classes.containerDescription}>
                             <p className={classes.description}>{description}</p>
                         </Box>
                     </Box>
-                )
+                );
             case "solution":
                 return (
                     <Box className={classes.containerTodito}>
@@ -59,7 +69,9 @@ export default function Todito({ type, id, title, difficulty, description, solut
                             <h1 className={classes.title}>Solución</h1>
                         </Box>
                         <Box className={classes.containerDescription}>
-                            <h2 className={classes.subtitle}>{id}. {title}</h2>
+                            <h2 className={classes.subtitle}>
+                                {id}. {title}
+                            </h2>
                             <p className={classes.description}>{description}</p>
                             <Box className={classes.containerButton}>
                                 <CopyToClipboard text={solution}>
@@ -68,63 +80,105 @@ export default function Todito({ type, id, title, difficulty, description, solut
                                     </button>
                                 </CopyToClipboard>
                             </Box>
-                            <CodeEditor readOnly={true} language="text/x-java" value={solution}/>
+                            <CodeEditor
+                                readOnly={true}
+                                language="text/x-java"
+                                value={solution}
+                            />
                         </Box>
                     </Box>
-                )
+                );
             case "submissions":
-                if(data.length == 0){
+                if (data.length == 0) {
                     return (
                         <Box className={classes.containerTodito}>
                             <Box className={classes.containerTitle}>
                                 <h1 className={classes.title}>Submissions</h1>
-                            </Box>  
+                            </Box>
                             <Box className={classes.containerDescription}>
-                                <h2 className={classes.subtitle}>{id}. {title}</h2>
-                                <p className={classes.description}>No se ha realizado ningún intento.</p>
-                                
+                                <h2 className={classes.subtitle}>
+                                    {id}. {title}
+                                </h2>
+                                <p className={classes.description}>
+                                    No se ha realizado ningún intento.
+                                </p>
                             </Box>
                         </Box>
-                    )
-
-                }else{
+                    );
+                } else {
                     return (
                         <Box className={classes.containerTodito}>
                             <Box className={classes.containerTitle}>
                                 <h1 className={classes.title}>Intentos</h1>
-                            </Box> 
+                            </Box>
                             <Paper className={classes.paper}>
                                 <TableContainer className={classes.table}>
-                                    <Table stickyHeader aria-label="sticky table">
-                                    <TableHead>
-                                        <TableRow>
-                                        {columns.map((column) => (
-                                            <TableCell
-                                            key={column.id}
-                                            align={column.align}
-                                            style={{ minWidth: column.minWidth }}
-                                            >
-                                            {column.label}
-                                            </TableCell>
-                                        ))}
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                                        return (
-                                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                                            {columns.map((column) => {
-                                                const value = row[column.id];
-                                                return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number' ? column.format(value) : value}
-                                                </TableCell>
-                                                );
-                                            })}
+                                    <Table
+                                        stickyHeader
+                                        aria-label="sticky table"
+                                    >
+                                        <TableHead>
+                                            <TableRow>
+                                                {columns.map((column) => (
+                                                    <TableCell
+                                                        key={column.id}
+                                                        align={column.align}
+                                                        style={{
+                                                            minWidth:
+                                                                column.minWidth,
+                                                        }}
+                                                    >
+                                                        {column.label}
+                                                    </TableCell>
+                                                ))}
                                             </TableRow>
-                                        );
-                                        })}
-                                    </TableBody>
+                                        </TableHead>
+                                        <TableBody>
+                                            {rows
+                                                .slice(
+                                                    page * rowsPerPage,
+                                                    page * rowsPerPage +
+                                                        rowsPerPage
+                                                )
+                                                .map((row) => {
+                                                    return (
+                                                        <TableRow
+                                                            hover
+                                                            role="checkbox"
+                                                            tabIndex={-1}
+                                                            key={row.code}
+                                                        >
+                                                            {columns.map(
+                                                                (column) => {
+                                                                    const value =
+                                                                        row[
+                                                                            column
+                                                                                .id
+                                                                        ];
+                                                                    return (
+                                                                        <TableCell
+                                                                            key={
+                                                                                column.id
+                                                                            }
+                                                                            align={
+                                                                                column.align
+                                                                            }
+                                                                        >
+                                                                            {column.format &&
+                                                                            typeof value ===
+                                                                                "number"
+                                                                                ? column.format(
+                                                                                      value
+                                                                                  )
+                                                                                : value}
+                                                                        </TableCell>
+                                                                    );
+                                                                }
+                                                            )}
+                                                        </TableRow>
+                                                    );
+                                                })}
+                                        </TableBody>
                                     </Table>
                                 </TableContainer>
                                 <TablePagination
@@ -134,108 +188,128 @@ export default function Todito({ type, id, title, difficulty, description, solut
                                     rowsPerPage={rowsPerPage}
                                     page={page}
                                     onChangePage={handleChangePage}
-                                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                                    onChangeRowsPerPage={
+                                        handleChangeRowsPerPage
+                                    }
                                 />
                             </Paper>
                         </Box>
-                    )
+                    );
                 }
             default:
                 break;
         }
-    }
+    };
 
-    return (
-        getTodito() 
-    )
-
+    return getTodito();
 }
 
 const useStyles = makeStyles((theme) => ({
     containerTodito: {
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        paddingTop: '1%',
+        paddingLeft: "5%",
+        paddingRight: "5%",
+        paddingTop: "1%",
+        "& .MuiTableCell-stickyHeader": {
+            backgroundColor: "#1B1D2B",
+            color: "white",
+            textAlign: "center",
+        },
+        "& .MuiTableContainer-root": {
+            backgroundColor: "#282A36",
+        },
+        "& .MuiTableCell-alignLeft": {
+            textAlign: "center",
+            color: "white",
+            borderColor: "#40414B",
+        },
+        "& .MuiTablePagination-toolbar": {
+            backgroundColor: "#1B1D2B",
+            color: "white",
+        },
+        "& .MuiSelect-icon": {
+            color: "white",
+        },
+        "& .MuiIconButton-root.Mui-disabled": {
+            color: "white",
+        },
     },
     containerTitle: {
-        borderBottom: '2px solid #40414B',
+        borderBottom: "2px solid #40414B",
     },
     title: {
-        color: 'white',
-        fontFamily: 'Roboto',
-        fontStyle: 'bold',
-        fontWeight: 'normal',
-        fontSize: '150%',
-        textAlign: 'left',
+        color: "white",
+        fontFamily: "Roboto",
+        fontStyle: "bold",
+        fontWeight: "normal",
+        fontSize: "150%",
+        textAlign: "left",
         margin: 0,
-        marginBottom: '2vh',
+        marginBottom: "2vh",
     },
     difficulty: {
         color: (props) => props.colorDifficulty,
-        fontFamily: 'Roboto',
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        fontSize: '130%',
-        textAlign: 'left',
+        fontFamily: "Roboto",
+        fontStyle: "normal",
+        fontWeight: "normal",
+        fontSize: "130%",
+        textAlign: "left",
         margin: 0,
-        paddingBottom: '2vh',
+        paddingBottom: "2vh",
     },
     description: {
-        color: 'white',
-        fontFamily: 'Roboto',
-        fontStyle: 'normal',
-        fontWeight: '300',
-        fontSize: '115%',
-        textAlign: 'left',
-        lineHeight: '29px',
+        color: "white",
+        fontFamily: "Roboto",
+        fontStyle: "normal",
+        fontWeight: "300",
+        fontSize: "115%",
+        textAlign: "left",
+        lineHeight: "29px",
     },
     subtitle: {
-        color: 'white',
-        fontFamily: 'Roboto',
-        fontStyle: 'bold',
-        fontWeight: 'normal',
-        fontSize: '130%',
-        textAlign: 'left',
+        color: "white",
+        fontFamily: "Roboto",
+        fontStyle: "bold",
+        fontWeight: "normal",
+        fontSize: "130%",
+        textAlign: "left",
     },
     buttonTodito: {
-        background: 'rgba(255, 255, 255, 0)',
-        color: 'white',
-        fontFamily: 'Roboto',
-        fontStyle: 'normal',
-        fontWeight: '300',
+        background: "rgba(255, 255, 255, 0)",
+        color: "white",
+        fontFamily: "Roboto",
+        fontStyle: "normal",
+        fontWeight: "300",
         fontSize: "115%",
-        textAlign: 'center',
-        marginRight: '1%',
-        marginBottom: '1%',
-        
+        textAlign: "center",
+        marginRight: "1%",
+        marginBottom: "1%",
+
         width: "10%",
         height: "10%",
 
-        border: '1px solid rgba(255, 255, 255, 0.5)',
-        boxSizing: 'border-box',
-        boxShadow: '5px 4px 4px rgba(0, 0, 0, 0.28)',
-        borderRadius: '5px',
-        transition: 'background 1.5s',
-        transition: 'color 1.5s',
+        border: "1px solid rgba(255, 255, 255, 0.5)",
+        boxSizing: "border-box",
+        boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.28)",
+        borderRadius: "5px",
+        transition: "background 1.5s",
+        transition: "color 1.5s",
         "&:hover": {
-            transition: 'background 1.5s',
-            transition: 'color 1.5s',
-            background: '#FFFFFF',
-            color: '#474747',
+            transition: "background 1.5s",
+            transition: "color 1.5s",
+            background: "#FFFFFF",
+            color: "#474747",
             cursor: "pointer",
-        }
+        },
     },
     containerButton: {
-        display: 'flex',
-        flexDirection: 'row-reverse',
+        display: "flex",
+        flexDirection: "row-reverse",
     },
     paper: {
-        width: '100%',
+        width: "100%",
         marginTop: 10,
     },
     table: {
         maxHeight: 440,
     },
-
-
 }));

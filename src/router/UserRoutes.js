@@ -9,7 +9,9 @@ import ProblemsScreen from "../screens/Problems/ProblemsScreen";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
 import PaymentSuccessScreen from "../screens/Payment_Success/PaymentSuccessScreen";
 import Page404 from "../screens/404/404";
-import ToditoScreen from '../screens/Todito/ToditoScreen';
+import AdminRoute from "./AdminRoute";
+import ProblemFormScreen from  "../screens/ProblemForm/ProblemFormScreen";
+import Todito from "../screens/Todito/ToditoScreen"
 
 export const UserRoutes = () => {
     return (
@@ -45,8 +47,14 @@ export const UserRoutes = () => {
                 <PrivateRoute 
                     path="/todito"
                 >
-                    <ToditoScreen />
+                    <Todito />
                 </PrivateRoute>
+
+                <AdminRoute 
+                    path="/problemForm"
+                >
+                    <ProblemFormScreen />
+                </AdminRoute>
 
                 <Route
                     path="*"

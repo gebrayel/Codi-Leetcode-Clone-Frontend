@@ -13,12 +13,17 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import CodeEditor from "../../components/CodeEditor/CodeEditor";
+import CodeConsole from "../../components/CodeConsole/CodeConsole";
 
-export default function Toditocreen({ x, ...props }) {
+export default function IDEScreen({ x, ...props }) {
     const classes = useStyles(props);
     const [value, setValue] = React.useState(0);
     const [lenguaje, setLenguaje] = React.useState("");
     const [code, setCode] = React.useState("");
+    let [input, setInput] = React.useState("[1, 2, 3, 4, 5]");
+    let [output, setOutput] = React.useState("true");
+    let [consoleLoading, setConsoleLoading] = React.useState(false);
+    let [expected, setExpected] = React.useState("true");
 
     const handleTabs = (e, val) => {
         setValue(val);
@@ -110,6 +115,14 @@ export default function Toditocreen({ x, ...props }) {
                         value={code}
                         onChange={setCode}
                         className={classes.codeEditor2}
+                    />
+                </Box>
+                <Box>
+                    <CodeConsole
+                        input={input}
+                        output={output}
+                        isLoading={consoleLoading}
+                        expected={expected}
                     />
                 </Box>
             </Box>

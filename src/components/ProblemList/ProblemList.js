@@ -45,6 +45,9 @@ const ProblemList = ({ rows }) => {
         container: {
             width: "100%",
         },
+        "& .MuiTableCell-alignRight": {
+            textAlign: "center",
+        },
     });
 
     const classes = useStyles();

@@ -29,6 +29,7 @@ export default function CodeEditor({
                 theme: 'material',
                 readOnly: readOnly
             }}
+             
         />
     )
 }

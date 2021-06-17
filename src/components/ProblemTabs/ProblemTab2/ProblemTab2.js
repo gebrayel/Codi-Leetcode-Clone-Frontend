@@ -1,82 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import "../../../styles/screens/ProblemFormScreen/ProblemTabs/ProblemTab2/ProblemTab2.scss";
 import { TextField, MenuItem } from "@material-ui/core";
-import CodeEditor from "../../CodeEditor/CodeEditor";
-import InputLabel from "@material-ui/core/InputLabel";
-import colors from "../../../config/colors/colors";
+
+import "../../../styles/screens/ProblemFormScreen/ProblemTabs/ProblemTab2/ProblemTab2.scss";
 import Button from "@material-ui/core/Button";
+import Context from "../../../helpers/context/context";
+import CodeEditor from "../../CodeEditor/CodeEditor";
+import colors from "../../../config/colors/colors";
+import InputLabel from "@material-ui/core/InputLabel";
+import k from "../../../helpers/constants/constants";
 
-export default function ProblemTab2({
-  problemInfo,
-  handleProblemInfo,
-  javaTemplate,
-  setJavaTemplate,
-  pythonTemplate,
-  setPythonTemplate,
-}) {
+export default function ProblemTab2() {
   const classes = useStyles();
-  // languages: python text/x-java
-  var languageCode = "text/x-java";
-  const languages = [
-    {
-      value: "text/x-java",
-      label: "Java",
-    },
-    {
-      value: "python",
-      label: "Python",
-    },
-  ];
+  const { problemInfo, setProblemInfo } = useContext(Context);
 
-  const [actualLanguage, setActualLanguage] = useState("python");
+  const [currentLanguage, setCurrentLanguage] = useState("python");
+  const [currentCode, setCurrentCode] = useState("");
+
+  useEffect(() => {
+    let lang = currentLanguage;
+    if (lang === "text/x-java") {
+      lang = "java"
+    }
+    const savedCode = localStorage.getItem(lang);
+    if (savedCode) {
+      setCurrentCode(savedCode);
+    }
+  }, [currentLanguage]);
 
   const onChange = (e) => {
-    if (e.target == undefined) return;
-    if (e.target.name === "language") {
-      setActualLanguage(e.target.value);
-      var problemLanguage = "";
-      if (actualLanguage === "text/x-java") {
-        problemLanguage = "java";
-        handleProblemInfo({
-          ...problemInfo,
-          [e.target.name]: {
-            language: {
-              ...actualLanguage,
-              [problemLanguage]: e.target.value,
-            },
-          },
-        });
-      } else {
-        problemLanguage = "python";
-        handleProblemInfo({
-          ...problemInfo,
-          [e.target.name]: {
-            language: {
-              ...actualLanguage,
-              [problemLanguage]: e.target.value,
-            },
-          },
-        });
-      }
-    } else {
-      handleProblemInfo({
-        ...problemInfo,
-        [e.target.name]: e.target.value,
-      });
-    }
+    if (!e.target) return;
+    setCurrentLanguage(e.target.value);
   };
+  
   const saveTemplateCode = (actualLanguage) => {
-    if (actualLanguage === "python") {
-      problemInfo.templateCode = {
-        ...problemInfo.templateCode,
-        pythonTemplate: pythonTemplate,
-      };
-    } else
-      problemInfo.templateCode = {
-        ...problemInfo.templateCode,
-        javaTemplate: javaTemplate,
-      };
+    if (actualLanguage === "text/x-java") {
+      actualLanguage = "java"
+    }
+    const templates = problemInfo.templates;
+    for (let i = 0; i < templates.length; i++) {
+      const curr = templates[i];
+      if (curr.language.toLowerCase() === actualLanguage) {
+        templates[i].code = currentCode;
+        setProblemInfo({
+          ...problemInfo,
+          templates: templates,
+        });
+        localStorage.setItem(actualLanguage, currentCode);
+        break;
+      }
+    }
   };
 
   return (
@@ -93,9 +66,9 @@ export default function ProblemTab2({
           `}
           onChange={onChange}
           name="language"
-          value={actualLanguage}
+          value={currentLanguage}
         >
-          {languages.map((option) => (
+          {k.languagesDropdown.map((option) => (
             <MenuItem
               className={classes.whiteThemeIconSelect}
               key={option.value}
@@ -123,27 +96,30 @@ export default function ProblemTab2({
           className="CodeEditorBox"
           name="solutionCode"
           value={
-            actualLanguage === "text/x-java" ? javaTemplate : pythonTemplate
+            // actualLanguage === "text/x-java" ? javaTemplate : pythonTemplate
+            currentCode
           }
-          language={actualLanguage}
+          language={currentLanguage}
           onChange={
-            actualLanguage === "text/x-java"
-              ? setJavaTemplate
-              : setPythonTemplate
+            // actualLanguage === "text/x-java"
+            //   ? setJavaTemplate
+            //   : setPythonTemplate
+            setCurrentCode
           }
         />
         <div id="ButtonBoxCodeEditor__Tab2">
           <Button
             variant="contained"
             color="primary"
-            onClick={() => saveTemplateCode(actualLanguage)}
+            onClick={() => saveTemplateCode(currentLanguage)}
             disabled={
               // Validacion de guardado en el Code Editor
-              actualLanguage.trim().replace("\n", "") === "" ||
-              (actualLanguage.trim().replace("\n", "") === "text/x-java" &&
-                javaTemplate.trim().replace("\n", "") === "") ||
-              (actualLanguage.trim().replace("\n", "") === "python" &&
-                pythonTemplate.trim().replace("\n", "") === "")
+              // actualLanguage.trim().replace("\n", "") === "" ||
+              // (actualLanguage.trim().replace("\n", "") === "text/x-java" &&
+              //   javaTemplate.trim().replace("\n", "") === "") ||
+              // (actualLanguage.trim().replace("\n", "") === "python" &&
+              //   pythonTemplate.trim().replace("\n", "") === "")
+              currentCode === ""
             }
           >
             Guardar template

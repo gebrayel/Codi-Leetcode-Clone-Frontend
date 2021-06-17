@@ -5,18 +5,28 @@ const k = {
     cardExpiryLength: 4,
     cardCvcLength: 3,
     difficultiesDropdown: [
-    {
-      value: "easy",
-      label: "Facil",
-    },
-    {
-      value: "medium",
-      label: "Intermedio",
-    },
-    {
-      value: "hard",
-      label: "Dificil",
-    },
+      {
+        value: "easy",
+        label: "Facil",
+      },
+      {
+        value: "medium",
+        label: "Intermedio",
+      },
+      {
+        value: "hard",
+        label: "Dificil",
+      },
+    ],
+    languagesDropdown: [
+      {
+        value: "text/x-java",
+        label: "Java",
+      },
+      {
+        value: "python",
+        label: "Python",
+      },
   ]
 };
 

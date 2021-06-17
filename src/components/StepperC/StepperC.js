@@ -44,7 +44,6 @@ const ColorlibStepIcon = (props) => {
 }
 function getStepContent(
   step,
-  problemInfo,
 ) {
   switch (step) {
     case 0:
@@ -57,9 +56,7 @@ function getStepContent(
       );
     case 2:
       return (
-        <ProblemTab3
-          testCases={problemInfo.testCases}
-        />
+        <ProblemTab3 />
       );
     default:
       return "Unknown step";
@@ -69,7 +66,6 @@ function getStepContent(
 export default function StepperC({
   activeStep,
   setActiveStep,
-  problemInfo,
 }) {
   const classes = useStyles();
   const steps = getSteps();
@@ -108,7 +104,6 @@ export default function StepperC({
             <Typography className={classes.instructions}>
               {getStepContent(
                 activeStep,
-                problemInfo,
               )}
             </Typography>
           </div>

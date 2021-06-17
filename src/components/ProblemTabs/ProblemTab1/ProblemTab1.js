@@ -1,40 +1,33 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import "../../../styles/screens/ProblemFormScreen/ProblemTabs/ProblemTab1/ProblemTab1.scss";
 import { TextField, TextareaAutosize, MenuItem } from "@material-ui/core";
-import CodeEditor from "../../CodeEditor/CodeEditor";
-import InputLabel from "@material-ui/core/InputLabel";
-import colors from "../../../config/colors/colors";
 
-export default function ProblemTab1({
-  problemInfo,
-  handleProblemInfo,
-  code,
-  setCode,
-}) {
+import "../../../styles/screens/ProblemFormScreen/ProblemTabs/ProblemTab1/ProblemTab1.scss";
+import Context from "../../../helpers/context/context";
+import k from "../../../helpers/constants/constants";
+import CodeEditor from "../../CodeEditor/CodeEditor";
+import colors from "../../../config/colors/colors";
+import InputLabel from "@material-ui/core/InputLabel";
+
+export default function ProblemTab1() {
   const classes = useStyles();
+  const {
+    codeSolution,
+    setCodeSolution,
+    problemInfo,
+    setProblemInfo
+  } = useContext(Context);
+
   var languageCode = "text/x-java"; // languages: python text/x-java
-  const difficulties = [
-    {
-      value: "easy",
-      label: "Facil",
-    },
-    {
-      value: "medium",
-      label: "Intermedio",
-    },
-    {
-      value: "hard",
-      label: "Dificil",
-    },
-  ];
+
   const onChange = (e) => {
-    if (e.target === undefined) return;
-    handleProblemInfo({
+    if (!e.target) return;
+    setProblemInfo({
       ...problemInfo,
       [e.target.name]: e.target.value,
     });
   };
+
   return (
     <div className={classes.root}>
       <div>
@@ -66,7 +59,7 @@ export default function ProblemTab1({
             name="difficulty"
             value={problemInfo.difficulty}
           >
-            {difficulties.map((option) => (
+            {k.difficultiesDropdown.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
@@ -148,9 +141,9 @@ export default function ProblemTab1({
               id="CodeEditor"
               className="CodeEditorBox"
               name="solutionCode"
-              value={code}
+              value={codeSolution}
               language={languageCode}
-              onChange={setCode}
+              onChange={setCodeSolution}
             />
           </div>
         </div>

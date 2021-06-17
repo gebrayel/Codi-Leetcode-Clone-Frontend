@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import colors from "../../../config/colors/colors";
 import "../../../styles/screens/ProblemFormScreen/ProblemTabs/ProblemTab3/ProblemTab3.scss";
 import InputOutput from "../../InputOutput/InputOutput";
 import InputOutputForm from "../../InputOutputForm/InputOutputForm";
+import Context from "../../../helpers/context/context";
 
 export default function ProblemTab3({
-  testCases,
+
 }) {
   const classes = useStyles();
+  const { problemInfo } = useContext(Context);
+  const testCases = problemInfo.testCases;
 
   return (
     <div className={classes.root}>

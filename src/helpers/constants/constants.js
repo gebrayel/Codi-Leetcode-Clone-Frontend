@@ -27,7 +27,25 @@ const k = {
         value: "python",
         label: "Python",
       },
-  ]
+  ],
+  problemInfoEmpty: {
+    name: "",
+    difficulty: "",
+    description: "",
+    solution: "",
+    solutionCode: "",
+    templates: [
+      {
+        language: "Java",
+        code: ""
+      },
+      {
+        language: "Python",
+        code: ""
+      }
+    ],
+    testCases: [],
+  }
 };
 
 export default k;

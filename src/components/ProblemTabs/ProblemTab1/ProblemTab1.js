@@ -18,7 +18,7 @@ export default function ProblemTab1() {
     setProblemInfo
   } = useContext(Context);
 
-  var languageCode = "text/x-java"; // languages: python text/x-java
+  var languageCode = "text/x-java";
 
   const onChange = (e) => {
     if (!e.target) return;

@@ -18,7 +18,7 @@ export default function ProblemTab3({
         )}
         {testCases.map((testCase) => (
           <InputOutput
-            key={testCase.id}
+            id={testCase.id}
             input={testCase.input}
             output={testCase.output}
           />

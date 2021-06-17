@@ -29,6 +29,7 @@ const k = {
       },
   ],
   problemInfoEmpty: {
+    testCases: [],
     name: "",
     difficulty: "",
     description: "",
@@ -44,7 +45,6 @@ const k = {
         code: ""
       }
     ],
-    testCases: [],
   }
 };
 

@@ -5,7 +5,7 @@ const removeFormCacheItems = (problemInfo) => {
       "activeStep",
     ];
     problemInfo.templates.forEach(temp => {
-      keys.push(temp.language);
+      keys.push(temp.language.toLowerCase());
     });
 
     keys.forEach(key => {

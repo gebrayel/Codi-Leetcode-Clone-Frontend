@@ -23,9 +23,7 @@ export default function ProblemTab2() {
       lang = "java"
     }
     const savedCode = localStorage.getItem(lang);
-    if (savedCode) {
-      setCurrentCode(savedCode);
-    }
+    savedCode ? setCurrentCode(savedCode) : setCurrentCode("");
   }, [currentLanguage]);
 
   const onChange = (e) => {

@@ -16,7 +16,7 @@ const InputOutputForm = () => {
     output: "",
   });
   const { input, output } = currentTestCase;
-  const { addTestCase, problemInfo } = useContext(Context);
+  const { problemInfo, setProblemInfo } = useContext(Context);
 
   const onChange = (evento) => {
     setCurrentTestCase({
@@ -39,6 +39,15 @@ const InputOutputForm = () => {
     setCurrentTestCase({
       input: "",
       output: "",
+    });
+  };
+
+  const addTestCase = (testCase) => {
+    const testCases = problemInfo.testCases;
+    testCases.push(testCase);
+    setProblemInfo({
+      ...problemInfo,
+      testCases: testCases
     });
   };
 

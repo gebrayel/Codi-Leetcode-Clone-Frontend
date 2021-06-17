@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import colors from "../../config/colors/colors";
-import Button from "@material-ui/core/Button";
-import RemoveIcon from "@material-ui/icons/Remove";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 import { TextField } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import RemoveIcon from "@material-ui/icons/Remove";
 
-const InputOutput = (inputOutput) => {
+import colors from "../../config/colors/colors";
+import Context from "../../helpers/context/context";
+
+const InputOutput = ({
+  id,
+  input,
+  output
+}) => {
   const classes = useStyles();
-  const { eliminarInputOutput } = inputOutput;
-  const { id, input, output } = inputOutput.inputOutput;
+  const { removeTestCase } = useContext(Context);
 
   function InputOutputDeleteButton() {
     return (
@@ -18,7 +23,7 @@ const InputOutput = (inputOutput) => {
         variant="contained"
         size="small"
         className={classes.ButtonRemove__ProblemTab3}
-        onClick={() => eliminarInputOutput(id)}
+        onClick={() => removeTestCase(id)}
       >
         Eliminar <RemoveIcon />
       </Button>

@@ -6,30 +6,25 @@ import InputOutput from "../../InputOutput/InputOutput";
 import InputOutputForm from "../../InputOutputForm/InputOutputForm";
 
 export default function ProblemTab3({
-  inputOutputs,
-  eliminarInputOutput,
-  agregarInputOutput,
+  testCases,
 }) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <div className="InputOutputsRegisteredBox">
-        {inputOutputs.length === 0 ? null : (
+        {testCases.length === 0 ? null : (
           <h2>Casos de Prueba Registrados:</h2>
         )}
-        {inputOutputs.map((inputOutput) => (
+        {testCases.map((testCase) => (
           <InputOutput
-            key={inputOutput.id}
-            inputOutput={inputOutput}
-            eliminarInputOutput={eliminarInputOutput}
+            key={testCase.id}
+            input={testCase.input}
+            output={testCase.output}
           />
         ))}
       </div>
-      <InputOutputForm
-        inputOutputs={inputOutputs}
-        agregarInputOutput={agregarInputOutput}
-      />
+      <InputOutputForm />
     </div>
   );
 }

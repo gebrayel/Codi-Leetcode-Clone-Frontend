@@ -1,20 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Button from "@material-ui/core/Button";
 import StepperC from "../../components/StepperC/StepperC";
 import "../../styles/screens/ProblemFormScreen/ProblemFormScreen.scss";
 
 import Context from "../../helpers/context/context";
-import valids from "../../helpers/validations/validations";
 import cache from "../../helpers/cache/cache";
 import k from "../../helpers/constants/constants";
+import problemAPI from "../../api/problems/problems";
+import RobotLoader from "../../components/RobotLoader/RobotLoader";
+import valids from "../../helpers/validations/validations";
 
+const problemInfoEmpty = {
+  testCases: [],
+  name: "",
+  difficulty: "",
+  description: "",
+  solution: "",
+  solutionCode: "",
+  templates: [
+    {
+      language: "Java",
+      code: ""
+    },
+    {
+      language: "Python",
+      code: ""
+    }
+  ],
+}
 
 
 const ProblemFormScreen = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [problemInfo, setProblemInfo] = useState(k.problemInfoEmpty);
   const [codeSolution, setCodeSolution] = useState("");
-
+  const { isLoading, setIsLoading } = useContext(Context);
+  
   useEffect(() => {
     cache.initializeFormValues(setActiveStep, setProblemInfo, setCodeSolution);
   }, [])
@@ -40,11 +61,19 @@ const ProblemFormScreen = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const save = () => {
-    setActiveStep(0);
-    setCodeSolution("");
-    setProblemInfo(k.problemInfoEmpty);
-    cache.removeFormCacheItems();
+  const save = async () => {
+    setIsLoading(true);
+    const res = await problemAPI.postProblem(problemInfo);
+    setIsLoading(false);
+    if (res.status === 201) {
+      cache.removeFormCacheItems(problemInfo);
+      setActiveStep(0);
+      setCodeSolution("");
+      setProblemInfo(problemInfoEmpty);
+    }
+    else {
+      
+    }
   };
 
   return (
@@ -58,40 +87,50 @@ const ProblemFormScreen = () => {
       }}
     >
       <div className="ProblemFormScreenContainer">
-        <StepperC
-          id="StepperComponent"
-          activeStep={activeStep}
-          setActiveStep={setActiveStep}
-          problemInfo={problemInfo}
-        />
-        <div id="buttonBox">
-          {activeStep !== 0 ? (
-            <div id="BackButton__ProblemFormScreen">
-              <Button
-                color="secondary"
-                variant="contained"
-                disabled={activeStep === 0}
-                onClick={handleBackStepper}
-                className="button"
-              >
-                Regresar
-              </Button>
-            </div>
-          ) : null}
-          {activeStep < 3 ? (
-            <div id="NextButton__ProblemFormScreen">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNextStepper}
-                className="button"
-                disabled={activeStep > 2}
-              >
-                {activeStep > 1 ? "Guardar" : "Siguiente"}
-              </Button>
-            </div>
-          ) : null}
-        </div>
+        { isLoading ? 
+          (
+            <RobotLoader />  
+          ) :
+          (
+            <>
+              <StepperC
+                id="StepperComponent"
+                activeStep={activeStep}
+                setActiveStep={setActiveStep}
+                problemInfo={problemInfo}
+              />
+              <div id="buttonBox">
+                {activeStep !== 0 ? (
+                  <div id="BackButton__ProblemFormScreen">
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      disabled={activeStep === 0}
+                      onClick={handleBackStepper}
+                      className="button"
+                    >
+                      Regresar
+                    </Button>
+                  </div>
+                ) : null}
+                {activeStep < 3 ? (
+                  <div id="NextButton__ProblemFormScreen">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNextStepper}
+                      className="button"
+                      disabled={activeStep > 2}
+                    >
+                      {activeStep > 1 ? "Guardar" : "Siguiente"}
+                    </Button>
+                  </div>
+                ) : null}
+              </div>
+            </>   
+          )
+        }
+        
       </div>
     </Context.Provider>
   );

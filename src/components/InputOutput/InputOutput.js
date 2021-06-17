@@ -15,7 +15,16 @@ const InputOutput = ({
   output
 }) => {
   const classes = useStyles();
-  const { removeTestCase } = useContext(Context);
+  const { problemInfo, setProblemInfo } = useContext(Context);
+
+  const removeTestCase = (id) => {
+    const testCases = problemInfo.testCases;
+    const filteredTestCases = testCases.filter((resp) => resp.id !== id);
+    setProblemInfo({
+      ...problemInfo,
+      testCases: filteredTestCases
+    });
+  }
 
   function InputOutputDeleteButton() {
     return (

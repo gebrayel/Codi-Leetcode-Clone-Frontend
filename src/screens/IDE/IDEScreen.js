@@ -14,6 +14,8 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import CodeEditor from "../../components/CodeEditor/CodeEditor";
 import CodeConsole from "../../components/CodeConsole/CodeConsole";
+import CachedIcon from '@material-ui/icons/Cached';
+import IconButton from '@material-ui/core/IconButton';
 
 export default function IDEScreen({ x, ...props }) {
     const classes = useStyles(props);
@@ -24,9 +26,29 @@ export default function IDEScreen({ x, ...props }) {
     let [output, setOutput] = React.useState("true");
     let [consoleLoading, setConsoleLoading] = React.useState(false);
     let [expected, setExpected] = React.useState("true");
+    let [readOnly, setReadOnly] = React.useState(true);
 
     const handleTabs = (e, val) => {
         setValue(val);
+    };
+
+    const select = (e) => {
+        setLenguaje(e.target.value);
+        if(e.target.value == "Java" || e.target.value == "Python"){
+            setReadOnly(false);
+        }else{
+            setReadOnly(true);
+        }
+    };
+
+    const reload = () => {
+        if(lenguaje == 'Python'){
+            setCode('Hola Python.');
+        }else if(lenguaje == 'Java'){
+            setCode('Hola Java.');
+        }else{
+            setCode('Holaa, por favor selecciona un lenguaje.');
+        }
     };
 
     return (
@@ -95,22 +117,25 @@ export default function IDEScreen({ x, ...props }) {
                         <Select
                             native
                             value={lenguaje}
-                            onChange={(e) => setLenguaje(e.target.value)}
+                            onChange={(e) => select(e)}
                             label="Lenguaje"
                             inputProps={{
                                 name: "Lenguaje",
                                 id: "outlined-lenguaje-simple",
                             }}
                         >
-                            <option aria-label="None" value="" />
+                            <option aria-label="None" value={""} />
                             <option value={"Java"}>Java</option>
                             <option value={"Python"}>Python</option>
                         </Select>
                     </FormControl>
+                    <IconButton aria-label="reload" className={classes.reload} onClick={reload}>
+                        <CachedIcon fontSize="large" />
+                    </IconButton>
                 </Box>
                 <Box className={classes.codeEditor}>
                     <CodeEditor
-                        readOnly={false}
+                        readOnly={readOnly}
                         language="text/x-java"
                         value={code}
                         onChange={setCode}
@@ -237,5 +262,9 @@ const useStyles = makeStyles((theme) => ({
     },
     codeEditor2: {
         
+    },
+    reload: {
+        color: 'white',
+
     }
 }));

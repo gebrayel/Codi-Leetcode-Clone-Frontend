@@ -32,7 +32,7 @@ const problemInfoEmpty = {
 
 const ProblemFormScreen = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [problemInfo, setProblemInfo] = useState(k.problemInfoEmpty);
+  const [problemInfo, setProblemInfo] = useState(problemInfoEmpty);
   const [codeSolution, setCodeSolution] = useState("");
   const { isLoading, setIsLoading } = useContext(Context);
   

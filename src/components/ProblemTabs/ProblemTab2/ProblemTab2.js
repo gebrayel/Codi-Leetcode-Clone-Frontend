@@ -105,14 +105,10 @@ export default function ProblemTab2() {
           className="CodeEditorBox"
           name="solutionCode"
           value={
-            // actualLanguage === "text/x-java" ? javaTemplate : pythonTemplate
             currentCode
           }
           language={currentLanguage}
           onChange={
-            // actualLanguage === "text/x-java"
-            //   ? setJavaTemplate
-            //   : setPythonTemplate
             setCurrentCode
           }
         />
@@ -121,15 +117,7 @@ export default function ProblemTab2() {
             variant="contained"
             color="primary"
             onClick={() => saveTemplateCode(currentLanguage)}
-            disabled={
-              // Validacion de guardado en el Code Editor
-              // actualLanguage.trim().replace("\n", "") === "" ||
-              // (actualLanguage.trim().replace("\n", "") === "text/x-java" &&
-              //   javaTemplate.trim().replace("\n", "") === "") ||
-              // (actualLanguage.trim().replace("\n", "") === "python" &&
-              //   pythonTemplate.trim().replace("\n", "") === "")
-              currentCode === ""
-            }
+            disabled={currentCode === ""}
           >
             Guardar template
           </Button>

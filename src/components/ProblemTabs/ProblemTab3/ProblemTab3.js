@@ -15,6 +15,7 @@ export default function ProblemTab3({
 
   return (
     <div className={classes.root}>
+      <InputOutputForm />
       <div className="InputOutputsRegisteredBox">
         {testCases.length === 0 ? null : (
           <h2>Casos de Prueba Registrados:</h2>
@@ -27,7 +28,6 @@ export default function ProblemTab3({
           />
         ))}
       </div>
-      <InputOutputForm />
     </div>
   );
 }

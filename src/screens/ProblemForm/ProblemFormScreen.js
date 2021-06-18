@@ -8,6 +8,7 @@ import cache from "../../helpers/cache/cache";
 import problemAPI from "../../api/problems/problems";
 import RobotLoader from "../../components/RobotLoader/RobotLoader";
 import valids from "../../helpers/validations/validations";
+import useQuery from "../../hooks/useQuery/useQuery";
 
 const problemInfoEmpty = {
   testCases: [],
@@ -34,10 +35,30 @@ const ProblemFormScreen = () => {
   const [problemInfo, setProblemInfo] = useState(problemInfoEmpty);
   const [codeSolution, setCodeSolution] = useState("");
   const { isLoading, setIsLoading } = useContext(Context);
+  const query = useQuery();
+  const problemID = query.get("problemId");
   
   useEffect(() => {
-    cache.initializeFormValues(setActiveStep, setProblemInfo, setCodeSolution);
-  }, [])
+    if (!problemID) {
+      return cache.initializeFormValues(setActiveStep, setProblemInfo, setCodeSolution);
+    }
+    getProblem();
+  }, []);
+
+  const getProblem = async () => {
+    setIsLoading(true);
+    const response = await problemAPI.getProblemById(problemID);
+    setIsLoading(false);
+
+    if (response.status === 200) {
+      setProblemInfo(response.data);
+      setCodeSolution(response.data.solutionCode);
+    }
+    else {
+      //Modal de error
+    }
+    
+  }
 
   const handleNextStepper = () => {
     switch (activeStep) {

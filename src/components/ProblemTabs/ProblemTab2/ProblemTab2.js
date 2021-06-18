@@ -23,7 +23,18 @@ export default function ProblemTab2() {
       lang = "java"
     }
     const savedCode = localStorage.getItem(lang);
-    savedCode ? setCurrentCode(savedCode) : setCurrentCode("");
+    if (savedCode) {
+      return setCurrentCode(savedCode);
+    }
+
+    const templates = problemInfo.templates;
+    for (let i = 0; i < templates.length; i++) {
+      const curr = templates[i];
+      if (curr.language.toLowerCase() === lang) {
+        setCurrentCode(curr.code);
+        break;
+      }
+    }
   }, [currentLanguage]);
 
   const onChange = (e) => {

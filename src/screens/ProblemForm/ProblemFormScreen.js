@@ -5,7 +5,6 @@ import "../../styles/screens/ProblemFormScreen/ProblemFormScreen.scss";
 
 import Context from "../../helpers/context/context";
 import cache from "../../helpers/cache/cache";
-import k from "../../helpers/constants/constants";
 import problemAPI from "../../api/problems/problems";
 import RobotLoader from "../../components/RobotLoader/RobotLoader";
 import valids from "../../helpers/validations/validations";

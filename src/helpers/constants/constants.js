@@ -28,24 +28,6 @@ const k = {
         label: "Python",
       },
   ],
-  problemInfoEmpty: {
-    testCases: [],
-    name: "",
-    difficulty: "",
-    description: "",
-    solution: "",
-    solutionCode: "",
-    templates: [
-      {
-        language: "Java",
-        code: ""
-      },
-      {
-        language: "Python",
-        code: ""
-      }
-    ],
-  }
 };
 
 export default k;

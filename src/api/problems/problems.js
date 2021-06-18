@@ -45,7 +45,7 @@ const getProblemById = async (id) => {
     const url = endpoint + "id/" + id;
     try {
         const response = await axios.get(url);
-        return response.data;
+        return response;
     } catch (error) {
         return error;
     }

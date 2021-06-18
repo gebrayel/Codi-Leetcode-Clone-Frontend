@@ -16,16 +16,18 @@ import CodeEditor from "../../components/CodeEditor/CodeEditor";
 import CodeConsole from "../../components/CodeConsole/CodeConsole";
 import CachedIcon from '@material-ui/icons/Cached';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 
 export default function IDEScreen({ x, ...props }) {
     const classes = useStyles(props);
     const [value, setValue] = React.useState(0);
     const [lenguaje, setLenguaje] = React.useState("");
     const [code, setCode] = React.useState("");
-    let [input, setInput] = React.useState("[1, 2, 3, 4, 5]");
-    let [output, setOutput] = React.useState("true");
+    let [input, setInput] = React.useState("");
+    let [output, setOutput] = React.useState("");
     let [consoleLoading, setConsoleLoading] = React.useState(false);
-    let [expected, setExpected] = React.useState("true");
+    let [expected, setExpected] = React.useState("");
     let [readOnly, setReadOnly] = React.useState(true);
 
     const handleTabs = (e, val) => {
@@ -49,6 +51,18 @@ export default function IDEScreen({ x, ...props }) {
         }else{
             setCode('Holaa, por favor selecciona un lenguaje.');
         }
+    };
+
+    const run = () => {
+        setConsoleLoading(true);
+        setInput('[1, 2, 3, 4, 5]');
+        setOutput('true');
+        setExpected('true')
+        setConsoleLoading(false);
+    };
+
+    const send = () => {
+
     };
 
     return (
@@ -150,6 +164,14 @@ export default function IDEScreen({ x, ...props }) {
                         expected={expected}
                     />
                 </Box>
+                <Box className={classes.buttons}>
+                    <Button size="large" className={classes.run} onClick={run} color="secondary" startIcon={<PlayCircleFilledIcon/>} >
+                        Ejecutar
+                    </Button>
+                    <Button size="large" className={classes.send} onClick={send} color="secondary">
+                        Enviar
+                    </Button>
+                </Box>
             </Box>
         </Grid>
     );
@@ -218,6 +240,8 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         paddingLeft: "10px",
+        justifyContent: 'space-between',
+        paddingRight: '20px'
     },
     formControl: {
         width: '110px',
@@ -266,5 +290,11 @@ const useStyles = makeStyles((theme) => ({
     reload: {
         color: 'white',
 
+    },
+    buttons: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        paddingRight: '20px',
+        paddingTop: '10px'
     }
 }));

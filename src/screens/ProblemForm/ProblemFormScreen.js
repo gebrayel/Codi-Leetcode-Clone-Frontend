@@ -83,9 +83,15 @@ const ProblemFormScreen = () => {
 
   const save = async () => {
     setIsLoading(true);
-    const res = await problemAPI.postProblem(problemInfo);
+    let res;
+    if (!problemID) {
+      res = await problemAPI.postProblem(problemInfo);
+    }
+    else {
+      //Endpoint para editar problema
+    }
     setIsLoading(false);
-    if (res.status === 201) {
+    if (res.status === 201 || res.status === 200) {
       cache.removeFormCacheItems(problemInfo);
       setActiveStep(0);
       setCodeSolution("");
@@ -95,6 +101,8 @@ const ProblemFormScreen = () => {
       
     }
   };
+
+
 
   return (
     <Context.Provider

@@ -64,7 +64,7 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     const reload = () => {
-        codeHelper.changeTemplate(lenguaje, templates, setCode);
+        lenguaje === "" ? setCode("Por favor, seleccione un lenguaje para empezar a programar con Codi.") : codeHelper.changeTemplate(lenguaje, templates, setCode);
     };
 
     const run = () => {
@@ -94,7 +94,7 @@ export default function IDEScreen({ x, ...props }) {
     }, []);
 
     useEffect(() => {
-        lenguaje === "" ? setCode("") : codeHelper.changeTemplate(lenguaje, templates, setCode);
+        lenguaje === "" ? setCode("Por favor, seleccione un lenguaje para empezar a programar con Codi.") : codeHelper.changeTemplate(lenguaje, templates, setCode);
     }, [lenguaje]);
 
     const initializeValues = (problemInfo) => {
@@ -114,102 +114,112 @@ export default function IDEScreen({ x, ...props }) {
 
     return (
         <Grid container className={classes.container}>
-            <Box className={classes.box}>
-                <AppBar position="static" className={classes.container2}>
-                    <Tabs
-                        value={value}
-                        onChange={handleTabs}
-                        aria-label=""
-                        variant="scrollable"
-                        scrollButtons="auto"
-                    >
-                        <Tab label="Descripción" icon={<LineStyleIcon />} />
-                        <Tab label="Solución" icon={<HighlightIcon />} />
-                        <Tab label="Intentos" icon={<AccessTimeIcon />} />
-                    </Tabs>
-                </AppBar>
-                <TabPanel value={value} index={0}>
-                    <Todito
-                        type="description"
-                        id={problemId}
-                        title={title}
-                        difficulty={difficulty}
-                        colorDifficulty="#E75656"
-                        description={description}
-                    />
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                    <Todito
-                        type="solution"
-                        id={problemId}
-                        title={title}
-                        solution={solutionCode}
-                        description={solutionText}
-                    />
-                </TabPanel>
-                <TabPanel value={value} index={2}>
-                    <Todito
-                        type="submissions"
-                        id={problemId}
-                        title={title}
-                        data={submissions}
-                    />
-                </TabPanel>
-            </Box>
-            <Box className={classes.box}>
-                <Box className={classes.box4}>
-                    <FormControl
-                        variant="outlined"
-                        className={classes.formControl}
-                    >
-                        <InputLabel htmlFor="outlined-lenguaje-simple">
-                            Lenguaje
-                        </InputLabel>
-                        <Select
-                            native
-                            value={lenguaje}
-                            onChange={(e) => select(e)}
-                            label="Lenguaje"
-                            inputProps={{
-                                name: "Lenguaje",
-                                id: "outlined-lenguaje-simple",
-                            }}
-                        >
-                            <option aria-label="None" value={""} />
-                            <option value={"Java"}>Java</option>
-                            <option value={"Python"}>Python</option>
-                        </Select>
-                    </FormControl>
-                    <IconButton aria-label="reload" className={classes.reload} onClick={reload}>
-                        <CachedIcon fontSize="large" />
-                    </IconButton>
-                </Box>
-                <Box className={classes.codeEditor}>
-                    <CodeEditor
-                        readOnly={readOnly}
-                        language="text/x-java"
-                        value={code}
-                        onChange={setCode}
-                        className={classes.codeEditor2}
-                    />
-                </Box>
-                <Box>
-                    <CodeConsole
-                        input={input}
-                        output={output}
-                        isLoading={consoleLoading}
-                        expected={expected}
-                    />
-                </Box>
-                <Box className={classes.buttons}>
-                    <Button size="large" className={classes.run} onClick={run} color="secondary" startIcon={<PlayCircleFilledIcon/>} >
-                        Ejecutar
-                    </Button>
-                    <Button size="large" className={classes.send} onClick={send} color="secondary">
-                        Enviar
-                    </Button>
-                </Box>
-            </Box>
+            { isLoading ?
+                (
+                    <RobotLoader/>
+                ) :
+                (
+                    <>
+                        <Box className={classes.box}>
+                            <AppBar position="static" className={classes.container2}>
+                                <Tabs
+                                    value={value}
+                                    onChange={handleTabs}
+                                    aria-label=""
+                                    variant="scrollable"
+                                    scrollButtons="auto"
+                                >
+                                    <Tab label="Descripción" icon={<LineStyleIcon />} />
+                                    <Tab label="Solución" icon={<HighlightIcon />} />
+                                    <Tab label="Intentos" icon={<AccessTimeIcon />} />
+                                </Tabs>
+                            </AppBar>
+                            <TabPanel value={value} index={0}>
+                                <Todito
+                                    type="description"
+                                    id={problemId}
+                                    title={title}
+                                    difficulty={difficulty}
+                                    colorDifficulty="#E75656"
+                                    description={description}
+                                />
+                            </TabPanel>
+                            <TabPanel value={value} index={1}>
+                                <Todito
+                                    type="solution"
+                                    id={problemId}
+                                    title={title}
+                                    solution={solutionCode}
+                                    description={solutionText}
+                                />
+                            </TabPanel>
+                            <TabPanel value={value} index={2}>
+                                <Todito
+                                    type="submissions"
+                                    id={problemId}
+                                    title={title}
+                                    data={submissions}
+                                />
+                            </TabPanel>
+                        </Box>
+                        <Box className={classes.box}>
+                            <Box className={classes.box4}>
+                                <FormControl
+                                    variant="outlined"
+                                    className={classes.formControl}
+                                >
+                                    <InputLabel htmlFor="outlined-lenguaje-simple">
+                                        Lenguaje
+                                    </InputLabel>
+                                    <Select
+                                        native
+                                        value={lenguaje}
+                                        onChange={(e) => select(e)}
+                                        label="Lenguaje"
+                                        inputProps={{
+                                            name: "Lenguaje",
+                                            id: "outlined-lenguaje-simple",
+                                        }}
+                                    >
+                                        <option aria-label="None" value={""} />
+                                        <option value={"Java"}>Java</option>
+                                        <option value={"Python"}>Python</option>
+                                    </Select>
+                                </FormControl>
+                                <IconButton aria-label="reload" className={classes.reload} onClick={reload}>
+                                    <CachedIcon fontSize="large" />
+                                </IconButton>
+                            </Box>
+                            <Box className={classes.codeEditor}>
+                                <CodeEditor
+                                    readOnly={readOnly}
+                                    language="text/x-java"
+                                    value={code}
+                                    onChange={setCode}
+                                    className={classes.codeEditor2}
+                                />
+                            </Box>
+                            <Box>
+                                <CodeConsole
+                                    input={input}
+                                    output={output}
+                                    isLoading={consoleLoading}
+                                    expected={expected}
+                                />
+                            </Box>
+                            <Box className={classes.buttons}>
+                                <Button size="large" className={classes.run} onClick={run} color="secondary" startIcon={<PlayCircleFilledIcon/>} >
+                                    Ejecutar
+                                </Button>
+                                <Button size="large" className={classes.send} onClick={send} color="secondary">
+                                    Enviar
+                                </Button>
+                            </Box>
+                        </Box>
+                    </>
+                )
+            
+            }
         </Grid>
     );
 }

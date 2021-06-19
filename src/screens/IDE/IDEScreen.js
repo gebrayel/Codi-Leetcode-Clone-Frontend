@@ -106,12 +106,12 @@ export default function IDEScreen({ x, ...props }) {
                         id={51}
                         data={[
                             {
-                                time: "08/06/2021",
+                                date: "08/06/2021",
                                 status: "Aprobado",
                                 language: "Java",
                             },
                             {
-                                time: "09/06/2021",
+                                date: "09/06/2021",
                                 status: "Desaprobado",
                                 language: "Python",
                             },

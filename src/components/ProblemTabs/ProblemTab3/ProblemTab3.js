@@ -1,35 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import colors from "../../../config/colors/colors";
 import "../../../styles/screens/ProblemFormScreen/ProblemTabs/ProblemTab3/ProblemTab3.scss";
 import InputOutput from "../../InputOutput/InputOutput";
 import InputOutputForm from "../../InputOutputForm/InputOutputForm";
+import Context from "../../../helpers/context/context";
 
 export default function ProblemTab3({
-  inputOutputs,
-  eliminarInputOutput,
-  agregarInputOutput,
+
 }) {
   const classes = useStyles();
+  const { problemInfo } = useContext(Context);
+  const testCases = problemInfo.testCases;
 
   return (
     <div className={classes.root}>
+      <InputOutputForm />
       <div className="InputOutputsRegisteredBox">
-        {inputOutputs.length === 0 ? null : (
+        {testCases.length === 0 ? null : (
           <h2>Casos de Prueba Registrados:</h2>
         )}
-        {inputOutputs.map((inputOutput) => (
+        {testCases.map((testCase) => (
           <InputOutput
-            key={inputOutput.id}
-            inputOutput={inputOutput}
-            eliminarInputOutput={eliminarInputOutput}
+            id={testCase.id}
+            input={testCase.input}
+            output={testCase.output}
           />
         ))}
       </div>
-      <InputOutputForm
-        inputOutputs={inputOutputs}
-        agregarInputOutput={agregarInputOutput}
-      />
     </div>
   );
 }

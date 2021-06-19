@@ -45,14 +45,30 @@ const getProblemById = async (id) => {
   const url = endpoint + "id/" + id;
   try {
     const response = await axios.get(url);
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }
 };
 
+const postProblem = async (problemInfo) => {
+  try {
+    const response = await axios.post(endpoint, {
+      problem: problemInfo,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+/**
+ *
+ * @param {JSON} problemInfo
+ * @returns {Handler} response manejo del response
+ */
 const updateProblem = async (problemInfo) => {
-  const url = endpoint + "id/" + problemInfo.id;
+  const url = endpoint + "id/" + problemInfo.problem_id.toString();
   try {
     const response = await axios.put(url, {
       problem: problemInfo,
@@ -67,5 +83,6 @@ export default {
   getAllProblems,
   getProblemsByDifficulty,
   getProblemById,
+  postProblem,
   updateProblem,
 };

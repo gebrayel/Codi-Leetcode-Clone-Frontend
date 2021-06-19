@@ -26,7 +26,7 @@ export default function Todito({
     const classes = useStyles(props);
 
     const columns = [
-        { id: "time", label: "Enviado", minWidth: 140, align: "left" },
+        { id: "date", label: "Enviado", minWidth: 140, align: "left" },
         { id: "status", label: "Estado", minWidth: 120, align: "left" },
         { id: "language", label: "Lenguaje", minWidth: 120, align: "left" },
     ];

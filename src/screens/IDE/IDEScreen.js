@@ -33,6 +33,7 @@ export default function IDEScreen({ x, ...props }) {
     const [value, setValue] = React.useState(0);
     const [lenguaje, setLenguaje] = React.useState("");
     const [code, setCode] = React.useState("");
+    const [color, setColor] = React.useState("white");
     let [input, setInput] = React.useState("");
     let [output, setOutput] = React.useState("");
     let [consoleLoading, setConsoleLoading] = React.useState(false);
@@ -109,6 +110,13 @@ export default function IDEScreen({ x, ...props }) {
 
     const getDifficulty = (difficulty) => {
         const dificultad = k.spanishDifficulty[difficulty];
+        if(dificultad === 'Fácil'){
+            setColor('white')
+        }else if(dificultad === 'Intermedio'){
+            setColor('#32EDE9')
+        }else{
+            setColor('#F31483')
+        }
         return dificultad;
     }
 
@@ -140,7 +148,7 @@ export default function IDEScreen({ x, ...props }) {
                                     id={problemId}
                                     title={title}
                                     difficulty={difficulty}
-                                    colorDifficulty="#E75656"
+                                    colorDifficulty={color}
                                     description={description}
                                 />
                             </TabPanel>

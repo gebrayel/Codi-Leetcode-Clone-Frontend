@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid } from "@material-ui/core";
 import Todito from "../../components/Tabs/Tabs";
@@ -19,7 +19,16 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 
+import ideAPI from "../../api/ide/ide";
+import useQuery from "../../hooks/useQuery/useQuery";
+import Context from "../../helpers/context/context";
+import k from "../../helpers/constants/constants";
+import codeHelper from "../../helpers/code/code";
+import RobotLoader from "../../components/CubeLoader/CubeLoader";
+
 export default function IDEScreen({ x, ...props }) {
+    const query = useQuery();
+    const problemId = query.get("problemId");
     const classes = useStyles(props);
     const [value, setValue] = React.useState(0);
     const [lenguaje, setLenguaje] = React.useState("");
@@ -29,6 +38,17 @@ export default function IDEScreen({ x, ...props }) {
     let [consoleLoading, setConsoleLoading] = React.useState(false);
     let [expected, setExpected] = React.useState("");
     let [readOnly, setReadOnly] = React.useState(true);
+
+    const [description, setDescription] = useState("");
+    const [title, setTitle] = useState("");
+    const [difficulty, setDifficulty] = useState("");
+    const [solutionText, setSolutionText] = useState("");
+    const [solutionCode, setSolutionCode] = useState("");
+    const [submissions, setSubmissions] = useState([]);
+    const [templates, setTemplates] = useState([]);
+
+    const { isLoading, setIsLoading } = useContext(Context);
+    const user = JSON.parse(localStorage.getItem("user"));
 
     const handleTabs = (e, val) => {
         setValue(val);
@@ -44,13 +64,7 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     const reload = () => {
-        if(lenguaje == 'Python'){
-            setCode('Hola Python.');
-        }else if(lenguaje == 'Java'){
-            setCode('Hola Java.');
-        }else{
-            setCode('Holaa, por favor selecciona un lenguaje.');
-        }
+        codeHelper.changeTemplate(lenguaje, templates, setCode);
     };
 
     const run = () => {
@@ -64,6 +78,39 @@ export default function IDEScreen({ x, ...props }) {
     const send = () => {
 
     };
+
+    useEffect(() => {
+        const getProblemInfo = async (problemId, userId) => {
+            setIsLoading(true);
+            const response = await ideAPI.getProblemWithSubmissions(problemId, userId);
+            setIsLoading(false);
+            if (response.status === 200) {
+                initializeValues(response.data);
+            } else {
+                //Modal de error
+            }
+        };
+        getProblemInfo(problemId, user.google_id);
+    }, []);
+
+    useEffect(() => {
+        lenguaje === "" ? setCode("") : codeHelper.changeTemplate(lenguaje, templates, setCode);
+    }, [lenguaje]);
+
+    const initializeValues = (problemInfo) => {
+        setDescription(problemInfo.description);
+        setTitle(problemInfo.name);
+        setDifficulty(getDifficulty(problemInfo.difficulty));
+        setSolutionText(problemInfo.solution);
+        setSolutionCode(problemInfo.solutionCode);
+        setSubmissions(problemInfo.submissions);
+        setTemplates(problemInfo.templates);
+    }
+
+    const getDifficulty = (difficulty) => {
+        const dificultad = k.spanishDifficulty[difficulty];
+        return dificultad;
+    }
 
     return (
         <Grid container className={classes.container}>
@@ -84,38 +131,28 @@ export default function IDEScreen({ x, ...props }) {
                 <TabPanel value={value} index={0}>
                     <Todito
                         type="description"
-                        id={51}
-                        title="N-Reinas"
-                        difficulty="Difícil"
+                        id={problemId}
+                        title={title}
+                        difficulty={difficulty}
                         colorDifficulty="#E75656"
-                        description="El rompecabezas de las n-reinas es un problema de colocar n reinas en un tablero de ajedrez de tamaño nxn, de tal manera de que no existan dos reinas que se puedan atacar una a otra. Dado un entero n, retorne todas las posibles soluciones al problema de las n-reinas."
+                        description={description}
                     />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <Todito
                         type="solution"
-                        id={51}
-                        title="N-Reinas"
-                        solution="print('hello')"
-                        description="El rompecabezas de las n-reinas es un problema de colocar n reinas en un tablero de ajedrez de tamaño nxn, de tal manera de que no existan dos reinas que se puedan atacar una a otra. Dado un entero n, retorne todas las posibles soluciones al problema de las n-reinas."
+                        id={problemId}
+                        title={title}
+                        solution={solutionCode}
+                        description={solutionText}
                     />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <Todito
                         type="submissions"
-                        id={51}
-                        data={[
-                            {
-                                date: "08/06/2021",
-                                status: "Aprobado",
-                                language: "Java",
-                            },
-                            {
-                                date: "09/06/2021",
-                                status: "Desaprobado",
-                                language: "Python",
-                            },
-                        ]}
+                        id={problemId}
+                        title={title}
+                        data={submissions}
                     />
                 </TabPanel>
             </Box>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -165,18 +166,14 @@ export default function Navbar() {
 
     const title = "<Codi/>";
 
-    const [openModal, setOpenModal] = React.useState(false);
-
     const { setUser } = useContext(AppContext);
 
     let history = useHistory();
 
-    const handleClickOpen = () => {
-        setOpenModal(true);
-    };
+    const [openModal, setOpenModal] = useState(false);
 
-    const handleClickClose = () => {
-        setOpenModal(false);
+    const toggleModal = () => {
+        setOpenModal(!openModal);
     };
 
     const handleCloseLogOut = (modalTitle) => {
@@ -257,7 +254,10 @@ export default function Navbar() {
                         open={open}
                         onClose={handleClose}
                     >
-                        <NLink to="/profile" className={classes.DrawerlinkStyle}>
+                        <NLink
+                            to="/profile"
+                            className={classes.DrawerlinkStyle}
+                        >
                             <MenuItem onClick={handleClose}>Perfil</MenuItem>
                         </NLink>
 
@@ -276,6 +276,17 @@ export default function Navbar() {
                             style={{ padding: "0px" }}
                             onClick={handleClose}
                         >
+                            <Button
+                                onClick={toggleModal}
+                                style={{
+                                    width: "100%",
+                                    paddingLeft: "15px",
+                                    justifyContent: "flex-start",
+                                    color: "red",
+                                }}
+                            >
+                                {"Cerrar sesión"}
+                            </Button>
                             <Modal
                                 modalDesing={"desktop"}
                                 modalTitle={"Cerrar Sesion"}
@@ -287,9 +298,8 @@ export default function Navbar() {
                                 acceptText={msg.acceptText}
                                 cancelText={msg.cancelText}
                                 passedRedFunction={handleCloseLogOut}
-                                passedBlueFunction={handleClickClose}
-                                handleClickOpen={handleClickOpen}
-                                handleClickClose={handleClickClose}
+                                passedBlueFunction={toggleModal}
+                                toggleModal={toggleModal}
                                 open={openModal}
                                 setOpen={setOpenModal}
                                 renderButton={true}
@@ -389,6 +399,17 @@ export default function Navbar() {
                     </ListItem>
 
                     <div style={{ padding: "0px" }} className={classes.modal}>
+                        <Button
+                            onClick={toggleModal}
+                            style={{
+                                width: "100%",
+                                paddingLeft: "15px",
+                                justifyContent: "flex-start",
+                                color: "red",
+                            }}
+                        >
+                            {"Cerrar sesión"}
+                        </Button>
                         <Modal
                             modalDesing={"desktop"}
                             modalTitle={"Cerrar Sesion"}
@@ -400,9 +421,8 @@ export default function Navbar() {
                             acceptText={msg.acceptText}
                             cancelText={msg.cancelText}
                             passedRedFunction={handleCloseLogOut}
-                            passedBlueFunction={handleClickClose}
-                            handleClickOpen={handleClickOpen}
-                            handleClickClose={handleClickClose}
+                            passedBlueFunction={toggleModal}
+                            toggleModal={toggleModal}
                             open={openModal}
                             setOpen={setOpenModal}
                             renderButton={true}

@@ -22,8 +22,7 @@ const Modal = ({
     cancelText,
     passedRedFunction,
     passedBlueFunction,
-    handleClickOpen,
-    handleClickClose,
+    toggleModal,
     open,
     setOpen,
     renderButton,
@@ -38,65 +37,11 @@ const Modal = ({
      *      modalBtnCancel Establece el texto con secondary desing (negacion==>Cancelar) del boton del Componente Modal.
      */
 
-    //const [open, setOpen] = React.useState(false);
-
-    /*
-    const handleClickOpen = () => {
-      setOpen(true);
-  };
-
-  const handleClickClose = () => {
-      setOpen(false);
-  };
-    */
-
-    const modalButtonDesing = (modalTitle, text) => {
-        if (modalDesing === "mobile" && modalTitle === "Cerrar Sesion")
-            return (
-                <ListItem style={{ paddingLeft: "12px" }}>
-                    <ListItemIcon>
-                        <ExitToAppIcon />
-                    </ListItemIcon>
-                    {text}
-                </ListItem>
-            );
-
-        return text;
-    };
-
     return (
         <div style={{ width: "100%", justifyContent: "flex-start" }}>
-            {renderButton ? (
-                variant.trim() === "" ? (
-                    <Button
-                        color={color}
-                        onClick={handleClickOpen}
-                        style={{
-                            width: "100%",
-                            paddingLeft: "15px",
-                            justifyContent: "flex-start",
-                        }}
-                    >
-                        {modalButtonDesing(modalTitle, text)}
-                    </Button>
-                ) : (
-                    <Button
-                        variant={variant}
-                        color={color}
-                        onClick={handleClickOpen}
-                        style={{
-                            width: "100%",
-                            paddingLeft: "15px",
-                            justifyContent: "flex-start",
-                        }}
-                    >
-                        {modalButtonDesing(modalTitle, text)}
-                    </Button>
-                )
-            ) : null}
             <Dialog
                 open={open}
-                onClose={handleClickClose}
+                onClose={toggleModal}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
@@ -113,7 +58,7 @@ const Modal = ({
                     {!singleButton ? (
                         <Button
                             onClick={() => {
-                                handleClickClose();
+                                toggleModal();
                                 passedRedFunction();
                             }}
                             color="secondary"

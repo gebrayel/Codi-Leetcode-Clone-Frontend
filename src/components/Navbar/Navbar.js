@@ -188,8 +188,8 @@ export default function Navbar() {
         text: "Cerrar Sesion",
         title: "<Codi/>",
         description: "¿Estás seguro seguro de que deseas cerrar sesión?",
-        acceptText: "Volver a Codi.",
-        cancelText: "Cerrar sesión.",
+        acceptText: "Volver a Codi",
+        cancelText: "Cerrar sesión",
     };
     const displayDesktop = () => {
         return (
@@ -288,11 +288,6 @@ export default function Navbar() {
                                 {"Cerrar sesión"}
                             </Button>
                             <Modal
-                                modalDesing={"desktop"}
-                                modalTitle={"Cerrar Sesion"}
-                                variant={msg.variant}
-                                color={msg.color}
-                                text={msg.text}
                                 title={msg.title}
                                 description={msg.description}
                                 acceptText={msg.acceptText}
@@ -301,8 +296,6 @@ export default function Navbar() {
                                 passedBlueFunction={toggleModal}
                                 toggleModal={toggleModal}
                                 open={openModal}
-                                setOpen={setOpenModal}
-                                renderButton={true}
                                 singleButton={false}
                             />
                         </MenuItem>
@@ -411,11 +404,6 @@ export default function Navbar() {
                             {"Cerrar sesión"}
                         </Button>
                         <Modal
-                            modalDesing={"desktop"}
-                            modalTitle={"Cerrar Sesion"}
-                            variant={msg.variant}
-                            color={msg.color}
-                            text={msg.text}
                             title={msg.title}
                             description={msg.description}
                             acceptText={msg.acceptText}
@@ -424,8 +412,6 @@ export default function Navbar() {
                             passedBlueFunction={toggleModal}
                             toggleModal={toggleModal}
                             open={openModal}
-                            setOpen={setOpenModal}
-                            renderButton={true}
                             singleButton={false}
                         />
                     </div>

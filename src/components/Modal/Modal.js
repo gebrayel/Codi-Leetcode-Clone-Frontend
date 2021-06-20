@@ -6,16 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import ListItem from "@material-ui/core/ListItem";
-
 const Modal = ({
-    modalDesing,
-    modalTitle,
-    variant,
-    color,
-    text,
     title,
     description,
     acceptText,
@@ -24,8 +15,6 @@ const Modal = ({
     passedBlueFunction,
     toggleModal,
     open,
-    setOpen,
-    renderButton,
     singleButton,
 }) => {
     /** ===> El componente modal se le estableceran 6 parametros en un objeto, donde los valores de los keys:
@@ -52,9 +41,6 @@ const Modal = ({
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={passedBlueFunction} color="primary">
-                        {acceptText}
-                    </Button>
                     {!singleButton ? (
                         <Button
                             onClick={() => {
@@ -67,6 +53,9 @@ const Modal = ({
                             {cancelText}
                         </Button>
                     ) : null}
+                    <Button onClick={passedBlueFunction} color="primary">
+                        {acceptText}
+                    </Button>
                 </DialogActions>
             </Dialog>
         </div>

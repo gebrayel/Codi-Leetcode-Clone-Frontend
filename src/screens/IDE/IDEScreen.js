@@ -232,7 +232,7 @@ export default function IDEScreen({ x, ...props }) {
             </Box>
             <Box className={classes.buttons}>
               <Button
-                size="large"
+                size="small"
                 className={classes.run}
                 onClick={run}
                 startIcon={<PlayCircleFilledIcon />}
@@ -241,7 +241,7 @@ export default function IDEScreen({ x, ...props }) {
                 Ejecutar
               </Button>
               <Button
-                size="large"
+                size="small"
                 className={classes.send}
                 onClick={send}
                 variant="outlined"
@@ -311,22 +311,21 @@ const useStyles = makeStyles((theme) => ({
   box3: {
     display: "none",
   },
+  box4: {
+    height: "72px",
+    width: "calc(100% -10px)",
+    backgroundColor: "#1B1D2B",
+    boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.28)",
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: "10px",
+    justifyContent: "space-between",
+    paddingRight: "20px",
+  },
   formControl: {
     width: "110px",
     "& ..MuiFormControl-root": {
       width: "110px",
-
-      box4: {
-        height: "72px",
-        width: "calc(100% -10px)",
-        backgroundColor: "#1B1D2B",
-        boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.28)",
-        display: "flex",
-        alignItems: "center",
-        paddingLeft: "10px",
-        justifyContent: "space-between",
-        paddingRight: "20px",
-      },
     },
     "& .MuiInputLabel-animated": {
       color: "white",
@@ -344,34 +343,55 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiSelect-icon": {
       color: "white",
     },
-    buttons: {
-      display: "flex",
-      justifyContent: "flex-end",
-      paddingRight: "20px",
-      paddingTop: "10px",
-    },
-    run: {
+    "& .MuiSelect-outlined.MuiSelect-outlined": {
       color: "white",
-      borderColor: "white",
-      marginRight: "15px",
-      "&:hover": {
-        transition: "background 1.5s",
-        transition: "color 1.5s",
-        background: "#FFFFFF",
-        color: "#474747",
-        cursor: "pointer",
-      },
     },
-    send: {
-      color: "white",
-      borderColor: "white",
-      "&:hover": {
-        transition: "background 1.5s",
-        transition: "color 1.5s",
-        background: "#FFFFFF",
-        color: "#474747",
-        cursor: "pointer",
+    "& .MuiSelect-select:not([multiple]) option, .MuiSelect-select:not([multiple]) optgroup":
+      {
+        color: "white",
+        backgroundColor: "#282A36",
       },
+  },
+  langSelect: {
+    "&.MuiSelect-select": {
+      color: "white",
+    },
+  },
+  codeEditor: {
+    marginTop: "10px",
+    width: "100%",
+  },
+  codeEditor2: {},
+  reload: {
+    color: "white",
+  },
+  buttons: {
+    display: "flex",
+    justifyContent: "flex-end",
+    paddingRight: "20px",
+    paddingTop: "10px",
+  },
+  run: {
+    color: "white",
+    borderColor: "white",
+    marginRight: "15px",
+    "&:hover": {
+      transition: "background 1.5s",
+      transition: "color 1.5s",
+      background: "#FFFFFF",
+      color: "#474747",
+      cursor: "pointer",
+    },
+  },
+  send: {
+    color: "white",
+    borderColor: "white",
+    "&:hover": {
+      transition: "background 1.5s",
+      transition: "color 1.5s",
+      background: "#FFFFFF",
+      color: "#474747",
+      cursor: "pointer",
     },
   },
 }));

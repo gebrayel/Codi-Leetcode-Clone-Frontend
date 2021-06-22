@@ -68,7 +68,7 @@ export default function CustomInput({ input, output, expected, isLoading }) {
 const useStyles = makeStyles((theme) => ({
   status: {
     marginTop: 0,
-    marginBottom: ".7rem",
+    marginBottom: ".5rem",
     paddingTop: ".5rem",
     paddingLeft: ".5rem",
     fontWeight: "normal",
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#1B1D2B",
     // clipPath: "polygon(0 0, 25% 0, 25% 20%, 100% 20%, 100% 100%, 0 100%)",
     minHeight: "9rem",
-    paddingBottom: ".5rem",
+    paddingBottom: ".3rem",
   },
   row: {
     display: "flex",
@@ -106,14 +106,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#1B1D2B",
     textAlign: "center",
     color: colors.white,
-    paddingTop: ".4rem",
-    paddingBottom: ".5rem",
+    paddingTop: ".2rem",
+    paddingBottom: ".2rem",
     fontWeight: "normal",
     fontSize: ".9rem",
     paddingBottom: ".4rem",
   },
   consoleBlock: {
-    marginTop: 10,
+    marginTop: ".4rem",
     maxWidth: "100%",
   },
   title: {

@@ -31,402 +31,395 @@ import { useHistory } from "react-router-dom";
 import Modal from "../Modal/Modal";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+    textDecoration: "none",
+    color: "white",
+    marginRight: "2rem",
+    marginLeft: "0.3rem",
+    fontWeight: "bold",
+    "@media (max-width: 899x)": {
+      marginLeft: "0.2rem",
     },
-    menuButton: {
-        marginRight: theme.spacing(2),
+  },
+  leftpart: {
+    paddingLeft: "0rem",
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    "@media (max-width: 899px)": {
+      paddingLeft: "0rem",
     },
-    title: {
-        flexGrow: 1,
-        textDecoration: "none",
-        color: "white",
-        marginRight: "2rem",
-        marginLeft: "0.3rem",
-        fontWeight: "bold",
-        "@media (max-width: 899x)": {
-            marginLeft: "0.2rem",
-        },
+  },
+  appbarcolor: {
+    backgroundColor: "#191A21",
+    color: "white",
+    paddingRight: "0.1rem",
+    maxHeight: "54px",
+    "@media (max-width: 900px)": {},
+  },
+  linkStyle: {
+    textDecoration: "none",
+    color: "white",
+  },
+  DrawerlinkStyle: {
+    textDecoration: "none",
+    color: "black",
+  },
+  toolbar: {
+    paddingTop: "0rem",
+    paddingBottom: "0rem",
+    paddingRight: "0.8rem",
+    paddingLeft: "1.2rem",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    maxHeight: "55px",
+    marginTop: "0.4rem",
+    "@media (max-width: 900px)": {
+      marginTop: "0.5rem",
+      maxHeight: "55px",
     },
-    leftpart: {
-        paddingLeft: "0rem",
-        display: "flex",
-        justifyContent: "space-around",
-        alignItems: "center",
-        "@media (max-width: 899px)": {
-            paddingLeft: "0rem",
-        },
+  },
+  submenus: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+  },
+  each: {
+    marginRight: "30px",
+  },
+  codilog: {
+    maxWidth: "2.5rem",
+    maxHeight: "2.5rem",
+    "@media (max-width: 899px)": {
+      maxWidth: "2.3rem",
+      maxHeight: "2.3rem",
     },
-    appbarcolor: {
-        backgroundColor: "#191A21",
-        color: "white",
-        paddingRight: "0.1rem",
-        maxHeight: "54px",
-        "@media (max-width: 900px)": {},
-    },
-    linkStyle: {
-        textDecoration: "none",
-        color: "white",
-    },
-    DrawerlinkStyle: {
-        textDecoration: "none",
-        color: "black",
-    },
-    toolbar: {
-        paddingTop: "0rem",
-        paddingBottom: "0rem",
-        paddingRight: "0.8rem",
-        paddingLeft: "1.2rem",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        maxHeight: "55px",
-        marginTop: "0.4rem",
-        "@media (max-width: 900px)": {
-            marginTop: "0.5rem",
-            maxHeight: "55px",
-        },
-    },
-    submenus: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-    },
-    each: {
-        marginRight: "30px",
-    },
-    codilog: {
-        maxWidth: "2.5rem",
-        maxHeight: "2.5rem",
-        "@media (max-width: 899px)": {
-            maxWidth: "2.3rem",
-            maxHeight: "2.3rem",
-        },
-    },
-    drawerContainer: {
-        padding: "20px 30px",
-    },
-    menuButton: {
-        fontFamily: "Open Sans, sans-serif",
-        fontWeight: 700,
-        size: "18px",
-        marginLeft: "38px",
-    },
-    list: {
-        width: 250,
-    },
-    modal: {
-        marginLeft: "-10px",
-        paddingLeft: "0px",
-    },
+  },
+  drawerContainer: {
+    padding: "20px 30px",
+  },
+  menuButton: {
+    fontFamily: "Open Sans, sans-serif",
+    fontWeight: 700,
+    size: "18px",
+    marginLeft: "38px",
+  },
+  list: {
+    width: 250,
+  },
+  modal: {
+    marginLeft: "-10px",
+    paddingLeft: "0px",
+  },
 }));
 
 export default function Navbar() {
-    const [auth, setAuth] = useState(true);
-    const user = JSON.parse(localStorage.getItem("user"));
+  const [auth, setAuth] = useState(true);
+  const user = JSON.parse(localStorage.getItem("user"));
 
-    const classes = useStyles();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-    const apcol = grey[900];
-    const handleChange = (event) => {
-        setAuth(event.target.checked);
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const apcol = grey[900];
+  const handleChange = (event) => {
+    setAuth(event.target.checked);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  //Internet stuff que me vole para hacerla responsive
+  const [state, setState] = useState({
+    mobileView: false,
+    drawerOpen: false,
+  });
+  const { mobileView, drawerOpen } = state;
+  useEffect(() => {
+    const setResponsiveness = () => {
+      return window.innerWidth < 900
+        ? setState((prevState) => ({ ...prevState, mobileView: true }))
+        : setState((prevState) => ({
+            ...prevState,
+            mobileView: false,
+          }));
     };
 
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+    setResponsiveness();
 
-    //Internet stuff que me vole para hacerla responsive
-    const [state, setState] = useState({
-        mobileView: false,
-        drawerOpen: false,
-    });
-    const { mobileView, drawerOpen } = state;
-    useEffect(() => {
-        const setResponsiveness = () => {
-            return window.innerWidth < 900
-                ? setState((prevState) => ({ ...prevState, mobileView: true }))
-                : setState((prevState) => ({
-                      ...prevState,
-                      mobileView: false,
-                  }));
-        };
+    window.addEventListener("resize", () => setResponsiveness());
+  }, []);
 
-        setResponsiveness();
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const preventDefault = (event) => event.preventDefault();
 
-        window.addEventListener("resize", () => setResponsiveness());
-    }, []);
+  const title = "<Codi/>";
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    const preventDefault = (event) => event.preventDefault();
+  const [openModal, setOpenModal] = React.useState(false);
 
-    const title = "<Codi/>";
+  const { setUser } = useContext(AppContext);
 
-    const [openModal, setOpenModal] = React.useState(false);
+  let history = useHistory();
 
-    const { setUser } = useContext(AppContext);
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
 
-    let history = useHistory();
+  const handleClickClose = () => {
+    setOpenModal(false);
+  };
 
-    const handleClickOpen = () => {
-        setOpenModal(true);
-    };
+  const handleCloseLogOut = (modalTitle) => {
+    logout.logOut();
+    setUser(null);
+    history.push("/");
+  };
 
-    const handleClickClose = () => {
-        setOpenModal(false);
-    };
+  const msg = {
+    variant: "",
+    color: "secondary",
+    text: "Cerrar Sesion",
+    title: "<Codi/>",
+    description: "¿Estás seguro seguro de que deseas cerrar sesión?",
+    acceptText: "Volver a Codi.",
+    cancelText: "Cerrar sesión.",
+  };
+  const displayDesktop = () => {
+    return (
+      <Toolbar className={classes.toolbar}>
+        <div className={classes.leftpart}>
+          <NLink to="/">
+            <img src={Codi_Icon} alt="Codi Icon" className={classes.codilog} />
+          </NLink>
 
-    const handleCloseLogOut = (modalTitle) => {
-        logout.logOut();
-        setUser(null);
-        history.push("/");
-    };
+          <Typography variant="h5">
+            <NLink to="/" className={classes.title}>
+              {title}
+            </NLink>
+          </Typography>
 
-    const msg = {
-        variant: "",
-        color: "secondary",
-        text: "Cerrar Sesion",
-        title: "<Codi/>",
-        description: "¿Estás seguro seguro de que deseas cerrar sesión?",
-        acceptText: "Volver a Codi.",
-        cancelText: "Cerrar sesión.",
-    };
-    const displayDesktop = () => {
-        return (
-            <Toolbar className={classes.toolbar}>
-                <div className={classes.leftpart}>
-                    <NLink to="/">
-                        <img
-                            src={Codi_Icon}
-                            alt="Codi Icon"
-                            className={classes.codilog}
-                        />
-                    </NLink>
+          <div className={classes.submenus}>
+            <Typography variant="h7" className={classes.each}>
+              <NLink to="/difficulties" className={classes.linkStyle}>
+                Problemas
+              </NLink>
+            </Typography>
 
-                    <Typography variant="h5">
-                        <NLink to="/" className={classes.title}>
-                            {title}
-                        </NLink>
-                    </Typography>
+            <Typography variant="h7">
+              <NLink to="/premium" className={classes.linkStyle}>
+                Premium
+              </NLink>
+            </Typography>
+          </div>
+        </div>
 
-                    <div className={classes.submenus}>
-                        <Typography variant="h7" className={classes.each}>
-                            <NLink
-                                to="/difficulties"
-                                className={classes.linkStyle}
-                            >
-                                Problemas
-                            </NLink>
-                        </Typography>
+        <div>
+          <IconButton
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+            size="medium"
+            style={{ paddingTop: "0.3rem", paddingRight: "0.2rem" }}
+          >
+            <AccountCircle style={{ fontSize: 32 }} />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={open}
+            onClose={handleClose}
+          >
+            <NLink to="/profile" className={classes.DrawerlinkStyle}>
+              <MenuItem onClick={handleClose}>Perfil</MenuItem>
+            </NLink>
 
-                        <Typography variant="h7">
-                            <NLink to="/premium" className={classes.linkStyle}>
-                                Premium
-                            </NLink>
-                        </Typography>
-                    </div>
-                </div>
+            {user?.is_admin ? (
+              <NLink to="/hola" className={classes.DrawerlinkStyle}>
+                <MenuItem onClick={handleClose}>Administrar Problemas</MenuItem>
+              </NLink>
+            ) : null}
 
-                <div>
-                    <IconButton
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleMenu}
-                        color="inherit"
-                        size="medium"
-                        style={{ paddingTop: "0.3rem", paddingRight: "0.2rem" }}
-                    >
-                        <AccountCircle style={{ fontSize: 32 }} />
-                    </IconButton>
-                    <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                            vertical: "bottom",
-                            horizontal: "left",
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: "top",
-                            horizontal: "right",
-                        }}
-                        open={open}
-                        onClose={handleClose}
-                    >
-                        <NLink to="/profile" className={classes.DrawerlinkStyle}>
-                            <MenuItem onClick={handleClose}>Perfil</MenuItem>
-                        </NLink>
+            <MenuItem style={{ padding: "0px" }} onClick={handleClose}>
+              <Modal
+                modalDesing={"desktop"}
+                modalTitle={"Cerrar Sesion"}
+                variant={msg.variant}
+                color={msg.color}
+                text={msg.text}
+                title={msg.title}
+                description={msg.description}
+                acceptText={msg.acceptText}
+                cancelText={msg.cancelText}
+                passedRedFunction={handleCloseLogOut}
+                passedBlueFunction={handleClickClose}
+                handleClickOpen={handleClickOpen}
+                handleClickClose={handleClickClose}
+                open={openModal}
+                setOpen={setOpenModal}
+                renderButton={true}
+                singleButton={false}
+              />
+            </MenuItem>
+          </Menu>
+        </div>
+      </Toolbar>
+    );
+  };
 
-                        {user?.is_admin ? (
-                            <NLink
-                                to="/hola"
-                                className={classes.DrawerlinkStyle}
-                            >
-                                <MenuItem onClick={handleClose}>
-                                    Administrar Problemas
-                                </MenuItem>
-                            </NLink>
-                        ) : null}
-
-                        <MenuItem
-                            style={{ padding: "0px" }}
-                            onClick={handleClose}
-                        >
-                            <Modal
-                                modalDesing={"desktop"}
-                                modalTitle={"Cerrar Sesion"}
-                                variant={msg.variant}
-                                color={msg.color}
-                                text={msg.text}
-                                title={msg.title}
-                                description={msg.description}
-                                acceptText={msg.acceptText}
-                                cancelText={msg.cancelText}
-                                passedRedFunction={handleCloseLogOut}
-                                passedBlueFunction={handleClickClose}
-                                handleClickOpen={handleClickOpen}
-                                handleClickClose={handleClickClose}
-                                open={openModal}
-                                setOpen={setOpenModal}
-                                renderButton={true}
-                                singleButton={false}
-                            />
-                        </MenuItem>
-                    </Menu>
-                </div>
-            </Toolbar>
-        );
-    };
-
-    const displayMobile = () => {
-        const handleDrawerOpen = () =>
-            setState((prevState) => ({ ...prevState, drawerOpen: true }));
-        const handleDrawerClose = () =>
-            setState((prevState) => ({ ...prevState, drawerOpen: false }));
-
-        return (
-            <Toolbar className={classes.toolbar}>
-                <Drawer
-                    {...{
-                        anchor: "left",
-                        open: drawerOpen,
-                        onClose: handleDrawerClose,
-                    }}
-                >
-                    <div className={classes.drawerContainer}>
-                        {getDrawerChoices()}
-                    </div>
-                </Drawer>
-                <div className={classes.leftpart}>
-                    <NLink to="/">
-                        <img
-                            src={Codi_Icon}
-                            alt="Codi Icon"
-                            className={classes.codilog}
-                        />
-                    </NLink>
-
-                    <Typography variant="h5">
-                        <NLink to="/" className={classes.title}>
-                            {title}
-                        </NLink>
-                    </Typography>
-                </div>
-                <IconButton
-                    {...{
-                        edge: "start",
-                        color: "inherit",
-                        "aria-label": "menu",
-                        "aria-haspopup": "true",
-                        onClick: handleDrawerOpen,
-                    }}
-                    style={{ paddingTop: "0.4rem", paddingRight: "0.2rem" }}
-                >
-                    <MenuIcon />
-                </IconButton>
-            </Toolbar>
-        );
-    };
-    const getDrawerChoices = () => {
-        return (
-            <>
-                <List>
-                    <ListItem button key={"Problemas"}>
-                        <ListItemIcon>
-                            <DeveloperModeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Problemas"} />
-                    </ListItem>
-                    <ListItem button key={"Premium"}>
-                        <ListItemIcon>
-                            <CardMembershipIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Premium"} />
-                    </ListItem>
-
-                    {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
-
-                    {user?.is_admin ? (
-                        <ListItem button key={"Administrar Problemas"}>
-                            <ListItemIcon>
-                                <AppsIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Administrar Problemas"} />
-                        </ListItem>
-                    ) : null}
-                </List>
-                <Divider />
-                <List>
-                    <ListItem button key={"Perfil"}>
-                        <ListItemIcon>
-                            <PersonIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Perfil"} />
-                    </ListItem>
-
-                    <div style={{ padding: "0px" }} className={classes.modal}>
-                        <Modal
-                            modalDesing={"desktop"}
-                            modalTitle={"Cerrar Sesion"}
-                            variant={msg.variant}
-                            color={msg.color}
-                            text={msg.text}
-                            title={msg.title}
-                            description={msg.description}
-                            acceptText={msg.acceptText}
-                            cancelText={msg.cancelText}
-                            passedRedFunction={handleCloseLogOut}
-                            passedBlueFunction={handleClickClose}
-                            handleClickOpen={handleClickOpen}
-                            handleClickClose={handleClickClose}
-                            open={openModal}
-                            setOpen={setOpenModal}
-                            renderButton={true}
-                            singleButton={false}
-                        />
-                    </div>
-                </List>
-            </>
-        );
-    };
+  const displayMobile = () => {
+    const handleDrawerOpen = () =>
+      setState((prevState) => ({ ...prevState, drawerOpen: true }));
+    const handleDrawerClose = () =>
+      setState((prevState) => ({ ...prevState, drawerOpen: false }));
 
     return (
-        <div className={classes.root}>
-            <AppBar
-                position="fixed"
-                color={apcol}
-                classes={{ root: classes.appbarcolor }}
-            >
-                {auth
-                    ? mobileView
-                        ? displayMobile()
-                        : displayDesktop()
-                    : null}
-            </AppBar>
+      <Toolbar className={classes.toolbar}>
+        <Drawer
+          {...{
+            anchor: "left",
+            open: drawerOpen,
+            onClose: handleDrawerClose,
+          }}
+        >
+          <div className={classes.drawerContainer}>{getDrawerChoices()}</div>
+        </Drawer>
+        <div className={classes.leftpart}>
+          <NLink to="/">
+            <img src={Codi_Icon} alt="Codi Icon" className={classes.codilog} />
+          </NLink>
+
+          <Typography variant="h5">
+            <NLink to="/" className={classes.title}>
+              {title}
+            </NLink>
+          </Typography>
         </div>
+        <IconButton
+          {...{
+            edge: "start",
+            color: "inherit",
+            "aria-label": "menu",
+            "aria-haspopup": "true",
+            onClick: handleDrawerOpen,
+          }}
+          style={{ paddingTop: "0.4rem", paddingRight: "0.2rem" }}
+        >
+          <MenuIcon />
+        </IconButton>
+      </Toolbar>
     );
+  };
+  const getDrawerChoices = () => {
+    const handleDrawerClose = () =>
+      setState((prevState) => ({ ...prevState, drawerOpen: false }));
+    return (
+      <>
+        <List>
+          <NLink
+            to="/difficulties"
+            {...{ onClick: handleDrawerClose }}
+            className={classes.DrawerlinkStyle}
+          >
+            <ListItem button key={"Problemas"}>
+              <ListItemIcon>
+                <DeveloperModeIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Problemas"} />
+            </ListItem>
+          </NLink>
+          <NLink
+            to="/premium"
+            {...{ onClick: handleDrawerClose }}
+            className={classes.DrawerlinkStyle}
+          >
+            <ListItem button key={"Premium"}>
+              <ListItemIcon>
+                <CardMembershipIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Premium"} />
+            </ListItem>
+          </NLink>
+          {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
+
+          {user?.is_admin ? (
+            <ListItem button key={"Administrar Problemas"}>
+              <ListItemIcon>
+                <AppsIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Administrar Problemas"} />
+            </ListItem>
+          ) : null}
+        </List>
+        <Divider />
+        <List>
+          <NLink
+            to="/profile"
+            {...{ onClick: handleDrawerClose }}
+            className={classes.DrawerlinkStyle}
+          >
+            <ListItem button key={"Perfil"}>
+              <ListItemIcon>
+                <PersonIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Perfil"} />
+            </ListItem>
+          </NLink>
+          <div style={{ padding: "0px" }} className={classes.modal}>
+            <Modal
+              modalDesing={"desktop"}
+              modalTitle={"Cerrar Sesion"}
+              variant={msg.variant}
+              color={msg.color}
+              text={msg.text}
+              title={msg.title}
+              description={msg.description}
+              acceptText={msg.acceptText}
+              cancelText={msg.cancelText}
+              passedRedFunction={handleCloseLogOut}
+              passedBlueFunction={handleClickClose}
+              handleClickOpen={handleClickOpen}
+              handleClickClose={handleClickClose}
+              open={openModal}
+              setOpen={setOpenModal}
+              renderButton={true}
+              singleButton={false}
+            />
+          </div>
+        </List>
+      </>
+    );
+  };
+
+  return (
+    <div className={classes.root}>
+      <AppBar
+        position="fixed"
+        color={apcol}
+        classes={{ root: classes.appbarcolor }}
+      >
+        {auth ? (mobileView ? displayMobile() : displayDesktop()) : null}
+      </AppBar>
+    </div>
+  );
 }

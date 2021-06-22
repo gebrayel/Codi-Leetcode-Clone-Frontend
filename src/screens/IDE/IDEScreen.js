@@ -74,7 +74,9 @@ export default function IDEScreen({ x, ...props }) {
 
   const run = () => {
     setConsoleLoading(true);
-    setInput("[1, 2, 3, 4, 5]");
+    setInput(
+      "[1, 2, 3, 4, 5,44444444444444444444444444444444444444444444444444444444444444444444444444444444444]"
+    );
     setOutput("true");
     setExpected("true");
     setConsoleLoading(false);

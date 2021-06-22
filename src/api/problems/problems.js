@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const endpoint = "/problems/";
 
@@ -7,13 +7,13 @@ const endpoint = "/problems/";
  * @returns Arreglo de problemas
  */
 const getAllProblems = async () => {
-    try {
-        const response = await axios.get(endpoint);
-        return response.data;
-    } catch(error){
-        return error;
-    }
-}
+  try {
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 /**
  * Obtener todos los problemas de una
@@ -22,19 +22,19 @@ const getAllProblems = async () => {
  * @returns Arreglo de problemas
  */
 const getProblemsByDifficulty = async (difficulty, user) => {
-    const url = endpoint + difficulty;
-    const userID = user.google_id;
-    try {
-        const response  = await axios.get(url, {
-            params: {
-                "google_id": userID
-            }
-        });
-        return response.data;
-    } catch (error) {
-        return error;
-    }
-}
+  const url = endpoint + difficulty;
+  const userID = user.google_id;
+  try {
+    const response = await axios.get(url, {
+      params: {
+        google_id: userID,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 /**
  * Obtener un problema por ID
@@ -42,30 +42,47 @@ const getProblemsByDifficulty = async (difficulty, user) => {
  * @returns Arreglo con el problema
  */
 const getProblemById = async (id) => {
-    const url = endpoint + "id/" + id;
-    try {
-        const response = await axios.get(url);
-        return response;
-    } catch (error) {
-        return error;
-    }
-}
+  const url = endpoint + "id/" + id;
+  try {
+    const response = await axios.get(url);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
 
 const postProblem = async (problemInfo) => {
-    try {
-        const response = await axios.post(endpoint, {
-            problem: problemInfo
-        });
-        return response;
-    } catch (error) {
-        return error;
-    }
-}
+  try {
+    const response = await axios.post(endpoint, {
+      problem: problemInfo,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+/**
+ *
+ * @param {JSON} problemInfo
+ * @returns {Handler} response manejo del response
+ */
+const updateProblem = async (problemInfo) => {
+  const url = endpoint + "id/" + problemInfo.problem_id.toString();
+  try {
+    const response = await axios.put(url, {
+      problem: problemInfo,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
 
 export default {
-    getAllProblems,
-    getProblemsByDifficulty,
-    getProblemById,
-    postProblem
-}
-
+  getAllProblems,
+  getProblemsByDifficulty,
+  getProblemById,
+  postProblem,
+  updateProblem,
+};

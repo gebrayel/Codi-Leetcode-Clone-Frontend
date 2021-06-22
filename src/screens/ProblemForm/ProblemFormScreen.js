@@ -20,15 +20,14 @@ const problemInfoEmpty = {
   templates: [
     {
       language: "Java",
-      code: ""
+      code: "",
     },
     {
       language: "Python",
-      code: ""
-    }
+      code: "",
+    },
   ],
-}
-
+};
 
 const ProblemFormScreen = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -37,12 +36,17 @@ const ProblemFormScreen = () => {
   const { isLoading, setIsLoading } = useContext(Context);
   const query = useQuery();
   const problemID = query.get("problemId");
-  
+
   useEffect(() => {
     if (!problemID) {
-      return cache.initializeFormValues(setActiveStep, setProblemInfo, setCodeSolution);
+      return cache.initializeFormValues(
+        setActiveStep,
+        setProblemInfo,
+        setCodeSolution
+      );
     }
     getProblem();
+    console.log(problemID);
   }, []);
 
   const getProblem = async () => {
@@ -53,17 +57,20 @@ const ProblemFormScreen = () => {
     if (response.status === 200) {
       setProblemInfo(response.data);
       setCodeSolution(response.data.solutionCode);
-    }
-    else {
+    } else {
       //Modal de error
     }
-    
-  }
+  };
 
   const handleNextStepper = () => {
     switch (activeStep) {
       case 0:
-        valids.validateTab1(problemInfo, setProblemInfo, codeSolution, setActiveStep);
+        valids.validateTab1(
+          problemInfo,
+          setProblemInfo,
+          codeSolution,
+          setActiveStep
+        );
         break;
       case 1:
         valids.validateTab2(problemInfo, setActiveStep);
@@ -72,7 +79,7 @@ const ProblemFormScreen = () => {
         valids.validateTab3(problemInfo, save);
         break;
       default:
-        console.log("Lmao")
+        console.log("Lmao");
         break;
     }
   };
@@ -86,9 +93,10 @@ const ProblemFormScreen = () => {
     let res;
     if (!problemID) {
       res = await problemAPI.postProblem(problemInfo);
-    }
-    else {
-      //Endpoint para editar problema
+    } else {
+      problemInfo.problem_id = parseInt(problemID);
+      console.log(problemInfo);
+      res = await problemAPI.updateProblem(problemInfo);
     }
     setIsLoading(false);
     if (res.status === 201 || res.status === 200) {
@@ -96,13 +104,9 @@ const ProblemFormScreen = () => {
       setActiveStep(0);
       setCodeSolution("");
       setProblemInfo(problemInfoEmpty);
-    }
-    else {
-      
+    } else {
     }
   };
-
-
 
   return (
     <Context.Provider
@@ -115,50 +119,46 @@ const ProblemFormScreen = () => {
       }}
     >
       <div className="ProblemFormScreenContainer">
-        { isLoading ? 
-          (
-            <RobotLoader />  
-          ) :
-          (
-            <>
-              <StepperC
-                id="StepperComponent"
-                activeStep={activeStep}
-                setActiveStep={setActiveStep}
-                problemInfo={problemInfo}
-              />
-              <div id="buttonBox">
-                {activeStep !== 0 ? (
-                  <div id="BackButton__ProblemFormScreen">
-                    <Button
-                      color="secondary"
-                      variant="contained"
-                      disabled={activeStep === 0}
-                      onClick={handleBackStepper}
-                      className="button"
-                    >
-                      Regresar
-                    </Button>
-                  </div>
-                ) : null}
-                {activeStep < 3 ? (
-                  <div id="NextButton__ProblemFormScreen">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNextStepper}
-                      className="button"
-                      disabled={activeStep > 2}
-                    >
-                      {activeStep > 1 ? "Guardar" : "Siguiente"}
-                    </Button>
-                  </div>
-                ) : null}
-              </div>
-            </>   
-          )
-        }
-        
+        {isLoading ? (
+          <RobotLoader />
+        ) : (
+          <>
+            <StepperC
+              id="StepperComponent"
+              activeStep={activeStep}
+              setActiveStep={setActiveStep}
+              problemInfo={problemInfo}
+            />
+            <div id="buttonBox">
+              {activeStep !== 0 ? (
+                <div id="BackButton__ProblemFormScreen">
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    disabled={activeStep === 0}
+                    onClick={handleBackStepper}
+                    className="button"
+                  >
+                    Regresar
+                  </Button>
+                </div>
+              ) : null}
+              {activeStep < 3 ? (
+                <div id="NextButton__ProblemFormScreen">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNextStepper}
+                    className="button"
+                    disabled={activeStep > 2}
+                  >
+                    {activeStep > 1 ? "Guardar" : "Siguiente"}
+                  </Button>
+                </div>
+              ) : null}
+            </div>
+          </>
+        )}
       </div>
     </Context.Provider>
   );

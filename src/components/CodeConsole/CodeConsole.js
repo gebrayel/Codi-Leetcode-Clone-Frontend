@@ -19,12 +19,12 @@ export default function CustomInput({ input, output, expected, isLoading }) {
   const consoleUsed = () => {
     return (
       <>
-        <h2
+        <h3
           className={classes.status}
           style={output == expected ? { color: "#8FFF00" } : { color: "red" }}
         >
           {output == expected ? "Aceptado" : "Rechazado"}
-        </h2>
+        </h3>
         <div className={classes.row}>
           <div className={classes.left}>
             <div className={classes.title}>Input</div>
@@ -68,35 +68,49 @@ export default function CustomInput({ input, output, expected, isLoading }) {
 const useStyles = makeStyles((theme) => ({
   status: {
     marginTop: 0,
+    marginBottom: ".7rem",
     paddingTop: ".5rem",
     paddingLeft: ".5rem",
     fontWeight: "normal",
+    fontSize: "1.2rem",
   },
   block: {
     backgroundColor: "#1B1D2B",
     // clipPath: "polygon(0 0, 25% 0, 25% 20%, 100% 20%, 100% 100%, 0 100%)",
     minHeight: "9rem",
+    paddingBottom: ".5rem",
   },
   row: {
     display: "flex",
-    justifyContent: "space-between",
+    // justifyContent: "space-around",
     width: "100%",
+    paddingLeft: ".5rem",
+    marginBottom: ".7rem",
   },
   space: {
     color: colors.white,
     backgroundColor: "#9B9B9B",
     fontWeight: "normal",
-    width: "25rem",
+    width: "95%",
     wordWrap: "break-word",
+    height: "1.6rem",
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: ".5rem",
+    fontSize: "1rem",
   },
+
   tag: {
     width: "5rem",
+
     backgroundColor: "#1B1D2B",
     textAlign: "center",
     color: colors.white,
-    paddingTop: ".7rem",
+    paddingTop: ".4rem",
     paddingBottom: ".5rem",
     fontWeight: "normal",
+    fontSize: ".9rem",
+    paddingBottom: ".4rem",
   },
   consoleBlock: {
     marginTop: 10,
@@ -105,14 +119,19 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: colors.white,
     fontWeight: "normal",
-    marginRight: "2rem",
+    // marginRight: "2rem",
+    display: "flex",
+    alignItems: "center",
+    fontSize: "1rem",
   },
   right: {
     display: "flex",
-    width: "25rem",
-    marginRight: "3rem",
+    width: "95%",
+    paddingRight: "1rem",
+    paddingLeft: "2rem",
   },
   left: {
     display: "flex",
+    width: "5rem",
   },
 }));

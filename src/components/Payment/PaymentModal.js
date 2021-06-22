@@ -71,19 +71,10 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
 
     let history = useHistory();
 
-<<<<<<< HEAD
-    const paymentInfo = {
-      date: moment(actualDate).format(dateFormat),
-      amount: price.split(",")[0].replace("$", ""),
-      pm_id: 7,
-      user_id: currentUser.user.google_id,
-      sub_type: subscriptionType[subscription],
-=======
     const subscriptionType = {
         "<Semanal>": 1,
         "{Mensual}": 2,
         "#Anual": 3,
->>>>>>> andres
     };
 
     const redirectToSucces = async () => {

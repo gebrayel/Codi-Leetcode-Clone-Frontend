@@ -29,7 +29,8 @@ import logout from "../../helpers/logout/logout";
 //Import modal Component
 import { useHistory } from "react-router-dom";
 import Modal from "../Modal/Modal";
-
+//import colors
+import colors from "../../config/colors/colors";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -48,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "0.2rem",
     },
   },
+  divider: {
+    backgroundColor: colors.white,
+  },
   leftpart: {
     paddingLeft: "0rem",
     display: "flex",
@@ -56,6 +60,10 @@ const useStyles = makeStyles((theme) => ({
     "@media (max-width: 899px)": {
       paddingLeft: "0rem",
     },
+  },
+  menucito: {
+    textDecoration: "none",
+    color: colors.darkText,
   },
   appbarcolor: {
     backgroundColor: "#191A21",
@@ -70,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
   },
   DrawerlinkStyle: {
     textDecoration: "none",
-    color: "black",
+    color: colors.white,
   },
   toolbar: {
     paddingTop: "0rem",
@@ -105,6 +113,12 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerContainer: {
     padding: "20px 30px",
+    backgroundColor: "#00000",
+  },
+  drawerTheme: {
+    "& .MuiDrawer-paperAnchorLeft": {
+      backgroundColor: "#191A21",
+    },
   },
   menuButton: {
     fontFamily: "Open Sans, sans-serif",
@@ -249,16 +263,11 @@ export default function Navbar() {
             }}
             open={open}
             onClose={handleClose}
+            className={classes.menucito}
           >
-            <NLink to="/profile" className={classes.DrawerlinkStyle}>
+            <NLink to="/profile" className={classes.menucito}>
               <MenuItem onClick={handleClose}>Perfil</MenuItem>
             </NLink>
-
-            {user?.is_admin ? (
-              <NLink to="/hola" className={classes.DrawerlinkStyle}>
-                <MenuItem onClick={handleClose}>Administrar Problemas</MenuItem>
-              </NLink>
-            ) : null}
 
             <MenuItem style={{ padding: "0px" }} onClick={handleClose}>
               <Modal
@@ -301,6 +310,7 @@ export default function Navbar() {
             open: drawerOpen,
             onClose: handleDrawerClose,
           }}
+          className={classes.drawerTheme}
         >
           <div className={classes.drawerContainer}>{getDrawerChoices()}</div>
         </Drawer>
@@ -342,7 +352,7 @@ export default function Navbar() {
             className={classes.DrawerlinkStyle}
           >
             <ListItem button key={"Problemas"}>
-              <ListItemIcon>
+              <ListItemIcon className={classes.DrawerlinkStyle}>
                 <DeveloperModeIcon />
               </ListItemIcon>
               <ListItemText primary={"Problemas"} />
@@ -354,24 +364,14 @@ export default function Navbar() {
             className={classes.DrawerlinkStyle}
           >
             <ListItem button key={"Premium"}>
-              <ListItemIcon>
+              <ListItemIcon className={classes.DrawerlinkStyle}>
                 <CardMembershipIcon />
               </ListItemIcon>
               <ListItemText primary={"Premium"} />
             </ListItem>
           </NLink>
-          {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
-
-          {user?.is_admin ? (
-            <ListItem button key={"Administrar Problemas"}>
-              <ListItemIcon>
-                <AppsIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Administrar Problemas"} />
-            </ListItem>
-          ) : null}
         </List>
-        <Divider />
+        <Divider className={classes.divider} />
         <List>
           <NLink
             to="/profile"
@@ -379,7 +379,7 @@ export default function Navbar() {
             className={classes.DrawerlinkStyle}
           >
             <ListItem button key={"Perfil"}>
-              <ListItemIcon>
+              <ListItemIcon className={classes.DrawerlinkStyle}>
                 <PersonIcon />
               </ListItemIcon>
               <ListItemText primary={"Perfil"} />

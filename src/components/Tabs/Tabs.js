@@ -12,6 +12,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import Button from '@material-ui/core/Button';
 
 export default function Todito({
     type,
@@ -74,9 +75,9 @@ export default function Todito({
                             <p className={classes.description}>{description}</p>
                             <Box className={classes.containerButton}>
                                 <CopyToClipboard text={solution}>
-                                    <button className={classes.buttonTodito}>
-                                        Copy
-                                    </button>
+                                    <Button className={classes.buttonTodito}>
+                                        Copiar
+                                    </Button>
                                 </CopyToClipboard>
                             </Box>
                             <Box className={classes.codeEditor}>
@@ -282,6 +283,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         marginRight: "1%",
         marginBottom: "1%",
+        textTransform: 'none',
 
         width: "10%",
         height: "10%",
@@ -300,15 +302,15 @@ const useStyles = makeStyles((theme) => ({
             cursor: "pointer",
         },
         [theme.breakpoints.down('sm')]: {
-            width: "20%",
+            width: "24%",
             height: "10%",
         },
         [theme.breakpoints.down('xs')]: {
-            width: "20%",
+            width: "28%",
             height: "10%",
         },
         [theme.breakpoints.down('md')]: {
-            width: "20%",
+            width: "28%",
             height: "10%",
         },
     },

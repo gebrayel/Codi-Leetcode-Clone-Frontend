@@ -14,10 +14,10 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import CodeEditor from "../../components/CodeEditor/CodeEditor";
 import CodeConsole from "../../components/CodeConsole/CodeConsole";
-import CachedIcon from '@material-ui/icons/Cached';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
+import CachedIcon from "@material-ui/icons/Cached";
+import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
+import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 
 import ideAPI from "../../api/ide/ide";
 import useQuery from "../../hooks/useQuery/useQuery";
@@ -40,6 +40,7 @@ export default function IDEScreen({ x, ...props }) {
     const [consoleLoading, setConsoleLoading] = useState(false);
     const [expected, setExpected] = useState("");
     const [readOnly, setReadOnly] = useState(true);
+    const [disabledSolution, setDisabledSolution] = React.useState(false);
 
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
@@ -69,14 +70,18 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     const reload = () => {
-        lenguaje === "" ? setCode("Por favor, seleccione un lenguaje para empezar a programar con Codi.") : codeHelper.changeTemplate(lenguaje, templates, setCode);
+        lenguaje === ""
+            ? setCode(
+                "Por favor, seleccione un lenguaje para empezar a programar con Codi."
+            )
+            : codeHelper.changeTemplate(lenguaje, templates, setCode);
     };
 
     const run = () => {
         setConsoleLoading(true);
-        setInput('[1, 2, 3, 4, 5]');
-        setOutput('true');
-        setExpected('true')
+        setInput("[1, 2, 3, 4, 5]");
+        setOutput("true");
+        setExpected("true");
         setConsoleLoading(false);
     };
 
@@ -99,12 +104,15 @@ export default function IDEScreen({ x, ...props }) {
         else {
             //Modal con mensaje de error
         }
-    };
+    }
 
     useEffect(() => {
         const getProblemInfo = async (problemId, userId) => {
             setIsLoading(true);
-            const response = await ideAPI.getProblemWithSubmissions(problemId, userId);
+            const response = await ideAPI.getProblemWithSubmissions(
+                problemId,
+                userId
+            );
             setIsLoading(false);
             if (response.status === 200) {
                 initializeValues(response.data);
@@ -116,7 +124,11 @@ export default function IDEScreen({ x, ...props }) {
     }, []);
 
     useEffect(() => {
-        lenguaje === "" ? setCode("Por favor, seleccione un lenguaje para empezar a programar con Codi.") : codeHelper.changeTemplate(lenguaje, templates, setCode);
+        lenguaje === ""
+            ? setCode(
+                "Por favor, seleccione un lenguaje para empezar a programar con Codi."
+            )
+            : codeHelper.changeTemplate(lenguaje, templates, setCode);
     }, [lenguaje]);
 
     const initializeValues = (problemInfo) => {
@@ -127,53 +139,56 @@ export default function IDEScreen({ x, ...props }) {
         setSolutionCode(problemInfo.solutionCode);
         setSubmissions(problemInfo.submissions);
         setTemplates(problemInfo.templates);
-    }
+    };
 
     const getDifficulty = (difficulty) => {
         const dificultad = k.spanishDifficulty[difficulty];
-        if (dificultad === 'Fácil') {
-            setColor('white')
-        } else if (dificultad === 'Intermedio') {
-            setColor('#32EDE9')
+        if (dificultad === "Fácil") {
+            setColor("white");
+        } else if (dificultad === "Intermedio") {
+            setColor("#32EDE9");
         } else {
-            setColor('#F31483')
+            setColor("#F31483");
         }
         return dificultad;
-    }
+    };
 
     return (
         <Grid container className={classes.container}>
-            {isLoading ?
-                (
-                    <RobotLoader />
-                ) :
-                (
-                    <>
-                        <Box className={classes.box}>
-                            <AppBar position="static" className={classes.container2}>
-                                <Tabs
-                                    value={value}
-                                    onChange={handleTabs}
-                                    aria-label=""
-                                    variant="scrollable"
-                                    scrollButtons="auto"
-                                >
-                                    <Tab label="Descripción" icon={<LineStyleIcon />} />
-                                    <Tab label="Solución" icon={<HighlightIcon />} />
-                                    <Tab label="Intentos" icon={<AccessTimeIcon />} />
-                                </Tabs>
-                            </AppBar>
-                            <TabPanel value={value} index={0}>
-                                <Todito
-                                    type="description"
-                                    id={problemId}
-                                    title={title}
-                                    difficulty={difficulty}
-                                    colorDifficulty={color}
-                                    description={description}
+            {isLoading ? (
+                <RobotLoader />
+            ) : (
+                <>
+                    <Box className={classes.box}>
+                        <AppBar position="static" className={classes.container2}>
+                            <Tabs
+                                value={value}
+                                onChange={handleTabs}
+                                aria-label=""
+                                variant="scrollable"
+                                scrollButtons="auto"
+                            >
+                                <Tab label="Descripción" icon={<LineStyleIcon />} />
+                                <Tab
+                                    label="Solución"
+                                    icon={<HighlightIcon />}
+                                    disabled={disabledSolution}
                                 />
-                            </TabPanel>
-                            <TabPanel value={value} index={1}>
+                                <Tab label="Intentos" icon={<AccessTimeIcon />} />
+                            </Tabs>
+                        </AppBar>
+                        <TabPanel value={value} index={0}>
+                            <Todito
+                                type="description"
+                                id={problemId}
+                                title={title}
+                                difficulty={difficulty}
+                                colorDifficulty={color}
+                                description={description}
+                            />
+                        </TabPanel>
+                        <TabPanel value={value} index={1}>
+                            {!disabledSolution && (
                                 <Todito
                                     type="solution"
                                     id={problemId}
@@ -181,74 +196,85 @@ export default function IDEScreen({ x, ...props }) {
                                     solution={solutionCode}
                                     description={solutionText}
                                 />
-                            </TabPanel>
-                            <TabPanel value={value} index={2}>
-                                <Todito
-                                    type="submissions"
-                                    id={problemId}
-                                    title={title}
-                                    data={submissions}
-                                />
-                            </TabPanel>
-                        </Box>
-                        <Box className={classes.box}>
-                            <Box className={classes.box4}>
-                                <FormControl
-                                    variant="outlined"
-                                    className={classes.formControl}
+                            )}
+                        </TabPanel>
+                        <TabPanel value={value} index={2}>
+                            <Todito
+                                type="submissions"
+                                id={problemId}
+                                title={title}
+                                data={submissions}
+                            />
+                        </TabPanel>
+                    </Box>
+                    <Box className={classes.box}>
+                        <Box className={classes.box4}>
+                            <FormControl variant="outlined" className={classes.formControl}>
+                                <InputLabel htmlFor="outlined-lenguaje-simple">
+                                    Lenguaje
+                                </InputLabel>
+                                <Select
+                                    native
+                                    value={lenguaje}
+                                    onChange={(e) => select(e)}
+                                    label="Lenguaje"
+                                    inputProps={{
+                                        name: "Lenguaje",
+                                        id: "outlined-lenguaje-simple",
+                                    }}
                                 >
-                                    <InputLabel htmlFor="outlined-lenguaje-simple">
-                                        Lenguaje
-                                    </InputLabel>
-                                    <Select
-                                        native
-                                        value={lenguaje}
-                                        onChange={(e) => select(e)}
-                                        label="Lenguaje"
-                                        inputProps={{
-                                            name: "Lenguaje",
-                                            id: "outlined-lenguaje-simple",
-                                        }}
-                                    >
-                                        <option aria-label="None" value={""} />
-                                        <option value={"Java"}>Java</option>
-                                        <option value={"Python"}>Python</option>
-                                    </Select>
-                                </FormControl>
-                                <IconButton aria-label="reload" className={classes.reload} onClick={reload}>
-                                    <CachedIcon fontSize="large" />
-                                </IconButton>
-                            </Box>
-                            <Box className={classes.codeEditor}>
-                                <CodeEditor
-                                    readOnly={readOnly}
-                                    language={codeLanguage}
-                                    value={code}
-                                    onChange={setCode}
-                                    className={classes.codeEditor2}
-                                />
-                            </Box>
-                            <Box>
-                                <CodeConsole
-                                    input={input}
-                                    output={output}
-                                    isLoading={consoleLoading}
-                                    expected={expected}
-                                />
-                            </Box>
-                            <Box className={classes.buttons}>
-                                <Button size="large" className={classes.run} onClick={run} color="secondary" startIcon={<PlayCircleFilledIcon />} >
-                                    Ejecutar
-                                </Button>
-                                <Button size="large" className={classes.send} onClick={sendCode} color="secondary">
-                                    Enviar
-                                </Button>
-                            </Box>
+                                    <option aria-label="None" value={""} />
+                                    <option value={"Java"}>Java</option>
+                                    <option value={"Python"}>Python</option>
+                                </Select>
+                            </FormControl>
+                            <IconButton
+                                aria-label="reload"
+                                className={classes.reload}
+                                onClick={reload}
+                            >
+                                <CachedIcon fontSize="large" />
+                            </IconButton>
                         </Box>
-                    </>
-                )
-
-            }
+                        <Box className={classes.codeEditor}>
+                            <CodeEditor
+                                readOnly={readOnly}
+                                language="text/x-java"
+                                value={code}
+                                onChange={setCode}
+                                className={classes.codeEditor2}
+                            />
+                        </Box>
+                        <Box>
+                            <CodeConsole
+                                input={input}
+                                output={output}
+                                isLoading={consoleLoading}
+                                expected={expected}
+                            />
+                        </Box>
+                        <Box className={classes.buttons}>
+                            <Button
+                                size="small"
+                                className={classes.run}
+                                onClick={run}
+                                startIcon={<PlayCircleFilledIcon />}
+                                variant="outlined"
+                            >
+                                Ejecutar
+                            </Button>
+                            <Button
+                                size="small"
+                                className={classes.send}
+                                onClick={sendCode}
+                                variant="outlined"
+                            >
+                                Enviar
+                            </Button>
+                        </Box>
+                    </Box>
+                </>
+            )}
         </Grid>
     );
 }
@@ -273,14 +299,14 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
     },
     box: {
-        backgroundColor: '#282A36',
-        width: '50%',
-        height: '91vh',
-        [theme.breakpoints.down('sm')]: {
-            width: "99.8%"
+        backgroundColor: "#282A36",
+        width: "50%",
+        height: "91vh",
+        [theme.breakpoints.down("sm")]: {
+            width: "99.8%",
         },
-        [theme.breakpoints.down('xs')]: {
-            width: "99.8%"
+        [theme.breakpoints.down("xs")]: {
+            width: "99.8%",
         },
     },
     container2: {
@@ -316,11 +342,11 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         paddingLeft: "10px",
-        justifyContent: 'space-between',
-        paddingRight: '20px'
+        justifyContent: "space-between",
+        paddingRight: "20px",
     },
     formControl: {
-        width: '110px',
+        width: "110px",
         "& ..MuiFormControl-root": {
             width: "110px",
         },
@@ -333,8 +359,7 @@ const useStyles = makeStyles((theme) => ({
         "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
             borderColor: "white",
         },
-        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-        {
+        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
             borderColor: "white",
             borderWidth: "1px",
         },
@@ -357,20 +382,39 @@ const useStyles = makeStyles((theme) => ({
     },
     codeEditor: {
         marginTop: "10px",
-        width: '100%',
-
+        width: "100%",
     },
-    codeEditor2: {
-
-    },
+    codeEditor2: {},
     reload: {
-        color: 'white',
-
+        color: "white",
     },
     buttons: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        paddingRight: '20px',
-        paddingTop: '10px'
-    }
+        display: "flex",
+        justifyContent: "flex-end",
+        paddingRight: "20px",
+        paddingTop: "10px",
+    },
+    run: {
+        color: "white",
+        borderColor: "white",
+        marginRight: "15px",
+        "&:hover": {
+            transition: "background 1.5s",
+            transition: "color 1.5s",
+            background: "#FFFFFF",
+            color: "#474747",
+            cursor: "pointer",
+        },
+    },
+    send: {
+        color: "white",
+        borderColor: "white",
+        "&:hover": {
+            transition: "background 1.5s",
+            transition: "color 1.5s",
+            background: "#FFFFFF",
+            color: "#474747",
+            cursor: "pointer",
+        },
+    },
 }));

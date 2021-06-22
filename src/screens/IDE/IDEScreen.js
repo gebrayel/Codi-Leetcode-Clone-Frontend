@@ -219,10 +219,10 @@ export default function IDEScreen({ x, ...props }) {
                                 />
                             </Box>
                             <Box className={classes.buttons}>
-                                <Button size="large" className={classes.run} onClick={run} color="secondary" startIcon={<PlayCircleFilledIcon/>} >
+                                <Button size="large" className={classes.run} onClick={run} startIcon={<PlayCircleFilledIcon/>} variant="outlined" >
                                     Ejecutar
                                 </Button>
-                                <Button size="large" className={classes.send} onClick={send} color="secondary">
+                                <Button size="large" className={classes.send} onClick={send} variant="outlined">
                                     Enviar
                                 </Button>
                             </Box>
@@ -354,5 +354,28 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
         paddingRight: '20px',
         paddingTop: '10px'
+    },
+    run: {
+        color: 'white',
+        borderColor: 'white',
+        marginRight: '15px',
+        "&:hover": {
+            transition: "background 1.5s",
+            transition: "color 1.5s",
+            background: "#FFFFFF",
+            color: "#474747",
+            cursor: "pointer",
+        },
+    },
+    send: {
+        color: 'white',
+        borderColor: 'white',
+        "&:hover": {
+            transition: "background 1.5s",
+            transition: "color 1.5s",
+            background: "#FFFFFF",
+            color: "#474747",
+            cursor: "pointer",
+        },
     }
 }));

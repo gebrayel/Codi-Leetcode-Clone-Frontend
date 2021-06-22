@@ -39,6 +39,7 @@ export default function IDEScreen({ x, ...props }) {
   let [consoleLoading, setConsoleLoading] = React.useState(false);
   let [expected, setExpected] = React.useState("");
   let [readOnly, setReadOnly] = React.useState(true);
+  let [disabledSolution, setDisabledSolution] = React.useState(false);
 
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
@@ -145,7 +146,11 @@ export default function IDEScreen({ x, ...props }) {
                 scrollButtons="auto"
               >
                 <Tab label="Descripción" icon={<LineStyleIcon />} />
-                <Tab label="Solución" icon={<HighlightIcon />} />
+                <Tab
+                  label="Solución"
+                  icon={<HighlightIcon />}
+                  disabled={disabledSolution}
+                />
                 <Tab label="Intentos" icon={<AccessTimeIcon />} />
               </Tabs>
             </AppBar>
@@ -160,13 +165,15 @@ export default function IDEScreen({ x, ...props }) {
               />
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <Todito
-                type="solution"
-                id={problemId}
-                title={title}
-                solution={solutionCode}
-                description={solutionText}
-              />
+              {!disabledSolution && (
+                <Todito
+                  type="solution"
+                  id={problemId}
+                  title={title}
+                  solution={solutionCode}
+                  description={solutionText}
+                />
+              )}
             </TabPanel>
             <TabPanel value={value} index={2}>
               <Todito
@@ -228,8 +235,8 @@ export default function IDEScreen({ x, ...props }) {
                 size="large"
                 className={classes.run}
                 onClick={run}
-                color="secondary"
                 startIcon={<PlayCircleFilledIcon />}
+                variant="outlined"
               >
                 Ejecutar
               </Button>
@@ -237,7 +244,7 @@ export default function IDEScreen({ x, ...props }) {
                 size="large"
                 className={classes.send}
                 onClick={send}
-                color="secondary"
+                variant="outlined"
               >
                 Enviar
               </Button>
@@ -337,31 +344,34 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiSelect-icon": {
       color: "white",
     },
-    "& .MuiSelect-outlined.MuiSelect-outlined": {
-      color: "white",
+    buttons: {
+      display: "flex",
+      justifyContent: "flex-end",
+      paddingRight: "20px",
+      paddingTop: "10px",
     },
-    "& .MuiSelect-select:not([multiple]) option, .MuiSelect-select:not([multiple]) optgroup":
-      {
-        color: "white",
-        backgroundColor: "#282A36",
+    run: {
+      color: "white",
+      borderColor: "white",
+      marginRight: "15px",
+      "&:hover": {
+        transition: "background 1.5s",
+        transition: "color 1.5s",
+        background: "#FFFFFF",
+        color: "#474747",
+        cursor: "pointer",
       },
-  },
-  langSelect: {
-    "&.MuiSelect-select": {
-      color: "white",
     },
-  },
-  codeEditor: {
-    marginTop: "10px",
-    width: "100%",
-  },
-  reload: {
-    color: "white",
-  },
-  buttons: {
-    display: "flex",
-    justifyContent: "flex-end",
-    paddingRight: "20px",
-    paddingTop: "10px",
+    send: {
+      color: "white",
+      borderColor: "white",
+      "&:hover": {
+        transition: "background 1.5s",
+        transition: "color 1.5s",
+        background: "#FFFFFF",
+        color: "#474747",
+        cursor: "pointer",
+      },
+    },
   },
 }));

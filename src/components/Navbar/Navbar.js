@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -167,21 +168,60 @@ export default function Navbar() {
           }));
     };
 
+<<<<<<< HEAD
     setResponsiveness();
 
     window.addEventListener("resize", () => setResponsiveness());
   }, []);
+=======
+    const { setUser } = useContext(AppContext);
+>>>>>>> andres
 
   const handleClose = () => {
     setAnchorEl(null);
   };
   const preventDefault = (event) => event.preventDefault();
 
+<<<<<<< HEAD
   const title = "<Codi/>";
 
   const [openModal, setOpenModal] = React.useState(false);
 
   const { setUser } = useContext(AppContext);
+=======
+    const [openModal, setOpenModal] = useState(false);
+
+    const toggleModal = () => {
+        setOpenModal(!openModal);
+    };
+
+    const handleCloseLogOut = (modalTitle) => {
+        logout.logOut();
+        setUser(null);
+        history.push("/");
+    };
+
+    const msg = {
+        variant: "",
+        color: "secondary",
+        text: "Cerrar Sesion",
+        title: "<Codi/>",
+        description: "¿Estás seguro seguro de que deseas cerrar sesión?",
+        acceptText: "Volver a Codi",
+        cancelText: "Cerrar sesión",
+    };
+    const displayDesktop = () => {
+        return (
+            <Toolbar className={classes.toolbar}>
+                <div className={classes.leftpart}>
+                    <NLink to="/">
+                        <img
+                            src={Codi_Icon}
+                            alt="Codi Icon"
+                            className={classes.codilog}
+                        />
+                    </NLink>
+>>>>>>> andres
 
   let history = useHistory();
 
@@ -193,6 +233,7 @@ export default function Navbar() {
     setOpenModal(false);
   };
 
+<<<<<<< HEAD
   const handleCloseLogOut = (modalTitle) => {
     logout.logOut();
     setUser(null);
@@ -215,6 +256,85 @@ export default function Navbar() {
           <NLink to="/">
             <img src={Codi_Icon} alt="Codi Icon" className={classes.codilog} />
           </NLink>
+=======
+                <div>
+                    <IconButton
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenu}
+                        color="inherit"
+                        size="medium"
+                        style={{ paddingTop: "0.3rem", paddingRight: "0.2rem" }}
+                    >
+                        <AccountCircle style={{ fontSize: 32 }} />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "left",
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                        }}
+                        open={open}
+                        onClose={handleClose}
+                    >
+                        <NLink
+                            to="/profile"
+                            className={classes.DrawerlinkStyle}
+                        >
+                            <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                        </NLink>
+
+                        {user?.is_admin ? (
+                            <NLink
+                                to="/hola"
+                                className={classes.DrawerlinkStyle}
+                            >
+                                <MenuItem onClick={handleClose}>
+                                    Administrar Problemas
+                                </MenuItem>
+                            </NLink>
+                        ) : null}
+
+                        <MenuItem
+                            style={{ padding: "0px" }}
+                            onClick={handleClose}
+                        >
+                            <Button
+                                onClick={toggleModal}
+                                style={{
+                                    width: "100%",
+                                    paddingLeft: "15px",
+                                    justifyContent: "flex-start",
+                                    color: "red",
+                                }}
+                            >
+                                {"Cerrar sesión"}
+                            </Button>
+                            <Modal
+                                title={msg.title}
+                                description={msg.description}
+                                acceptText={msg.acceptText}
+                                cancelText={msg.cancelText}
+                                passedRedFunction={handleCloseLogOut}
+                                passedBlueFunction={toggleModal}
+                                toggleModal={toggleModal}
+                                open={openModal}
+                                singleButton={false}
+                            />
+                        </MenuItem>
+                    </Menu>
+                </div>
+            </Toolbar>
+        );
+    };
+>>>>>>> andres
 
           <Typography variant="h5">
             <NLink to="/" className={classes.title}>
@@ -296,11 +416,42 @@ export default function Navbar() {
     );
   };
 
+<<<<<<< HEAD
   const displayMobile = () => {
     const handleDrawerOpen = () =>
       setState((prevState) => ({ ...prevState, drawerOpen: true }));
     const handleDrawerClose = () =>
       setState((prevState) => ({ ...prevState, drawerOpen: false }));
+=======
+                    <div style={{ padding: "0px" }} className={classes.modal}>
+                        <Button
+                            onClick={toggleModal}
+                            style={{
+                                width: "100%",
+                                paddingLeft: "15px",
+                                justifyContent: "flex-start",
+                                color: "red",
+                            }}
+                        >
+                            {"Cerrar sesión"}
+                        </Button>
+                        <Modal
+                            title={msg.title}
+                            description={msg.description}
+                            acceptText={msg.acceptText}
+                            cancelText={msg.cancelText}
+                            passedRedFunction={handleCloseLogOut}
+                            passedBlueFunction={toggleModal}
+                            toggleModal={toggleModal}
+                            open={openModal}
+                            singleButton={false}
+                        />
+                    </div>
+                </List>
+            </>
+        );
+    };
+>>>>>>> andres
 
     return (
       <Toolbar className={classes.toolbar}>

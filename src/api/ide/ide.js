@@ -16,6 +16,19 @@ const getProblemWithSubmissions = async (problemId, userId) => {
     }
 }
 
+const sendCode = async (codeInfo, user) => {
+    try {
+        const response = await axios.post("/ide/send", {
+            codeInfo: codeInfo,
+            user: user
+        });
+        return response;
+    } catch (error) {
+        return error;
+    }
+}
+
 export default {
     getProblemWithSubmissions,
+    sendCode
 }

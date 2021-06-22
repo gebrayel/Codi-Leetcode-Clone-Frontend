@@ -281,7 +281,10 @@ export default function Navbar() {
                                 to="/hola"
                                 className={classes.DrawerlinkStyle}
                             >
-                                <MenuItem onClick={handleClose}>
+                                <MenuItem
+                                    onClick={handleClose}
+                                    className={classes.MenuItem}
+                                >
                                     Administrar Problemas
                                 </MenuItem>
                             </NLink>

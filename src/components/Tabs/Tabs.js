@@ -75,7 +75,7 @@ export default function Todito({
                             <p className={classes.description}>{description}</p>
                             <Box className={classes.containerButton}>
                                 <CopyToClipboard text={solution}>
-                                    <Button className={classes.buttonTodito}>
+                                    <Button className={classes.buttonTodito} size="small">
                                         Copiar
                                     </Button>
                                 </CopyToClipboard>

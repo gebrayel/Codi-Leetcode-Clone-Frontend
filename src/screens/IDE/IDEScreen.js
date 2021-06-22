@@ -219,10 +219,10 @@ export default function IDEScreen({ x, ...props }) {
                                 />
                             </Box>
                             <Box className={classes.buttons}>
-                                <Button size="large" className={classes.run} onClick={run} startIcon={<PlayCircleFilledIcon/>} variant="outlined" >
+                                <Button size="small" className={classes.run} onClick={run} startIcon={<PlayCircleFilledIcon/>} variant="outlined" >
                                     Ejecutar
                                 </Button>
-                                <Button size="large" className={classes.send} onClick={send} variant="outlined">
+                                <Button size="small" className={classes.send} onClick={send} variant="outlined">
                                     Enviar
                                 </Button>
                             </Box>

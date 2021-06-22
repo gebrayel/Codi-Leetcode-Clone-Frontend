@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid } from "@material-ui/core";
 import Todito from "../../components/Tabs/Tabs";
@@ -14,113 +14,237 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import CodeEditor from "../../components/CodeEditor/CodeEditor";
 import CodeConsole from "../../components/CodeConsole/CodeConsole";
+import CachedIcon from "@material-ui/icons/Cached";
+import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
+import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
+
+import ideAPI from "../../api/ide/ide";
+import useQuery from "../../hooks/useQuery/useQuery";
+import Context from "../../helpers/context/context";
+import k from "../../helpers/constants/constants";
+import codeHelper from "../../helpers/code/code";
+import RobotLoader from "../../components/CubeLoader/CubeLoader";
 
 export default function IDEScreen({ x, ...props }) {
+  const query = useQuery();
+  const problemId = query.get("problemId");
   const classes = useStyles(props);
   const [value, setValue] = React.useState(0);
   const [lenguaje, setLenguaje] = React.useState("");
   const [code, setCode] = React.useState("");
-  let [input, setInput] = React.useState("[1, 2, 3, 4, 5]");
-  let [output, setOutput] = React.useState("true");
+  const [color, setColor] = React.useState("white");
+  let [input, setInput] = React.useState("");
+  let [output, setOutput] = React.useState("");
   let [consoleLoading, setConsoleLoading] = React.useState(false);
-  let [expected, setExpected] = React.useState("true");
+  let [expected, setExpected] = React.useState("");
+  let [readOnly, setReadOnly] = React.useState(true);
+
+  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [solutionText, setSolutionText] = useState("");
+  const [solutionCode, setSolutionCode] = useState("");
+  const [submissions, setSubmissions] = useState([]);
+  const [templates, setTemplates] = useState([]);
+
+  const { isLoading, setIsLoading } = useContext(Context);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleTabs = (e, val) => {
     setValue(val);
   };
 
+  const select = (e) => {
+    setLenguaje(e.target.value);
+    if (e.target.value == "Java" || e.target.value == "Python") {
+      setReadOnly(false);
+    } else {
+      setReadOnly(true);
+    }
+  };
+
+  const reload = () => {
+    lenguaje === ""
+      ? setCode(
+          "Por favor, seleccione un lenguaje para empezar a programar con Codi."
+        )
+      : codeHelper.changeTemplate(lenguaje, templates, setCode);
+  };
+
+  const run = () => {
+    setConsoleLoading(true);
+    setInput("[1, 2, 3, 4, 5]");
+    setOutput("true");
+    setExpected("true");
+    setConsoleLoading(false);
+  };
+
+  const send = () => {};
+
+  useEffect(() => {
+    const getProblemInfo = async (problemId, userId) => {
+      setIsLoading(true);
+      const response = await ideAPI.getProblemWithSubmissions(
+        problemId,
+        userId
+      );
+      setIsLoading(false);
+      if (response.status === 200) {
+        initializeValues(response.data);
+      } else {
+        //Modal de error
+      }
+    };
+    getProblemInfo(problemId, user.google_id);
+  }, []);
+
+  useEffect(() => {
+    lenguaje === ""
+      ? setCode(
+          "Por favor, seleccione un lenguaje para empezar a programar con Codi."
+        )
+      : codeHelper.changeTemplate(lenguaje, templates, setCode);
+  }, [lenguaje]);
+
+  const initializeValues = (problemInfo) => {
+    setDescription(problemInfo.description);
+    setTitle(problemInfo.name);
+    setDifficulty(getDifficulty(problemInfo.difficulty));
+    setSolutionText(problemInfo.solution);
+    setSolutionCode(problemInfo.solutionCode);
+    setSubmissions(problemInfo.submissions);
+    setTemplates(problemInfo.templates);
+  };
+
+  const getDifficulty = (difficulty) => {
+    const dificultad = k.spanishDifficulty[difficulty];
+    if (dificultad === "Fácil") {
+      setColor("white");
+    } else if (dificultad === "Intermedio") {
+      setColor("#32EDE9");
+    } else {
+      setColor("#F31483");
+    }
+    return dificultad;
+  };
+
   return (
     <Grid container className={classes.container}>
-      <Box className={classes.box}>
-        <AppBar position="static" className={classes.container2}>
-          <Tabs
-            value={value}
-            onChange={handleTabs}
-            aria-label=""
-            variant="scrollable"
-            scrollButtons="auto"
-          >
-            <Tab label="Descripción" icon={<LineStyleIcon />} />
-            <Tab label="Solución" icon={<HighlightIcon />} />
-            <Tab label="Intentos" icon={<AccessTimeIcon />} />
-          </Tabs>
-        </AppBar>
-        <TabPanel value={value} index={0}>
-          <Todito
-            type="description"
-            id={51}
-            title="N-Reinas"
-            difficulty="Difícil"
-            colorDifficulty="#E75656"
-            description="El rompecabezas de las n-reinas es un problema de colocar n reinas en un tablero de ajedrez de tamaño nxn, de tal manera de que no existan dos reinas que se puedan atacar una a otra. Dado un entero n, retorne todas las posibles soluciones al problema de las n-reinas."
-          />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Todito
-            type="solution"
-            id={51}
-            title="N-Reinas"
-            solution="print('hello')"
-            description="El rompecabezas de las n-reinas es un problema de colocar n reinas en un tablero de ajedrez de tamaño nxn, de tal manera de que no existan dos reinas que se puedan atacar una a otra. Dado un entero n, retorne todas las posibles soluciones al problema de las n-reinas."
-          />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <Todito
-            type="submissions"
-            id={51}
-            data={[
-              {
-                time: "08/06/2021",
-                status: "Aprobado",
-                language: "Java",
-              },
-              {
-                time: "09/06/2021",
-                status: "Desaprobado",
-                language: "Python",
-              },
-            ]}
-          />
-        </TabPanel>
-      </Box>
-      <Box className={classes.box}>
-        <Box className={classes.box4}>
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel htmlFor="outlined-lenguaje-simple">Lenguaje</InputLabel>
-            <Select
-              native
-              value={lenguaje}
-              onChange={(e) => setLenguaje(e.target.value)}
-              label="Lenguaje"
-              inputProps={{
-                name: "Lenguaje",
-                id: "outlined-lenguaje-simple",
-              }}
-            >
-              <option aria-label="None" value="" />
-              <option value={"Java"}>Java</option>
-              <option value={"Python"}>Python</option>
-            </Select>
-          </FormControl>
-        </Box>
-        <Box className={classes.codeEditor}>
-          <CodeEditor
-            readOnly={false}
-            language="text/x-java"
-            value={code}
-            onChange={setCode}
-            className={classes.codeEditor2}
-          />
-        </Box>
-        <Box>
-          <CodeConsole
-            input={input}
-            output={output}
-            isLoading={consoleLoading}
-            expected={expected}
-          />
-        </Box>
-      </Box>
+      {isLoading ? (
+        <RobotLoader />
+      ) : (
+        <>
+          <Box className={classes.box}>
+            <AppBar position="static" className={classes.container2}>
+              <Tabs
+                value={value}
+                onChange={handleTabs}
+                aria-label=""
+                variant="scrollable"
+                scrollButtons="auto"
+              >
+                <Tab label="Descripción" icon={<LineStyleIcon />} />
+                <Tab label="Solución" icon={<HighlightIcon />} />
+                <Tab label="Intentos" icon={<AccessTimeIcon />} />
+              </Tabs>
+            </AppBar>
+            <TabPanel value={value} index={0}>
+              <Todito
+                type="description"
+                id={problemId}
+                title={title}
+                difficulty={difficulty}
+                colorDifficulty={color}
+                description={description}
+              />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <Todito
+                type="solution"
+                id={problemId}
+                title={title}
+                solution={solutionCode}
+                description={solutionText}
+              />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <Todito
+                type="submissions"
+                id={problemId}
+                title={title}
+                data={submissions}
+              />
+            </TabPanel>
+          </Box>
+          <Box className={classes.box}>
+            <Box className={classes.box4}>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel htmlFor="outlined-lenguaje-simple">
+                  Lenguaje
+                </InputLabel>
+                <Select
+                  native
+                  value={lenguaje}
+                  onChange={(e) => select(e)}
+                  label="Lenguaje"
+                  inputProps={{
+                    name: "Lenguaje",
+                    id: "outlined-lenguaje-simple",
+                  }}
+                >
+                  <option aria-label="None" value={""} />
+                  <option value={"Java"}>Java</option>
+                  <option value={"Python"}>Python</option>
+                </Select>
+              </FormControl>
+              <IconButton
+                aria-label="reload"
+                className={classes.reload}
+                onClick={reload}
+              >
+                <CachedIcon fontSize="large" />
+              </IconButton>
+            </Box>
+            <Box className={classes.codeEditor}>
+              <CodeEditor
+                readOnly={readOnly}
+                language="text/x-java"
+                value={code}
+                onChange={setCode}
+                className={classes.codeEditor2}
+              />
+            </Box>
+            <Box>
+              <CodeConsole
+                input={input}
+                output={output}
+                isLoading={consoleLoading}
+                expected={expected}
+              />
+            </Box>
+            <Box className={classes.buttons}>
+              <Button
+                size="large"
+                className={classes.run}
+                onClick={run}
+                color="secondary"
+                startIcon={<PlayCircleFilledIcon />}
+              >
+                Ejecutar
+              </Button>
+              <Button
+                size="large"
+                className={classes.send}
+                onClick={send}
+                color="secondary"
+              >
+                Enviar
+              </Button>
+            </Box>
+          </Box>
+        </>
+      )}
     </Grid>
   );
 }
@@ -180,19 +304,22 @@ const useStyles = makeStyles((theme) => ({
   box3: {
     display: "none",
   },
-  box4: {
-    height: "72px",
-    width: "calc(100% -10px)",
-    backgroundColor: "#1B1D2B",
-    boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.28)",
-    display: "flex",
-    alignItems: "center",
-    paddingLeft: "10px",
-  },
   formControl: {
     width: "110px",
     "& ..MuiFormControl-root": {
       width: "110px",
+
+      box4: {
+        height: "72px",
+        width: "calc(100% -10px)",
+        backgroundColor: "#1B1D2B",
+        boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.28)",
+        display: "flex",
+        alignItems: "center",
+        paddingLeft: "10px",
+        justifyContent: "space-between",
+        paddingRight: "20px",
+      },
     },
     "& .MuiInputLabel-animated": {
       color: "white",
@@ -228,5 +355,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10px",
     width: "100%",
   },
-  codeEditor2: {},
+  reload: {
+    color: "white",
+  },
+  buttons: {
+    display: "flex",
+    justifyContent: "flex-end",
+    paddingRight: "20px",
+    paddingTop: "10px",
+  },
 }));

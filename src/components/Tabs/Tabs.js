@@ -26,9 +26,9 @@ export default function Todito({
     const classes = useStyles(props);
 
     const columns = [
-        { id: "time", label: "Enviado", minWidth: 140, align: "left" },
-        { id: "status", label: "Estado", minWidth: 120, align: "left" },
-        { id: "language", label: "Lenguaje", minWidth: 120, align: "left" },
+        { field: "date", headerName: "Enviado", minWidth: 140, align: "left" },
+        { field: "status", headerName: "Estado", minWidth: 120, align: "left" },
+        { field: "language", headerName: "Lenguaje", minWidth: 120, align: "left" },
     ];
 
     const [page, setPage] = React.useState(0);
@@ -44,7 +44,6 @@ export default function Todito({
     };
 
     const rows = data;
-    var caso = false;
 
     const getTodito = () => {
         switch (type.toLowerCase()) {
@@ -123,14 +122,14 @@ export default function Todito({
                                             <TableRow>
                                                 {columns.map((column) => (
                                                     <TableCell
-                                                        key={column.id}
+                                                        key={column.field}
                                                         align={column.align}
                                                         style={{
                                                             minWidth:
                                                                 column.minWidth,
                                                         }}
                                                     >
-                                                        {column.label}
+                                                        {column.headerName}
                                                     </TableCell>
                                                 ))}
                                             </TableRow>
@@ -148,20 +147,18 @@ export default function Todito({
                                                             hover
                                                             role="checkbox"
                                                             tabIndex={-1}
-                                                            key={row.code}
+                                                            key={row['id']}
                                                         >
                                                             {columns.map(
                                                                 (column) => {
                                                                     const value =
                                                                         row[
                                                                             column
-                                                                                .id
+                                                                                .field
                                                                         ];
                                                                     return (
                                                                         <TableCell
-                                                                            key={
-                                                                                column.id
-                                                                            }
+                                                                            key={column.field + row['id']}
                                                                             align={
                                                                                 column.align
                                                                             }
@@ -184,7 +181,7 @@ export default function Todito({
                                     </Table>
                                 </TableContainer>
                                 <TablePagination
-                                    rowsPerPageOptions={[10, 25, 100]}
+                                    rowsPerPageOptions={[5, 10, 25, 50]}
                                     component="div"
                                     count={rows.length}
                                     rowsPerPage={rowsPerPage}

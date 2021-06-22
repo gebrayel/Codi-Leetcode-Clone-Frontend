@@ -1,45 +1,27 @@
 import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Check from "@material-ui/icons/Check";
-import StepConnector from "@material-ui/core/StepConnector";
+
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import CodeIcon from "@material-ui/icons/Code";
-import InputIcon from "@material-ui/icons/Input";
 import DescriptionIcon from "@material-ui/icons/Description";
+import InputIcon from "@material-ui/icons/Input";
+import Step from "@material-ui/core/Step";
+import StepConnector from "@material-ui/core/StepConnector";
+import StepLabel from "@material-ui/core/StepLabel";
+import Stepper from "@material-ui/core/Stepper";
+import Typography from "@material-ui/core/Typography";
+
+import colors from "../../config/colors/colors";
 import ProblemTab1 from "../ProblemTabs/ProblemTab1/ProblemTab1";
 import ProblemTab2 from "../ProblemTabs/ProblemTab2/ProblemTab2";
 import ProblemTab3 from "../ProblemTabs/ProblemTab3/ProblemTab3";
-import colors from "../../config/colors/colors";
 
-function QontoStepIcon(props) {
-  const classes = useQontoStepIconStyles();
-  const { active, completed } = props;
-
-  return (
-    <div
-      className={clsx(classes.root, {
-        [classes.active]: active,
-      })}
-    >
-      {completed ? (
-        <Check className={classes.completed} />
-      ) : (
-        <div className={classes.circle} />
-      )}
-    </div>
-  );
+const getSteps = () => {
+  return ["Descripción del Problema", "Templates del Problema", "Datos de Prueba"];
 }
 
-function getSteps() {
-  return ["Descripcion del Problema", "Template del Problema", "Testing Data"];
-}
-
-function ColorlibStepIcon(props) {
+const ColorlibStepIcon = (props) => {
   const classes = useColorlibStepIconStyles();
   const { active, completed } = props;
 
@@ -62,50 +44,19 @@ function ColorlibStepIcon(props) {
 }
 function getStepContent(
   step,
-  problemInfo,
-  handleProblemInfo,
-  code,
-  setCode,
-  javaTemplate,
-  setJavaTemplate,
-  pythonTemplate,
-  setPythonTemplate,
-  inputOutputs,
-  setInputOutputs,
-  eliminarInputOutput,
-  agregarInputOutput
 ) {
   switch (step) {
     case 0:
       return (
-        <ProblemTab1
-          code={code}
-          setCode={setCode}
-          problemInfo={problemInfo}
-          handleProblemInfo={handleProblemInfo}
-        />
+        <ProblemTab1 />
       );
     case 1:
       return (
-        <ProblemTab2
-          javaTemplate={javaTemplate}
-          setJavaTemplate={setJavaTemplate}
-          pythonTemplate={pythonTemplate}
-          setPythonTemplate={setPythonTemplate}
-          problemInfo={problemInfo}
-          handleProblemInfo={handleProblemInfo}
-        />
+        <ProblemTab2 />
       );
     case 2:
       return (
-        <ProblemTab3
-          problemInfo={problemInfo}
-          handleProblemInfo={handleProblemInfo}
-          inputOutputs={inputOutputs}
-          setInputOutputs={setInputOutputs}
-          eliminarInputOutput={eliminarInputOutput}
-          agregarInputOutput={agregarInputOutput}
-        />
+        <ProblemTab3 />
       );
     default:
       return "Unknown step";
@@ -115,18 +66,6 @@ function getStepContent(
 export default function StepperC({
   activeStep,
   setActiveStep,
-  problemInfo,
-  handleProblemInfo,
-  code,
-  setCode,
-  javaTemplate,
-  setJavaTemplate,
-  pythonTemplate,
-  setPythonTemplate,
-  inputOutputs,
-  setInputOutputs,
-  eliminarInputOutput,
-  agregarInputOutput,
 }) {
   const classes = useStyles();
   const steps = getSteps();
@@ -165,18 +104,6 @@ export default function StepperC({
             <Typography className={classes.instructions}>
               {getStepContent(
                 activeStep,
-                problemInfo,
-                handleProblemInfo,
-                code,
-                setCode,
-                javaTemplate,
-                setJavaTemplate,
-                pythonTemplate,
-                setPythonTemplate,
-                inputOutputs,
-                setInputOutputs,
-                eliminarInputOutput,
-                agregarInputOutput
               )}
             </Typography>
           </div>
@@ -185,52 +112,6 @@ export default function StepperC({
     </div>
   );
 }
-
-const QontoConnector = withStyles({
-  alternativeLabel: {
-    top: 10,
-    left: "calc(-50% + 16px)",
-    right: "calc(50% + 16px)",
-  },
-  active: {
-    "& $line": {
-      borderColor: "#784af4",
-    },
-  },
-  completed: {
-    "& $line": {
-      borderColor: "#784af4",
-    },
-  },
-  line: {
-    borderColor: "#eaeaf0",
-    borderTopWidth: 3,
-    borderRadius: 1,
-  },
-})(StepConnector);
-
-const useQontoStepIconStyles = makeStyles({
-  root: {
-    color: "#eaeaf0",
-    display: "flex",
-    height: 22,
-    alignItems: "center",
-  },
-  active: {
-    color: "#784af4",
-  },
-  circle: {
-    width: 8,
-    height: 8,
-    borderRadius: "50%",
-    backgroundColor: "currentColor",
-  },
-  completed: {
-    color: "#784af4",
-    zIndex: 1,
-    fontSize: 18,
-  },
-});
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {

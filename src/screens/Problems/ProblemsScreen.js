@@ -6,6 +6,8 @@ import ProblemList from "../../components/ProblemList/ProblemList";
 import problemAPI from "../../api/problems/problems";
 import RobotLoader from "../../components/RobotLoader/RobotLoader";
 import useQuery from "../../hooks/useQuery/useQuery";
+import EditIcon from "@material-ui/icons/Edit";
+
 const ProblemsScreen = () => {
   const query = useQuery();
   const [problems, setProblems] = useState([]);
@@ -28,6 +30,22 @@ const ProblemsScreen = () => {
           ...prob,
           color: index % 2 === 0 ? colors.evenRow : colors.oddRow,
           difficulty: spanishDifficulty[prob.difficulty],
+          description: (
+            <a
+              className="ProblemLink"
+              href={"/IDE?problemId=" + prob.problem_id}
+            >
+              {prob.name}
+            </a>
+          ),
+          edit: (
+            <a
+              className="ProblemLink"
+              href={"/ProblemForm?problemId=" + prob.problem_id}
+            >
+              <EditIcon />
+            </a>
+          ),
         };
       });
       setProblems(arrayProbs);
@@ -35,7 +53,6 @@ const ProblemsScreen = () => {
     };
     getProblems(difficulty, user);
   }, []);
-
   return (
     <div className="ProblemScreenContainer">
       {isLoading ? (

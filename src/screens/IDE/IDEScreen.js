@@ -35,11 +35,11 @@ export default function IDEScreen({ x, ...props }) {
     const [codeLanguage, setCodeLanguage] = useState("");
     const [code, setCode] = useState("");
     const [color, setColor] = useState("white");
-    let [input, setInput] = useState("");
-    let [output, setOutput] = useState("");
-    let [consoleLoading, setConsoleLoading] = useState(false);
-    let [expected, setExpected] = useState("");
-    let [readOnly, setReadOnly] = useState(true);
+    const [input, setInput] = useState("");
+    const [output, setOutput] = useState("");
+    const [consoleLoading, setConsoleLoading] = useState(false);
+    const [expected, setExpected] = useState("");
+    const [readOnly, setReadOnly] = useState(true);
 
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
@@ -80,8 +80,25 @@ export default function IDEScreen({ x, ...props }) {
         setConsoleLoading(false);
     };
 
-    const send = () => {
+    const sendCode = async () => {
+        const codeInfo = {
+            code: code,
+            lang: lenguaje,
+            problemId: problemId
+        };
+        const userInfo = {
+            userId: user.google_id
+        };
 
+        const results = await ideAPI.sendCode(codeInfo, userInfo);
+
+        if (results.status === 201) {
+            const submission = results.data;
+            setSubmissions([submission, ...submissions]);
+        }
+        else {
+            //Modal con mensaje de error
+        }
     };
 
     useEffect(() => {
@@ -223,7 +240,7 @@ export default function IDEScreen({ x, ...props }) {
                                 <Button size="large" className={classes.run} onClick={run} color="secondary" startIcon={<PlayCircleFilledIcon />} >
                                     Ejecutar
                                 </Button>
-                                <Button size="large" className={classes.send} onClick={send} color="secondary">
+                                <Button size="large" className={classes.send} onClick={sendCode} color="secondary">
                                     Enviar
                                 </Button>
                             </Box>

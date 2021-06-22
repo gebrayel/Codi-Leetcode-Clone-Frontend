@@ -45,7 +45,18 @@ const getProblemById = async (id) => {
     const url = endpoint + "id/" + id;
     try {
         const response = await axios.get(url);
-        return response.data;
+        return response;
+    } catch (error) {
+        return error;
+    }
+}
+
+const postProblem = async (problemInfo) => {
+    try {
+        const response = await axios.post(endpoint, {
+            problem: problemInfo
+        });
+        return response;
     } catch (error) {
         return error;
     }
@@ -54,6 +65,7 @@ const getProblemById = async (id) => {
 export default {
     getAllProblems,
     getProblemsByDifficulty,
-    getProblemById
+    getProblemById,
+    postProblem
 }
 

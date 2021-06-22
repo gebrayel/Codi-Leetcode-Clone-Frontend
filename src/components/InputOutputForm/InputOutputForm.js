@@ -1,56 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import colors from "../../config/colors/colors";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 import { TextField } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
-const InputOutputForm = (InputOutputFunction) => {
-  const { inputOutputs, agregarInputOutput } = InputOutputFunction;
+import colors from "../../config/colors/colors";
+import Context from "../../helpers/context/context";
+
+const InputOutputForm = () => {
   const classes = useStyles();
-  console.log(InputOutputFunction);
-  //Crear State de InputOutput
-  const [InputOutput, setInputOutput] = useState({
+  const [currentTestCase, setCurrentTestCase] = useState({
     input: "",
     output: "",
   });
+  const { input, output } = currentTestCase;
+  const { problemInfo, setProblemInfo } = useContext(Context);
 
-  //Extraer los valores con Destructuring
-  const { input, output } = InputOutput;
-
-  //Funcion que se ejecuta cada que el usuario escribe en un TextField
   const onChange = (evento) => {
-    setInputOutput({
-      ...InputOutput,
+    setCurrentTestCase({
+      ...currentTestCase,
       [evento.target.name]: evento.target.value,
     });
   };
+
   const submitInputOutput = () => {
-    // Validar
-    if (input.trim().replace("\n", "") === "") {
-      alert("La informacion del input para el problema no puede estar vacia.");
-      return;
+    if (input === "") {
+      return alert("La informacion del input para el problema no puede estar vacia.");
     }
-    if (output.trim().replace("\n", "") === "") {
-      alert("La informacion del output para el problema no puede estar vacia.");
-      return;
+    if (output === "") {
+      return alert("La informacion del output para el problema no puede estar vacia.");
     }
 
-    //Inicializar el id del InputOutput
-    InputOutput.id = inputOutputs.length + 1;
+    currentTestCase.id = problemInfo.testCases.length + 1;
+    addTestCase(currentTestCase);
 
-    //Crear el inputOutput
-    agregarInputOutput(InputOutput);
-
-    // Reiniciar State
-    setInputOutput({
+    setCurrentTestCase({
       input: "",
       output: "",
     });
   };
-  function InputOutputAddButton() {
+
+  const addTestCase = (testCase) => {
+    const testCases = problemInfo.testCases;
+    testCases.push(testCase);
+    setProblemInfo({
+      ...problemInfo,
+      testCases: testCases
+    });
+  };
+
+  const InputOutputAddButton = () => {
     return (
       <Button
         size="small"

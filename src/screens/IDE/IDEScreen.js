@@ -39,6 +39,7 @@ export default function IDEScreen({ x, ...props }) {
     let [consoleLoading, setConsoleLoading] = React.useState(false);
     let [expected, setExpected] = React.useState("");
     let [readOnly, setReadOnly] = React.useState(true);
+    let [disabledSolution, setDisabledSolution] = React.useState(false);
 
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
@@ -138,7 +139,7 @@ export default function IDEScreen({ x, ...props }) {
                                     scrollButtons="auto"
                                 >
                                     <Tab label="Descripción" icon={<LineStyleIcon />} />
-                                    <Tab label="Solución" icon={<HighlightIcon />} />
+                                    <Tab label="Solución" icon={<HighlightIcon />} disabled={disabledSolution}/>
                                     <Tab label="Intentos" icon={<AccessTimeIcon />} />
                                 </Tabs>
                             </AppBar>
@@ -153,13 +154,15 @@ export default function IDEScreen({ x, ...props }) {
                                 />
                             </TabPanel>
                             <TabPanel value={value} index={1}>
-                                <Todito
+                                {!disabledSolution &&
+                                    <Todito
                                     type="solution"
                                     id={problemId}
                                     title={title}
                                     solution={solutionCode}
                                     description={solutionText}
-                                />
+                                    />
+                                }
                             </TabPanel>
                             <TabPanel value={value} index={2}>
                                 <Todito

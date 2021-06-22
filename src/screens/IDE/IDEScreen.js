@@ -30,15 +30,16 @@ export default function IDEScreen({ x, ...props }) {
     const query = useQuery();
     const problemId = query.get("problemId");
     const classes = useStyles(props);
-    const [value, setValue] = React.useState(0);
-    const [lenguaje, setLenguaje] = React.useState("");
-    const [code, setCode] = React.useState("");
-    const [color, setColor] = React.useState("white");
-    let [input, setInput] = React.useState("");
-    let [output, setOutput] = React.useState("");
-    let [consoleLoading, setConsoleLoading] = React.useState(false);
-    let [expected, setExpected] = React.useState("");
-    let [readOnly, setReadOnly] = React.useState(true);
+    const [value, setValue] = useState(0);
+    const [lenguaje, setLenguaje] = useState("");
+    const [codeLanguage, setCodeLanguage] = useState("");
+    const [code, setCode] = useState("");
+    const [color, setColor] = useState("white");
+    let [input, setInput] = useState("");
+    let [output, setOutput] = useState("");
+    let [consoleLoading, setConsoleLoading] = useState(false);
+    let [expected, setExpected] = useState("");
+    let [readOnly, setReadOnly] = useState(true);
 
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
@@ -56,11 +57,14 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     const select = (e) => {
-        setLenguaje(e.target.value);
-        if(e.target.value == "Java" || e.target.value == "Python"){
+        const lang = e.target.value;
+        setLenguaje(lang);
+        setCodeLanguage(k.codeLanguages[lang]);
+        if (lang == "Java" || lang == "Python") {
             setReadOnly(false);
-        }else{
+        } else {
             setReadOnly(true);
+
         }
     };
 
@@ -110,11 +114,11 @@ export default function IDEScreen({ x, ...props }) {
 
     const getDifficulty = (difficulty) => {
         const dificultad = k.spanishDifficulty[difficulty];
-        if(dificultad === 'Fácil'){
+        if (dificultad === 'Fácil') {
             setColor('white')
-        }else if(dificultad === 'Intermedio'){
+        } else if (dificultad === 'Intermedio') {
             setColor('#32EDE9')
-        }else{
+        } else {
             setColor('#F31483')
         }
         return dificultad;
@@ -122,9 +126,9 @@ export default function IDEScreen({ x, ...props }) {
 
     return (
         <Grid container className={classes.container}>
-            { isLoading ?
+            {isLoading ?
                 (
-                    <RobotLoader/>
+                    <RobotLoader />
                 ) :
                 (
                     <>
@@ -201,7 +205,7 @@ export default function IDEScreen({ x, ...props }) {
                             <Box className={classes.codeEditor}>
                                 <CodeEditor
                                     readOnly={readOnly}
-                                    language="text/x-java"
+                                    language={codeLanguage}
                                     value={code}
                                     onChange={setCode}
                                     className={classes.codeEditor2}
@@ -216,7 +220,7 @@ export default function IDEScreen({ x, ...props }) {
                                 />
                             </Box>
                             <Box className={classes.buttons}>
-                                <Button size="large" className={classes.run} onClick={run} color="secondary" startIcon={<PlayCircleFilledIcon/>} >
+                                <Button size="large" className={classes.run} onClick={run} color="secondary" startIcon={<PlayCircleFilledIcon />} >
                                     Ejecutar
                                 </Button>
                                 <Button size="large" className={classes.send} onClick={send} color="secondary">
@@ -226,7 +230,7 @@ export default function IDEScreen({ x, ...props }) {
                         </Box>
                     </>
                 )
-            
+
             }
         </Grid>
     );
@@ -313,10 +317,10 @@ const useStyles = makeStyles((theme) => ({
             borderColor: "white",
         },
         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-            {
-                borderColor: "white",
-                borderWidth: "1px",
-            },
+        {
+            borderColor: "white",
+            borderWidth: "1px",
+        },
         "& .MuiSelect-icon": {
             color: "white",
         },
@@ -324,10 +328,10 @@ const useStyles = makeStyles((theme) => ({
             color: "white",
         },
         "& .MuiSelect-select:not([multiple]) option, .MuiSelect-select:not([multiple]) optgroup":
-            {
-                color: "white",
-                backgroundColor: "#282A36",
-            },
+        {
+            color: "white",
+            backgroundColor: "#282A36",
+        },
     },
     langSelect: {
         "&.MuiSelect-select": {
@@ -340,7 +344,7 @@ const useStyles = makeStyles((theme) => ({
 
     },
     codeEditor2: {
-        
+
     },
     reload: {
         color: 'white',

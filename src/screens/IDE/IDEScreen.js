@@ -28,22 +28,22 @@ import CubeLoader from "../../components/CubeLoader/CubeLoader";
 import Modal from "../../components/Modal/Modal";
 
 export default function IDEScreen({ x, ...props }) {
-    const query = useQuery();
-    const problemId = query.get("problemId");
-    const classes = useStyles(props);
-    const [value, setValue] = useState(0);
-    const [lenguaje, setLenguaje] = useState("");
-    const [codeLanguage, setCodeLanguage] = useState("");
-    const [code, setCode] = useState("");
-    const [color, setColor] = useState("white");
-    const [input, setInput] = useState("");
-    const [output, setOutput] = useState("");
-    const [consoleLoading, setConsoleLoading] = useState(false);
-    const [sendLoading, setSendLoading] = useState(false);
-    const [expected, setExpected] = useState("");
-    const [readOnly, setReadOnly] = useState(true);
-    const [disabledSolution, setDisabledSolution] = React.useState(false);
-    const [disabledButtons, setDisabledButtons] = React.useState(true);
+  const query = useQuery();
+  const problemId = query.get("problemId");
+  const classes = useStyles(props);
+  const [value, setValue] = useState(0);
+  const [lenguaje, setLenguaje] = useState("");
+  const [codeLanguage, setCodeLanguage] = useState("");
+  const [code, setCode] = useState("");
+  const [color, setColor] = useState("white");
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
+  const [consoleLoading, setConsoleLoading] = useState(true);
+  const [sendLoading, setSendLoading] = useState(false);
+  const [expected, setExpected] = useState("");
+  const [readOnly, setReadOnly] = useState(true);
+  const [disabledSolution, setDisabledSolution] = useState(false);
+  const [disabledButtons, setDisabledButtons] = useState(true);
 
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");

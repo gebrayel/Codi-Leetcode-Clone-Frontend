@@ -57,7 +57,7 @@ export default function CustomInput({ input, output, expected, isLoading }) {
   const showLoader = () => {
     return (
       <div className={classes.cubeBox}>
-        <CubeLoader className={classes.cube} />
+        <CubeLoader />
       </div>
     );
   };
@@ -84,6 +84,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#1B1D2B",
     height: "9rem",
     paddingBottom: ".3rem",
+    display: "flex",
+    alignItems: "center",
   },
   row: {
     display: "flex",
@@ -105,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cubeBox: {
     width: "100%",
-    height: "9rem",
+    height: "99%",
     display: "flex",
     justifyContent: "center",
     "& .makeStyles-container-88": {

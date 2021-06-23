@@ -54,28 +54,42 @@ export default function IDEScreen({ x, ...props }) {
     const [templates, setTemplates] = useState([]);
     const [openRefresh, setOpenRefresh] = useState(false);
     const [openError, setOpenError] = useState(false);
+    const [openDesaprobado, setOpenDesaprobado] = useState(false);
+    const [openAprobado, setOpenAprobado] = useState(false);
 
     const { isLoading, setIsLoading } = useContext(Context);
     const user = JSON.parse(localStorage.getItem("user"));
 
     const msgRefresh = {
-        variant: "",
-        color: "secondary",
         title: "Cuidado",
         description:
             "¿Seguro quieres refrescar? Perderas tu codigo actual.",
-        acceptText: "Refrescar",
-        cancelText: "Cerrar",
+        functionText: "Refrescar",
+        closeText: "Cerrar",
     };
 
     const msgError = {
-        variant: "",
-        color: "secondary",
-        title: "Error",
+        title: "Error de conexion",
         description:
-            "Por favor, recargue la pagina.",
-        acceptText: "Recargar",
-        cancelText: "Recargar",
+            "Por favor, intentelo de nuevo.",
+        functionText: "Recargar",
+        cancelText: "Cerrar",
+    };
+
+    const msgAprobado = {
+        title: "Yeiiii",
+        description:
+            "Felicidades, tu codigo es buenisimoo.",
+        functionText: "Recargar",
+        cancelText: "Cerrar",
+    };
+
+    const msgDesaprobado = {
+        title: "Awww :c",
+        description:
+            "No te preocupes, lo haras mejor la proxima.",
+        functionText: "Recargar",
+        cancelText: "Cerrar",
     };
 
     const toggleRefresh = () => {
@@ -84,6 +98,14 @@ export default function IDEScreen({ x, ...props }) {
 
     const toggleError = () => {
         setOpenError(!openError);
+    };
+
+    const toggleAprobado = () => {
+        setOpenAprobado(!openAprobado);
+    };
+
+    const toggleDesaprobado = () => {
+        setOpenDesaprobado(!openDesaprobado);
     };
 
     const handleTabs = (e, val) => {
@@ -121,7 +143,7 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     const sendCode = async () => {
-        setSendLoading(true);
+        setValue(2);
         const codeInfo = {
             code: code,
             lang: lenguaje,
@@ -131,16 +153,22 @@ export default function IDEScreen({ x, ...props }) {
             userId: user.google_id
         };
 
+        setSendLoading(true);
         const results = await ideAPI.sendCode(codeInfo, userInfo);
+        setSendLoading(false);
 
         if (results.status === 201) {
             const submission = results.data;
             setSubmissions([submission, ...submissions]);
-            setValue(2);
-            setSendLoading(false);
+            if(submission.status == "Aprobado"){
+                toggleAprobado();
+            }else{
+                toggleDesaprobado();
+            }
         }
         else {
             //Modal con mensaje de error
+            toggleError();
         }
     }
 
@@ -156,6 +184,7 @@ export default function IDEScreen({ x, ...props }) {
                 initializeValues(response.data);
             } else {
                 //Modal de error
+                toggleError();
             }
         };
         getProblemInfo(problemId, user.google_id);
@@ -326,29 +355,42 @@ export default function IDEScreen({ x, ...props }) {
         <Modal
             title={msgRefresh.title}
             description={msgRefresh.description}
-            acceptText={msgRefresh.acceptText}
-            cancelText={msgRefresh.cancelText}
-            passedBlueFunction={toggleRefresh}
-            modal={openRefresh}
-            setModal={setOpenRefresh}
+            functionText={msgRefresh.functionText}
+            closeText={msgRefresh.closeText}
+            passedFunction={reload}
+            toggleModal={toggleRefresh}
             open={openRefresh}
             singleButton={false}
-            passedRedFunction={reload}
-            toggleModal={toggleRefresh}
         />
 
         <Modal
             title={msgError.title}
             description={msgError.description}
-            acceptText={msgError.acceptText}
-            cancelText={msgError.cancelText}
-            passedBlueFunction={toggleError}
-            modal={openError}
-            setModal={setOpenError}
+            functionText={msgError.functionText}
+            closeText={msgError.closeText}
+            toggleModal={toggleError}
             open={openError}
             singleButton={true}
-            passedRedFunction={reload}
-            toggleModal={toggleError}
+        />
+
+        <Modal
+            title={msgAprobado.title}
+            description={msgAprobado.description}
+            functionText={msgAprobado.functionText}
+            closeText={msgAprobado.closeText}
+            toggleModal={toggleAprobado}
+            open={openAprobado}
+            singleButton={true}
+        />
+
+        <Modal
+            title={msgDesaprobado.title}
+            description={msgDesaprobado.description}
+            functionText={msgDesaprobado.functionText}
+            closeText={msgDesaprobado.closeText}
+            toggleModal={toggleDesaprobado}
+            open={openDesaprobado}
+            singleButton={true}
         />
         </>
     );

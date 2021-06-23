@@ -73,7 +73,7 @@ export default function IDEScreen({ x, ...props }) {
         description:
             "Por favor, intentelo de nuevo.",
         functionText: "Recargar",
-        cancelText: "Cerrar",
+        closeText: "Cerrar",
     };
 
     const msgAprobado = {
@@ -81,7 +81,7 @@ export default function IDEScreen({ x, ...props }) {
         description:
             "Felicidades, tu codigo es buenisimoo.",
         functionText: "Recargar",
-        cancelText: "Cerrar",
+        closeText: "Cerrar",
     };
 
     const msgDesaprobado = {
@@ -89,7 +89,7 @@ export default function IDEScreen({ x, ...props }) {
         description:
             "No te preocupes, lo haras mejor la proxima.",
         functionText: "Recargar",
-        cancelText: "Cerrar",
+        closeText: "Cerrar",
     };
 
     const toggleRefresh = () => {

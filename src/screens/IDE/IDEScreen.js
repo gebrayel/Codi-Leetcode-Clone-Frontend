@@ -38,7 +38,7 @@ export default function IDEScreen({ x, ...props }) {
   const [color, setColor] = useState("white");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
-  const [consoleLoading, setConsoleLoading] = useState(true);
+  const [consoleLoading, setConsoleLoading] = useState(false);
   const [sendLoading, setSendLoading] = useState(false);
   const [expected, setExpected] = useState("");
   const [readOnly, setReadOnly] = useState(true);

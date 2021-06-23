@@ -24,7 +24,7 @@ import useQuery from "../../hooks/useQuery/useQuery";
 import Context from "../../helpers/context/context";
 import k from "../../helpers/constants/constants";
 import codeHelper from "../../helpers/code/code";
-import RobotLoader from "../../components/CubeLoader/CubeLoader";
+import CubeLoader from "../../components/CubeLoader/CubeLoader";
 
 export default function IDEScreen({ x, ...props }) {
     const query = useQuery();
@@ -163,7 +163,7 @@ export default function IDEScreen({ x, ...props }) {
     return (
         <Grid container className={classes.container}>
             {isLoading ? (
-                <RobotLoader />
+                <CubeLoader />
             ) : (
                 <>
                     <Box className={classes.box}>
@@ -207,7 +207,9 @@ export default function IDEScreen({ x, ...props }) {
                         </TabPanel>
                         <TabPanel value={value} index={2}>
                             {sendLoading ? (
-                                <RobotLoader />
+                                <Box className={classes.containerCube}>
+                                    <CubeLoader className={classes.cube}/>
+                                </Box>
                             ) : (
                                 <Todito
                                     type="submissions"
@@ -343,6 +345,10 @@ const useStyles = makeStyles((theme) => ({
             outline: "1px solid slategrey",
             borderRadius: 7,
         },
+
+        "& .makeStyles-container-74": {
+            width: '100%',
+        },
     },
     box3: {
         display: "none",
@@ -429,5 +435,9 @@ const useStyles = makeStyles((theme) => ({
             color: "#474747",
             cursor: "pointer",
         },
+    },
+    containerCube:{
+        display: 'flex',
+        justifyContent: 'center'
     },
 }));

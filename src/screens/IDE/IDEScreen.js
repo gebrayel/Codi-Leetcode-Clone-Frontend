@@ -79,12 +79,25 @@ export default function IDEScreen({ x, ...props }) {
       : codeHelper.changeTemplate(lenguaje, templates, setCode);
   };
 
-  const run = () => {
-    setConsoleLoading(true);
-    setInput("[1, 2, 3, 4, 5]");
-    setOutput("true");
-    setExpected("true");
-    setConsoleLoading(false);
+  const runCode = async () => {
+    const codeInfo = {
+      code: code,
+      lang: lenguaje,
+      problemId: problemId,
+    };
+
+    //Loading consola
+    const results = await ideAPI.tryCode(codeInfo);
+    //Loading consola
+
+    if (results.status === 200) {
+      const run = results.data;
+      setInput(run.input);
+      setOutput(run.output);
+      setExpected(run.expectedOutput);
+    } else {
+      //Modal con mensaje de error
+    }
   };
 
   const sendCode = async () => {
@@ -255,37 +268,35 @@ export default function IDEScreen({ x, ...props }) {
                 className={classes.codeEditor2}
               />
             </Box>
-            <div className={classes.setEnd}>
-              <Box>
-                <CodeConsole
-                  input={input}
-                  output={output}
-                  isLoading={consoleLoading}
-                  expected={expected}
-                />
-              </Box>
-              <Box className={classes.buttons}>
-                <Button
-                  size="small"
-                  className={classes.run}
-                  onClick={run}
-                  startIcon={<PlayCircleFilledIcon />}
-                  variant="outlined"
-                  disabled={disabledButtons}
-                >
-                  Ejecutar
-                </Button>
-                <Button
-                  size="small"
-                  className={classes.send}
-                  onClick={sendCode}
-                  variant="outlined"
-                  disabled={disabledButtons}
-                >
-                  Enviar
-                </Button>
-              </Box>
-            </div>
+            <Box>
+              <CodeConsole
+                input={input}
+                output={output}
+                isLoading={consoleLoading}
+                expected={expected}
+              />
+            </Box>
+            <Box className={classes.buttons}>
+              <Button
+                size="small"
+                className={classes.run}
+                onClick={runCode}
+                startIcon={<PlayCircleFilledIcon />}
+                variant="outlined"
+                disabled={disabledButtons}
+              >
+                Ejecutar
+              </Button>
+              <Button
+                size="small"
+                className={classes.send}
+                onClick={sendCode}
+                variant="outlined"
+                disabled={disabledButtons}
+              >
+                Enviar
+              </Button>
+            </Box>
           </Box>
         </>
       )}
@@ -424,12 +435,6 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
-  setEnd: {
-    position: "absolute",
-    marginBottom: 0,
-    marginRight: 0,
-    width: "inherit",
-  },
   send: {
     color: "white",
     borderColor: "white",
@@ -441,8 +446,16 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
-  containerCube: {
-    display: "flex",
-    justifyContent: "center",
+  setEnd: {
+    position: "absolute",
+    marginBottom: 0,
+    marginRight: 0,
+    width: "inherit",
+    setEnd: {
+      position: "absolute",
+      marginBottom: 0,
+      marginRight: 0,
+      width: "inherit",
+    },
   },
 }));

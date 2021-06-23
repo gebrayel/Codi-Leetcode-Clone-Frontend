@@ -28,7 +28,19 @@ const sendCode = async (codeInfo, user) => {
     }
 }
 
+const tryCode = async (codeInfo) => {
+    try {
+        const response = await axios.post("/ide/execute", {
+            codeInfo: codeInfo
+        });
+        return response;
+    } catch (error) {
+        return error;
+    }
+}
+
 export default {
     getProblemWithSubmissions,
-    sendCode
+    sendCode,
+    tryCode
 }

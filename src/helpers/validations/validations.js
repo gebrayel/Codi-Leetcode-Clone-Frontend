@@ -54,7 +54,7 @@ const validateTab2 = (problemInfo, setActiveStep) => {
         }
     });
     if (validateCases !== "") {
-        return alert(validateCases);
+        return validateCases;
     }
 
     localStorage.setItem("problemInfo", JSON.stringify(problemInfo));
@@ -69,7 +69,7 @@ const validateTab3 = (problemInfo, save) => {
             "Debes agregar al menos un caso de prueba para el problema.\n";
     }
     if (validateCases !== "") {
-        return alert(validateCases);
+        return validateCases;
     }
     save();
 };

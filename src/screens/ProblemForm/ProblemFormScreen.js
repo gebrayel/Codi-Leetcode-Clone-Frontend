@@ -81,10 +81,23 @@ const ProblemFormScreen = () => {
                 }
                 break;
             case 1:
-                valids.validateTab2(problemInfo, setActiveStep);
+                const validTab2 = valids.validateTab2(
+                    problemInfo,
+                    setActiveStep
+                );
+
+                if (validTab2) {
+                    setMensaje(validTab2);
+                    toggleErrorModal();
+                }
                 break;
             case 2:
-                valids.validateTab3(problemInfo, save);
+                const validTab3 = valids.validateTab3(problemInfo, save);
+
+                if (validTab3) {
+                    setMensaje(validTab3);
+                    toggleErrorModal();
+                }
                 break;
             default:
                 console.log("Lmao");

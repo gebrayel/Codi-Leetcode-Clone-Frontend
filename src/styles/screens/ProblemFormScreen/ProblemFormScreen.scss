@@ -1,194 +1,182 @@
 .ProblemFormScreenContainer {
-  width: 100% !important;
-  margin-left: 0;
-  margin-right: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-top: 5rem;
+    width: 100% !important;
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 5rem;
 }
 .ProblemLink {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
 @media (max-width: 321px) {
-  #buttonBox {
-    display: flex;
-    justify-content: center;
-    width: 200px !important;
-    height: 50px;
-    margin-top: 20px;
-    margin-bottom: 2rem;
-    margin-left: 10%;
-    #NextButton__ProblemFormScreen {
-      width: 90px;
+    #buttonBox {
+        display: flex;
+        justify-content: center;
+        width: 200px !important;
+        height: 50px;
+        margin-top: 20px;
+        margin-bottom: 2rem;
+        margin-left: 10%;
+        #NextButton__ProblemFormScreen {
+            width: 90px;
+        }
+        #BackButton__ProblemFormScreen {
+            margin-right: 1rem;
+            width: 90px;
+        }
+        .button {
+            width: 100%;
+            margin-left: 2rem;
+        }
     }
-    #BackButton__ProblemFormScreen {
-      margin-right: 1rem;
-      width: 90px;
-    }
-    .button {
-      width: 100%;
-      margin-left: 2rem;
-    }
-  }
 }
 @media (min-width: 322px) and (max-width: 376px) {
-  #buttonBox {
-    display: flex;
-    justify-content: center;
-    width: 300px;
-    height: 50px;
-    margin-top: 20px;
-    margin-bottom: 2rem;
-    margin-left: 2rem;
-    #NextButton__ProblemFormScreen {
-      width: 100px;
-      margin-left: 2rem;
+    #buttonBox {
+        display: flex;
+        justify-content: center;
+        width: 300px;
+        height: 50px;
+        margin-top: 20px;
+        margin-bottom: 2rem;
+        margin-left: 2rem;
+        #NextButton__ProblemFormScreen {
+            width: 100px;
+            margin-left: 2rem;
+        }
+        #BackButton__ProblemFormScreen {
+            width: 100px;
+        }
+        .button {
+            width: 100%;
+        }
     }
-    #BackButton__ProblemFormScreen {
-      width: 100px;
-    }
-    .button {
-      width: 100%;
-    }
-  }
 }
 @media (min-width: 377px) and (max-width: 426px) {
-  #buttonBox {
-    display: flex;
-    justify-content: center;
-    width: 84% !important;
-    height: 50px;
-    margin-top: 20px;
-    margin-bottom: 2rem;
-    margin-left: auto;
-    margin-right: auto;
-    margin-left: 4rem;
-    #NextButton__ProblemFormScreen {
-      width: 100px;
-      margin-left: 2rem;
-      margin-right: 4rem;
+    #buttonBox {
+        display: flex;
+        justify-content: center;
+        width: 84% !important;
+        height: 50px;
+        margin-top: 20px;
+        margin-bottom: 2rem;
+        margin-left: auto;
+        margin-right: auto;
+        margin-left: 4rem;
+        #NextButton__ProblemFormScreen {
+            width: 100px;
+            margin-left: 2rem;
+            margin-right: 4rem;
+        }
+        #BackButton__ProblemFormScreen {
+            width: 100px;
+        }
+        .button {
+            width: 100%;
+        }
     }
-    #BackButton__ProblemFormScreen {
-      width: 100px;
-    }
-    .button {
-      width: 100%;
-    }
-  }
 }
 
 @media (min-width: 427px) and (max-width: 769px) {
-  #buttonBox {
-    display: flex;
-    justify-content: center;
-    width: 90%;
-    height: 50px;
-    margin-top: 20px;
-    margin-bottom: 2rem;
-    margin-left: 3.5rem;
-    #NextButton__ProblemFormScreen {
-      width: 100px;
-      margin-left: 2rem;
-      margin-right: 4rem;
+    #buttonBox {
+        display: flex;
+        justify-content: center;
+        width: 90%;
+        height: 50px;
+        margin-top: 20px;
+        margin-bottom: 2rem;
+        margin-left: 3.5rem;
+        #NextButton__ProblemFormScreen {
+            width: 100px;
+            margin-left: 2rem;
+            margin-right: 4rem;
+        }
+        #BackButton__ProblemFormScreen {
+            margin-left: 1rem;
+            width: 100px;
+        }
+        .button {
+            width: 100%;
+        }
     }
-    #BackButton__ProblemFormScreen {
-      margin-left: 1rem;
-      width: 100px;
-    }
-    .button {
-      width: 100%;
-    }
-  }
 }
 
 @media (min-width: 770px) and (max-width: 1438px) {
-  #buttonBox {
-    display: flex;
-    justify-content: flex-end;
-    width: 88%;
-    height: 50px;
-    margin-top: 20px;
-    margin-bottom: 2rem;
-
-    .button {
-      float: right;
-      display: flex;
-      margin-right: 35px;
+    #buttonBox {
+        display: flex;
+        justify-content: flex-end;
+        width: 88%;
+        height: 50px;
+        margin-top: 20px;
+        margin-bottom: 2rem;
+        .button {
+            float: right;
+            display: flex;
+        }
     }
-  }
 }
 
 @media (min-width: 1439px) and (max-width: 1500px) {
-  #buttonBox {
-    display: flex;
-    justify-content: flex-end;
-    width: 60.3%;
-    height: 50px;
-    margin-top: 20px;
-    margin-bottom: 2rem;
-    margin-left: 26%;
-    #BackButton__ProblemFormScreen {
-      width: 100px;
-      margin-right: 2rem;
+    #buttonBox {
+        display: flex;
+        justify-content: flex-end;
+        width: 75%;
+        height: 50px;
+        margin-top: 20px;
+        #BackButton__ProblemFormScreen {
+            width: 100px;
+        }
+        #NextButton__ProblemFormScreen {
+            width: 100px;
+            justify-content: end;
+        }
+        .button {
+            float: right;
+            display: flex;
+        }
     }
-    #NextButton__ProblemFormScreen {
-      width: 100px;
-      justify-content: end;
-    }
-    .button {
-      float: right;
-      display: flex;
-    }
-  }
 }
 
 @media (min-width: 1500px) and (max-width: 2558px) {
-  #buttonBox {
-    display: flex;
-    justify-content: flex-end;
-    width: 90%;
-    height: 50px;
-    margin-top: 20px;
-    margin-bottom: 2rem;
-    margin-left: 16.5%;
-    #BackButton__ProblemFormScreen {
-      width: 100px;
-      margin-right: 2rem;
+    #buttonBox {
+        display: flex;
+        justify-content: flex-end;
+        width: 75%;
+        height: 50px;
+        margin-top: 20px;
+        #BackButton__ProblemFormScreen {
+            width: 100px;
+        }
+        #NextButton__ProblemFormScreen {
+            width: 100px;
+        }
+        .button {
+            float: right;
+            display: flex;
+        }
     }
-    #NextButton__ProblemFormScreen {
-      width: 100px;
-      margin-right: 20.5%;
-    }
-    .button {
-      float: right;
-      display: flex;
-    }
-  }
 }
 
 @media (min-width: 2559px) {
-  #buttonBox {
-    display: flex;
-    justify-content: flex-end;
-    width: 81.5%;
-    height: 50px;
-    margin-top: 20px;
-    margin-bottom: 2rem;
-    #NextButton__ProblemFormScreen {
-      width: 100px;
+    #buttonBox {
+        display: flex;
+        justify-content: flex-end;
+        width: 75%;
+        height: 50px;
+        margin-top: 20px;
+        #NextButton__ProblemFormScreen {
+            width: 100px;
+        }
+        #BackButton__ProblemFormScreen {
+            width: 100px;
+        }
+        .button {
+            float: right;
+            display: flex;
+        }
     }
-    #BackButton__ProblemFormScreen {
-      width: 100px;
-      margin-right: 2rem;
-      margin-left: 10%;
-    }
-    .button {
-      float: right;
-      display: flex;
-    }
-  }
 }

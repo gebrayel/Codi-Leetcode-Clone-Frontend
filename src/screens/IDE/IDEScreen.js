@@ -53,6 +53,7 @@ export default function IDEScreen({ x, ...props }) {
     const [submissions, setSubmissions] = useState([]);
     const [templates, setTemplates] = useState([]);
     const [openRefresh, setOpenRefresh] = useState(false);
+    const [openError, setOpenError] = useState(false);
 
     const { isLoading, setIsLoading } = useContext(Context);
     const user = JSON.parse(localStorage.getItem("user"));
@@ -79,6 +80,10 @@ export default function IDEScreen({ x, ...props }) {
 
     const toggleRefresh = () => {
         setOpenRefresh(!openRefresh);
+    };
+
+    const toggleError = () => {
+        setOpenError(!openError);
     };
 
     const handleTabs = (e, val) => {
@@ -333,17 +338,17 @@ export default function IDEScreen({ x, ...props }) {
         />
 
         <Modal
-            title={msgRefresh.title}
-            description={msgRefresh.description}
-            acceptText={msgRefresh.acceptText}
-            cancelText={msgRefresh.cancelText}
-            passedBlueFunction={toggleRefresh}
-            modal={openRefresh}
-            setModal={setOpenRefresh}
-            open={openRefresh}
+            title={msgError.title}
+            description={msgError.description}
+            acceptText={msgError.acceptText}
+            cancelText={msgError.cancelText}
+            passedBlueFunction={toggleError}
+            modal={openError}
+            setModal={setOpenError}
+            open={openError}
             singleButton={true}
             passedRedFunction={reload}
-            toggleModal={toggleRefresh}
+            toggleModal={toggleError}
         />
         </>
     );

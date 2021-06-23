@@ -12,6 +12,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import Button from '@material-ui/core/Button';
+import Modal from "../Modal/Modal";
 
 export default function Todito({
     type,
@@ -25,14 +27,26 @@ export default function Todito({
 }) {
     const classes = useStyles(props);
 
+    const msgCopy = {
+        title: "Copiado",
+        description:
+            "Puedes guiarte a partir de esto, pero intenta entenderlo.",
+        closeText: "Cerrar",
+    };
+
+    const toggleCopy = () => {
+        setOpenCopy(!openCopy);
+    };
+
     const columns = [
-        { id: "time", label: "Enviado", minWidth: 140, align: "left" },
-        { id: "status", label: "Estado", minWidth: 120, align: "left" },
-        { id: "language", label: "Lenguaje", minWidth: 120, align: "left" },
+        { field: "date", headerName: "Enviado", minWidth: 140, align: "left" },
+        { field: "status", headerName: "Estado", minWidth: 120, align: "left" },
+        { field: "language", headerName: "Lenguaje", minWidth: 120, align: "left" },
     ];
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [openCopy, setOpenCopy] = React.useState(false);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -44,7 +58,6 @@ export default function Todito({
     };
 
     const rows = data;
-    var caso = false;
 
     const getTodito = () => {
         switch (type.toLowerCase()) {
@@ -75,9 +88,9 @@ export default function Todito({
                             <p className={classes.description}>{description}</p>
                             <Box className={classes.containerButton}>
                                 <CopyToClipboard text={solution}>
-                                    <button className={classes.buttonTodito}>
-                                        Copy
-                                    </button>
+                                    <Button className={classes.buttonTodito} onClick={toggleCopy}>
+                                        Copiar
+                                    </Button>
                                 </CopyToClipboard>
                             </Box>
                             <Box className={classes.codeEditor}>
@@ -87,6 +100,15 @@ export default function Todito({
                                     value={solution}
                                 />
                             </Box>
+                            <Modal
+                                title={msgCopy.title}
+                                description={msgCopy.description}
+                                functionText={msgCopy.functionText}
+                                closeText={msgCopy.closeText}
+                                toggleModal={toggleCopy}
+                                open={openCopy}
+                                singleButton={true}
+                            />
                         </Box>
                     </Box>
                 );
@@ -123,14 +145,14 @@ export default function Todito({
                                             <TableRow>
                                                 {columns.map((column) => (
                                                     <TableCell
-                                                        key={column.id}
+                                                        key={column.field}
                                                         align={column.align}
                                                         style={{
                                                             minWidth:
                                                                 column.minWidth,
                                                         }}
                                                     >
-                                                        {column.label}
+                                                        {column.headerName}
                                                     </TableCell>
                                                 ))}
                                             </TableRow>
@@ -148,20 +170,18 @@ export default function Todito({
                                                             hover
                                                             role="checkbox"
                                                             tabIndex={-1}
-                                                            key={row.code}
+                                                            key={row['id']}
                                                         >
                                                             {columns.map(
                                                                 (column) => {
                                                                     const value =
                                                                         row[
                                                                             column
-                                                                                .id
+                                                                                .field
                                                                         ];
                                                                     return (
                                                                         <TableCell
-                                                                            key={
-                                                                                column.id
-                                                                            }
+                                                                            key={column.field + row['id']}
                                                                             align={
                                                                                 column.align
                                                                             }
@@ -184,7 +204,7 @@ export default function Todito({
                                     </Table>
                                 </TableContainer>
                                 <TablePagination
-                                    rowsPerPageOptions={[10, 25, 100]}
+                                    rowsPerPageOptions={[5, 10, 25, 50]}
                                     component="div"
                                     count={rows.length}
                                     rowsPerPage={rowsPerPage}
@@ -285,6 +305,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         marginRight: "1%",
         marginBottom: "1%",
+        textTransform: 'none',
 
         width: "10%",
         height: "10%",
@@ -303,15 +324,15 @@ const useStyles = makeStyles((theme) => ({
             cursor: "pointer",
         },
         [theme.breakpoints.down('sm')]: {
-            width: "20%",
+            width: "24%",
             height: "10%",
         },
         [theme.breakpoints.down('xs')]: {
-            width: "20%",
+            width: "28%",
             height: "10%",
         },
         [theme.breakpoints.down('md')]: {
-            width: "20%",
+            width: "28%",
             height: "10%",
         },
     },

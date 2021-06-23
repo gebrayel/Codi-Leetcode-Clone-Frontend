@@ -55,7 +55,11 @@ export default function CustomInput({ input, output, expected, isLoading }) {
     );
   };
   const showLoader = () => {
-    return <CubeLoader />;
+    return (
+      <div className={classes.cubeBox}>
+        <CubeLoader className={classes.cube} />
+      </div>
+    );
   };
   return (
     <div className={classes.consoleBlock}>
@@ -99,6 +103,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1rem",
     margin: 0,
   },
+  cubeBox: {
+    width: "100%",
+    height: "9rem",
+    display: "flex",
+    justifyContent: "center",
+    "& .makeStyles-container-88": {
+      paddingTop: 0,
+    },
+  },
+  cube: {},
   rowSpace: {
     overflowY: "auto",
     scrollBehavior: "smooth",

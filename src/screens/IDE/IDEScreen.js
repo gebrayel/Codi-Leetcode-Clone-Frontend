@@ -86,9 +86,10 @@ export default function IDEScreen({ x, ...props }) {
       problemId: problemId,
     };
 
-    //Loading consola
+    setConsoleLoading(true);
+
     const results = await ideAPI.tryCode(codeInfo);
-    //Loading consola
+    setConsoleLoading(false);
 
     if (results.status === 200) {
       const run = results.data;

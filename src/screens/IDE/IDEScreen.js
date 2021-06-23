@@ -270,7 +270,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: "#282A36",
     width: "99.9vw",
-    height: "91vh",
+    height: "90vh",
     marginTop: "54px",
     justifyContent: "center",
     display: "flex",
@@ -278,7 +278,7 @@ const useStyles = makeStyles((theme) => ({
   box: {
     backgroundColor: "#282A36",
     width: "50%",
-    height: "91vh",
+    height: "90vh",
     [theme.breakpoints.down("sm")]: {
       width: "99.8%",
     },

@@ -98,6 +98,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     paddingLeft: ".5rem",
     fontSize: "1rem",
+    margin: 0,
   },
 
   tag: {
@@ -114,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   },
   consoleBlock: {
     marginTop: ".4rem",
-    maxWidth: "100%",
+    maxWidth: "98%",
   },
   title: {
     color: colors.white,
@@ -127,11 +128,12 @@ const useStyles = makeStyles((theme) => ({
   right: {
     display: "flex",
     width: "95%",
-    paddingRight: "1rem",
-    paddingLeft: "2rem",
+    // paddingRight: "1rem",
+    // paddingLeft: "2rem",
   },
   left: {
     display: "flex",
     width: "5rem",
+    marginRight: "1rem",
   },
 }));

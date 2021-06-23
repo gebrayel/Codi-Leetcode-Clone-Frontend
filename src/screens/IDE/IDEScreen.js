@@ -28,22 +28,22 @@ import CubeLoader from "../../components/CubeLoader/CubeLoader";
 import Modal from "../../components/Modal/Modal";
 
 export default function IDEScreen({ x, ...props }) {
-  const query = useQuery();
-  const problemId = query.get("problemId");
-  const classes = useStyles(props);
-  const [value, setValue] = useState(0);
-  const [lenguaje, setLenguaje] = useState("");
-  const [codeLanguage, setCodeLanguage] = useState("");
-  const [code, setCode] = useState("");
-  const [color, setColor] = useState("white");
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
-  const [consoleLoading, setConsoleLoading] = useState(false);
-  const [sendLoading, setSendLoading] = useState(false);
-  const [expected, setExpected] = useState("");
-  const [readOnly, setReadOnly] = useState(true);
-  const [disabledSolution, setDisabledSolution] = useState(false);
-  const [disabledButtons, setDisabledButtons] = useState(true);
+    const query = useQuery();
+    const problemId = query.get("problemId");
+    const classes = useStyles(props);
+    const [value, setValue] = useState(0);
+    const [lenguaje, setLenguaje] = useState("");
+    const [codeLanguage, setCodeLanguage] = useState("");
+    const [code, setCode] = useState("");
+    const [color, setColor] = useState("white");
+    const [input, setInput] = useState("");
+    const [output, setOutput] = useState("");
+    const [consoleLoading, setConsoleLoading] = useState(false);
+    const [sendLoading, setSendLoading] = useState(false);
+    const [expected, setExpected] = useState("");
+    const [readOnly, setReadOnly] = useState(true);
+    const [disabledSolution, setDisabledSolution] = useState(false);
+    const [disabledButtons, setDisabledButtons] = useState(true);
 
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
@@ -134,12 +134,26 @@ export default function IDEScreen({ x, ...props }) {
             : codeHelper.changeTemplate(lenguaje, templates, setCode);
     };
 
-    const run = () => {
+    const runCode = async () => {
+        const codeInfo = {
+            code: code,
+            lang: lenguaje,
+            problemId: problemId,
+        };
+
         setConsoleLoading(true);
-        setInput("[1, 2, 3, 4, 5]");
-        setOutput("true");
-        setExpected("true");
+
+        const results = await ideAPI.tryCode(codeInfo);
         setConsoleLoading(false);
+
+        if (results.status === 200) {
+            const run = results.data;
+            setInput(run.input);
+            setOutput(run.output);
+            setExpected(run.expectedOutput);
+        } else {
+            //Modal con mensaje de error
+        }
     };
 
     const sendCode = async () => {
@@ -160,9 +174,9 @@ export default function IDEScreen({ x, ...props }) {
         if (results.status === 201) {
             const submission = results.data;
             setSubmissions([submission, ...submissions]);
-            if(submission.status == "Aprobado"){
+            if (submission.status == "Aprobado") {
                 toggleAprobado();
-            }else{
+            } else {
                 toggleDesaprobado();
             }
         }
@@ -222,176 +236,176 @@ export default function IDEScreen({ x, ...props }) {
 
     return (
         <>
-        <Grid container className={classes.container}>
-            {isLoading ? (
-                <CubeLoader />
-            ) : (
-                <>
-                    <Box className={classes.box}>
-                        <AppBar position="static" className={classes.container2}>
-                            <Tabs
-                                value={value}
-                                onChange={handleTabs}
-                                aria-label=""
-                                variant="scrollable"
-                                scrollButtons="auto"
-                            >
-                                <Tab label="Descripción" icon={<LineStyleIcon />} />
-                                <Tab
-                                    label="Solución"
-                                    icon={<HighlightIcon />}
-                                    disabled={disabledSolution}
-                                />
-                                <Tab label="Intentos" icon={<AccessTimeIcon />} />
-                            </Tabs>
-                        </AppBar>
-                        <TabPanel value={value} index={0}>
-                            <Todito
-                                type="description"
-                                id={problemId}
-                                title={title}
-                                difficulty={difficulty}
-                                colorDifficulty={color}
-                                description={description}
-                            />
-                        </TabPanel>
-                        <TabPanel value={value} index={1}>
-                            {!disabledSolution && (
-                                <Todito
-                                    type="solution"
-                                    id={problemId}
-                                    title={title}
-                                    solution={solutionCode}
-                                    description={solutionText}
-                                />
-                            )}
-                        </TabPanel>
-                        <TabPanel value={value} index={2}>
-                            {sendLoading ? (
-                                <Box className={classes.containerCube}>
-                                    <CubeLoader className={classes.cube}/>
-                                </Box>
-                            ) : (
-                                <Todito
-                                    type="submissions"
-                                    id={problemId}
-                                    title={title}
-                                    data={submissions}
-                                />
-                            )}
-                        </TabPanel>
-                    </Box>
-                    <Box className={classes.box}>
-                        <Box className={classes.box4}>
-                            <FormControl variant="outlined" className={classes.formControl}>
-                                <InputLabel htmlFor="outlined-lenguaje-simple">
-                                    Lenguaje
-                                </InputLabel>
-                                <Select
-                                    native
-                                    value={lenguaje}
-                                    onChange={(e) => select(e)}
-                                    label="Lenguaje"
-                                    inputProps={{
-                                        name: "Lenguaje",
-                                        id: "outlined-lenguaje-simple",
-                                    }}
+            <Grid container className={classes.container}>
+                {isLoading ? (
+                    <CubeLoader />
+                ) : (
+                    <>
+                        <Box className={classes.box}>
+                            <AppBar position="static" className={classes.container2}>
+                                <Tabs
+                                    value={value}
+                                    onChange={handleTabs}
+                                    aria-label=""
+                                    variant="scrollable"
+                                    scrollButtons="auto"
                                 >
-                                    <option aria-label="None" value={""} />
-                                    <option value={"Java"}>Java</option>
-                                    <option value={"Python"}>Python</option>
-                                </Select>
-                            </FormControl>
-                            <IconButton
-                                aria-label="reload"
-                                className={classes.reload}
-                                onClick={toggleRefresh}
-                            >
-                                <CachedIcon fontSize="large" />
-                            </IconButton>
+                                    <Tab label="Descripción" icon={<LineStyleIcon />} />
+                                    <Tab
+                                        label="Solución"
+                                        icon={<HighlightIcon />}
+                                        disabled={disabledSolution}
+                                    />
+                                    <Tab label="Intentos" icon={<AccessTimeIcon />} />
+                                </Tabs>
+                            </AppBar>
+                            <TabPanel value={value} index={0}>
+                                <Todito
+                                    type="description"
+                                    id={problemId}
+                                    title={title}
+                                    difficulty={difficulty}
+                                    colorDifficulty={color}
+                                    description={description}
+                                />
+                            </TabPanel>
+                            <TabPanel value={value} index={1}>
+                                {!disabledSolution && (
+                                    <Todito
+                                        type="solution"
+                                        id={problemId}
+                                        title={title}
+                                        solution={solutionCode}
+                                        description={solutionText}
+                                    />
+                                )}
+                            </TabPanel>
+                            <TabPanel value={value} index={2}>
+                                {sendLoading ? (
+                                    <Box className={classes.containerCube}>
+                                        <CubeLoader className={classes.cube} />
+                                    </Box>
+                                ) : (
+                                    <Todito
+                                        type="submissions"
+                                        id={problemId}
+                                        title={title}
+                                        data={submissions}
+                                    />
+                                )}
+                            </TabPanel>
                         </Box>
-                        <Box className={classes.codeEditor}>
-                            <CodeEditor
-                                readOnly={readOnly}
-                                language={codeLanguage}
-                                value={code}
-                                onChange={setCode}
-                                className={classes.codeEditor2}
-                            />
+                        <Box className={classes.box}>
+                            <Box className={classes.box4}>
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel htmlFor="outlined-lenguaje-simple">
+                                        Lenguaje
+                                    </InputLabel>
+                                    <Select
+                                        native
+                                        value={lenguaje}
+                                        onChange={(e) => select(e)}
+                                        label="Lenguaje"
+                                        inputProps={{
+                                            name: "Lenguaje",
+                                            id: "outlined-lenguaje-simple",
+                                        }}
+                                    >
+                                        <option aria-label="None" value={""} />
+                                        <option value={"Java"}>Java</option>
+                                        <option value={"Python"}>Python</option>
+                                    </Select>
+                                </FormControl>
+                                <IconButton
+                                    aria-label="reload"
+                                    className={classes.reload}
+                                    onClick={toggleRefresh}
+                                >
+                                    <CachedIcon fontSize="large" />
+                                </IconButton>
+                            </Box>
+                            <Box className={classes.codeEditor}>
+                                <CodeEditor
+                                    readOnly={readOnly}
+                                    language={codeLanguage}
+                                    value={code}
+                                    onChange={setCode}
+                                    className={classes.codeEditor2}
+                                />
+                            </Box>
+                            <Box>
+                                <CodeConsole
+                                    input={input}
+                                    output={output}
+                                    isLoading={consoleLoading}
+                                    expected={expected}
+                                />
+                            </Box>
+                            <Box className={classes.buttons}>
+                                <Button
+                                    size="small"
+                                    className={classes.run}
+                                    onClick={runCode}
+                                    startIcon={<PlayCircleFilledIcon />}
+                                    variant="outlined"
+                                    disabled={disabledButtons}
+                                >
+                                    Ejecutar
+                                </Button>
+                                <Button
+                                    size="small"
+                                    className={classes.send}
+                                    onClick={sendCode}
+                                    variant="outlined"
+                                    disabled={disabledButtons}
+                                >
+                                    Enviar
+                                </Button>
+                            </Box>
                         </Box>
-                        <Box>
-                            <CodeConsole
-                                input={input}
-                                output={output}
-                                isLoading={consoleLoading}
-                                expected={expected}
-                            />
-                        </Box>
-                        <Box className={classes.buttons}>
-                            <Button
-                                size="small"
-                                className={classes.run}
-                                onClick={run}
-                                startIcon={<PlayCircleFilledIcon />}
-                                variant="outlined"
-                                disabled={disabledButtons}
-                            >
-                                Ejecutar
-                            </Button>
-                            <Button
-                                size="small"
-                                className={classes.send}
-                                onClick={sendCode}
-                                variant="outlined"
-                                disabled={disabledButtons}
-                            >
-                                Enviar
-                            </Button>
-                        </Box>
-                    </Box>
-                </>
-            )}
-        </Grid>
-        <Modal
-            title={msgRefresh.title}
-            description={msgRefresh.description}
-            functionText={msgRefresh.functionText}
-            closeText={msgRefresh.closeText}
-            passedFunction={reload}
-            toggleModal={toggleRefresh}
-            open={openRefresh}
-            singleButton={false}
-        />
+                    </>
+                )}
+            </Grid>
+            <Modal
+                title={msgRefresh.title}
+                description={msgRefresh.description}
+                functionText={msgRefresh.functionText}
+                closeText={msgRefresh.closeText}
+                passedFunction={reload}
+                toggleModal={toggleRefresh}
+                open={openRefresh}
+                singleButton={false}
+            />
 
-        <Modal
-            title={msgError.title}
-            description={msgError.description}
-            functionText={msgError.functionText}
-            closeText={msgError.closeText}
-            toggleModal={toggleError}
-            open={openError}
-            singleButton={true}
-        />
+            <Modal
+                title={msgError.title}
+                description={msgError.description}
+                functionText={msgError.functionText}
+                closeText={msgError.closeText}
+                toggleModal={toggleError}
+                open={openError}
+                singleButton={true}
+            />
 
-        <Modal
-            title={msgAprobado.title}
-            description={msgAprobado.description}
-            functionText={msgAprobado.functionText}
-            closeText={msgAprobado.closeText}
-            toggleModal={toggleAprobado}
-            open={openAprobado}
-            singleButton={true}
-        />
+            <Modal
+                title={msgAprobado.title}
+                description={msgAprobado.description}
+                functionText={msgAprobado.functionText}
+                closeText={msgAprobado.closeText}
+                toggleModal={toggleAprobado}
+                open={openAprobado}
+                singleButton={true}
+            />
 
-        <Modal
-            title={msgDesaprobado.title}
-            description={msgDesaprobado.description}
-            functionText={msgDesaprobado.functionText}
-            closeText={msgDesaprobado.closeText}
-            toggleModal={toggleDesaprobado}
-            open={openDesaprobado}
-            singleButton={true}
-        />
+            <Modal
+                title={msgDesaprobado.title}
+                description={msgDesaprobado.description}
+                functionText={msgDesaprobado.functionText}
+                closeText={msgDesaprobado.closeText}
+                toggleModal={toggleDesaprobado}
+                open={openDesaprobado}
+                singleButton={true}
+            />
         </>
     );
 }
@@ -538,7 +552,7 @@ const useStyles = makeStyles((theme) => ({
             cursor: "pointer",
         },
     },
-    containerCube:{
+    containerCube: {
         display: 'flex',
         justifyContent: 'center'
     },

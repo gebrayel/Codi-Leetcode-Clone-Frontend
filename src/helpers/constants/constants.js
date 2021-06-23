@@ -60,7 +60,7 @@ const k = {
   msgDesaprobado: {
     title: "Awww 😭",
     description:
-        "Tu código no pasó todas las purbeas. No te preocupes, lo harás mejor la proxima 💪🏻",
+        "Tu código no pasó todas las pruebas. No te preocupes, lo harás mejor la proxima 💪🏻",
     functionText: "Recargar",
     closeText: "Cerrar",
   }

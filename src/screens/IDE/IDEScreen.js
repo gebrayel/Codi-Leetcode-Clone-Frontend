@@ -449,10 +449,12 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
-  setEnd: {
-    position: "absolute",
-    bottom: "1rem",
-    right: 0,
-    width: "inherit",
-  },
+  // estilo de position absolute
+
+  // setEnd: {
+  //   position: "absolute",
+  //   bottom: "1rem",
+  //   right: 0,
+  //   width: "inherit",
+  // },
 }));

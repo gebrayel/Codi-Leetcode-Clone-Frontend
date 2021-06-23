@@ -25,28 +25,30 @@ export default function CustomInput({ input, output, expected, isLoading }) {
         >
           {output == expected ? "Aceptado" : "Rechazado"}
         </h3>
-        <div className={classes.row}>
-          <div className={classes.left}>
-            <div className={classes.title}>Input</div>
+        <div className={classes.rowSpace}>
+          <div className={classes.row}>
+            <div className={classes.left}>
+              <div className={classes.title}>Input</div>
+            </div>
+            <div className={classes.right}>
+              <div className={classes.space}>{input}</div>
+            </div>
           </div>
-          <div className={classes.right}>
-            <div className={classes.space}>{input}</div>
+          <div className={classes.row}>
+            <div className={classes.left}>
+              <div className={classes.title}>Output</div>
+            </div>
+            <div className={classes.right}>
+              <div className={classes.space}>{output}</div>
+            </div>
           </div>
-        </div>
-        <div className={classes.row}>
-          <div className={classes.left}>
-            <div className={classes.title}>Output</div>
-          </div>
-          <div className={classes.right}>
-            <div className={classes.space}>{output}</div>
-          </div>
-        </div>
-        <div className={classes.row}>
-          <div className={classes.left}>
-            <div className={classes.title}>Esperado</div>
-          </div>
-          <div className={classes.right}>
-            <div className={classes.space}>{expected}</div>
+          <div className={classes.row}>
+            <div className={classes.left}>
+              <div className={classes.title}>Esperado</div>
+            </div>
+            <div className={classes.right}>
+              <div className={classes.space}>{expected}</div>
+            </div>
           </div>
         </div>
       </>
@@ -76,15 +78,12 @@ const useStyles = makeStyles((theme) => ({
   },
   block: {
     backgroundColor: "#1B1D2B",
-    // clipPath: "polygon(0 0, 25% 0, 25% 20%, 100% 20%, 100% 100%, 0 100%)",
-    minHeight: "9rem",
+    height: "9rem",
     paddingBottom: ".3rem",
   },
   row: {
     display: "flex",
-    // justifyContent: "space-around",
     width: "100%",
-    paddingLeft: ".5rem",
     marginBottom: ".7rem",
   },
   space: {
@@ -92,18 +91,22 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#9B9B9B",
     fontWeight: "normal",
     width: "95%",
-    wordWrap: "break-word",
-    height: "1.6rem",
+    wordBreak: "break-word",
+    minHeight: "1.6rem",
     display: "flex",
     alignItems: "center",
     paddingLeft: ".5rem",
     fontSize: "1rem",
     margin: 0,
+    // overflowWrap: "break-word",
+  },
+  rowSpace: {
+    overflow: "auto",
+    maxHeight: "7rem",
   },
 
   tag: {
     width: "5rem",
-
     backgroundColor: "#1B1D2B",
     textAlign: "center",
     color: colors.white,
@@ -120,7 +123,6 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: colors.white,
     fontWeight: "normal",
-    // marginRight: "2rem",
     display: "flex",
     alignItems: "center",
     fontSize: "1rem",
@@ -128,12 +130,11 @@ const useStyles = makeStyles((theme) => ({
   right: {
     display: "flex",
     width: "95%",
-    // paddingRight: "1rem",
-    // paddingLeft: "2rem",
   },
   left: {
     display: "flex",
     width: "5rem",
     marginRight: "1rem",
+    paddingLeft: ".5rem",
   },
 }));

@@ -41,6 +41,7 @@ export default function IDEScreen({ x, ...props }) {
     const [expected, setExpected] = useState("");
     const [readOnly, setReadOnly] = useState(true);
     const [disabledSolution, setDisabledSolution] = React.useState(false);
+    const [disabledButtons, setDisabledButtons] = React.useState(true);
 
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
@@ -63,8 +64,10 @@ export default function IDEScreen({ x, ...props }) {
         setCodeLanguage(k.codeLanguages[lang]);
         if (lang == "Java" || lang == "Python") {
             setReadOnly(false);
+            setDisabledButtons(false);
         } else {
             setReadOnly(true);
+            setDisabledButtons(true);
 
         }
     };
@@ -260,6 +263,7 @@ export default function IDEScreen({ x, ...props }) {
                                 onClick={run}
                                 startIcon={<PlayCircleFilledIcon />}
                                 variant="outlined"
+                                disabled={disabledButtons}
                             >
                                 Ejecutar
                             </Button>
@@ -268,6 +272,7 @@ export default function IDEScreen({ x, ...props }) {
                                 className={classes.send}
                                 onClick={sendCode}
                                 variant="outlined"
+                                disabled={disabledButtons}
                             >
                                 Enviar
                             </Button>

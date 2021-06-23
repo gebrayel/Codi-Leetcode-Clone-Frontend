@@ -84,8 +84,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#1B1D2B",
     height: "9rem",
     paddingBottom: ".3rem",
-    display: "flex",
-    alignItems: "center",
   },
   row: {
     display: "flex",
@@ -108,9 +106,10 @@ const useStyles = makeStyles((theme) => ({
   cubeBox: {
     width: "100%",
     height: "100%",
+    pddingTop: "1rem",
     display: "flex",
     justifyContent: "center",
-    "& .makeStyles-container-88": {
+    "& .makeStyles-container-90": {
       paddingTop: 0,
       width: "10rem",
       height: "9rem",

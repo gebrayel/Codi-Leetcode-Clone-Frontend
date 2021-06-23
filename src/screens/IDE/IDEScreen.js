@@ -38,6 +38,7 @@ export default function IDEScreen({ x, ...props }) {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const [consoleLoading, setConsoleLoading] = useState(false);
+    const [sendLoading, setSendLoading] = useState(false);
     const [expected, setExpected] = useState("");
     const [readOnly, setReadOnly] = useState(true);
     const [disabledSolution, setDisabledSolution] = React.useState(false);
@@ -89,6 +90,7 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     const sendCode = async () => {
+        setSendLoading(true);
         const codeInfo = {
             code: code,
             lang: lenguaje,
@@ -103,6 +105,8 @@ export default function IDEScreen({ x, ...props }) {
         if (results.status === 201) {
             const submission = results.data;
             setSubmissions([submission, ...submissions]);
+            setValue(2);
+            setSendLoading(false);
         }
         else {
             //Modal con mensaje de error
@@ -202,12 +206,16 @@ export default function IDEScreen({ x, ...props }) {
                             )}
                         </TabPanel>
                         <TabPanel value={value} index={2}>
-                            <Todito
-                                type="submissions"
-                                id={problemId}
-                                title={title}
-                                data={submissions}
-                            />
+                            {sendLoading ? (
+                                <RobotLoader />
+                            ) : (
+                                <Todito
+                                    type="submissions"
+                                    id={problemId}
+                                    title={title}
+                                    data={submissions}
+                                />
+                            )}
                         </TabPanel>
                     </Box>
                     <Box className={classes.box}>

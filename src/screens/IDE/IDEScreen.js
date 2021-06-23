@@ -1,36 +1,36 @@
 import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid } from "@material-ui/core";
-import Todito from "../../components/Tabs/Tabs";
-import colors from "../../config/colors/colors";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
-import LineStyleIcon from "@material-ui/icons/LineStyle";
-import HighlightIcon from "@material-ui/icons/Highlight";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import CodeEditor from "../../components/CodeEditor/CodeEditor";
-import CodeConsole from "../../components/CodeConsole/CodeConsole";
-import CachedIcon from "@material-ui/icons/Cached";
-import IconButton from "@material-ui/core/IconButton";
+import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
+import CachedIcon from "@material-ui/icons/Cached";
+import CodeConsole from "../../components/CodeConsole/CodeConsole";
+import CodeEditor from "../../components/CodeEditor/CodeEditor";
+import FormControl from "@material-ui/core/FormControl";
+import HighlightIcon from "@material-ui/icons/Highlight";
+import IconButton from "@material-ui/core/IconButton";
+import InputLabel from "@material-ui/core/InputLabel";
+import LineStyleIcon from "@material-ui/icons/LineStyle";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
+import Select from "@material-ui/core/Select";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
 
-import ideAPI from "../../api/ide/ide";
-import useQuery from "../../hooks/useQuery/useQuery";
-import Context from "../../helpers/context/context";
-import k from "../../helpers/constants/constants";
 import codeHelper from "../../helpers/code/code";
+import Context from "../../helpers/context/context";
 import CubeLoader from "../../components/CubeLoader/CubeLoader";
+import ideAPI from "../../api/ide/ide";
+import k from "../../helpers/constants/constants";
 import Modal from "../../components/Modal/Modal";
+import Todito from "../../components/Tabs/Tabs";
+import useQuery from "../../hooks/useQuery/useQuery";
 
 export default function IDEScreen({ x, ...props }) {
     const query = useQuery();
     const problemId = query.get("problemId");
     const classes = useStyles(props);
+    
     const [value, setValue] = useState(0);
     const [lenguaje, setLenguaje] = useState("");
     const [codeLanguage, setCodeLanguage] = useState("");
@@ -52,6 +52,7 @@ export default function IDEScreen({ x, ...props }) {
     const [solutionCode, setSolutionCode] = useState("");
     const [submissions, setSubmissions] = useState([]);
     const [templates, setTemplates] = useState([]);
+
     const [openRefresh, setOpenRefresh] = useState(false);
     const [openError, setOpenError] = useState(false);
     const [openDesaprobado, setOpenDesaprobado] = useState(false);
@@ -59,38 +60,7 @@ export default function IDEScreen({ x, ...props }) {
 
     const { isLoading, setIsLoading } = useContext(Context);
     const user = JSON.parse(localStorage.getItem("user"));
-
-    const msgRefresh = {
-        title: "Cuidado",
-        description:
-            "¿Seguro quieres refrescar? Perderas tu codigo actual.",
-        functionText: "Refrescar",
-        closeText: "Cerrar",
-    };
-
-    const msgError = {
-        title: "Error de conexion",
-        description:
-            "Por favor, intentelo de nuevo.",
-        functionText: "Recargar",
-        closeText: "Cerrar",
-    };
-
-    const msgAprobado = {
-        title: "Yeiiii",
-        description:
-            "Felicidades, tu codigo es buenisimoo.",
-        functionText: "Recargar",
-        closeText: "Cerrar",
-    };
-
-    const msgDesaprobado = {
-        title: "Awww :c",
-        description:
-            "No te preocupes, lo haras mejor la proxima.",
-        functionText: "Recargar",
-        closeText: "Cerrar",
-    };
+    const { msgRefresh, msgError, msgAprobado, msgDesaprobado } = k;
 
     const toggleRefresh = () => {
         setOpenRefresh(!openRefresh);
@@ -152,7 +122,7 @@ export default function IDEScreen({ x, ...props }) {
             setOutput(run.output);
             setExpected(run.expectedOutput);
         } else {
-            //Modal con mensaje de error
+            toggleError();
         }
     };
 
@@ -174,14 +144,13 @@ export default function IDEScreen({ x, ...props }) {
         if (results.status === 201) {
             const submission = results.data;
             setSubmissions([submission, ...submissions]);
-            if (submission.status == "Aprobado") {
+            if (submission.status === "Aprobado") {
                 toggleAprobado();
             } else {
                 toggleDesaprobado();
             }
         }
         else {
-            //Modal con mensaje de error
             toggleError();
         }
     }
@@ -197,7 +166,6 @@ export default function IDEScreen({ x, ...props }) {
             if (response.status === 200) {
                 initializeValues(response.data);
             } else {
-                //Modal de error
                 toggleError();
             }
         };

@@ -93,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
     },
     whiteTheme: {
         color: "white",
+        whiteSpace: "pre-line",
     },
 }));
 

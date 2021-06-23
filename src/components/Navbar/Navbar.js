@@ -200,14 +200,12 @@ export default function Navbar() {
     };
 
     const msg = {
-        variant: "",
-        color: "secondary",
-        text: "Cerrar Sesion",
         title: "<Codi/>",
         description: "¿Estás seguro seguro de que deseas cerrar sesión?",
-        acceptText: "Volver a Codi",
-        cancelText: "Cerrar sesión",
+        closeText: "Cancelar",
+        functionText: "Cerrar sesión",
     };
+
     const displayDesktop = () => {
         return (
             <Toolbar className={classes.toolbar}>
@@ -308,10 +306,9 @@ export default function Navbar() {
                             <Modal
                                 title={msg.title}
                                 description={msg.description}
-                                acceptText={msg.acceptText}
-                                cancelText={msg.cancelText}
-                                passedRedFunction={handleCloseLogOut}
-                                passedBlueFunction={toggleModal}
+                                functionText={msg.functionText}
+                                closeText={msg.closeText}
+                                passedFunction={handleCloseLogOut}
                                 toggleModal={toggleModal}
                                 open={openModal}
                                 singleButton={false}

@@ -10,10 +10,9 @@ import { makeStyles } from "@material-ui/core/styles";
 const Modal = ({
     title,
     description,
-    acceptText,
-    cancelText,
-    passedRedFunction,
-    passedBlueFunction,
+    closeText,
+    functionText,
+    passedFunction,
     toggleModal,
     open,
     singleButton,
@@ -49,18 +48,23 @@ const Modal = ({
                     <DialogActions>
                         {!singleButton ? (
                             <Button
-                                onClick={() => {
-                                    toggleModal();
-                                    passedRedFunction();
-                                }}
+                                onClick={toggleModal}
                                 color="secondary"
                                 autoFocus
                             >
-                                {cancelText}
+                                {closeText}
                             </Button>
                         ) : null}
-                        <Button onClick={passedBlueFunction} color="primary">
-                            {acceptText}
+                        <Button
+                            onClick={() => {
+                                if (!singleButton) {
+                                    passedFunction();
+                                }
+                                toggleModal();
+                            }}
+                            color="primary"
+                        >
+                            {singleButton ? closeText : functionText}
                         </Button>
                     </DialogActions>
                 </div>

@@ -129,35 +129,24 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
     };
 
     const msgError = {
-        variant: "",
-        color: "secondary",
-        text: "Campos inválidos",
         title: "Campos inválidos",
         description:
             "Revise y rellene cuidadosamente los campos del formulario",
-        acceptText: "Cerrar",
-        cancelText: "Cerrar",
+        closeText: "Cerrar",
     };
 
     const msgContiue = {
-        variant: "",
-        color: "secondary",
-        text: "Confirmación de pago",
         title: "Confirmación de pago",
         description: "¿Esta seguro que quiere realizar el pago?",
-        acceptText: "Confirmar",
-        cancelText: "Cancelar",
+        closeText: "Cancelar",
+        functionText: "Confirmar",
     };
 
     const msgErrorAPI = {
-        variant: "",
-        color: "secondary",
-        text: "Error al pagar",
         title: "Error al pagar",
         description:
             "Ocurrió un error al realizar el pago, revise los campos o inténtelo más tarde",
-        acceptText: "Cerrar",
-        cancelText: "Cerrar",
+        closeText: "Cerrar",
     };
 
     const body = (
@@ -249,9 +238,8 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             <AlertModal
                 title={msgError.title}
                 description={msgError.description}
-                acceptText={msgError.acceptText}
-                cancelText={msgError.cancelText}
-                passedBlueFunction={toggleModalError}
+                functionText={msgError.functionText}
+                closeText={msgError.closeText}
                 toggleModal={toggleModalError}
                 open={openModalError}
                 singleButton={true}
@@ -259,10 +247,9 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             <AlertModal
                 title={msgContiue.title}
                 description={msgContiue.description}
-                acceptText={msgContiue.acceptText}
-                cancelText={msgContiue.cancelText}
-                passedRedFunction={toggleModalConfirm}
-                passedBlueFunction={redirectToSucces}
+                functionText={msgContiue.functionText}
+                closeText={msgContiue.closeText}
+                passedFunction={redirectToSucces}
                 toggleModal={toggleModalConfirm}
                 open={openModalConfirm}
                 singleButton={false}
@@ -270,11 +257,9 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             <AlertModal
                 title={msgErrorAPI.title}
                 description={msgErrorAPI.description}
-                acceptText={msgErrorAPI.acceptText}
-                cancelText={msgErrorAPI.cancelText}
-                passedBlueFunction={toggleModalApi}
+                functionText={msgErrorAPI.functionText}
+                closeText={msgErrorAPI.closeText}
                 modal={openModalApi}
-                setModal={setOpenModalApi}
                 open={openModalApi}
                 singleButton={true}
             />

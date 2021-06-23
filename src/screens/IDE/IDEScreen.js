@@ -1,30 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid } from "@material-ui/core";
-import Todito from "../../components/Tabs/Tabs";
-import colors from "../../config/colors/colors";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
-import LineStyleIcon from "@material-ui/icons/LineStyle";
-import HighlightIcon from "@material-ui/icons/Highlight";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import CodeEditor from "../../components/CodeEditor/CodeEditor";
-import CodeConsole from "../../components/CodeConsole/CodeConsole";
-import CachedIcon from "@material-ui/icons/Cached";
-import IconButton from "@material-ui/core/IconButton";
+import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
+import CachedIcon from "@material-ui/icons/Cached";
+import CodeConsole from "../../components/CodeConsole/CodeConsole";
+import FormControl from "@material-ui/core/FormControl";
+import HighlightIcon from "@material-ui/icons/Highlight";
+import IconButton from "@material-ui/core/IconButton";
+import InputLabel from "@material-ui/core/InputLabel";
+import LineStyleIcon from "@material-ui/icons/LineStyle";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
+import Select from "@material-ui/core/Select";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
 
-import ideAPI from "../../api/ide/ide";
-import useQuery from "../../hooks/useQuery/useQuery";
+import CodeEditor from "../../components/CodeEditor/CodeEditor";
 import Context from "../../helpers/context/context";
-import k from "../../helpers/constants/constants";
 import codeHelper from "../../helpers/code/code";
 import CubeLoader from "../../components/CubeLoader/CubeLoader";
+import ideAPI from "../../api/ide/ide";
+import k from "../../helpers/constants/constants";
+import Todito from "../../components/Tabs/Tabs";
+import useQuery from "../../hooks/useQuery/useQuery";
 
 export default function IDEScreen({ x, ...props }) {
     const query = useQuery();
@@ -41,8 +40,8 @@ export default function IDEScreen({ x, ...props }) {
     const [sendLoading, setSendLoading] = useState(false);
     const [expected, setExpected] = useState("");
     const [readOnly, setReadOnly] = useState(true);
-    const [disabledSolution, setDisabledSolution] = React.useState(false);
-    const [disabledButtons, setDisabledButtons] = React.useState(true);
+    const [disabledSolution, setDisabledSolution] = useState(false);
+    const [disabledButtons, setDisabledButtons] = useState(true);
 
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
@@ -90,7 +89,7 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     const sendCode = async () => {
-        setSendLoading(true);
+        setValue(2);
         const codeInfo = {
             code: code,
             lang: lenguaje,
@@ -100,13 +99,13 @@ export default function IDEScreen({ x, ...props }) {
             userId: user.google_id
         };
 
+        setSendLoading(true);
         const results = await ideAPI.sendCode(codeInfo, userInfo);
+        setSendLoading(false);
 
         if (results.status === 201) {
             const submission = results.data;
             setSubmissions([submission, ...submissions]);
-            setValue(2);
-            setSendLoading(false);
         }
         else {
             //Modal con mensaje de error
@@ -208,7 +207,7 @@ export default function IDEScreen({ x, ...props }) {
                         <TabPanel value={value} index={2}>
                             {sendLoading ? (
                                 <Box className={classes.containerCube}>
-                                    <CubeLoader className={classes.cube}/>
+                                    <CubeLoader className={classes.cube} />
                                 </Box>
                             ) : (
                                 <Todito
@@ -436,7 +435,7 @@ const useStyles = makeStyles((theme) => ({
             cursor: "pointer",
         },
     },
-    containerCube:{
+    containerCube: {
         display: 'flex',
         justifyContent: 'center'
     },

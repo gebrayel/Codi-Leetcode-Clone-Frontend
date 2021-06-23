@@ -66,16 +66,18 @@ const ProblemsScreen = () => {
             <div className="BoxTitle__ProblemScreen">
               <h1 className="ProblemScreenTitle"> Problemas </h1>
             </div>
-            <div className="buttonBox__ProblemScreen">
-              <Button
-                className={classes.buttonAll}
-                onClick={() => history.push("/problemForm")}
-                variant="contained"
-                color="primary"
-              >
-                /*Crear Problema*/
-              </Button>
-            </div>
+            {user.is_admin ? (
+              <div className="buttonBox__ProblemScreen">
+                <Button
+                  className={classes.buttonAll}
+                  onClick={() => history.push("/problemForm")}
+                  variant="contained"
+                  color="primary"
+                >
+                  /*Crear Problema*/
+                </Button>
+              </div>
+            ) : null}
           </div>
           <div className="ProblemListContainerBox">
             <ProblemList rows={problems} />

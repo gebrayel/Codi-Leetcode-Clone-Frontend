@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -29,7 +30,8 @@ import logout from "../../helpers/logout/logout";
 //Import modal Component
 import { useHistory } from "react-router-dom";
 import Modal from "../Modal/Modal";
-
+//import colors
+import colors from "../../config/colors/colors";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -48,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: "0.2rem",
         },
     },
+    divider: {
+        backgroundColor: colors.white,
+    },
     leftpart: {
         paddingLeft: "0rem",
         display: "flex",
@@ -56,6 +61,10 @@ const useStyles = makeStyles((theme) => ({
         "@media (max-width: 899px)": {
             paddingLeft: "0rem",
         },
+    },
+    menucito: {
+        textDecoration: "none",
+        color: colors.darkText,
     },
     appbarcolor: {
         backgroundColor: "#191A21",
@@ -70,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     },
     DrawerlinkStyle: {
         textDecoration: "none",
-        color: "black",
+        color: colors.white,
     },
     toolbar: {
         paddingTop: "0rem",
@@ -105,6 +114,12 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerContainer: {
         padding: "20px 30px",
+        backgroundColor: "#00000",
+    },
+    drawerTheme: {
+        "& .MuiDrawer-paperAnchorLeft": {
+            backgroundColor: "#191A21",
+        },
     },
     menuButton: {
         fontFamily: "Open Sans, sans-serif",
@@ -118,6 +133,10 @@ const useStyles = makeStyles((theme) => ({
     modal: {
         marginLeft: "-10px",
         paddingLeft: "0px",
+    },
+    MenuItem: {
+        textDecoration: "none",
+        color: "black",
     },
 }));
 
@@ -162,22 +181,17 @@ export default function Navbar() {
         setAnchorEl(null);
     };
     const preventDefault = (event) => event.preventDefault();
-
     const title = "<Codi/>";
-
-    const [openModal, setOpenModal] = React.useState(false);
 
     const { setUser } = useContext(AppContext);
 
+    const [openModal, setOpenModal] = useState(false);
+
+    const toggleModal = () => {
+        setOpenModal(!openModal);
+    };
+
     let history = useHistory();
-
-    const handleClickOpen = () => {
-        setOpenModal(true);
-    };
-
-    const handleClickClose = () => {
-        setOpenModal(false);
-    };
 
     const handleCloseLogOut = (modalTitle) => {
         logout.logOut();
@@ -186,14 +200,12 @@ export default function Navbar() {
     };
 
     const msg = {
-        variant: "",
-        color: "secondary",
-        text: "Cerrar Sesion",
         title: "<Codi/>",
         description: "¿Estás seguro seguro de que deseas cerrar sesión?",
-        acceptText: "Volver a Codi.",
-        cancelText: "Cerrar sesión.",
+        closeText: "Cancelar",
+        functionText: "Cerrar sesión",
     };
+
     const displayDesktop = () => {
         return (
             <Toolbar className={classes.toolbar}>
@@ -256,8 +268,9 @@ export default function Navbar() {
                         }}
                         open={open}
                         onClose={handleClose}
+                        className={classes.menucito}
                     >
-                        <NLink to="/profile" className={classes.DrawerlinkStyle}>
+                        <NLink to="/profile" className={classes.MenuItem}>
                             <MenuItem onClick={handleClose}>Perfil</MenuItem>
                         </NLink>
 
@@ -266,7 +279,10 @@ export default function Navbar() {
                                 to="/hola"
                                 className={classes.DrawerlinkStyle}
                             >
-                                <MenuItem onClick={handleClose}>
+                                <MenuItem
+                                    onClick={handleClose}
+                                    className={classes.MenuItem}
+                                >
                                     Administrar Problemas
                                 </MenuItem>
                             </NLink>
@@ -276,23 +292,25 @@ export default function Navbar() {
                             style={{ padding: "0px" }}
                             onClick={handleClose}
                         >
+                            <Button
+                                onClick={toggleModal}
+                                style={{
+                                    width: "100%",
+                                    paddingLeft: "15px",
+                                    justifyContent: "flex-start",
+                                    color: "red",
+                                }}
+                            >
+                                {"Cerrar sesión"}
+                            </Button>
                             <Modal
-                                modalDesing={"desktop"}
-                                modalTitle={"Cerrar Sesion"}
-                                variant={msg.variant}
-                                color={msg.color}
-                                text={msg.text}
                                 title={msg.title}
                                 description={msg.description}
-                                acceptText={msg.acceptText}
-                                cancelText={msg.cancelText}
-                                passedRedFunction={handleCloseLogOut}
-                                passedBlueFunction={handleClickClose}
-                                handleClickOpen={handleClickOpen}
-                                handleClickClose={handleClickClose}
+                                functionText={msg.functionText}
+                                closeText={msg.closeText}
+                                passedFunction={handleCloseLogOut}
+                                toggleModal={toggleModal}
                                 open={openModal}
-                                setOpen={setOpenModal}
-                                renderButton={true}
                                 singleButton={false}
                             />
                         </MenuItem>
@@ -316,6 +334,7 @@ export default function Navbar() {
                         open: drawerOpen,
                         onClose: handleDrawerClose,
                     }}
+                    className={classes.drawerTheme}
                 >
                     <div className={classes.drawerContainer}>
                         {getDrawerChoices()}
@@ -352,60 +371,71 @@ export default function Navbar() {
         );
     };
     const getDrawerChoices = () => {
+        const handleDrawerClose = () =>
+            setState((prevState) => ({ ...prevState, drawerOpen: false }));
         return (
             <>
                 <List>
-                    <ListItem button key={"Problemas"}>
-                        <ListItemIcon>
-                            <DeveloperModeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Problemas"} />
-                    </ListItem>
-                    <ListItem button key={"Premium"}>
-                        <ListItemIcon>
-                            <CardMembershipIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Premium"} />
-                    </ListItem>
-
-                    {/* Si el user es de tipo Admin, se renderizara la siguiente etiqueta en el navbar*/}
-
-                    {user?.is_admin ? (
-                        <ListItem button key={"Administrar Problemas"}>
-                            <ListItemIcon>
-                                <AppsIcon />
+                    <NLink
+                        to="/difficulties"
+                        {...{ onClick: handleDrawerClose }}
+                        className={classes.DrawerlinkStyle}
+                    >
+                        <ListItem button key={"Problemas"}>
+                            <ListItemIcon className={classes.DrawerlinkStyle}>
+                                <DeveloperModeIcon />
                             </ListItemIcon>
-                            <ListItemText primary={"Administrar Problemas"} />
+                            <ListItemText primary={"Problemas"} />
                         </ListItem>
-                    ) : null}
+                    </NLink>
+                    <NLink
+                        to="/premium"
+                        {...{ onClick: handleDrawerClose }}
+                        className={classes.DrawerlinkStyle}
+                    >
+                        <ListItem button key={"Premium"}>
+                            <ListItemIcon className={classes.DrawerlinkStyle}>
+                                <CardMembershipIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={"Premium"} />
+                        </ListItem>
+                    </NLink>
                 </List>
-                <Divider />
+                <Divider className={classes.divider} />
                 <List>
-                    <ListItem button key={"Perfil"}>
-                        <ListItemIcon>
-                            <PersonIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Perfil"} />
-                    </ListItem>
-
+                    <NLink
+                        to="/profile"
+                        {...{ onClick: handleDrawerClose }}
+                        className={classes.DrawerlinkStyle}
+                    >
+                        <ListItem button key={"Perfil"}>
+                            <ListItemIcon className={classes.DrawerlinkStyle}>
+                                <PersonIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={"Perfil"} />
+                        </ListItem>
+                    </NLink>
                     <div style={{ padding: "0px" }} className={classes.modal}>
+                        <Button
+                            onClick={toggleModal}
+                            style={{
+                                width: "100%",
+                                paddingLeft: "15px",
+                                justifyContent: "flex-start",
+                                color: "red",
+                            }}
+                        >
+                            {"Cerrar sesión"}
+                        </Button>
                         <Modal
-                            modalDesing={"desktop"}
-                            modalTitle={"Cerrar Sesion"}
-                            variant={msg.variant}
-                            color={msg.color}
-                            text={msg.text}
                             title={msg.title}
                             description={msg.description}
                             acceptText={msg.acceptText}
                             cancelText={msg.cancelText}
                             passedRedFunction={handleCloseLogOut}
-                            passedBlueFunction={handleClickClose}
-                            handleClickOpen={handleClickOpen}
-                            handleClickClose={handleClickClose}
+                            passedBlueFunction={toggleModal}
+                            toggleModal={toggleModal}
                             open={openModal}
-                            setOpen={setOpenModal}
-                            renderButton={true}
                             singleButton={false}
                         />
                     </div>

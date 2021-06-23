@@ -150,7 +150,10 @@ const ProblemFormScreen = () => {
                             />
                             <div id="buttonBox">
                                 {activeStep !== 0 ? (
-                                    <div id="BackButton__ProblemFormScreen">
+                                    <div
+                                        id="BackButton__ProblemFormScreen"
+                                        className="backButton"
+                                    >
                                         <Button
                                             color="secondary"
                                             variant="contained"

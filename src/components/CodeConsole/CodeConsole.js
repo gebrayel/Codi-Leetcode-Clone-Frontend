@@ -114,6 +114,16 @@ const useStyles = makeStyles((theme) => ({
       width: "10rem",
       height: "9rem",
     },
+    "& .makeStyles-container-88": {
+      paddingTop: 0,
+      width: "10rem",
+      height: "9rem",
+    },
+    "& .makeStyles-container-93": {
+      paddingTop: 0,
+      width: "10rem",
+      height: "9rem",
+    },
   },
   cube: {},
   rowSpace: {

@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cubeBox: {
     width: "100%",
-    height: "100%",
+    height: "99%",
     display: "flex",
     justifyContent: "center",
     "& .makeStyles-container-88": {

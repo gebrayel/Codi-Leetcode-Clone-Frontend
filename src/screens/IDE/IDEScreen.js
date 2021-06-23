@@ -25,6 +25,7 @@ import Context from "../../helpers/context/context";
 import k from "../../helpers/constants/constants";
 import codeHelper from "../../helpers/code/code";
 import CubeLoader from "../../components/CubeLoader/CubeLoader";
+import Modal from "../../components/Modal/Modal";
 
 export default function IDEScreen({ x, ...props }) {
     const query = useQuery();
@@ -51,9 +52,34 @@ export default function IDEScreen({ x, ...props }) {
     const [solutionCode, setSolutionCode] = useState("");
     const [submissions, setSubmissions] = useState([]);
     const [templates, setTemplates] = useState([]);
+    const [openRefresh, setOpenRefresh] = useState(false);
 
     const { isLoading, setIsLoading } = useContext(Context);
     const user = JSON.parse(localStorage.getItem("user"));
+
+    const msgRefresh = {
+        variant: "",
+        color: "secondary",
+        title: "Cuidado",
+        description:
+            "¿Seguro quieres refrescar? Perderas tu codigo actual.",
+        acceptText: "Refrescar",
+        cancelText: "Cerrar",
+    };
+
+    const msgError = {
+        variant: "",
+        color: "secondary",
+        title: "Error",
+        description:
+            "Por favor, recargue la pagina.",
+        acceptText: "Recargar",
+        cancelText: "Recargar",
+    };
+
+    const toggleRefresh = () => {
+        setOpenRefresh(!openRefresh);
+    };
 
     const handleTabs = (e, val) => {
         setValue(val);
@@ -161,6 +187,7 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     return (
+        <>
         <Grid container className={classes.container}>
             {isLoading ? (
                 <CubeLoader />
@@ -244,7 +271,7 @@ export default function IDEScreen({ x, ...props }) {
                             <IconButton
                                 aria-label="reload"
                                 className={classes.reload}
-                                onClick={reload}
+                                onClick={toggleRefresh}
                             >
                                 <CachedIcon fontSize="large" />
                             </IconButton>
@@ -291,6 +318,34 @@ export default function IDEScreen({ x, ...props }) {
                 </>
             )}
         </Grid>
+        <Modal
+            title={msgRefresh.title}
+            description={msgRefresh.description}
+            acceptText={msgRefresh.acceptText}
+            cancelText={msgRefresh.cancelText}
+            passedBlueFunction={toggleRefresh}
+            modal={openRefresh}
+            setModal={setOpenRefresh}
+            open={openRefresh}
+            singleButton={false}
+            passedRedFunction={reload}
+            toggleModal={toggleRefresh}
+        />
+
+        <Modal
+            title={msgRefresh.title}
+            description={msgRefresh.description}
+            acceptText={msgRefresh.acceptText}
+            cancelText={msgRefresh.cancelText}
+            passedBlueFunction={toggleRefresh}
+            modal={openRefresh}
+            setModal={setOpenRefresh}
+            open={openRefresh}
+            singleButton={true}
+            passedRedFunction={reload}
+            toggleModal={toggleRefresh}
+        />
+        </>
     );
 }
 

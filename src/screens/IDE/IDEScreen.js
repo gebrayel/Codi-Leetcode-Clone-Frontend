@@ -134,13 +134,13 @@ export default function IDEScreen({ x, ...props }) {
             : codeHelper.changeTemplate(lenguaje, templates, setCode);
     };
 
-    const run = () => {
-        setConsoleLoading(true);
-        setInput("[1, 2, 3, 4, 5]");
-        setOutput("true");
-        setExpected("true");
-        setConsoleLoading(false);
-    };
+    const runCode = async () => {
+        const codeInfo = {
+          code: code,
+          lang: lenguaje,
+          problemId: problemId,
+        };
+    }
 
     const sendCode = async () => {
         setValue(2);
@@ -331,7 +331,7 @@ export default function IDEScreen({ x, ...props }) {
                             <Button
                                 size="small"
                                 className={classes.run}
-                                onClick={run}
+                                onClick={runCode}
                                 startIcon={<PlayCircleFilledIcon />}
                                 variant="outlined"
                                 disabled={disabledButtons}

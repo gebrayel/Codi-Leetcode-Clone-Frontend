@@ -242,7 +242,7 @@ export default function IDEScreen({ x, ...props }) {
                         <Box className={classes.codeEditor}>
                             <CodeEditor
                                 readOnly={readOnly}
-                                language="text/x-java"
+                                language={codeLanguage}
                                 value={code}
                                 onChange={setCode}
                                 className={classes.codeEditor2}

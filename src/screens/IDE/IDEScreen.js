@@ -255,35 +255,37 @@ export default function IDEScreen({ x, ...props }) {
                 className={classes.codeEditor2}
               />
             </Box>
-            <Box>
-              <CodeConsole
-                input={input}
-                output={output}
-                isLoading={consoleLoading}
-                expected={expected}
-              />
-            </Box>
-            <Box className={classes.buttons}>
-              <Button
-                size="small"
-                className={classes.run}
-                onClick={run}
-                startIcon={<PlayCircleFilledIcon />}
-                variant="outlined"
-                disabled={disabledButtons}
-              >
-                Ejecutar
-              </Button>
-              <Button
-                size="small"
-                className={classes.send}
-                onClick={sendCode}
-                variant="outlined"
-                disabled={disabledButtons}
-              >
-                Enviar
-              </Button>
-            </Box>
+            <div className={classes.setEnd}>
+              <Box>
+                <CodeConsole
+                  input={input}
+                  output={output}
+                  isLoading={consoleLoading}
+                  expected={expected}
+                />
+              </Box>
+              <Box className={classes.buttons}>
+                <Button
+                  size="small"
+                  className={classes.run}
+                  onClick={run}
+                  startIcon={<PlayCircleFilledIcon />}
+                  variant="outlined"
+                  disabled={disabledButtons}
+                >
+                  Ejecutar
+                </Button>
+                <Button
+                  size="small"
+                  className={classes.send}
+                  onClick={sendCode}
+                  variant="outlined"
+                  disabled={disabledButtons}
+                >
+                  Enviar
+                </Button>
+              </Box>
+            </div>
           </Box>
         </>
       )}
@@ -421,6 +423,12 @@ const useStyles = makeStyles((theme) => ({
       color: "#474747",
       cursor: "pointer",
     },
+  },
+  setEnd: {
+    position: "absolute",
+    marginBottom: 0,
+    marginRight: 0,
+    width: "inherit",
   },
   send: {
     color: "white",

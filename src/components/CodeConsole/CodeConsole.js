@@ -98,10 +98,22 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: ".5rem",
     fontSize: "1rem",
     margin: 0,
-    // overflowWrap: "break-word",
   },
   rowSpace: {
-    overflow: "auto",
+    overflowY: "auto",
+    scrollBehavior: "smooth",
+    "&::-webkit-scrollbar": {
+      width: 8,
+    },
+    "&::-webkit-scrollbar-track": {
+      boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+      webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.2)",
+      outline: "1px solid slategrey",
+      borderRadius: 7,
+    },
     maxHeight: "7rem",
   },
 

@@ -63,6 +63,16 @@ const k = {
         "Tu código no pasó todas las pruebas. No te preocupes, lo harás mejor la proxima 💪🏻",
     functionText: "Recargar",
     closeText: "Cerrar",
+  },
+  msgEndModal: {
+    title: "Genial! ✌🏻",
+    description: "Tu problema ha sido guardado con éxito.",
+    closeText: "Regresar"
+  },
+  msgConnectionError: {
+    title: "Oh no 🤡",
+    description: "Hubo un error de conexión, inténtelo de nuevo más tarde.",
+    closeText: "Regresar"
   }
 };
 

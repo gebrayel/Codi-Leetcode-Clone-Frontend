@@ -30,9 +30,6 @@ export const HomeScreen = () => {
                     </h2>
                     <div id="HomeScreenButtons">
                         <LoginButton 
-                            type="GitHub"
-                        />
-                        <LoginButton 
                             type="Google"
                         />
                     </div>

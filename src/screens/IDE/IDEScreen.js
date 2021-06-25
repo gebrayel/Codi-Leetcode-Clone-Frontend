@@ -16,6 +16,7 @@ import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import Select from "@material-ui/core/Select";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import { useHistory } from "react-router-dom";
 
 import codeHelper from "../../helpers/code/code";
 import Context from "../../helpers/context/context";
@@ -23,6 +24,7 @@ import CubeLoader from "../../components/CubeLoader/CubeLoader";
 import ideAPI from "../../api/ide/ide";
 import k from "../../helpers/constants/constants";
 import Modal from "../../components/Modal/Modal";
+import net from "../../helpers/connection/connection";
 import Todito from "../../components/Tabs/Tabs";
 import useQuery from "../../hooks/useQuery/useQuery";
 
@@ -30,6 +32,7 @@ export default function IDEScreen({ x, ...props }) {
     const query = useQuery();
     const problemId = query.get("problemId");
     const classes = useStyles(props);
+    const history = useHistory();
     
     const [value, setValue] = useState(0);
     const [lenguaje, setLenguaje] = useState("");
@@ -58,7 +61,7 @@ export default function IDEScreen({ x, ...props }) {
     const [openDesaprobado, setOpenDesaprobado] = useState(false);
     const [openAprobado, setOpenAprobado] = useState(false);
 
-    const { isLoading, setIsLoading } = useContext(Context);
+    const { isLoading, setIsLoading, connectionError, setConnectionError  } = useContext(Context);
     const user = JSON.parse(localStorage.getItem("user"));
     const { msgRefresh, msgError, msgAprobado, msgDesaprobado } = k;
 
@@ -112,7 +115,6 @@ export default function IDEScreen({ x, ...props }) {
         };
 
         setConsoleLoading(true);
-
         const results = await ideAPI.tryCode(codeInfo);
         setConsoleLoading(false);
 
@@ -166,7 +168,7 @@ export default function IDEScreen({ x, ...props }) {
             if (response.status === 200) {
                 initializeValues(response.data);
             } else {
-                toggleError();
+                setConnectionError(true);
             }
         };
         getProblemInfo(problemId, user.google_id);
@@ -346,9 +348,17 @@ export default function IDEScreen({ x, ...props }) {
             />
 
             <Modal
+                title={k.msgConnectionError.title}
+                description={k.msgConnectionError.description}
+                closeText={k.msgConnectionError.closeText}
+                toggleModal={() => net.goBack(history, setConnectionError)}
+                open={connectionError}
+                singleButton={true}
+            />
+        
+            <Modal
                 title={msgError.title}
                 description={msgError.description}
-                functionText={msgError.functionText}
                 closeText={msgError.closeText}
                 toggleModal={toggleError}
                 open={openError}

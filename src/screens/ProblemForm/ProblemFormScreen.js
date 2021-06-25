@@ -121,7 +121,6 @@ const ProblemFormScreen = () => {
             res = await problemAPI.postProblem(problemInfo);
         } else {
             problemInfo.problem_id = parseInt(problemID);
-            console.log(problemInfo);
             res = await problemAPI.updateProblem(problemInfo);
         }
         setIsLoading(false);

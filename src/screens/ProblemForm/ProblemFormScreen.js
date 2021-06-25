@@ -140,7 +140,7 @@ const ProblemFormScreen = () => {
 
     const toggleEndModal = () => {
         setEndModal(endModal);
-        history.push("/difficulties");
+        history.goBack();
     }
 
     const msgError = {

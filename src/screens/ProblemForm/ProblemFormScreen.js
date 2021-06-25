@@ -2,10 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import Button from "@material-ui/core/Button";
 import StepperC from "../../components/StepperC/StepperC";
 import "../../styles/screens/ProblemFormScreen/ProblemFormScreen.scss";
+import { useHistory } from "react-router-dom";
 
 import Context from "../../helpers/context/context";
 import cache from "../../helpers/cache/cache";
+import k from "../../helpers/constants/constants";
 import Modal from "../../components/Modal/Modal";
+import net from "../../helpers/connection/connection";
 import problemAPI from "../../api/problems/problems";
 import RobotLoader from "../../components/RobotLoader/RobotLoader";
 import valids from "../../helpers/validations/validations";
@@ -34,11 +37,14 @@ const ProblemFormScreen = () => {
     const [activeStep, setActiveStep] = useState(0);
     const [problemInfo, setProblemInfo] = useState(problemInfoEmpty);
     const [codeSolution, setCodeSolution] = useState("");
-    const { isLoading, setIsLoading } = useContext(Context);
+    const { isLoading, setIsLoading, connectionError, setConnectionError } = useContext(Context);
     const [errorModal, setErrorModal] = useState(false);
     const [mensaje, setMensaje] = useState("");
     const query = useQuery();
     const problemID = query.get("problemId");
+    const history = useHistory();
+
+    const [endModal, setEndModal] = useState(false);
 
     useEffect(() => {
         if (!problemID) {
@@ -49,7 +55,6 @@ const ProblemFormScreen = () => {
             );
         }
         getProblem();
-        console.log(problemID);
     }, []);
 
     const getProblem = async () => {
@@ -61,7 +66,7 @@ const ProblemFormScreen = () => {
             setProblemInfo(response.data);
             setCodeSolution(response.data.solutionCode);
         } else {
-            //Modal de error
+            setConnectionError(true);
         }
     };
 
@@ -121,6 +126,7 @@ const ProblemFormScreen = () => {
         }
         setIsLoading(false);
         if (res.status === 201 || res.status === 200) {
+            setEndModal(true);
             cache.removeFormCacheItems(problemInfo);
             setActiveStep(0);
             setCodeSolution("");
@@ -132,6 +138,11 @@ const ProblemFormScreen = () => {
     const toggleErrorModal = () => {
         setErrorModal(!errorModal);
     };
+
+    const toggleEndModal = () => {
+        setEndModal(endModal);
+        history.push("/difficulties");
+    }
 
     const msgError = {
         title: "Error en el formulario",
@@ -205,6 +216,24 @@ const ProblemFormScreen = () => {
                 closeText={msgError.closeText}
                 toggleModal={toggleErrorModal}
                 open={errorModal}
+                singleButton={true}
+            />
+
+            <Modal
+                title={k.msgEndModal.title}
+                description={k.msgEndModal.description}
+                closeText={k.msgEndModal.closeText}
+                toggleModal={toggleEndModal}
+                open={endModal}
+                singleButton={true}
+            />
+
+            <Modal
+                title={k.msgConnectionError.title}
+                description={k.msgConnectionError.description}
+                closeText={k.msgConnectionError.closeText}
+                toggleModal={() => net.goBack(history, setConnectionError)}
+                open={connectionError}
                 singleButton={true}
             />
         </>

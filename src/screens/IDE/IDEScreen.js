@@ -6,6 +6,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import CachedIcon from "@material-ui/icons/Cached";
 import CodeConsole from "../../components/CodeConsole/CodeConsole";
+import CodeEditor from "../../components/CodeEditor/CodeEditor";
 import FormControl from "@material-ui/core/FormControl";
 import HighlightIcon from "@material-ui/icons/Highlight";
 import IconButton from "@material-ui/core/IconButton";
@@ -15,13 +16,15 @@ import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import Select from "@material-ui/core/Select";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import { useHistory } from "react-router-dom";
 
-import CodeEditor from "../../components/CodeEditor/CodeEditor";
-import Context from "../../helpers/context/context";
 import codeHelper from "../../helpers/code/code";
+import Context from "../../helpers/context/context";
 import CubeLoader from "../../components/CubeLoader/CubeLoader";
 import ideAPI from "../../api/ide/ide";
 import k from "../../helpers/constants/constants";
+import Modal from "../../components/Modal/Modal";
+import net from "../../helpers/connection/connection";
 import Todito from "../../components/Tabs/Tabs";
 import useQuery from "../../hooks/useQuery/useQuery";
 
@@ -29,6 +32,8 @@ export default function IDEScreen({ x, ...props }) {
   const query = useQuery();
   const problemId = query.get("problemId");
   const classes = useStyles(props);
+  const history = useHistory();
+
   const [value, setValue] = useState(0);
   const [lenguaje, setLenguaje] = useState("");
   const [codeLanguage, setCodeLanguage] = useState("");
@@ -51,8 +56,31 @@ export default function IDEScreen({ x, ...props }) {
   const [submissions, setSubmissions] = useState([]);
   const [templates, setTemplates] = useState([]);
 
-  const { isLoading, setIsLoading } = useContext(Context);
+  const [openRefresh, setOpenRefresh] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const [openDesaprobado, setOpenDesaprobado] = useState(false);
+  const [openAprobado, setOpenAprobado] = useState(false);
+
+  const { isLoading, setIsLoading, connectionError, setConnectionError } =
+    useContext(Context);
   const user = JSON.parse(localStorage.getItem("user"));
+  const { msgRefresh, msgError, msgAprobado, msgDesaprobado } = k;
+
+  const toggleRefresh = () => {
+    setOpenRefresh(!openRefresh);
+  };
+
+  const toggleError = () => {
+    setOpenError(!openError);
+  };
+
+  const toggleAprobado = () => {
+    setOpenAprobado(!openAprobado);
+  };
+
+  const toggleDesaprobado = () => {
+    setOpenDesaprobado(!openDesaprobado);
+  };
 
   const handleTabs = (e, val) => {
     setValue(val);
@@ -87,7 +115,6 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     setConsoleLoading(true);
-
     const results = await ideAPI.tryCode(codeInfo);
     setConsoleLoading(false);
 
@@ -97,7 +124,7 @@ export default function IDEScreen({ x, ...props }) {
       setOutput(run.output);
       setExpected(run.expectedOutput);
     } else {
-      //Modal con mensaje de error
+      toggleError();
     }
   };
 
@@ -119,8 +146,13 @@ export default function IDEScreen({ x, ...props }) {
     if (results.status === 201) {
       const submission = results.data;
       setSubmissions([submission, ...submissions]);
+      if (submission.status === "Aprobado") {
+        toggleAprobado();
+      } else {
+        toggleDesaprobado();
+      }
     } else {
-      //Modal con mensaje de error
+      toggleError();
     }
   };
 
@@ -135,7 +167,7 @@ export default function IDEScreen({ x, ...props }) {
       if (response.status === 200) {
         initializeValues(response.data);
       } else {
-        //Modal de error
+        setConnectionError(true);
       }
     };
     getProblemInfo(problemId, user.google_id);
@@ -172,104 +204,104 @@ export default function IDEScreen({ x, ...props }) {
   };
 
   return (
-    <Grid container className={classes.container}>
-      {isLoading ? (
-        <CubeLoader />
-      ) : (
-        <>
-          <Box className={classes.box}>
-            <AppBar position="static" className={classes.container2}>
-              <Tabs
-                value={value}
-                onChange={handleTabs}
-                aria-label=""
-                variant="scrollable"
-                scrollButtons="auto"
-              >
-                <Tab label="Descripción" icon={<LineStyleIcon />} />
-                <Tab
-                  label="Solución"
-                  icon={<HighlightIcon />}
-                  disabled={disabledSolution}
-                />
-                <Tab label="Intentos" icon={<AccessTimeIcon />} />
-              </Tabs>
-            </AppBar>
-            <TabPanel value={value} index={0}>
-              <Todito
-                type="description"
-                id={problemId}
-                title={title}
-                difficulty={difficulty}
-                colorDifficulty={color}
-                description={description}
-              />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              {!disabledSolution && (
-                <Todito
-                  type="solution"
-                  id={problemId}
-                  title={title}
-                  solution={solutionCode}
-                  description={solutionText}
-                />
-              )}
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              {sendLoading ? (
-                <Box className={classes.containerCube}>
-                  <CubeLoader className={classes.cube} />
-                </Box>
-              ) : (
-                <Todito
-                  type="submissions"
-                  id={problemId}
-                  title={title}
-                  data={submissions}
-                />
-              )}
-            </TabPanel>
-          </Box>
-          <Box className={classes.box}>
-            <Box className={classes.box4}>
-              <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="outlined-lenguaje-simple">
-                  Lenguaje
-                </InputLabel>
-                <Select
-                  native
-                  value={lenguaje}
-                  onChange={(e) => select(e)}
-                  label="Lenguaje"
-                  inputProps={{
-                    name: "Lenguaje",
-                    id: "outlined-lenguaje-simple",
-                  }}
+    <>
+      <Grid container className={classes.container}>
+        {isLoading ? (
+          <CubeLoader />
+        ) : (
+          <>
+            <Box className={classes.box}>
+              <AppBar position="static" className={classes.container2}>
+                <Tabs
+                  value={value}
+                  onChange={handleTabs}
+                  aria-label=""
+                  variant="scrollable"
+                  scrollButtons="auto"
                 >
-                  <option aria-label="None" value={""} />
-                  <option value={"Java"}>Java</option>
-                  <option value={"Python"}>Python</option>
-                </Select>
-              </FormControl>
-              <IconButton
-                aria-label="reload"
-                className={classes.reload}
-                onClick={reload}
-              >
-                <CachedIcon fontSize="large" />
-              </IconButton>
+                  <Tab label="Descripción" icon={<LineStyleIcon />} />
+                  <Tab
+                    label="Solución"
+                    icon={<HighlightIcon />}
+                    disabled={disabledSolution}
+                  />
+                  <Tab label="Intentos" icon={<AccessTimeIcon />} />
+                </Tabs>
+              </AppBar>
+              <TabPanel value={value} index={0}>
+                <Todito
+                  type="description"
+                  id={problemId}
+                  title={title}
+                  difficulty={difficulty}
+                  colorDifficulty={color}
+                  description={description}
+                />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                {!disabledSolution && (
+                  <Todito
+                    type="solution"
+                    id={problemId}
+                    title={title}
+                    solution={solutionCode}
+                    description={solutionText}
+                  />
+                )}
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                {sendLoading ? (
+                  <Box className={classes.containerCube}>
+                    <CubeLoader className={classes.cube} />
+                  </Box>
+                ) : (
+                  <Todito
+                    type="submissions"
+                    id={problemId}
+                    title={title}
+                    data={submissions}
+                  />
+                )}
+              </TabPanel>
             </Box>
-            <Box className={classes.codeEditor}>
-              <CodeEditor
-                readOnly={readOnly}
-                language={codeLanguage}
-                value={code}
-                onChange={setCode}
-                className={classes.codeEditor2}
-              />
-            </Box>
-            <div className={classes.setEnd}>
+            <Box className={classes.box}>
+              <Box className={classes.box4}>
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel htmlFor="outlined-lenguaje-simple">
+                    Lenguaje
+                  </InputLabel>
+                  <Select
+                    native
+                    value={lenguaje}
+                    onChange={(e) => select(e)}
+                    label="Lenguaje"
+                    inputProps={{
+                      name: "Lenguaje",
+                      id: "outlined-lenguaje-simple",
+                    }}
+                  >
+                    <option aria-label="None" value={""} />
+                    <option value={"Java"}>Java</option>
+                    <option value={"Python"}>Python</option>
+                  </Select>
+                </FormControl>
+                <IconButton
+                  aria-label="reload"
+                  className={classes.reload}
+                  onClick={toggleRefresh}
+                >
+                  <CachedIcon fontSize="large" />
+                </IconButton>
+              </Box>
+              <Box className={classes.codeEditor}>
+                <CodeEditor
+                  readOnly={readOnly}
+                  language={codeLanguage}
+                  value={code}
+                  onChange={setCode}
+                  className={classes.codeEditor2}
+                />
+              </Box>
               <Box>
                 <CodeConsole
                   input={input}
@@ -299,11 +331,59 @@ export default function IDEScreen({ x, ...props }) {
                   Enviar
                 </Button>
               </Box>
-            </div>
-          </Box>
-        </>
-      )}
-    </Grid>
+            </Box>
+          </>
+        )}
+      </Grid>
+      <Modal
+        title={msgRefresh.title}
+        description={msgRefresh.description}
+        functionText={msgRefresh.functionText}
+        closeText={msgRefresh.closeText}
+        passedFunction={reload}
+        toggleModal={toggleRefresh}
+        open={openRefresh}
+        singleButton={false}
+      />
+
+      <Modal
+        title={k.msgConnectionError.title}
+        description={k.msgConnectionError.description}
+        closeText={k.msgConnectionError.closeText}
+        toggleModal={() => net.goBack(history, setConnectionError)}
+        open={connectionError}
+        singleButton={true}
+      />
+
+      <Modal
+        title={msgError.title}
+        description={msgError.description}
+        closeText={msgError.closeText}
+        toggleModal={toggleError}
+        open={openError}
+        singleButton={true}
+      />
+
+      <Modal
+        title={msgAprobado.title}
+        description={msgAprobado.description}
+        functionText={msgAprobado.functionText}
+        closeText={msgAprobado.closeText}
+        toggleModal={toggleAprobado}
+        open={openAprobado}
+        singleButton={true}
+      />
+
+      <Modal
+        title={msgDesaprobado.title}
+        description={msgDesaprobado.description}
+        functionText={msgDesaprobado.functionText}
+        closeText={msgDesaprobado.closeText}
+        toggleModal={toggleDesaprobado}
+        open={openDesaprobado}
+        singleButton={true}
+      />
+    </>
   );
 }
 
@@ -321,7 +401,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: "#282A36",
     width: "99.9vw",
-    height: "90vh",
+    height: "91vh",
     marginTop: "54px",
     justifyContent: "center",
     display: "flex",
@@ -329,7 +409,7 @@ const useStyles = makeStyles((theme) => ({
   box: {
     backgroundColor: "#282A36",
     width: "50%",
-    height: "90vh",
+    height: "91vh",
     [theme.breakpoints.down("sm")]: {
       width: "99.8%",
     },
@@ -449,12 +529,8 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
-  // estilo de position absolute
-
-  // setEnd: {
-  //   position: "absolute",
-  //   bottom: "1rem",
-  //   right: 0,
-  //   width: "inherit",
-  // },
+  containerCube: {
+    display: "flex",
+    justifyContent: "center",
+  },
 }));

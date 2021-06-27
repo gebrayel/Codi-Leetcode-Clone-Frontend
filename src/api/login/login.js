@@ -22,6 +22,7 @@ const postLogin = async (user, setUser, setIsLoading) => {
         if(response.data[0]){
             userInfo['pic_url'] = response.data[0]['pic_url'];
             userInfo['name'] = response.data[0]['name']
+            userInfo['premium'] = response.data[0]['premium']
         }
         userInfo['is_admin'] = response.data[0]['is_admin'] ? response.data[0]['is_admin'] : false;
         setUserLocally(userInfo, setUser);

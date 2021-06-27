@@ -13,6 +13,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from '@material-ui/core/Button';
+import Modal from "../Modal/Modal";
 
 export default function Todito({
     type,
@@ -26,6 +27,17 @@ export default function Todito({
 }) {
     const classes = useStyles(props);
 
+    const msgCopy = {
+        title: "Copiado",
+        description:
+            "Puedes guiarte a partir de esto, pero intenta entenderlo.",
+        closeText: "Cerrar",
+    };
+
+    const toggleCopy = () => {
+        setOpenCopy(!openCopy);
+    };
+
     const columns = [
         { field: "date", headerName: "Enviado", minWidth: 140, align: "left" },
         { field: "status", headerName: "Estado", minWidth: 120, align: "left" },
@@ -34,6 +46,7 @@ export default function Todito({
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [openCopy, setOpenCopy] = React.useState(false);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -75,7 +88,7 @@ export default function Todito({
                             <p className={classes.description}>{description}</p>
                             <Box className={classes.containerButton}>
                                 <CopyToClipboard text={solution}>
-                                    <Button className={classes.buttonTodito} >
+                                    <Button className={classes.buttonTodito} onClick={toggleCopy}>
                                         Copiar
                                     </Button>
                                 </CopyToClipboard>
@@ -87,6 +100,15 @@ export default function Todito({
                                     value={solution}
                                 />
                             </Box>
+                            <Modal
+                                title={msgCopy.title}
+                                description={msgCopy.description}
+                                functionText={msgCopy.functionText}
+                                closeText={msgCopy.closeText}
+                                toggleModal={toggleCopy}
+                                open={openCopy}
+                                singleButton={true}
+                            />
                         </Box>
                     </Box>
                 );

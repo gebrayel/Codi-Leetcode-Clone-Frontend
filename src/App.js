@@ -5,6 +5,7 @@ import AppRouter from './router/AppRouter.js';
 function App() {
   const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [connectionError, setConnectionError] = useState(false);
 
   /**
    * Restaurar usuario si ya se ha iniciado sesión
@@ -22,6 +23,7 @@ function App() {
     <AppContext.Provider value={{
       user, setUser,
       isLoading, setIsLoading,
+      connectionError, setConnectionError
     }}>
       <AppRouter/>
     </AppContext.Provider>

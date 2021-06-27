@@ -18,161 +18,155 @@ import ProblemTab2 from "../ProblemTabs/ProblemTab2/ProblemTab2";
 import ProblemTab3 from "../ProblemTabs/ProblemTab3/ProblemTab3";
 
 const getSteps = () => {
-  return ["Descripción del Problema", "Templates del Problema", "Datos de Prueba"];
-}
+    return [
+        "Descripción del Problema",
+        "Templates del Problema",
+        "Datos de Prueba",
+    ];
+};
 
 const ColorlibStepIcon = (props) => {
-  const classes = useColorlibStepIconStyles();
-  const { active, completed } = props;
+    const classes = useColorlibStepIconStyles();
+    const { active, completed } = props;
 
-  const icons = {
-    1: <DescriptionIcon />,
-    2: <CodeIcon />,
-    3: <InputIcon />,
-  };
+    const icons = {
+        1: <DescriptionIcon />,
+        2: <CodeIcon />,
+        3: <InputIcon />,
+    };
 
-  return (
-    <div
-      className={clsx(classes.root, {
-        [classes.active]: active,
-        [classes.completed]: completed,
-      })}
-    >
-      {icons[String(props.icon)]}
-    </div>
-  );
-}
-function getStepContent(
-  step,
-) {
-  switch (step) {
-    case 0:
-      return (
-        <ProblemTab1 />
-      );
-    case 1:
-      return (
-        <ProblemTab2 />
-      );
-    case 2:
-      return (
-        <ProblemTab3 />
-      );
-    default:
-      return "Unknown step";
-  }
+    return (
+        <div
+            className={clsx(classes.root, {
+                [classes.active]: active,
+                [classes.completed]: completed,
+            })}
+        >
+            {icons[String(props.icon)]}
+        </div>
+    );
+};
+function getStepContent(step) {
+    switch (step) {
+        case 0:
+            return <ProblemTab1 />;
+        case 1:
+            return <ProblemTab2 />;
+        case 2:
+            return <ProblemTab3 />;
+        default:
+            return "Unknown step";
+    }
 }
 
-export default function StepperC({
-  activeStep,
-  setActiveStep,
-}) {
-  const classes = useStyles();
-  const steps = getSteps();
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+export default function StepperC({ activeStep, setActiveStep }) {
+    const classes = useStyles();
+    const steps = getSteps();
+    const handleReset = () => {
+        setActiveStep(0);
+    };
 
-  return (
-    <div className={classes.root}>
-      <Stepper
-        className={classes.Stepper}
-        alternativeLabel
-        activeStep={activeStep}
-        connector={<ColorlibConnector />}
-      >
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}>
-              <div style={{ color: "white" }}>{label}</div>
-            </StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <div>
-        {activeStep === steps.length ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Button onClick={handleReset} className={classes.button}>
-              Reset
-            </Button>
-          </div>
-        ) : (
-          <div>
-            <Typography className={classes.instructions}>
-              {getStepContent(
-                activeStep,
-              )}
-            </Typography>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+    return (
+        <div className={classes.root}>
+            <Stepper
+                className={classes.Stepper}
+                alternativeLabel
+                activeStep={activeStep}
+                connector={<ColorlibConnector />}
+            >
+                {steps.map((label) => (
+                    <Step key={label}>
+                        <StepLabel StepIconComponent={ColorlibStepIcon}>
+                            <div style={{ color: "white" }}>{label}</div>
+                        </StepLabel>
+                    </Step>
+                ))}
+            </Stepper>
+            <div>
+                {activeStep === steps.length ? (
+                    <div>
+                        <Typography className={classes.instructions}>
+                            All steps completed - you&apos;re finished
+                        </Typography>
+                        <Button
+                            onClick={handleReset}
+                            className={classes.button}
+                        >
+                            Reset
+                        </Button>
+                    </div>
+                ) : (
+                    <div>
+                        <Typography className={classes.instructions}>
+                            {getStepContent(activeStep)}
+                        </Typography>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
 }
 
 const ColorlibConnector = withStyles({
-  alternativeLabel: {
-    top: 22,
-  },
-  active: {
-    "& $line": {
-      backgroundImage:
-        "linear-gradient( 95deg,rgb(81, 81, 174) 0%,rgb(81, 81, 174) 50%,rgb(138,35,135) 100%)",
+    alternativeLabel: {
+        top: 22,
     },
-  },
-  completed: {
-    "& $line": {
-      backgroundImage:
-        "linear-gradient( 95deg,rgb(81, 81, 174) 0%,rgb(81, 81, 174) 50%,rgb(138,35,135) 100%)",
+    active: {
+        "& $line": {
+            backgroundImage:
+                "linear-gradient( 95deg,rgb(81, 81, 174) 0%,rgb(81, 81, 174) 50%,rgb(138,35,135) 100%)",
+        },
     },
-  },
-  line: {
-    height: 3,
-    border: 0,
-    backgroundColor: "#eaeaf0",
-    borderRadius: 1,
-  },
+    completed: {
+        "& $line": {
+            backgroundImage:
+                "linear-gradient( 95deg,rgb(81, 81, 174) 0%,rgb(81, 81, 174) 50%,rgb(138,35,135) 100%)",
+        },
+    },
+    line: {
+        height: 3,
+        border: 0,
+        backgroundColor: "#eaeaf0",
+        borderRadius: 1,
+    },
 })(StepConnector);
 
 const useColorlibStepIconStyles = makeStyles({
-  root: {
-    backgroundColor: "#ccc",
-    zIndex: 1,
-    color: "#fff",
-    width: 50,
-    height: 50,
-    display: "flex",
-    borderRadius: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  active: {
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(81, 81, 174) 0%, rgb(81, 81, 174) 50%, rgb(138,35,135) 100%)",
-    boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
-  },
-  completed: {
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(81, 81, 174) 0%, rgb(81, 81, 174) 50%, rgb(138,35,135) 100%)",
-  },
+    root: {
+        backgroundColor: "#ccc",
+        zIndex: 1,
+        color: "#fff",
+        width: 50,
+        height: 50,
+        display: "flex",
+        borderRadius: "50%",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    active: {
+        backgroundImage:
+            "linear-gradient( 136deg, rgb(81, 81, 174) 0%, rgb(81, 81, 174) 50%, rgb(138,35,135) 100%)",
+        boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
+    },
+    completed: {
+        backgroundImage:
+            "linear-gradient( 136deg, rgb(81, 81, 174) 0%, rgb(81, 81, 174) 50%, rgb(138,35,135) 100%)",
+    },
 });
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
+    root: {
+        width: "100%",
+    },
 
-  button: {
-    marginRight: theme.spacing(1),
-  },
-  instructions: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
-  Stepper: {
-    backgroundColor: colors.background,
-  },
+    button: {
+        marginRight: theme.spacing(1),
+    },
+    instructions: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+    },
+    Stepper: {
+        backgroundColor: colors.background,
+    },
 }));

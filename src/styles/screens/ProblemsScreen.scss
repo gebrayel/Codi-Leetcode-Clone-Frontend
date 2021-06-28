@@ -1,73 +1,82 @@
 .ProblemScreenContainer {
-  width: 99vw;
-  margin-top: 12vh;
-  display: flex;
-  justify-content: center;
-  .ProblemListContainer {
-    width: 90vw;
-    height: auto;
-    padding-top: 1.5vh;
-    padding-bottom: 5vh;
-    margin-bottom: 5vh;
-    background-color: #7e84a763;
+    width: 99vw;
+    margin-top: 12vh;
     display: flex;
-    // align-items: center;
-    flex-direction: column;
-    // justify-content: center;
-    border-radius: 20px;
-    .BoxTitle__ProblemScreen {
-      width: 20%;
-      margin-left: 4%;
-      display: inline;
-      float: left;
-      h1 {
-        color: white;
-        width: 100%;
-        text-align: left;
-        padding-left: 10%;
-      }
-    }
-    .buttonBox__ProblemScreen {
-      float: right;
-      width: fit-content;
-      display: inline;
-      margin-right: 4%;
-      margin-top: 1%;
-    }
-    @media (max-width: 500px) {
-      .buttonBox__ProblemScreen {
-        float: none;
-        display: block;
-        width: 70%;
-        height: fit-content;
-        margin-left: 4%;
-        margin-bottom: 5%;
-      }
-      .BoxTitle__ProblemScreen {
-        display: block;
-        float: none;
-        width: 70%;
-        margin: 0;
-      }
-    }
-    @media (max-width: 600px) {
-      .buttonBox__ProblemScreen {
-        margin-top: 3%;
-      }
-    }
-    @media (min-width: 1200px) {
-      .buttonBox__ProblemScreen {
-        margin-bottom: 2%;
-      }
-    }
+    justify-content: center;
+    .ProblemListContainer {
+        width: 90vw;
+        height: auto;
+        padding-top: 1.5vh;
+        padding-bottom: 5vh;
+        margin-bottom: 5vh;
+        background-color: #7e84a763;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        border-radius: 20px;
+        h1 {
+            color: white;
+            width: 100%;
+            text-align: left;
+            padding-left: 10%;
+        }
+        // align-items: center;
+        flex-direction: column;
+        // justify-content: center;
+        border-radius: 20px;
+        .BoxTitle__ProblemScreen {
+            width: 20%;
+            margin-left: 4%;
+            display: inline;
+            float: left;
+            h1 {
+                color: white;
+                width: 100%;
+                text-align: left;
+                padding-left: 10%;
+            }
+        }
+        .buttonBox__ProblemScreen {
+            float: right;
+            width: fit-content;
+            display: inline;
+            margin-right: 4%;
+            margin-top: 1%;
+        }
+        @media (max-width: 500px) {
+            .buttonBox__ProblemScreen {
+                float: none;
+                display: block;
+                width: 70%;
+                height: fit-content;
+                margin-left: 4%;
+                margin-bottom: 5%;
+            }
+            .BoxTitle__ProblemScreen {
+                display: block;
+                float: none;
+                width: 70%;
+                margin: 0;
+            }
+        }
+        @media (max-width: 600px) {
+            .buttonBox__ProblemScreen {
+                margin-top: 3%;
+            }
+        }
+        @media (min-width: 1200px) {
+            .buttonBox__ProblemScreen {
+                margin-bottom: 2%;
+            }
+        }
 
-    .ProblemListContainerBox {
-      height: auto;
-      width: 90vw;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      justify-content: center;
+        .ProblemListContainerBox {
+            height: auto;
+            width: 90vw;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+        }
     }
-  }
 }

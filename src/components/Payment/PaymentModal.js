@@ -259,7 +259,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
                 description={msgErrorAPI.description}
                 functionText={msgErrorAPI.functionText}
                 closeText={msgErrorAPI.closeText}
-                modal={openModalApi}
+                togglemodal={openModalApi}
                 open={openModalApi}
                 singleButton={true}
             />

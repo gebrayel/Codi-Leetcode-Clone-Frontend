@@ -7,7 +7,15 @@ export default {
     component: Tabs,
     argTypes: {
         type: {
-            description: "Tipo de Tab. Puede ser: description, solution o submissions"
+            description: "Tipo de Tab. Puede ser: description, solution o submissions",
+            control: {
+                options: {
+                  description: "description",
+                  solution: "solution",
+                  submissions: "submissions",
+                },
+                type: "select",
+            }
         },
         id: {
             description: "ID del problema."
@@ -39,4 +47,6 @@ Tab.args = {
     difficulty : "Hard",
     colorDifficulty : "#F31483",
     description : "Descripcion del problema...",
+    solution: "print('Hello world!')",
+    data: [{id: 1, date: "28/06/2021", status: "Aceptado", language: "Python"}]
 };

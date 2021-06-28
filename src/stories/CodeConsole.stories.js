@@ -23,9 +23,20 @@ export default {
 
 const Template = (args) => <CodeConsole {...args} />;
 
+export const Consola = Template.bind({});
+
 export const Aceptado = Template.bind({});
 
 export const Rechazado = Template.bind({});
+
+export const Cargando = Template.bind({});
+
+Consola.args = {
+    input: '[1,2,3]',
+    output: '3',
+    expected: '3',
+    isLoading: false,
+};
 
 Aceptado.args = {
     input: '[1,2,3]',
@@ -39,4 +50,11 @@ Rechazado.args = {
     output: '3',
     expected: '2',
     isLoading: false,
+};
+
+Cargando.args = {
+    input: '[1,2,3]',
+    output: '3',
+    expected: '3',
+    isLoading: true,
 };

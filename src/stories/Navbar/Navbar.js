@@ -29,7 +29,7 @@ import AppContext from "../../helpers/context/context";
 import logout from "../../helpers/logout/logout";
 //Import modal Component
 import { useHistory } from "react-router-dom";
-import Modal from "../Modal/Modal";
+import Modal from "../../components/Modal/Modal";
 //import colors
 import colors from "../../config/colors/colors";
 const useStyles = makeStyles((theme) => ({
@@ -140,17 +140,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar({ auth, mobileView, drawerOpen, ...props }) {
-  const [auth, setAuth] = useState(auth);
-  // const user = JSON.parse(localStorage.getItem("user"));
+export default function Navbar(is_admin) {
+  const [auth, setAuth] = useState(true);
+  const [user, setUser] = useState({ is_admin: is_admin });
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const apcol = grey[900];
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
+  const handleChange = (event) => {};
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -183,8 +181,6 @@ export default function Navbar({ auth, mobileView, drawerOpen, ...props }) {
   const preventDefault = (event) => event.preventDefault();
   const title = "<Codi/>";
 
-  const { setUser } = useContext(AppContext);
-
   const [openModal, setOpenModal] = useState(false);
 
   const toggleModal = () => {
@@ -195,7 +191,6 @@ export default function Navbar({ auth, mobileView, drawerOpen, ...props }) {
 
   const handleCloseLogOut = (modalTitle) => {
     logout.logOut();
-    setUser(null);
     history.push("/");
   };
 

@@ -1,5 +1,5 @@
 // import React from "react";
-// import Navbar from "../../components/Navbar/Navbar";
+// import Navbar from "../Navbar/Navbar";
 
 // export default {
 //   title: "Codi/Navbar",
@@ -7,7 +7,13 @@
 //   argTypes: {},
 // };
 
-// const Template = () => <Navbar />;
+// const Template = (args) => <Navbar {...args} />;
+
+// export const Barra_de_Navegacion = Template.bind({});
+
+// Barra_de_Navegacion.args = {
+//   isAdmin: true,
+// };
 
 // export const Vista_Escritorio = Template.bind({});
 

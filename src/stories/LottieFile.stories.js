@@ -21,7 +21,6 @@ export default {
       },
     },
   },
-  default: "a",
 };
 
 const Template = (args) => <LottieFile {...args} />;

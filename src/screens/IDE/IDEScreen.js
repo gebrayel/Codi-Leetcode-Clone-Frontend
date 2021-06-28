@@ -60,10 +60,12 @@ export default function IDEScreen({ x, ...props }) {
     const [openError, setOpenError] = useState(false);
     const [openDesaprobado, setOpenDesaprobado] = useState(false);
     const [openAprobado, setOpenAprobado] = useState(false);
+    const [openChange, setOpenChange] = useState(false);
+    const [v, setV] = useState("");
 
     const { isLoading, setIsLoading, connectionError, setConnectionError  } = useContext(Context);
     const user = JSON.parse(localStorage.getItem("user"));
-    const { msgRefresh, msgError, msgAprobado, msgDesaprobado } = k;
+    const { msgRefresh, msgError, msgAprobado, msgDesaprobado, msgChange } = k;
 
     const toggleRefresh = () => {
         setOpenRefresh(!openRefresh);
@@ -80,13 +82,21 @@ export default function IDEScreen({ x, ...props }) {
     const toggleDesaprobado = () => {
         setOpenDesaprobado(!openDesaprobado);
     };
+    const toggleChange = () => {
+        setOpenChange(!openChange);
+    };
 
     const handleTabs = (e, val) => {
         setValue(val);
     };
 
     const select = (e) => {
-        const lang = e.target.value;
+        setV(e.target.value);
+        toggleChange();
+    };
+
+    const select2 = () => {
+        const lang = v;
         setLenguaje(lang);
         setCodeLanguage(k.codeLanguages[lang]);
         if (lang == "Java" || lang == "Python") {
@@ -388,6 +398,17 @@ export default function IDEScreen({ x, ...props }) {
                 toggleModal={toggleDesaprobado}
                 open={openDesaprobado}
                 singleButton={true}
+            />
+
+            <Modal
+                title={msgChange.title}
+                description={msgChange.description}
+                functionText={msgChange.functionText}
+                closeText={msgChange.closeText}
+                passedFunction={select2}
+                toggleModal={toggleChange}
+                open={openChange}
+                singleButton={false}
             />
         </>
     );

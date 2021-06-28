@@ -43,6 +43,12 @@ const k = {
     functionText: "Refrescar",
     closeText: "Cerrar",
   },
+  msgChange: {
+    title: "Cuidado 😨",
+    description: "¿Seguro quieres cambiar de lenguaje? Perderás tu codigo actual 👎🏻",
+    functionText: "Cambiar",
+    closeText: "Cerrar",
+  },
   msgError: {
     title: "Error de conexión 👾",
     description:

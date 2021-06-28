@@ -51,7 +51,7 @@ const k = {
   },
   msgGetCode: {
     title: "Codigo copiado 👾",
-    description: "Puedes pegarlo en el editor de codigo para visualizarlo.",
+    description: "Puedes pegarlo en el editor de codigo para visualizarlo, y recuerda cambiar el lenguaje ✌🏻",
     functionText: "Visualizar",
     closeText: "Cerrar",
   },

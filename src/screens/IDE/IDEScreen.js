@@ -469,6 +469,12 @@ const useStyles = makeStyles((theme) => ({
         "& .makeStyles-container-74": {
             width: '100%',
         },
+        [theme.breakpoints.down("sm")]: {
+            height: "60%",
+        },
+        [theme.breakpoints.down("xs")]: {
+            height: "60%",
+        },
     },
     box3: {
         display: "none",

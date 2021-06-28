@@ -1,5 +1,5 @@
 import React from 'react';
-import 'codemirror/lib/codemirror.css';
+import './CodeEditor.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/clike/clike';

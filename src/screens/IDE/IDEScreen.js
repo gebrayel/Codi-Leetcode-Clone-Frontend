@@ -528,8 +528,10 @@ const useStyles = makeStyles((theme) => ({
     codeEditor: {
         marginTop: "10px",
         width: "100%",
+        height: '60%'
     },
-    codeEditor2: {},
+    codeEditor2: {
+    },
     reload: {
         color: "white",
     },

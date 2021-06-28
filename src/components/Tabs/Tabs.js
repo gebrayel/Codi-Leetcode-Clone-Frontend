@@ -14,6 +14,8 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from '@material-ui/core/Button';
 import Modal from "../Modal/Modal";
+import CodeIcon from '@material-ui/icons/Code';
+import IconButton from "@material-ui/core/IconButton";
 
 export default function Todito({
     type,
@@ -23,6 +25,8 @@ export default function Todito({
     description,
     solution,
     data,
+    toggleGetCode,
+    setGetCode,
     ...props
 }) {
     const classes = useStyles(props);
@@ -44,6 +48,7 @@ export default function Todito({
         { field: "date", headerName: "Enviado", minWidth: 140, align: "left" },
         { field: "status", headerName: "Estado", minWidth: 120, align: "left" },
         { field: "language", headerName: "Lenguaje", minWidth: 120, align: "left" },
+        { field: "code", headerName: "Codigo", minWidth: 120, align: "left" },
     ];
 
     const [page, setPage] = React.useState(0);
@@ -177,27 +182,40 @@ export default function Todito({
                                                         >
                                                             {columns.map(
                                                                 (column) => {
-                                                                    const value =
-                                                                        row[
-                                                                            column
-                                                                                .field
-                                                                        ];
-                                                                    return (
-                                                                        <TableCell
-                                                                            key={column.field + row['id']}
-                                                                            align={
-                                                                                column.align
-                                                                            }
-                                                                        >
-                                                                            {column.format &&
-                                                                            typeof value ===
-                                                                                "number"
-                                                                                ? column.format(
-                                                                                      value
-                                                                                  )
-                                                                                : value}
-                                                                        </TableCell>
-                                                                    );
+                                                                    const value =row[column.field];
+                                                                    if(column.field == "code"){
+                                                                        return (
+                                                                            <TableCell
+                                                                                key={column.field + row['id']}
+                                                                                align={
+                                                                                    column.align
+                                                                                }
+                                                                            >
+                                                                                <CopyToClipboard text={value}>
+                                                                                    <IconButton aria-label="Codigo" className={classes.codeButton} onClick={toggleGetCode}>
+                                                                                        <CodeIcon fontSize="medium" />
+                                                                                    </IconButton>
+                                                                                </CopyToClipboard>
+                                                                            </TableCell>
+                                                                        );
+                                                                    }else{
+                                                                        return (
+                                                                            <TableCell
+                                                                                key={column.field + row['id']}
+                                                                                align={
+                                                                                    column.align
+                                                                                }
+                                                                            >
+                                                                                {column.format &&
+                                                                                typeof value ===
+                                                                                    "number"
+                                                                                    ? column.format(
+                                                                                          value
+                                                                                      )
+                                                                                    : value}
+                                                                            </TableCell>
+                                                                        );
+                                                                    }
                                                                 }
                                                             )}
                                                         </TableRow>
@@ -353,5 +371,8 @@ const useStyles = makeStyles((theme) => ({
     codeEditor: {
         width: "100%",
         height: '360px'
+    },
+    codeButton: {
+        color: 'white'
     }
 }));

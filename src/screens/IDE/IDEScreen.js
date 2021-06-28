@@ -61,11 +61,13 @@ export default function IDEScreen({ x, ...props }) {
     const [openDesaprobado, setOpenDesaprobado] = useState(false);
     const [openAprobado, setOpenAprobado] = useState(false);
     const [openChange, setOpenChange] = useState(false);
+    const [openGetCode, setOpenGetCode] = useState(false);
+    const [getCode, setGetCode] = useState("");
     const [v, setV] = useState("");
 
     const { isLoading, setIsLoading, connectionError, setConnectionError  } = useContext(Context);
     const user = JSON.parse(localStorage.getItem("user"));
-    const { msgRefresh, msgError, msgAprobado, msgDesaprobado, msgChange } = k;
+    const { msgRefresh, msgError, msgAprobado, msgDesaprobado, msgChange, msgGetCode } = k;
 
     const toggleRefresh = () => {
         setOpenRefresh(!openRefresh);
@@ -82,8 +84,13 @@ export default function IDEScreen({ x, ...props }) {
     const toggleDesaprobado = () => {
         setOpenDesaprobado(!openDesaprobado);
     };
+
     const toggleChange = () => {
         setOpenChange(!openChange);
+    };
+
+    const toggleGetCode = () => {
+        setOpenGetCode(!openGetCode);
     };
 
     const handleTabs = (e, val) => {
@@ -93,6 +100,10 @@ export default function IDEScreen({ x, ...props }) {
     const select = (e) => {
         setV(e.target.value);
         toggleChange();
+    };
+
+    const getCodeFunction = () => {
+        console.log('hola');
     };
 
     const select2 = () => {
@@ -275,6 +286,8 @@ export default function IDEScreen({ x, ...props }) {
                                         id={problemId}
                                         title={title}
                                         data={submissions}
+                                        toggleGetCode = {toggleGetCode}
+                                        setGetCode = {setGetCode}
                                     />
                                 )}
                             </TabPanel>
@@ -409,6 +422,17 @@ export default function IDEScreen({ x, ...props }) {
                 toggleModal={toggleChange}
                 open={openChange}
                 singleButton={false}
+            />
+
+            <Modal
+                title={msgGetCode.title}
+                description={msgGetCode.description}
+                functionText={msgGetCode.functionText}
+                closeText={msgGetCode.closeText}
+                passedFunction={getCodeFunction}
+                toggleModal={toggleGetCode}
+                open={openGetCode}
+                singleButton={true}
             />
         </>
     );

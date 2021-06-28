@@ -49,6 +49,12 @@ const k = {
     functionText: "Cambiar",
     closeText: "Cerrar",
   },
+  msgGetCode: {
+    title: "Codigo copiado 👾",
+    description: "Puedes pegarlo en el editor de codigo para visualizarlo.",
+    functionText: "Visualizar",
+    closeText: "Cerrar",
+  },
   msgError: {
     title: "Error de conexión 👾",
     description:

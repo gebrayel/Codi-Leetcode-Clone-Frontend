@@ -108,6 +108,7 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     const runCode = async () => {
+        setDisabledButtons(true);
         const codeInfo = {
             code: code,
             lang: lenguaje,
@@ -126,9 +127,11 @@ export default function IDEScreen({ x, ...props }) {
         } else {
             toggleError();
         }
+        setDisabledButtons(false);
     };
 
     const sendCode = async () => {
+        setDisabledButtons(true);
         setValue(2);
         const codeInfo = {
             code: code,
@@ -155,6 +158,7 @@ export default function IDEScreen({ x, ...props }) {
         else {
             toggleError();
         }
+        setDisabledButtons(false);
     }
 
     useEffect(() => {
@@ -290,6 +294,7 @@ export default function IDEScreen({ x, ...props }) {
                                     aria-label="reload"
                                     className={classes.reload}
                                     onClick={toggleRefresh}
+                                    disabled={disabledButtons}
                                 >
                                     <CachedIcon fontSize="large" />
                                 </IconButton>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import colors from "../../config/colors/colors";
@@ -35,7 +35,9 @@ export default function Todito({
     };
 
     const toggleCopy = () => {
+        setDisabledButtons(true);
         setOpenCopy(!openCopy);
+        setDisabledButtons(false);
     };
 
     const columns = [
@@ -47,6 +49,7 @@ export default function Todito({
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [openCopy, setOpenCopy] = React.useState(false);
+    const [disabledButtons, setDisabledButtons] = useState(false);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -88,7 +91,7 @@ export default function Todito({
                             <p className={classes.description}>{description}</p>
                             <Box className={classes.containerButton}>
                                 <CopyToClipboard text={solution}>
-                                    <Button className={classes.buttonTodito} onClick={toggleCopy}>
+                                    <Button className={classes.buttonTodito} onClick={toggleCopy} disabled={disabledButtons}>
                                         Copiar
                                     </Button>
                                 </CopyToClipboard>

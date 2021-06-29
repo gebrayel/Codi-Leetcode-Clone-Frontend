@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
@@ -140,9 +140,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar(is_admin) {
+export default function Navbar(is_admin, mobile) {
   const [auth, setAuth] = useState(true);
-  const [user, setUser] = useState({ is_admin: is_admin });
+  const [is_admins, setAdmin] = useState(is_admin);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -156,24 +156,24 @@ export default function Navbar(is_admin) {
 
   //Internet stuff que me vole para hacerla responsive
   const [state, setState] = useState({
-    mobileView: false,
+    mobileView: mobile,
     drawerOpen: false,
   });
   const { mobileView, drawerOpen } = state;
-  useEffect(() => {
-    const setResponsiveness = () => {
-      return window.innerWidth < 900
-        ? setState((prevState) => ({ ...prevState, mobileView: true }))
-        : setState((prevState) => ({
-            ...prevState,
-            mobileView: false,
-          }));
-    };
+  // useEffect(() => {
+  //   const setResponsiveness = () => {
+  //     return window.innerWidth < 900
+  //       ? setState((prevState) => ({ ...prevState, mobileView: true }))
+  //       : setState((prevState) => ({
+  //           ...prevState,
+  //           mobileView: false,
+  //         }));
+  //   };
 
-    setResponsiveness();
+  //   setResponsiveness();
 
-    window.addEventListener("resize", () => setResponsiveness());
-  }, []);
+  //   window.addEventListener("resize", () => setResponsiveness());
+  // }, []);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -205,27 +205,19 @@ export default function Navbar(is_admin) {
     return (
       <Toolbar className={classes.toolbar}>
         <div className={classes.leftpart}>
-          <NLink to="/">
-            <img src={Codi_Icon} alt="Codi Icon" className={classes.codilog} />
-          </NLink>
+          <img src={Codi_Icon} alt="Codi Icon" className={classes.codilog} />
 
           <Typography variant="h5">
-            <NLink to="/" className={classes.title}>
-              {title}
-            </NLink>
+            <div className={classes.title}>{title}</div>
           </Typography>
 
           <div className={classes.submenus}>
             <Typography variant="h7" className={classes.each}>
-              <NLink to="/difficulties" className={classes.linkStyle}>
-                Problemas
-              </NLink>
+              <div className={classes.linkStyle}>Problemas</div>
             </Typography>
 
             <Typography variant="h7">
-              <NLink to="/premium" className={classes.linkStyle}>
-                Premium
-              </NLink>
+              <div className={classes.linkStyle}>Premium</div>
             </Typography>
           </div>
         </div>
@@ -258,16 +250,16 @@ export default function Navbar(is_admin) {
             onClose={handleClose}
             className={classes.menucito}
           >
-            <NLink to="/profile" className={classes.MenuItem}>
+            <div className={classes.MenuItem}>
               <MenuItem onClick={handleClose}>Perfil</MenuItem>
-            </NLink>
+            </div>
 
-            {user?.is_admin ? (
-              <NLink to="/hola" className={classes.DrawerlinkStyle}>
+            {is_admins ? (
+              <div className={classes.DrawerlinkStyle}>
                 <MenuItem onClick={handleClose} className={classes.MenuItem}>
                   Administrar Problemas
                 </MenuItem>
-              </NLink>
+              </div>
             ) : null}
 
             <MenuItem style={{ padding: "0px" }} onClick={handleClose}>
@@ -318,14 +310,12 @@ export default function Navbar(is_admin) {
           <div className={classes.drawerContainer}>{getDrawerChoices()}</div>
         </Drawer>
         <div className={classes.leftpart}>
-          <NLink to="/">
+          <div>
             <img src={Codi_Icon} alt="Codi Icon" className={classes.codilog} />
-          </NLink>
+          </div>
 
           <Typography variant="h5">
-            <NLink to="/" className={classes.title}>
-              {title}
-            </NLink>
+            <div className={classes.title}>{title}</div>
           </Typography>
         </div>
         <IconButton
@@ -349,8 +339,7 @@ export default function Navbar(is_admin) {
     return (
       <>
         <List>
-          <NLink
-            to="/difficulties"
+          <div
             {...{ onClick: handleDrawerClose }}
             className={classes.DrawerlinkStyle}
           >
@@ -360,9 +349,8 @@ export default function Navbar(is_admin) {
               </ListItemIcon>
               <ListItemText primary={"Problemas"} />
             </ListItem>
-          </NLink>
-          <NLink
-            to="/premium"
+          </div>
+          <div
             {...{ onClick: handleDrawerClose }}
             className={classes.DrawerlinkStyle}
           >
@@ -372,12 +360,11 @@ export default function Navbar(is_admin) {
               </ListItemIcon>
               <ListItemText primary={"Premium"} />
             </ListItem>
-          </NLink>
+          </div>
         </List>
         <Divider className={classes.divider} />
         <List>
-          <NLink
-            to="/profile"
+          <div
             {...{ onClick: handleDrawerClose }}
             className={classes.DrawerlinkStyle}
           >
@@ -387,7 +374,7 @@ export default function Navbar(is_admin) {
               </ListItemIcon>
               <ListItemText primary={"Perfil"} />
             </ListItem>
-          </NLink>
+          </div>
           <div style={{ padding: "0px" }} className={classes.modal}>
             <Button
               onClick={toggleModal}

@@ -222,7 +222,7 @@ const PaymentModal = ({ modalP, price, subscription }) => {
         <ContinueButton
           buttonText={buttonText}
           setButtonText={setButtonText}
-          onClick={() => buttonNext()}
+          //   onClick={() => buttonNext()}
         />
       </Box>
       <AlertModal

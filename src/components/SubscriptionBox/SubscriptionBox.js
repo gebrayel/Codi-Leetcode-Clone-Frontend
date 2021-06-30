@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
+import AlertModal from "../Modal/Modal";
+import AppContext from "../../helpers/context/context";
 import colors from "../../config/colors/colors";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -21,12 +23,26 @@ export default function SubscriptionBox({
     buttonText,
     ...props
 }) {
+    const [modal, setModal] = useState(false);
+    const [openModalError, setOpenModalError] = useState(false);
+
     const classes = useStyles(props);
 
-    const [modal, setModal] = useState(false);
+    const currentUser = useContext(AppContext);
 
     const toggleModal = () => {
         setModal(!modal);
+    };
+
+    const toggleModalError = () => {
+        setOpenModalError(!openModalError);
+    };
+
+    const msgError = {
+        title: "Ya posee una suscripción",
+        description:
+            "Para ver los días restantes de la misma debe dirigirse a su perfil",
+        closeText: "Cerrar",
     };
 
     return (
@@ -64,12 +80,26 @@ export default function SubscriptionBox({
                     <CardActions className={classes.contentS4}>
                         <Button
                             className={classes.buttonS}
-                            onClick={() => toggleModal()}
+                            onClick={
+                                currentUser.premium
+                                    ? toggleModalError
+                                    : toggleModal
+                            }
                         >
                             {buttonText}
                         </Button>
                     </CardActions>
                 </Card>
+
+                <AlertModal
+                    title={msgError.title}
+                    description={msgError.description}
+                    functionText={msgError.functionText}
+                    closeText={msgError.closeText}
+                    toggleModal={toggleModalError}
+                    open={openModalError}
+                    singleButton={true}
+                />
             </Grid>
             <PaymentModal
                 modal={modal}
@@ -167,14 +197,14 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     textS3: {
-        textAlign: 'center',
-        fontFamily: 'Roboto',
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        fontSize: '1rem',
-        color: 'black',
-        [theme.breakpoints.down('xs')]: {
-            fontSize: '1rem',
+        textAlign: "center",
+        fontFamily: "Roboto",
+        fontStyle: "normal",
+        fontWeight: "bold",
+        fontSize: "1rem",
+        color: "black",
+        [theme.breakpoints.down("xs")]: {
+            fontSize: "1rem",
         },
     },
     contentS4: {

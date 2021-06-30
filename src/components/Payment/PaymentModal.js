@@ -25,9 +25,11 @@ import AppContext from "../../helpers/context/context";
 import payments from "../../api/payments/payments";
 import RobotLoader from "../RobotLoader/RobotLoader";
 import moment from "moment";
+import Context from "../../helpers/context/context";
 
 const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const classes = useStyles();
+    const { user, setUser, isLoading, setIsLoading} = useContext(Context);
 
     const currentUser = useContext(AppContext);
 
@@ -90,7 +92,17 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
         };
 
         try {
+            setIsLoading(true);
             await payments.createPayment(paymentInfo);
+            setIsLoading(false);
+
+            const tempUser = {
+                ...user,
+                premium: true
+            };
+            setUser(tempUser);
+
+            localStorage.setItem("user", JSON.stringify(tempUser));
             history.push("/payment_success");
         } catch (error) {
             console.log(error);

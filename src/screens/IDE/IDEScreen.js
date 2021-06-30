@@ -45,7 +45,7 @@ export default function IDEScreen({ x, ...props }) {
     const [sendLoading, setSendLoading] = useState(false);
     const [expected, setExpected] = useState("");
     const [readOnly, setReadOnly] = useState(true);
-    const [disabledSolution, setDisabledSolution] = useState(false);
+    const [disabledSolution, setDisabledSolution] = useState(true);
     const [disabledButtons, setDisabledButtons] = useState(true);
 
     const [description, setDescription] = useState("");
@@ -60,10 +60,14 @@ export default function IDEScreen({ x, ...props }) {
     const [openError, setOpenError] = useState(false);
     const [openDesaprobado, setOpenDesaprobado] = useState(false);
     const [openAprobado, setOpenAprobado] = useState(false);
+    const [openChange, setOpenChange] = useState(false);
+    const [openGetCode, setOpenGetCode] = useState(false);
+    const [getCode, setGetCode] = useState("");
+    const [v, setV] = useState("");
 
     const { isLoading, setIsLoading, connectionError, setConnectionError  } = useContext(Context);
     const user = JSON.parse(localStorage.getItem("user"));
-    const { msgRefresh, msgError, msgAprobado, msgDesaprobado } = k;
+    const { msgRefresh, msgError, msgAprobado, msgDesaprobado, msgChange, msgGetCode } = k;
 
     const toggleRefresh = () => {
         setOpenRefresh(!openRefresh);
@@ -81,12 +85,29 @@ export default function IDEScreen({ x, ...props }) {
         setOpenDesaprobado(!openDesaprobado);
     };
 
+    const toggleChange = () => {
+        setOpenChange(!openChange);
+    };
+
+    const toggleGetCode = () => {
+        setOpenGetCode(!openGetCode);
+    };
+
     const handleTabs = (e, val) => {
         setValue(val);
     };
 
     const select = (e) => {
-        const lang = e.target.value;
+        setV(e.target.value);
+        toggleChange();
+    };
+
+    const getCodeFunction = () => {
+        return 'hola';
+    };
+
+    const select2 = () => {
+        const lang = v;
         setLenguaje(lang);
         setCodeLanguage(k.codeLanguages[lang]);
         if (lang == "Java" || lang == "Python") {
@@ -108,6 +129,7 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     const runCode = async () => {
+        setDisabledButtons(true);
         const codeInfo = {
             code: code,
             lang: lenguaje,
@@ -126,9 +148,11 @@ export default function IDEScreen({ x, ...props }) {
         } else {
             toggleError();
         }
+        setDisabledButtons(false);
     };
 
     const sendCode = async () => {
+        setDisabledButtons(true);
         setValue(2);
         const codeInfo = {
             code: code,
@@ -155,9 +179,13 @@ export default function IDEScreen({ x, ...props }) {
         else {
             toggleError();
         }
+        setDisabledButtons(false);
     }
 
     useEffect(() => {
+        if(user.premium){
+            setDisabledSolution(false);
+        }
         const getProblemInfo = async (problemId, userId) => {
             setIsLoading(true);
             const response = await ideAPI.getProblemWithSubmissions(
@@ -261,6 +289,8 @@ export default function IDEScreen({ x, ...props }) {
                                         id={problemId}
                                         title={title}
                                         data={submissions}
+                                        toggleGetCode = {toggleGetCode}
+                                        setGetCode = {setGetCode}
                                     />
                                 )}
                             </TabPanel>
@@ -290,6 +320,7 @@ export default function IDEScreen({ x, ...props }) {
                                     aria-label="reload"
                                     className={classes.reload}
                                     onClick={toggleRefresh}
+                                    disabled={disabledButtons}
                                 >
                                     <CachedIcon fontSize="large" />
                                 </IconButton>
@@ -384,6 +415,28 @@ export default function IDEScreen({ x, ...props }) {
                 open={openDesaprobado}
                 singleButton={true}
             />
+
+            <Modal
+                title={msgChange.title}
+                description={msgChange.description}
+                functionText={msgChange.functionText}
+                closeText={msgChange.closeText}
+                passedFunction={select2}
+                toggleModal={toggleChange}
+                open={openChange}
+                singleButton={false}
+            />
+
+            <Modal
+                title={msgGetCode.title}
+                description={msgGetCode.description}
+                functionText={msgGetCode.functionText}
+                closeText={msgGetCode.closeText}
+                passedFunction={getCodeFunction}
+                toggleModal={toggleGetCode}
+                open={openGetCode}
+                singleButton={true}
+            />
         </>
     );
 }
@@ -443,6 +496,12 @@ const useStyles = makeStyles((theme) => ({
         "& .makeStyles-container-74": {
             width: '100%',
         },
+        [theme.breakpoints.down("sm")]: {
+            height: "60%",
+        },
+        [theme.breakpoints.down("xs")]: {
+            height: "60%",
+        },
     },
     box3: {
         display: "none",
@@ -496,8 +555,10 @@ const useStyles = makeStyles((theme) => ({
     codeEditor: {
         marginTop: "10px",
         width: "100%",
+        height: '60%'
     },
-    codeEditor2: {},
+    codeEditor2: {
+    },
     reload: {
         color: "white",
     },

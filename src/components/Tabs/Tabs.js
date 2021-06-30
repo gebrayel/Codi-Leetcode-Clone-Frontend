@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import colors from "../../config/colors/colors";
@@ -14,6 +14,8 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from '@material-ui/core/Button';
 import Modal from "../Modal/Modal";
+import CodeIcon from '@material-ui/icons/Code';
+import IconButton from "@material-ui/core/IconButton";
 
 export default function Todito({
     type,
@@ -23,6 +25,8 @@ export default function Todito({
     description,
     solution,
     data,
+    toggleGetCode,
+    setGetCode,
     ...props
 }) {
     const classes = useStyles(props);
@@ -35,18 +39,22 @@ export default function Todito({
     };
 
     const toggleCopy = () => {
+        setDisabledButtons(true);
         setOpenCopy(!openCopy);
+        setDisabledButtons(false);
     };
 
     const columns = [
         { field: "date", headerName: "Enviado", minWidth: 140, align: "left" },
         { field: "status", headerName: "Estado", minWidth: 120, align: "left" },
         { field: "language", headerName: "Lenguaje", minWidth: 120, align: "left" },
+        { field: "code", headerName: "Codigo", minWidth: 120, align: "left" },
     ];
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [openCopy, setOpenCopy] = React.useState(false);
+    const [disabledButtons, setDisabledButtons] = useState(false);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -88,7 +96,7 @@ export default function Todito({
                             <p className={classes.description}>{description}</p>
                             <Box className={classes.containerButton}>
                                 <CopyToClipboard text={solution}>
-                                    <Button className={classes.buttonTodito} onClick={toggleCopy}>
+                                    <Button className={classes.buttonTodito} onClick={toggleCopy} disabled={disabledButtons}>
                                         Copiar
                                     </Button>
                                 </CopyToClipboard>
@@ -174,27 +182,40 @@ export default function Todito({
                                                         >
                                                             {columns.map(
                                                                 (column) => {
-                                                                    const value =
-                                                                        row[
-                                                                            column
-                                                                                .field
-                                                                        ];
-                                                                    return (
-                                                                        <TableCell
-                                                                            key={column.field + row['id']}
-                                                                            align={
-                                                                                column.align
-                                                                            }
-                                                                        >
-                                                                            {column.format &&
-                                                                            typeof value ===
-                                                                                "number"
-                                                                                ? column.format(
-                                                                                      value
-                                                                                  )
-                                                                                : value}
-                                                                        </TableCell>
-                                                                    );
+                                                                    const value =row[column.field];
+                                                                    if(column.field == "code"){
+                                                                        return (
+                                                                            <TableCell
+                                                                                key={column.field + row['id']}
+                                                                                align={
+                                                                                    column.align
+                                                                                }
+                                                                            >
+                                                                                <CopyToClipboard text={value}>
+                                                                                    <IconButton aria-label="Codigo" className={classes.codeButton} onClick={toggleGetCode}>
+                                                                                        <CodeIcon fontSize="default" />
+                                                                                    </IconButton>
+                                                                                </CopyToClipboard>
+                                                                            </TableCell>
+                                                                        );
+                                                                    }else{
+                                                                        return (
+                                                                            <TableCell
+                                                                                key={column.field + row['id']}
+                                                                                align={
+                                                                                    column.align
+                                                                                }
+                                                                            >
+                                                                                {column.format &&
+                                                                                typeof value ===
+                                                                                    "number"
+                                                                                    ? column.format(
+                                                                                          value
+                                                                                      )
+                                                                                    : value}
+                                                                            </TableCell>
+                                                                        );
+                                                                    }
                                                                 }
                                                             )}
                                                         </TableRow>
@@ -348,5 +369,10 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: 440,
     },
     codeEditor: {
+        width: "100%",
+        height: '360px'
+    },
+    codeButton: {
+        color: 'white'
     }
 }));

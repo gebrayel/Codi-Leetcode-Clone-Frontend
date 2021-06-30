@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, MenuItem } from "@material-ui/core";
+import { TextField, MenuItem, Box } from "@material-ui/core";
 
 import "../../../styles/screens/ProblemFormScreen/ProblemTabs/ProblemTab2/ProblemTab2.scss";
 import Button from "@material-ui/core/Button";
@@ -100,14 +100,16 @@ export default function ProblemTab2() {
                 >
                     Template
                 </InputLabel>
-                <CodeEditor
-                    id="CodeEditor__Tab2"
-                    className="CodeEditorBox"
-                    name="solutionCode"
-                    value={currentCode}
-                    language={currentLanguage}
-                    onChange={setCurrentCode}
-                />
+                <Box className={classes.codeEditor}>
+                    <CodeEditor
+                        id="CodeEditor__Tab2"
+                        className="CodeEditorBox"
+                        name="solutionCode"
+                        value={currentCode}
+                        language={currentLanguage}
+                        onChange={setCurrentCode}
+                    />
+                </Box>
                 <div id="ButtonBoxCodeEditor__Tab2">
                     <Button
                         variant="contained"
@@ -173,5 +175,9 @@ const useStyles = makeStyles((theme) => ({
             borderWidth: "0.2rem",
             borderBottom: "0.2rem solid white",
         },
+    },
+    codeEditor: {
+        width: "100%",
+        height: '360px'
     },
 }));

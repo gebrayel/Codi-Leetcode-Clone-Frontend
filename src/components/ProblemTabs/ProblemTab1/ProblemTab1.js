@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, TextareaAutosize, MenuItem } from "@material-ui/core";
+import { TextField, TextareaAutosize, MenuItem, Box } from "@material-ui/core";
 
 import "../../../styles/screens/ProblemFormScreen/ProblemTabs/ProblemTab1/ProblemTab1.scss";
 import Context from "../../../helpers/context/context";
@@ -133,14 +133,16 @@ export default function ProblemTab1() {
                         >
                             Codigo Solucion
                         </InputLabel>
-                        <CodeEditor
-                            id="CodeEditor"
-                            className="CodeEditorBox"
-                            name="solutionCode"
-                            value={codeSolution}
-                            language={languageCode}
-                            onChange={setCodeSolution}
-                        />
+                        <Box className={classes.codeEditor}>
+                            <CodeEditor
+                                id="CodeEditor"
+                                className="CodeEditorBox"
+                                name="solutionCode"
+                                value={codeSolution}
+                                language={languageCode}
+                                onChange={setCodeSolution}
+                            />
+                        </Box>
                     </div>
                 </div>
             </div>
@@ -227,5 +229,9 @@ const useStyles = makeStyles((theme) => ({
     TextareaAutosizeLg: {
         borderColor: "white",
         resize: "none",
+    },
+    codeEditor: {
+        width: "100%",
+        height: '300px'
     },
 }));

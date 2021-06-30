@@ -29,7 +29,7 @@ import Context from "../../helpers/context/context";
 
 const PaymentModal = ({ modal, setModal, price, subscription }) => {
     const classes = useStyles();
-    const { user, setUser, isLoading, setIsLoading} = useContext(Context);
+    const { user, setUser, isLoading, setIsLoading } = useContext(Context);
 
     const currentUser = useContext(AppContext);
 
@@ -98,7 +98,7 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
 
             const tempUser = {
                 ...user,
-                premium: true
+                premium: true,
             };
             setUser(tempUser);
 
@@ -285,9 +285,20 @@ const PaymentModal = ({ modal, setModal, price, subscription }) => {
             onClose={toggleModal}
             disableAutoFocus={true}
         >
-            <Grid xs={11} sm={10} md={7} lg={5} xl={3} className={classes.grid}>
-                {body}
-            </Grid>
+            {isLoading ? (
+                <RobotLoader />
+            ) : (
+                <Grid
+                    xs={11}
+                    sm={10}
+                    md={7}
+                    lg={5}
+                    xl={3}
+                    className={classes.grid}
+                >
+                    {body}
+                </Grid>
+            )}
         </Modal>
     );
 };

@@ -45,7 +45,7 @@ export default function IDEScreen({ x, ...props }) {
     const [sendLoading, setSendLoading] = useState(false);
     const [expected, setExpected] = useState("");
     const [readOnly, setReadOnly] = useState(true);
-    const [disabledSolution, setDisabledSolution] = useState(false);
+    const [disabledSolution, setDisabledSolution] = useState(true);
     const [disabledButtons, setDisabledButtons] = useState(true);
 
     const [description, setDescription] = useState("");
@@ -103,7 +103,7 @@ export default function IDEScreen({ x, ...props }) {
     };
 
     const getCodeFunction = () => {
-        console.log('hola');
+        return 'hola';
     };
 
     const select2 = () => {
@@ -183,6 +183,9 @@ export default function IDEScreen({ x, ...props }) {
     }
 
     useEffect(() => {
+        if(user.premium){
+            setDisabledSolution(false);
+        }
         const getProblemInfo = async (problemId, userId) => {
             setIsLoading(true);
             const response = await ideAPI.getProblemWithSubmissions(

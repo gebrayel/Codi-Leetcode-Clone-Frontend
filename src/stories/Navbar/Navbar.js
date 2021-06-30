@@ -264,7 +264,7 @@ export default function Navbar(is_admin, mobile) {
 
             <MenuItem style={{ padding: "0px" }} onClick={handleClose}>
               <Button
-                onClick={toggleModal}
+                // onClick={toggleModal}
                 style={{
                   width: "100%",
                   paddingLeft: "15px",
@@ -377,7 +377,7 @@ export default function Navbar(is_admin, mobile) {
           </div>
           <div style={{ padding: "0px" }} className={classes.modal}>
             <Button
-              onClick={toggleModal}
+              // onClick={toggleModal}
               style={{
                 width: "100%",
                 paddingLeft: "15px",

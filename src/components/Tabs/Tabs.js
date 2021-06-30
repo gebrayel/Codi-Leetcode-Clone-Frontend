@@ -193,7 +193,7 @@ export default function Todito({
                                                                             >
                                                                                 <CopyToClipboard text={value}>
                                                                                     <IconButton aria-label="Codigo" className={classes.codeButton} onClick={toggleGetCode}>
-                                                                                        <CodeIcon fontSize="medium" />
+                                                                                        <CodeIcon fontSize="default" />
                                                                                     </IconButton>
                                                                                 </CopyToClipboard>
                                                                             </TableCell>

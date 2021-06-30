@@ -28,7 +28,7 @@ export default function SubscriptionBox({
 
     const classes = useStyles(props);
 
-    const currentUser = useContext(AppContext);
+    const { user } = useContext(AppContext);
 
     const toggleModal = () => {
         setModal(!modal);
@@ -81,9 +81,7 @@ export default function SubscriptionBox({
                         <Button
                             className={classes.buttonS}
                             onClick={
-                                currentUser.premium
-                                    ? toggleModalError
-                                    : toggleModal
+                                user.premium ? toggleModalError : toggleModal
                             }
                         >
                             {buttonText}

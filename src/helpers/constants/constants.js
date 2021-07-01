@@ -43,6 +43,18 @@ const k = {
     functionText: "Refrescar",
     closeText: "Cerrar",
   },
+  msgChange: {
+    title: "Cuidado 😨",
+    description: "¿Seguro quieres cambiar de lenguaje? Perderás tu codigo actual 👎🏻",
+    functionText: "Cambiar",
+    closeText: "Cerrar",
+  },
+  msgGetCode: {
+    title: "Codigo copiado 👾",
+    description: "Puedes pegarlo en el editor de codigo para visualizarlo, y recuerda cambiar el lenguaje ✌🏻",
+    functionText: "Visualizar",
+    closeText: "Cerrar",
+  },
   msgError: {
     title: "Error de conexión 👾",
     description:

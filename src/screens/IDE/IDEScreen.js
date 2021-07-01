@@ -45,7 +45,7 @@ export default function IDEScreen({ x, ...props }) {
   const [sendLoading, setSendLoading] = useState(false);
   const [expected, setExpected] = useState("");
   const [readOnly, setReadOnly] = useState(true);
-  const [disabledSolution, setDisabledSolution] = useState(false);
+  const [disabledSolution, setDisabledSolution] = useState(true);
   const [disabledButtons, setDisabledButtons] = useState(true);
 
   const [description, setDescription] = useState("");
@@ -72,7 +72,14 @@ export default function IDEScreen({ x, ...props }) {
     setConnectionError,
   } = useContext(Context);
   const user = JSON.parse(localStorage.getItem("user"));
-  const { msgRefresh, msgError, msgAprobado, msgDesaprobado } = k;
+  const {
+    msgRefresh,
+    msgError,
+    msgAprobado,
+    msgDesaprobado,
+    msgChange,
+    msgGetCode,
+  } = k;
 
   const toggleRefresh = () => {
     setOpenRefresh(!openRefresh);
@@ -85,9 +92,11 @@ export default function IDEScreen({ x, ...props }) {
   const toggleAprobado = () => {
     setOpenAprobado(!openAprobado);
   };
+
   const toggleDesaprobado = () => {
     setOpenDesaprobado(!openDesaprobado);
   };
+
   const toggleChange = () => {
     setOpenChange(!openChange);
   };
@@ -120,80 +129,67 @@ export default function IDEScreen({ x, ...props }) {
       setReadOnly(true);
       setDisabledButtons(true);
     }
+  };
 
-    const select = (e) => {
-      const lang = e.target.value;
-      setLenguaje(lang);
-      setCodeLanguage(k.codeLanguages[lang]);
-      if (lang == "Java" || lang == "Python") {
-        setReadOnly(false);
-        setDisabledButtons(false);
+  const reload = () => {
+    lenguaje === ""
+      ? setCode(
+          "Por favor, seleccione un lenguaje para empezar a programar con Codi."
+        )
+      : codeHelper.changeTemplate(lenguaje, templates, setCode);
+  };
+
+  const runCode = async () => {
+    setDisabledButtons(true);
+    const codeInfo = {
+      code: code,
+      lang: lenguaje,
+      problemId: problemId,
+    };
+
+    setConsoleLoading(true);
+    const results = await ideAPI.tryCode(codeInfo);
+    setConsoleLoading(false);
+
+    if (results.status === 200) {
+      const run = results.data;
+      setInput(run.input);
+      setOutput(run.output);
+      setExpected(run.expectedOutput);
+    } else {
+      toggleError();
+    }
+    setDisabledButtons(false);
+  };
+
+  const sendCode = async () => {
+    setDisabledButtons(true);
+    setValue(2);
+    const codeInfo = {
+      code: code,
+      lang: lenguaje,
+      problemId: problemId,
+    };
+    const userInfo = {
+      userId: user.google_id,
+    };
+
+    setSendLoading(true);
+    const results = await ideAPI.sendCode(codeInfo, userInfo);
+    setSendLoading(false);
+
+    if (results.status === 201) {
+      const submission = results.data;
+      setSubmissions([submission, ...submissions]);
+      if (submission.status === "Aprobado") {
+        toggleAprobado();
       } else {
-        setReadOnly(true);
-        setDisabledButtons(true);
+        toggleDesaprobado();
       }
-    };
-
-    const reload = () => {
-      lenguaje === ""
-        ? setCode(
-            "Por favor, seleccione un lenguaje para empezar a programar con Codi."
-          )
-        : codeHelper.changeTemplate(lenguaje, templates, setCode);
-    };
-
-    const runCode = async () => {
-      setDisabledButtons(true);
-      const codeInfo = {
-        code: code,
-        lang: lenguaje,
-        problemId: problemId,
-      };
-
-      setConsoleLoading(true);
-      const results = await ideAPI.tryCode(codeInfo);
-      setConsoleLoading(false);
-
-      if (results.status === 200) {
-        const run = results.data;
-        setInput(run.input);
-        setOutput(run.output);
-        setExpected(run.expectedOutput);
-      } else {
-        toggleError();
-      }
-      setDisabledButtons(false);
-    };
-
-    const sendCode = async () => {
-      setDisabledButtons(true);
-      setValue(2);
-      const codeInfo = {
-        code: code,
-        lang: lenguaje,
-        problemId: problemId,
-      };
-      const userInfo = {
-        userId: user.google_id,
-      };
-
-      setSendLoading(true);
-      const results = await ideAPI.sendCode(codeInfo, userInfo);
-      setSendLoading(false);
-
-      if (results.status === 201) {
-        const submission = results.data;
-        setSubmissions([submission, ...submissions]);
-        if (submission.status === "Aprobado") {
-          toggleAprobado();
-        } else {
-          toggleDesaprobado();
-        }
-      } else {
-        toggleError();
-      }
-      setDisabledButtons(false);
-    };
+    } else {
+      toggleError();
+    }
+    setDisabledButtons(false);
   };
 
   useEffect(() => {
@@ -298,136 +294,14 @@ export default function IDEScreen({ x, ...props }) {
                     <CubeLoader className={classes.cube} />
                   </Box>
                 ) : (
-                  <>
-                    <Box className={classes.box}>
-                      <AppBar position="static" className={classes.container2}>
-                        <Tabs
-                          value={value}
-                          onChange={handleTabs}
-                          aria-label=""
-                          variant="scrollable"
-                          scrollButtons="auto"
-                        >
-                          <Tab label="Descripción" icon={<LineStyleIcon />} />
-                          <Tab
-                            label="Solución"
-                            icon={<HighlightIcon />}
-                            disabled={disabledSolution}
-                          />
-                          <Tab label="Intentos" icon={<AccessTimeIcon />} />
-                        </Tabs>
-                      </AppBar>
-                      <TabPanel value={value} index={0}>
-                        <Todito
-                          type="description"
-                          id={problemId}
-                          title={title}
-                          difficulty={difficulty}
-                          colorDifficulty={color}
-                          description={description}
-                        />
-                      </TabPanel>
-                      <TabPanel value={value} index={1}>
-                        {!disabledSolution && (
-                          <Todito
-                            type="solution"
-                            id={problemId}
-                            title={title}
-                            solution={solutionCode}
-                            description={solutionText}
-                          />
-                        )}
-                      </TabPanel>
-                      <TabPanel value={value} index={2}>
-                        {sendLoading ? (
-                          <Box className={classes.containerCube}>
-                            <CubeLoader className={classes.cube} />
-                          </Box>
-                        ) : (
-                          <Todito
-                            type="submissions"
-                            id={problemId}
-                            title={title}
-                            data={submissions}
-                            toggleGetCode={toggleGetCode}
-                            setGetCode={setGetCode}
-                          />
-                        )}
-                      </TabPanel>
-                    </Box>
-                    <Box className={classes.box}>
-                      <Box className={classes.box4}>
-                        <FormControl
-                          variant="outlined"
-                          className={classes.formControl}
-                        >
-                          <InputLabel htmlFor="outlined-lenguaje-simple">
-                            Lenguaje
-                          </InputLabel>
-                          <Select
-                            native
-                            value={lenguaje}
-                            onChange={(e) => select(e)}
-                            label="Lenguaje"
-                            inputProps={{
-                              name: "Lenguaje",
-                              id: "outlined-lenguaje-simple",
-                            }}
-                          >
-                            <option aria-label="None" value={""} />
-                            <option value={"Java"}>Java</option>
-                            <option value={"Python"}>Python</option>
-                          </Select>
-                        </FormControl>
-                        <IconButton
-                          aria-label="reload"
-                          className={classes.reload}
-                          onClick={toggleRefresh}
-                          disabled={disabledButtons}
-                        >
-                          <CachedIcon fontSize="large" />
-                        </IconButton>
-                      </Box>
-                      <Box className={classes.codeEditor}>
-                        <CodeEditor
-                          readOnly={readOnly}
-                          language={codeLanguage}
-                          value={code}
-                          onChange={setCode}
-                          className={classes.codeEditor2}
-                        />
-                      </Box>
-                      <Box>
-                        <CodeConsole
-                          input={input}
-                          output={output}
-                          isLoading={consoleLoading}
-                          expected={expected}
-                        />
-                      </Box>
-                      <Box className={classes.buttons}>
-                        <Button
-                          size="small"
-                          className={classes.run}
-                          onClick={runCode}
-                          startIcon={<PlayCircleFilledIcon />}
-                          variant="outlined"
-                          disabled={disabledButtons}
-                        >
-                          Ejecutar
-                        </Button>
-                        <Button
-                          size="small"
-                          className={classes.send}
-                          onClick={sendCode}
-                          variant="outlined"
-                          disabled={disabledButtons}
-                        >
-                          Enviar
-                        </Button>
-                      </Box>
-                    </Box>
-                  </>
+                  <Todito
+                    type="submissions"
+                    id={problemId}
+                    title={title}
+                    data={submissions}
+                    toggleGetCode={toggleGetCode}
+                    setGetCode={setGetCode}
+                  />
                 )}
               </TabPanel>
             </Box>
@@ -456,6 +330,7 @@ export default function IDEScreen({ x, ...props }) {
                   aria-label="reload"
                   className={classes.reload}
                   onClick={toggleRefresh}
+                  disabled={disabledButtons}
                 >
                   <CachedIcon fontSize="large" />
                 </IconButton>
@@ -666,13 +541,11 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
       borderColor: "white",
     },
-    codeEditor: {
-      marginTop: "10px",
-      width: "100%",
-      height: "60%",
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white",
+      borderWidth: "1px",
     },
-    codeEditor2: {},
-    reload: {
+    "& .MuiSelect-icon": {
       color: "white",
     },
     "& .MuiSelect-outlined.MuiSelect-outlined": {
@@ -691,6 +564,7 @@ const useStyles = makeStyles((theme) => ({
   codeEditor: {
     marginTop: "10px",
     width: "100%",
+    height: "60%",
   },
   codeEditor2: {},
   reload: {

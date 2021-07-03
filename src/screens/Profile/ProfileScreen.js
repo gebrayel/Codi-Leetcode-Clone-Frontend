@@ -3,41 +3,25 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppContext from "../../helpers/context/context";
 import Chart from "../../components/Chart/Chart";
 import usersS from "../../api/user/user";
+import RobotLoader from "../../components/RobotLoader/RobotLoader";
 
 import CustomInput from "../../components/CustomInput/CustomInput";
 
 import colors from "../../config/colors/colors";
 
 export default function ProfileScreen() {
-  const userC = useContext(AppContext);
+  const userC = JSON.parse(localStorage.getItem("user"));
   const classes = useStyles();
   let locvalue = localStorage.getItem("user");
   locvalue = JSON.parse(locvalue);
+  const { isLoading, setIsLoading } = useContext(AppContext);
 
-  // console.log(userC);
-  let [line, setLine] = useState([]);
-  usersS
-    .getUserStatistics(locvalue.google_id)
-    .then((response) => {
-      console.log(response);
-      setLine(response.monthlySubmissions);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
-
-  let problems = [
-    { difficulty: "easy", solved: 2, total: 5 },
-
-    { difficulty: "medium", solved: 2, total: 7 },
-
-    { difficulty: "hard", solved: 2, total: 9 },
-  ];
+  const [problems2, setProblems2] = useState([]);
   let difficulties = [];
   let solved = [];
   let total = [];
 
-  problems.map((val) => {
+  problems2.map((val) => {
     if (val.difficulty == "easy") {
       difficulties.push("facil");
     } else if (val.difficulty == "medium") {
@@ -51,192 +35,195 @@ export default function ProfileScreen() {
     total.push(val.total);
   });
 
-  let intentos = 0;
-  let tryEasy = 0;
-  let tryMedium = 0;
-  let tryHard = 0;
-  intentos = 75.4;
-  tryEasy = 75.4;
-  tryMedium = 75.4;
-  tryHard = 75.4;
+  const [intentos, setIntentos] = useState(0);
 
-  let languages = [
-    { language: "Java", count: 5 },
+  const [languages2, setlanguages2] = useState([]);
 
-    { language: "Python", count: 5 },
-  ];
   let language = [];
   let count = [];
 
-  languages.map((lan) => {
+  languages2.map((lan) => {
     language.push(lan.language);
     count.push(lan.count);
   });
 
+  const [montly, setMonthly] = useState([]);
+  let month = [];
+  let countMonth = [];
+  const months = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+
+  montly.map((val) => {
+    const d = new Date(val.month.slice(0, -1));
+    if (val.month === montly[0].month && d.getMonth() !== 0) {
+      for (let i = 0; i < d.getMonth(); i++) {
+        month.push(months[i]);
+        countMonth.push(0);
+      }
+      month.push(months[d.getMonth()]);
+      countMonth.push(parseInt(val.count));
+    } else {
+      month.push(months[d.getMonth()]);
+      countMonth.push(parseInt(val.count));
+    }
+  });
+
+  useEffect(() => {
+    const getProblems = async (user) => {
+      console.log(user);
+      setIsLoading(true);
+
+      const probs = await usersS.getUserStatistics(user.google_id);
+      console.log(probs.data);
+      setProblems2(probs.data.problems);
+      setlanguages2(probs.data.languages);
+      setIntentos(parseInt(probs.data.submissions));
+      setMonthly(probs.data.monthlySubmissions);
+      setIsLoading(false);
+    };
+    getProblems(userC);
+  }, []);
   return (
     <>
-      <div style={{ marginTop: "5rem" }} className={classes.header}>
-        <div className={classes.box}>
-          <div className={classes.boxPic}>
-            <img
-              src={locvalue["pic_url"]}
-              alt="avatar"
-              className={classes.image}
-            />
-          </div>
-          <CustomInput />
+      {isLoading ? (
+        <div className="ProblemScreenContainer">
+          <RobotLoader />
         </div>
-        <div className={classes.divider}>
-          <div className={classes.flexSpace}>
-            <div className={classes.lefBox}>
-              <div className={classes.charttext}>Problemas</div>
-              <div className={classes.miniFlex}>
-                <div className={classes.miniTitle}>
-                  Facil
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["Hechos", "Faltan"]}
-                      data={[solved[0], total[0] - solved[0]]}
-                      colors={["#FFCD56", "#FFCD5650"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-                <div className={classes.miniTitle}>
-                  Medio
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["Hechos", "Faltan"]}
-                      data={[solved[1], total[1] - solved[1]]}
-                      colors={["#36A2EB", "#36A2EB50"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-                <div className={classes.miniTitle}>
-                  Dificil
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["Hechos", "Faltan"]}
-                      data={[solved[2], total[2] - solved[2]]}
-                      colors={["#FF6384", "#FF638450"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className={classes.doughnut_container}>
-                <Chart
-                  labels={difficulties}
-                  data={solved}
-                  colors={["#FF9F40", "#36A2EB", "#FF6384"]}
-                  font_color="white"
-                  type="Doughnut"
-                  etiquetas={false}
+      ) : (
+        <>
+          <div style={{ marginTop: "5rem" }} className={classes.header}>
+            <div className={classes.box}>
+              <div className={classes.boxPic}>
+                <img
+                  src={locvalue["pic_url"]}
+                  alt="avatar"
+                  className={classes.image}
                 />
               </div>
-              <div className={classes.totalTitle}>Total</div>
+              <CustomInput />
+            </div>
+            <div className={classes.divider}>
+              <div className={classes.flexSpace}>
+                <div className={classes.lefBox}>
+                  <div className={classes.charttext}>Problemas</div>
+                  <div className={classes.miniFlex}>
+                    <div className={classes.miniTitle}>
+                      Facil
+                      <div className={classes.doughnut_container_mini}>
+                        <Chart
+                          labels={["Hechos", "Faltan"]}
+                          data={[solved[0], total[0] - solved[0]]}
+                          colors={["#FFCD56", "#FFCD5650"]}
+                          font_color="white"
+                          type="Doughnut"
+                          etiquetas={false}
+                        />
+                      </div>
+                    </div>
+                    <div className={classes.miniTitle}>
+                      Medio
+                      <div className={classes.doughnut_container_mini}>
+                        <Chart
+                          labels={["Hechos", "Faltan"]}
+                          data={[solved[1], total[1] - solved[1]]}
+                          colors={["#36A2EB", "#36A2EB50"]}
+                          font_color="white"
+                          type="Doughnut"
+                          etiquetas={false}
+                        />
+                      </div>
+                    </div>
+                    <div className={classes.miniTitle}>
+                      Dificil
+                      <div className={classes.doughnut_container_mini}>
+                        <Chart
+                          labels={["Hechos", "Faltan"]}
+                          data={[solved[2], total[2] - solved[2]]}
+                          colors={["#FF6384", "#FF638450"]}
+                          font_color="white"
+                          type="Doughnut"
+                          etiquetas={false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className={classes.doughnut_container}>
+                    <Chart
+                      labels={difficulties}
+                      data={solved}
+                      colors={["#FF9F40", "#36A2EB", "#FF6384"]}
+                      font_color="white"
+                      type="Doughnut"
+                      etiquetas={false}
+                    />
+                  </div>
+                  <div className={classes.totalTitle}>Total</div>
+                </div>
+              </div>
+              <div className={classes.flexSpace3}>
+                <div className={classes.charttext}>Intentos</div>
+                <div className={classes.leftTries}>
+                  <div className={classes.triesTitle}>{intentos}%</div>
+                  <div className={classes.doughnut_container}>
+                    <Chart
+                      labels={["%Exito", "%Fracaso"]}
+                      data={[intentos, 100 - intentos]}
+                      colors={["#36A2EB", "#FF6384"]}
+                      font_color="white"
+                      type="Doughnut"
+                      etiquetas={false}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className={classes.flexSpace3}>
-            {/* <div className={classes.lefBox}> */}
-            <div className={classes.charttext}>Intentos</div>
-            {/* <div className={classes.miniFlex}>
-                <div className={classes.miniTitle}>
-                  Facil
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["%Exito", "%Fracaso"]}
-                      data={[tryEasy, 100 - tryEasy]}
-                      colors={["#FF9F40", "#FF9F4050"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-                <div className={classes.miniTitle}>
-                  Medio
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["%Exito", "%Fracaso"]}
-                      data={[tryMedium, 100 - tryMedium]}
-                      colors={["#36A2EB", "#36A2EB50"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-                <div className={classes.miniTitle}>
-                  Dificil
-                  <div className={classes.doughnut_container_mini}>
-                    <Chart
-                      labels={["%Exito", "%Fracaso"]}
-                      data={[tryHard, 100 - tryHard]}
-                      colors={["#FF6384", "#FF638450"]}
-                      font_color="white"
-                      type="Doughnut"
-                      etiquetas={false}
-                    />
-                  </div>
-                </div>
-              </div> */}
-            {/* </div> */}
-            <div className={classes.leftTries}>
-              <div className={classes.triesTitle}>{intentos}%</div>
-              <div className={classes.doughnut_container}>
+          <div className={classes.secondRow}>
+            <div className={classes.flexSpace2}>
+              <div className={classes.charttext}>Lenguajes mas usados</div>
+              <div className={classes.doughnut_container2}>
                 <Chart
-                  labels={["%Exito", "%Fracaso"]}
-                  data={[intentos, 100 - intentos]}
-                  colors={["#36A2EB", "#FF6384"]}
+                  labels={language}
+                  data={count}
+                  colors={["#36A2EB", "#E75656"]}
                   font_color="white"
-                  type="Doughnut"
+                  type="Pie"
                   etiquetas={false}
                 />
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className={classes.secondRow}>
-        <div className={classes.flexSpace2}>
-          <div className={classes.charttext}>Lenguajes mas usados</div>
-          <div className={classes.doughnut_container2}>
-            <Chart
-              labels={language}
-              data={count}
-              colors={["#36A2EB", "#E75656"]}
-              font_color="white"
-              type="Pie"
-              etiquetas={false}
-            />
+          <div className={classes.secondRow}>
+            <div className={classes.flexSpace2}>
+              <div className={classes.charttext}>Actividad del año</div>
+              <div className={classes.lineCon}>
+                <Chart
+                  labels={month}
+                  data={countMonth}
+                  colors={["#36A2EB"]}
+                  font_color="white"
+                  type="Line"
+                  etiquetas={false}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className={classes.secondRow}>
-        <div className={classes.flexSpace2}>
-          <div className={classes.charttext}>Lenguajes mas usados</div>
-          <div className={classes.doughnut_container2}>
-            <Chart
-              labels={['Enero', 'Febrero']}
-              data={[10, 30]}
-              colors={["#36A2EB"]}
-              font_color="white"
-              type="Line"
-              etiquetas={false}
-            />
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 }
@@ -244,21 +231,13 @@ export default function ProfileScreen() {
 const useStyles = makeStyles((theme) => ({
   doughnut_container: {
     margin: 0,
-    // marginTop: "10vh",
     height: 90,
     width: 85,
-    // "@media (max-width: 768px)": {
-    //   maxHeight: 300,
-    //   height: 80,
-    //   width: 70,
-    // },
     "@media (max-width: 550px)": {
       maxHeight: 100,
-      width: 100,
     },
     "@media (max-width: 425px)": {
       maxHeight: 90,
-      width: 70,
     },
   },
   miniTitle: {
@@ -297,14 +276,8 @@ const useStyles = makeStyles((theme) => ({
   },
   doughnut_container2: {
     margin: 0,
-    // marginTop: "10vh",
     height: 100,
     width: 99.9,
-    // "@media (max-width: 768px)": {
-    //   maxHeight: 300,
-    //   height: 80,
-    //   width: 70,
-    // },
     "@media (max-width: 550px)": {
       maxHeight: 100,
       width: 100,
@@ -314,15 +287,22 @@ const useStyles = makeStyles((theme) => ({
       width: 70,
     },
   },
+  lineCon: {
+    height: 100,
+    width: "80%",
+    "@media (max-width: 550px)": {
+      maxHeight: 100,
+      width: "80%",
+    },
+    "@media (max-width: 425px)": {
+      maxHeight: 90,
+      width: "80%",
+    },
+  },
   doughnut_container_mini: {
     margin: 0,
-    // marginTop: "10vh",
     maxHeight: 75,
     width: 74.5,
-    // "@media (max-width: 768px)": {
-    //   maxHeight: 80,
-    //   width: 60,
-    // },
     "@media (max-width: 550px)": {
       maxHeight: 60,
       width: 40,
@@ -336,9 +316,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     flexWrap: "wrap",
-    // "@media (max-width: 768px)": {
-    //   flexDirection: "column",
-    // },
   },
   secondRow: {
     "@media (max-width: 952px)": {
@@ -419,11 +396,6 @@ const useStyles = makeStyles((theme) => ({
     "@media (max-width: 952px)": {
       marginLeft: 0,
     },
-    // "@media (max-width: 768px)": {
-    //   margin: 5,
-    //   maxHeight: 150,
-    //   maxWidth: 500,
-    // },
     "@media (max-width: 550px)": {
       margin: 5,
       maxHeight: 150,
@@ -505,19 +477,6 @@ const useStyles = makeStyles((theme) => ({
     "@media (max-width: 952px)": {
       width: "100%",
     },
-    // "@media (max-width: 768px)": {
-    //   maxHeight: 300,
-    //   height: 80,
-    //   width: 70,
-    // },
-    // "@media (max-width: 550px)": {
-    //   maxHeight: 100,
-    //   width: 100,
-    // },
-    // "@media (max-width: 425px)": {
-    //   maxHeight: 90,
-    //   width: 70,
-    // },
   },
   whiteTheme: {
     "& .MuiInputBase-root ": {

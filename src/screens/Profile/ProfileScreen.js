@@ -4,10 +4,11 @@ import AppContext from "../../helpers/context/context";
 import Chart from "../../components/Chart/Chart";
 import usersS from "../../api/user/user";
 import RobotLoader from "../../components/RobotLoader/RobotLoader";
-
+import LottieF from '../../components/LottieFile/LottieFile';
 import CustomInput from "../../components/CustomInput/CustomInput";
-
+import { Box } from '@material-ui/core';
 import colors from "../../config/colors/colors";
+import yellowCodi from '../../assets/yellow_codi.png';
 
 export default function ProfileScreen() {
   const userC = JSON.parse(localStorage.getItem("user"));
@@ -36,6 +37,7 @@ export default function ProfileScreen() {
   });
 
   const [intentos, setIntentos] = useState(0);
+  const [intentos2, setIntentos2] = useState(0);
 
   const [languages2, setlanguages2] = useState([]);
 
@@ -92,6 +94,7 @@ export default function ProfileScreen() {
       setIntentos(parseInt(probs.data.submissions));
       setMonthly(probs.data.monthlySubmissions);
       setIsLoading(false);
+      setIntentos2(probs.data.daysLeft);
     };
     getProblems(userC);
   }, []);
@@ -192,33 +195,51 @@ export default function ProfileScreen() {
               </div>
             </div>
           </div>
-          <div className={classes.secondRow}>
-            <div className={classes.flexSpace2}>
-              <div className={classes.charttext}>Lenguajes mas usados</div>
-              <div className={classes.doughnut_container2}>
-                <Chart
-                  labels={language}
-                  data={count}
-                  colors={["#36A2EB", "#E75656"]}
-                  font_color="white"
-                  type="Pie"
-                  etiquetas={false}
-                />
+          <div className={classes.thirdRow}>
+            <div className={classes.secondRow}>
+              <div className={classes.flexSpace2}>
+                <div className={classes.charttext}>Lenguajes mas usados</div>
+                <div className={classes.doughnut_container2}>
+                  <Chart
+                    labels={language}
+                    data={count}
+                    colors={["#36A2EB", "#E75656"]}
+                    font_color="white"
+                    type="Pie"
+                    etiquetas={false}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div className={classes.secondRow}>
-            <div className={classes.flexSpace2}>
-              <div className={classes.charttext}>Actividad del año</div>
-              <div className={classes.lineCon}>
-                <Chart
-                  labels={month}
-                  data={countMonth}
-                  colors={["#36A2EB"]}
-                  font_color="white"
-                  type="Line"
-                  etiquetas={false}
-                />
+            <div className={classes.secondRow}>
+              <div className={classes.flexSpace2}>
+                <div className={classes.charttext}>Actividad del año</div>
+                <div className={classes.lineCon}>
+                  <Chart
+                    labels={month}
+                    data={countMonth}
+                    colors={["#36A2EB"]}
+                    font_color="white"
+                    type="Line"
+                    etiquetas={false}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className={classes.secondRow}>
+              <div className={classes.flexSpace2}>
+                <div className={classes.charttext}>Premium</div>
+                <div className={classes.lineCon}>
+                <div className={classes.premiumContainer}>
+                    <img src={yellowCodi} className={classes.yellowCodi2}/>
+                    {(intentos2 >= 0) &&
+                    <div className={classes.yellowText}>¡Te quedan {intentos2} dias codier!</div>
+                    }
+                    {(intentos2 < 0) &&
+                    <div className={classes.yellowText}>No perteneces al golden cube... por ahora.</div>
+                    }
+                </div>
+                </div>
               </div>
             </div>
           </div>
@@ -231,8 +252,8 @@ export default function ProfileScreen() {
 const useStyles = makeStyles((theme) => ({
   doughnut_container: {
     margin: 0,
-    height: 90,
-    width: 85,
+    height: 91,
+    width: 110,
     "@media (max-width: 550px)": {
       maxHeight: 100,
     },
@@ -276,40 +297,46 @@ const useStyles = makeStyles((theme) => ({
   },
   doughnut_container2: {
     margin: 0,
-    height: 100,
-    width: 99.9,
+    height: 150,
+    width: 150,
+    paddingTop: 100,
     "@media (max-width: 550px)": {
       maxHeight: 100,
       width: 100,
+      paddingTop: 0,
     },
     "@media (max-width: 425px)": {
       maxHeight: 90,
       width: 70,
+      paddingTop: 0,
     },
   },
   lineCon: {
     height: 100,
     width: "80%",
+    paddingTop: 100,
     "@media (max-width: 550px)": {
       maxHeight: 100,
       width: "80%",
+      paddingTop: 0,
     },
     "@media (max-width: 425px)": {
       maxHeight: 90,
       width: "80%",
+      paddingTop: 0,
     },
   },
   doughnut_container_mini: {
     margin: 0,
-    maxHeight: 75,
-    width: 74.5,
+    maxHeight: 76,
+    width: 90,
     "@media (max-width: 550px)": {
       maxHeight: 60,
-      width: 40,
+      width: 75,
     },
     "@media (max-width: 425px)": {
       maxHeight: 60,
-      width: 40,
+      width: 75,
     },
   },
   header: {
@@ -324,6 +351,12 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       flexWrap: "wrap",
     },
+  },
+  thirdRow: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap",
   },
   divider: {
     marginLeft: -150,
@@ -380,13 +413,13 @@ const useStyles = makeStyles((theme) => ({
   },
   flexSpace2: {
     padding: 10,
+    paddingTop: 30,
     backgroundColor: "#595959",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-around",
-    height: 200,
-    maxWidth: 450,
+    height: 400,
+    width: 365,
     borderRadius: 15,
     borderColor: "#B6B6B6",
     borderWidth: 10,
@@ -507,5 +540,32 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiFormControl-root .MuiTextField-root .makeStyles-whiteTheme-51": {
       width: 280,
     },
+  },
+  yellowCodi2: {
+    width: "100px",
+    height: "100px",
+    marginRight: 60,
+    [theme.breakpoints.down('md')]: {
+        marginRight: 10,
+    },
+    [theme.breakpoints.down('sm')]: {
+        marginRight: 0,
+        width: "100px",
+        height: "100px",
+    },
+  },
+  premiumContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  yellowText: {
+    color: 'white',
+    fontSize: "1.5rem",
+    fontWeight: "20px",
+    "@media (max-width: 425px)": {
+      fontSize: "0.5rem",
+    },
+
   },
 }));
